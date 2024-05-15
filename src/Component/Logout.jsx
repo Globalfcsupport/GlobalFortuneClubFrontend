@@ -1,4 +1,4 @@
-const NavBar = () => {
+const Logout = () => {
   return (
     <div>
       
@@ -6,4 +6,4 @@ const NavBar = () => {
   )
 }
 
-export default NavBar
+export default Logout
