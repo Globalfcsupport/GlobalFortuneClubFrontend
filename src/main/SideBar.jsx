@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../assets/Images/logo.png";
+import { useDataContext } from "../context/HomeContext";
 import {
   FaHome,
   FaUser,
@@ -15,6 +16,8 @@ import {
 } from "react-icons/fa";
 
 const SideBar = () => {
+  const {isCollapsed, setIsCollapsed} = useDataContext();
+
   const admin = [
     {
       title: "Dashboard",
@@ -58,8 +61,6 @@ const SideBar = () => {
     },
   ];
 
-  const [isCollapsed, setIsCollapsed] = useState(false);
-
   const roleList = {
     admin: admin,
   };
@@ -71,7 +72,7 @@ const SideBar = () => {
   const role = 'admin';
 
   return (
-    <div className={`w-full bg-blue-900 h-full overflow-hidden ${isCollapsed ? 'w-14' : 'w-full'}`}>
+    <div className={` bg-blue-900 h-full overflow-hidden ${isCollapsed ? 'w-14' : 'w-full'}`}>
       <div className="grid flex-col place-items-center bg-blue-900 pt-2">
         <div className="w-13">
           <img
