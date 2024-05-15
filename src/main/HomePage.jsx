@@ -12,7 +12,7 @@ const HomePage = () => {
           <div className={`${isCollapsed ?"w-[5%]":"w-[18%]"} h-screen flex items-center justify-start p-0`}>
             <SideBar />
           </div>
-          <dir className={`${isCollapsed ?"w-[95%]":"w-[82%]"} h-screen p-0 flex flex-col items-center justify-center`}>
+          <dir className={`${isCollapsed ?"w-[95%]":"w-[82%]"} h-screen p-0 flex flex-col `}>
             <div className="w-full h-min">
               <NavBar />
             </div>
