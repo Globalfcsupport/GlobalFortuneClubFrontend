@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink,useLocation } from "react-router-dom";
 import logo from "../assets/Images/logo.png";
 import { useDataContext } from "../context/HomeContext";
 import {
@@ -15,8 +15,10 @@ import {
   FaAngleDoubleRight
 } from "react-icons/fa";
 
+
 const SideBar = () => {
   const {isCollapsed, setIsCollapsed} = useDataContext();
+  const location = useLocation()
 
   const admin = [
     {
@@ -72,36 +74,37 @@ const SideBar = () => {
   const role = 'admin';
 
   return (
-    <div className={` bg-blue-900 h-full overflow-hidden ${isCollapsed ? 'w-14' : 'w-full'}`}>
-      <div className="grid flex-col place-items-center bg-blue-900 pt-2">
+    <div className={` h-full overflow-hidden ${isCollapsed ? 'w-14' : 'w-full'}`}>
+      <div className="grid flex-col place-items-center  pt-2">
         <div className="w-13">
           <img
             src={logo}
             alt="Logo"
-            className={`w-10 h-full cursor-pointer bg-blue-900 `}
+            className={`w-10 h-full cursor-pointer  `}
           />
         </div>
-        <h1 className="text-xl text-center font-bold mt-[6px] text-white">
+        <h1 className="text-xl text-center font-bold mt-[6px] text-blue-600">
           {isCollapsed?<abbr className="no-underline" title="Global Fortune Club">GFC</abbr>:"Global Fortune Club"}
         </h1>
       </div>
       <div className="h-[80%] w-full grid overflow-hidden">
-        <div className={`w-full mr-6 grid place-items-center grid-cols-1 mt-2 bg-blue-900 h-full ${isCollapsed ? 'w-16' : 'w-full'}`}>
+        <div className={`w-full mr-6 grid place-items-center grid-cols-1 mt-2  text-black h-full ${isCollapsed ? 'w-16' : 'w-full'}`}>
           {roleList &&
             roleList[role]?.map((menu, id) => (
-              <div key={id} className="w-[90%]">
+              <div key={id} className="w-[100%]">
                 <NavLink
                   to={menu.path}
-                  activeClassName="bg-red-400 text-white "
-                  className={`flex items-center ${isCollapsed ? 'justify-center':"justify-left pl-2"} gap-3 py-2 rounded-md border border-gray-400 text-gray-200 hover:text-white w-full`}
+                  activeClassName={(location.pathname === menu.path) ? 'bg-blue-200 text-blue-900' :''}
+                  className={`flex items-center ${isCollapsed ? 'justify-center':"justify-left pl-2"} gap-3 py-2 focus:bg-blue-50 focus:text-blue-900 text-gray-400  w-full`}
                 >
-                  <span className="text-grey-400">{menu.icon}</span>
-                  <span className={`text-grey-400 ${isCollapsed ? 'hidden' : 'hidden md:inline'}`}>{menu.title}</span>
+                  <span className="text-grey-400 ml-4">{menu.icon}</span>
+                  <span className={`text-gray-500 font-semibold ${isCollapsed ? 'hidden' : 'hidden md:inline'}`}>{menu.title}</span>
+                  <div className={`absolute left-0 h-7 w-1 ml-2 border rounded-full bg-blue-500 ${menu.path===location.pathname + location.search ? 'block':'hidden'}`}></div>
                 </NavLink>
               </div>
             ))}
             <abbr title="Mode Of View">
-            <div className="flex justify-center text-gray-200 items-center mt-2 cursor-pointer" onClick={toggleCollapse}>
+            <div className="flex justify-center text-gray-400 items-center mt-2 cursor-pointer" onClick={toggleCollapse}>
               {isCollapsed ? <FaAngleDoubleRight /> : <FaAngleDoubleLeft />}
             </div>
             </abbr>

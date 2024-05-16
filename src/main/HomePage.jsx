@@ -16,7 +16,7 @@ const HomePage = () => {
             <div className="w-full h-min">
               <NavBar />
             </div>
-            <div className="w-full h-[100vh] overflow-hidden  ">
+            <div className="w-full h-[100vh] overflow-hidden bg-blue-50 ">
               <Outlet />
             </div>
           </dir>
