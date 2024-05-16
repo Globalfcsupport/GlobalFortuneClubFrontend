@@ -1,4 +1,5 @@
-import { Switch,Button } from 'antd';
+import { Switch,Button,message  } from 'antd';
+import axios from 'axios';
 import { useState } from 'react';
 import { FaRegEdit  } from "react-icons/fa";
 import { IoSaveOutline } from "react-icons/io5";
@@ -27,13 +28,18 @@ const Settings = () => {
     allowNewSlots: true,
     maintenanceMode: false,
     referralComission: 10,
-    password: 'Leo Dass'
+    confirmPassword:"",
+    newPassword:"",
+    currentPassword:""
   }
 
   const [ data, setData] = useState(initialValues)
 
   const handleEdit = ()=>{
     setReadonly(!readOnly);
+    if (readOnly) {
+      message.warning('Please enable editing to make changes.');
+    }
   }
 
 
@@ -58,8 +64,27 @@ const Settings = () => {
     console.log('ada')
   }
 
+
+    // if (passwords.newPassword === passwords.confirmPassword) {
+    //   // Send Axios POST request
+    //   axios.post('http://localhost:8000/setting', {
+    //     newPassword: passwords.newPassword,
+    //     confirmPassword: passwords.confirmPassword,
+    //   })
+    //   .then(response => {
+    //     console.log('Password changed successfully:', response.data);
+    //   })
+    //   .catch(error => {
+    //     console.error('Error changing password:', error);
+    //   });
+    //   setShowPasswordForm(false);
+    // } else {
+    //   console.log("New password and confirm password do not match.");
+    // }
+
+
   return (
-    <div className="w-full h-full relative">
+    <div className="w-full h-full ">
       <div className="flex items-center ">
         <h1 className="font-bold text-blue-600 text-2xl p-4">Settings</h1>
         {readOnly ? (
@@ -70,7 +95,7 @@ const Settings = () => {
         )
         }
       </div>
-    <div className="border border-gray-200 ml-10 p-6 w-fit">
+    <div className="border border-gray-200 ml-10 p-6 w-fit relative">
       <div className="grid grid-cols-2 gap-2">
       <label htmlFor="platformFee">Platform Fee:</label>
         <div className="relative">
@@ -124,26 +149,27 @@ const Settings = () => {
             <span className='absolute right-3 '>$</span>
             </div>
             <label htmlFor="">Change Password:</label>
-            <div className="flex">
+            
             {showPasswordForm && (
             <>
-            <div className="absolute right-0 top-0 p-6 bg-white border border-gray-200 z-10">
+            <div className="absolute right-0 grid  bottom-16 p-4 bg-white border border-gray-200 ">
               <label htmlFor="currentPassword">Current Password:</label>
-              <input type="password" name="currentPassword" value={passwords.currentPassword} onChange={handleChange} />
+              <input type="text" name="currentPassword" className='bg-gray-200 border rounded-md px-4 outline-none'  onChange={handleChange} />
               <label htmlFor="newPassword">New Password:</label>
-              <input type="password" name="newPassword" value={passwords.newPassword} onChange={handleChange} />
+              <input type="password" name="newPassword" className='bg-gray-200 border rounded-md px-4 outline-none' onChange={handleChange}/>
               <label htmlFor="confirmPassword">Confirm Password:</label>
-              <input type="password" name="confirmPassword" value={passwords.confirmPassword} onChange={handleChange} />
+              <input type="text" name="confirmPassword" className='bg-gray-200 border rounded-md px-4 outline-none'  onChange={handleChange}/>
               <Button type="primary" onClick={onSavePassword}>Save</Button>
               </div>   
             </>
           )}
-          {!showPasswordForm && (
+          {!showPasswordForm && !readOnly  ?(
             <Button type="primary" onClick={togglePasswordForm}>Tap To Change Password</Button>
+          ):(
+            <Button type="primary">Enable Edit To Change</Button>
           )}
       </div>
       </div>
-    </div>
     </div>
   )
 }
