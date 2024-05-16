@@ -10,11 +10,11 @@ import HomePage from "../main/HomePage";
 import LoginPage from "../main/LoginPage";
 
 const pages = [
-    // {
-    //     title: "LOGIN",
-    //     path:"",
-    //     element: <LoginPage/>
-    // },
+    {
+        title: "LOGIN",
+        path:"",
+        element: <LoginPage/>
+    },
     {
         title: "HOMEPAGE",
         path:"",
