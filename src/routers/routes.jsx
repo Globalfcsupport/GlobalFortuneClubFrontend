@@ -48,10 +48,6 @@ const pages = [
                 nestedPath: "settings",
                 nestedElement: <Settings/>,
               },
-              {
-                nestedPath: "logout",
-                nestedElement: <Logout/>,
-              },
         ]
     }
 ]

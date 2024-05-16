@@ -145,7 +145,7 @@ const Settings = () => {
             <Switch onChange={onChange} value={data.maintenanceMode} name="MaintenanceMode" className='w-7'/>
             <label htmlFor="">Referral Commission Slot:</label>
             <div className='relative'>
-            <input type="text"  className="bg-gray-200 border  w-full rounded-md" name="ReferralCommissionSlot" readOnly={readOnly} value={data.referralComission} onChange={handleChange} name='platformFee'/>
+            <input type="text"  className="bg-gray-200 border  w-full rounded-md" name="referralComission" readOnly={readOnly} value={data.referralComission} onChange={handleChange} />
             <span className='absolute right-3 '>$</span>
             </div>
             <label htmlFor="">Change Password:</label>

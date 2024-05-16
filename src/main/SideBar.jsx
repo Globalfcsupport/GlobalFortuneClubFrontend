@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink,useLocation } from "react-router-dom";
+import { NavLink,useLocation, useNavigate } from "react-router-dom";
 import logo from "../assets/Images/logo.png";
 import { useDataContext } from "../context/HomeContext";
 import {
@@ -14,9 +14,11 @@ import {
   FaAngleDoubleLeft,
   FaAngleDoubleRight
 } from "react-icons/fa";
+import { Button } from "antd";
 
 
 const SideBar = () => {
+  const navigate = useNavigate();
   const {isCollapsed, setIsCollapsed} = useDataContext();
   const location = useLocation()
 
@@ -56,12 +58,12 @@ const SideBar = () => {
       icon: <FaCog />,
       path: "/settings",
     },
-    {
-      title: "Logout",
-      icon: <FaSignOutAlt />,
-      path: "/logout",
-    },
   ];
+
+  const handleLogout = () => {
+    localStorage.removeItem("gfcadmintoken");
+    navigate("/");
+  };
 
   const roleList = {
     admin: admin,
@@ -103,6 +105,7 @@ const SideBar = () => {
                 </NavLink>
               </div>
             ))}
+            <Button className="text-gray-500 font-semibold" onClick={handleLogout}>LogOut</Button>
             <abbr title="Mode Of View">
             <div className="flex justify-center text-gray-400 items-center mt-2 cursor-pointer" onClick={toggleCollapse}>
               {isCollapsed ? <FaAngleDoubleRight /> : <FaAngleDoubleLeft />}
