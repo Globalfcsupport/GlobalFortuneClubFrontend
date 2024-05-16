@@ -31,3 +31,22 @@
       transform: translateX(0%);
   }
 }
+table{
+  border-radius: 10px;
+  overflow: hidden;
+  border-collapse: collapse;
+  width: 100%;
+}
+thead{
+  /* display: flex;
+  justify-content: space-around; */
+  padding-left: 20px;
+  background-color: #f5f7fa;
+}
+td{
+  padding-left: 60px;
+  /* display: flex;
+  justify-content: space-around; */
+  /* padding-left: 100px; */
+  /* padding-right: 100px; */
+}

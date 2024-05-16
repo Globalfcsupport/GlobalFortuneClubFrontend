@@ -1,8 +1,21 @@
 // import React from 'react'
+import { Pagination } from "antd"
+import { useEffect, useState } from "react";
+// import { Collapse } from "antd"
+
+const page_size= 10;
 
 const UserList2 = () => {
 
-    const data = [
+    const [ page, setPage ] = useState(1);
+    
+    useEffect(()=> {
+        const res = sdata.splice((page-1)*page_size, page_size);
+        setData(res);
+        console.log(data);
+    }, [page])
+    
+    const sdata = [
         {
           id: 1,
           name: 'Poona Mani',
@@ -82,9 +95,11 @@ const UserList2 = () => {
         },
     ]
 
+    const [ data, setData] = useState(sdata);
+
     return (
-        <div>
-            <table>
+        <div className="p-10 bg-blue-100 flex flex-col gap-5">
+            <table cellPadding={10} cellSpacing={50} >
                 <thead>          
                     <td>ID</td>
                     <td>Name</td>
@@ -92,20 +107,27 @@ const UserList2 = () => {
                     <td>Total Yield</td>
                     <td>Status</td>
                 </thead>
-                <tbody>
+                <tbody className="bg-white">
                     {
-                        data.map((item)=> {
-                            <tr>
+                        data.map((item)=> (
+                            <tr key={item.id}>
                                 <td>{item.id}</td>
                                 <td>{item.name}</td>
                                 <td>{item.mwbalance}</td>
                                 <td>{item.totalYield}</td>
                                 <td>{item.status}</td>
                             </tr>
-                        })
+                        ))
                     }
                 </tbody>
             </table>
+            <Pagination className="flex justify-end"
+                total={sdata.length}
+                pageSize={page_size}
+                current={page}
+                showQuickJumper={true}
+                onChange={(page)=>setPage(page)}
+            />
         </div>
   )
 }
