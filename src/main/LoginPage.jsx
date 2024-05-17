@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 import ill from "../assets/Images/gfcauth.png";
 import { LoginInitValues, LoginSchema } from "../validations/login";
 import { useFormik } from "formik";
@@ -6,6 +6,7 @@ import { Login } from "../services/servicces";
 import { message } from "antd";
 
 const LoginPage = () => {
+
   const [messageApi, contextHolder] = message.useMessage();
 
   const forms = useFormik({
@@ -24,7 +25,8 @@ const LoginPage = () => {
           content: "Logged In Successfully",
         });
       }
-    } catch (error) {
+    } 
+    catch (error) {
       messageApi.open({
         type: "error",
         content: error.response.data.message,
@@ -37,6 +39,7 @@ const LoginPage = () => {
       {contextHolder}
 
       <div className="w-full h-screen bg-bg_primary flex justify-between">
+
         <div className="w-[50%]">
           <img src={ill} alt="" srcSet="" className="h-[100%]" />
         </div>
@@ -88,6 +91,7 @@ const LoginPage = () => {
             </div>
           </form>
         </div>
+        
       </div>
     </>
   );

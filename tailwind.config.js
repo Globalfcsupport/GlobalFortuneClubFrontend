@@ -6,10 +6,6 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#7adn8'
-      }
-    
-      colors: {
         primary: "#526FB0",
         bg_primary: "#5270b02d",
       },

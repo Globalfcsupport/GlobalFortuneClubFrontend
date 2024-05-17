@@ -1,132 +1,115 @@
-// import React from 'react'
-import DataTable from 'react-data-table-component'
+import { useEffect, useState } from "react";
 
-const Dashboard = () => {
-  const columns = [
-    {
-      name: 'Title',
-      selector: row=>row.title
-    },
-    {
-      name: 'Today',
-      selector: row=>row.today
-    },
-    {
-      name: 'Overall',
-      selector: row=>row.overall
-    }
-  ];
+const UserList = () => {
 
-  const data = [
-    
-      {
-        id: 1,
-        title: 'Total Users',
-        today: 0,
-        overall: 0
-      },
-      {
-        id: 2,
-        title: 'Yield',
-        today: 0,
-        overall: 0
-      },
-      {
-        id: 3,
-        title: 'User Main Wallet Balance',
-        today: 0,
-        overall: 0
-      },
-      {
-        id: 4,
-        title: 'User Crowd Stack Balance',
-        today: 0,
-        overall: 0
-      },
-      {
-        id: 5,
-        title: 'Admin Wallet Balance',
-        today: 0,
-        overall: 0
-      },
-      {
-        id: 6,
-        title: 'Admin Comission',
-        today: 0,
-        overall: 0
-      },
-      {
-        id: 7,
-        title: 'Active Slots',
-        today: 0,
-        overall: 0
-      },
-      {
-        id: 8,
-        title: 'Completed Slots',
-        today: 0,
-        overall: 0
-      },
-      {
-        id: 9,
-        title: 'Crypto Deposit',
-        today: 0,
-        overall: 0
-      },
-      {
-        id: 10,
-        title: 'Crypto Withdraw',
-        today: 0,
-        overall: 0
-      },
-      {
-        id: 11,
-        title: 'Internal Transaction',
-        today: 0,
-        overall: 0
-      },
-      {
-        id: 12,
-        title: 'Leftover Wallet',
-        today: 0,
-        overall: 0
-      },
-    
-  ]
+    const [ page, setPage ] = useState(0);
 
-  const customStyles = {
-    table: {
-      style: {
-        borderRadius: '10px',
-        overflow: 'hidden',
-      }
-    },
-    headRow: {
-      style: {
-        backgroundColor: 'blue',
-        color: 'white',
-        fontSize: '20px',
-        // borderRadius: '10px'
-        padding: '0px'
-      }
-    },
-    cells: {
-      style: {
-        paddingLeft: '20px',
-        fontWeight: '600',
-        fontSize: '15px',
-        // textAlign: 'center',
-        backgroundColor: '#e4e7eb'
-      }
-    }
-  }
+    const sdata = [
+        {
+          id: 1,
+          title: 'Total Users',
+          today: 10,
+          overall: 10
+        },
+        {
+          id: 1,
+          title: 'Yield',
+          today: 10,
+          overall: 10
+        },
+        {
+          id: 1,
+          title: 'User Main Wallet Balance',
+          today: 10,
+          overall: 10
+        },
+        {
+          id: 1,
+          title: 'User Crowd Stack Balance',
+          today: 10,
+          overall: 10
+        },
+        {
+          id: 1,
+          title: 'Admin Wallet Balance',
+          today: 10,
+          overall: 10
+        },
+        {
+          id: 1,
+          title: 'Admin Comission',
+          today: 10,
+          overall: 10
+        },
+        {
+          id: 1,
+          title: 'Active Slots',
+          today: 10,
+          overall: 10
+        },
+        {
+          id: 1,
+          title: 'Completed Slots',
+          today: 10,
+          overall: 10
+        },
+        {
+          id: 1,
+          title: 'Crypto Deposit',
+          today: 10,
+          overall: 10
+        },
+        {
+          id: 1,
+          title: 'Crypto Withdraw',
+          today: 10,
+          overall: 10
+        },
+        {
+          id: 1,
+          title: 'Internal Transaction',
+          today: 10,
+          overall: 10
+        },
+        {
+          id: 1,
+          title: 'Leftover Wallet',
+          today: 10,
+          overall: 10
+        },
+    ]
 
-  return (
-    <div className='p-5 flex flex-col gap-5'>
-      <h1 className='text-blue-800 font-bold text-2xl'>Dashboard</h1>
-      <DataTable columns={columns} data={data} customStyles={customStyles}/>
-    </div>
+    const [ data, setData] = useState(sdata);
+
+    return (
+        <div className="flex flex-col w-full h-screen font-poppins">
+            <div className="h-20 bg-white flex justify-between px-10 items-center">
+                <h1 className="text-3xl font-semibold text-blue-700">Dashboard</h1>
+            </div>
+
+            <div className="p-10 bg-blue-100 flex flex-col gap-5 h-full">
+                <table cellPadding={10} cellSpacing={50} >  
+                    <thead className="font-semibold">          
+                        <td>Title</td>
+                        <td>Today</td>
+                        <td>Overall</td>
+                    </thead>
+                    <tbody className="bg-white">
+                      {
+                        data.map((item)=> (
+                            <tr key={item.id}>
+                                <td>{item.title}</td>
+                                <td>{item.today}</td>
+                                <td>{item.overall}</td>
+                                {/* <td className={`${item.status ? 'text-green-500' : 'text-red-500'}`}>{item.status ? "true" : "false"}</td> */}
+                            </tr>
+                        ))
+                      }
+                    </tbody>
+                </table>
+            </div>
+        </div>
   )
 }
 
-export default Dashboard
+export default UserList 
