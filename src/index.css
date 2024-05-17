@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+*{
+  margin: 0;
+  padding: 0;
+}
+
+html{
+  background-color: white;
+  display: flex;
+  justify-content: center;
+}
+body{
+  height: 100vh;
+  width: 550px;
+  background-color:#5270b02d;
+  margin: auto;
+}
