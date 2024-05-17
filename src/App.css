@@ -2,7 +2,7 @@
   transition: 0.20s all ease-in-out;
 }
 .wr .active{
-  background-color: #f5f7fa;
+  background-color: #5270b02d;
 }
 
 #pendingS{
@@ -41,7 +41,6 @@ thead{
   /* display: flex;
   justify-content: space-around; */
   padding-left: 20px;
-  background-color: #f5f7fa;
 }
 td{
   padding-left: 60px;

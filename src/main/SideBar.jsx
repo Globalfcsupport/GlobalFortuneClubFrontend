@@ -96,16 +96,17 @@ const SideBar = () => {
               <div key={id} className="w-[100%]">
                 <NavLink
                   to={menu.path}
-                  activeClassName={(location.pathname === menu.path) ? 'bg-blue-200 text-blue-900' :''}
-                  className={`flex items-center ${isCollapsed ? 'justify-center':"justify-left pl-2"} gap-3 py-2 focus:bg-blue-50 focus:text-blue-900 text-gray-400  w-full`}
+                  // activeClassName={(location.pathname === menu.path) ? 'bg-bg text-blue-900' :''}
+                  className={`flex items-center ${isCollapsed ? 'justify-center':"justify-left pl-2"} gap-3 py-2 w-full ${location.pathname=== menu.path?'text-gray-700 bg-bg_primary': 'text-gray-400 bg-whi'}`}
+
                 >
-                  <span className="text-grey-400 ml-4">{menu.icon}</span>
-                  <span className={`text-gray-500 font-semibold ${isCollapsed ? 'hidden' : 'hidden md:inline'}`}>{menu.title}</span>
+                  <span className="ml-4">{menu.icon}</span>
+                  <span className={`font-semibold ${isCollapsed ? 'hidden' : 'hidden md:inline'}`}>{menu.title}</span>
                   <div className={`absolute left-0 h-7 w-1 ml-2 border rounded-full bg-blue-500 ${menu.path===location.pathname + location.search ? 'block':'hidden'}`}></div>
                 </NavLink>
               </div>
             ))}
-            <Button className="text-gray-500 font-semibold" onClick={handleLogout}>LogOut</Button>
+            <Button className="text-gray-700 font-semibold" onClick={handleLogout}>LogOut</Button>
             <abbr title="Mode Of View">
             <div className="flex justify-center text-gray-400 items-center mt-2 cursor-pointer" onClick={toggleCollapse}>
               {isCollapsed ? <FaAngleDoubleRight /> : <FaAngleDoubleLeft />}

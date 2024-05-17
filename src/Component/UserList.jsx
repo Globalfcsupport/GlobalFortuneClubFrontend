@@ -1,5 +1,6 @@
 import { Pagination } from "antd"
 import { useEffect, useState } from "react";
+import { FaUser } from "react-icons/fa";
 
 const page_size= 10;
 
@@ -174,17 +175,17 @@ const UserList = () => {
 
     return (
         <div className="flex flex-col w-full h-screen font-poppins">
-            <div className="h-20 bg-white flex justify-between px-10 items-center">
-                <h1 className="text-3xl font-semibold text-blue-700">UserList</h1>
-                {/* <div className="flex gap-5"> */}
-                    <input type="text" placeholder="Search Name" className="bg-blue-100 rounded-md outline-none px-4 py-1" id="searchText" onChange={handleSearch}/>
-                    {/* <button className="bg-blue-700 px-4 py-1 rounded-md text-white" onClick={()=>setPage(1)}>Search</button> */}
-                {/* </div> */}
-            </div>
+            <div className="h-16 bg-white flex justify-between px-10 items-center">
+              <div className="flex items-center gap-3">
+                <FaUser className="text-blue-700"/>
+                <h1 className="text-2xl font-semibold text-blue-700">UserList</h1>
+              </div>
+              <input type="text" placeholder="Search Name" className="bg-blue-100 rounded-md outline-none px-4 py-1" id="searchText" onChange={handleSearch}/>
+            </div>  
 
-            <div className="p-10 bg-blue-100 flex flex-col gap-5 h-full">
+            <div className="p-10 bg-bg_primary flex flex-col gap-5 h-full rounded-tr-xl rounded-tl-xl">
                 <table cellPadding={10} cellSpacing={50} >  
-                    <thead className="font-semibold">          
+                    <thead className="font-semibold bg-blue-200">          
                         <td>ID</td>
                         <td>Name</td>
                         <td>MW Balance</td>

@@ -9,14 +9,14 @@ const HomePage = () => {
   return (
     <>
         <section className="w-full h-screen flex items-center">
-          <div className={`${isCollapsed ?"w-[5%]":"w-[18%]"} h-screen flex items-center justify-start p-0`}>
+          <div className={`${isCollapsed ?"w-[5%]":"w-[15%]"} h-screen flex items-center justify-start p-0`}>
             <SideBar />
           </div>
-          <dir className={`${isCollapsed ?"w-[95%]":"w-[82%]"} h-screen p-0 flex flex-col`}>
+          <dir className={`${isCollapsed ?"w-[95%]":"w-[85%]"} h-screen p-0 flex flex-col`}>
             <div className="w-full h-min">
               <NavBar />
             </div>
-            <div className="w-full h-[100vh] overflow-hidden bg-blue-50 ">
+            <div className="w-full h-[100vh] overflow-hidden">
               <Outlet />
             </div>
           </dir>

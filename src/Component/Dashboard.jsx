@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+// import { useState } from "react";
+import { FaHome } from "react-icons/fa";
 
 const UserList = () => {
-
-    const [ page, setPage ] = useState(0);
 
     const sdata = [
         {
@@ -79,24 +78,25 @@ const UserList = () => {
         },
     ]
 
-    const [ data, setData] = useState(sdata);
-
     return (
         <div className="flex flex-col w-full h-screen font-poppins">
-            <div className="h-20 bg-white flex justify-between px-10 items-center">
-                <h1 className="text-3xl font-semibold text-blue-700">Dashboard</h1>
+            <div className="h-16 bg-white flex justify-between px-10 items-center">
+              <div className="flex items-center gap-3">
+                <FaHome className="text-blue-700"/>
+                <h1 className="text-2xl font-semibold text-blue-700">Dashboard</h1>
+              </div>
             </div>
 
-            <div className="p-10 bg-blue-100 flex flex-col gap-5 h-full">
+            <div className="p-10 bg-bg_primary flex flex-col gap-5 h-full rounded-tr-xl rounded-tl-xl">
                 <table cellPadding={10} cellSpacing={50} >  
-                    <thead className="font-semibold">          
+                    <thead className="font-semibold bg-blue-200">          
                         <td>Title</td>
                         <td>Today</td>
                         <td>Overall</td>
                     </thead>
                     <tbody className="bg-white">
                       {
-                        data.map((item)=> (
+                        sdata.map((item)=> (
                             <tr key={item.id}>
                                 <td>{item.title}</td>
                                 <td>{item.today}</td>
