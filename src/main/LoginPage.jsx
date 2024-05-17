@@ -1,23 +1,96 @@
-import React from 'react'
+import React, { useState } from "react";
+import ill from "../assets/Images/gfcauth.png";
+import { LoginInitValues, LoginSchema } from "../validations/login";
+import { useFormik } from "formik";
+import { Login } from "../services/servicces";
+import { message } from "antd";
 
 const LoginPage = () => {
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const forms = useFormik({
+    initialValues: LoginInitValues,
+    validationSchema: LoginSchema,
+    onSubmit: (values) => submitForms(values),
+  });
+
+  const submitForms = async (val) => {
+    try {
+      let response = await Login(val);
+      if (response.data) {
+        localStorage.setItem("gfcadmintoken", response.data.token);
+        messageApi.open({
+          type: "success",
+          content: "Logged In Successfully",
+        });
+      }
+    } catch (error) {
+      messageApi.open({
+        type: "error",
+        content: error.response.data.message,
+      });
+    }
+  };
+
   return (
-    <div className='flex justify-center items-center h-screen bg-slate-700'>
-        <section className='p-5  flex flex-col gap-5 rounded-md bg-gray-900 text-white w-[300px]'>
-            <h1 className='text-center text-2xl font-semibold'>Hello Admin!</h1>
-            <div className='flex flex-col gap-2'>
-                <label htmlFor='username'>Enter Your Username</label>
-                <input type='text' placeholder='Username' className='outline-none bg-transparent text-white border border-slate-700 px-3 p-1 rounded-md'/>
-            </div>
-            <div className='flex flex-col gap-2 pb-10'>
-                <label htmlFor='username'>Enter Your Password</label>
-                <input type='text' placeholder='Password' className='outline-none bg-transparent border text-white border-slate-700 px-3 p-1 rounded-md'/>
-            </div>
-            <button className='p-2 bg-blue-700 rounded-lg text-white'>Login</button>
-        </section>
-    </div>
+    <>
+      {contextHolder}
 
-  )
-}
+      <div className="w-full h-screen bg-bg_primary flex justify-between">
+        <div className="w-[50%]">
+          <img src={ill} alt="" srcSet="" className="h-[100%]" />
+        </div>
 
-export default LoginPage
+        <div className="w-[50%] m-auto flex justify-center items-center">
+          <form className="w-full justify-center">
+            <h1 className="text-center font-poppins text-3xl mb-6 font-bold ">
+              Admin Login
+            </h1>
+            <div className=" w-full m-auto ">
+              <div className="flex justify-center  p-4 m-auto items-center">
+                <input
+                  type="email"
+                  required
+                  className="h-12 w-[40%] rounded-full pl-5 outline-none font-poppins"
+                  placeholder="E-mail"
+                  name="email"
+                  id="email"
+                  value={forms.values.email}
+                  onChange={forms.handleChange}
+                />
+              </div>
+              <div className="flex justify-center  p-4 m-auto items-center ">
+                <input
+                  type="password"
+                  required
+                  className="h-12 w-[40%] rounded-full pl-5 outline-none font-poppins"
+                  placeholder="Password"
+                  name="password"
+                  id="password"
+                  value={forms.values.password}
+                  onChange={forms.handleChange}
+                />
+              </div>
+              {(forms.errors.email && forms.touched.email) ||
+              (forms.errors.password && forms.touched.password) ? (
+                <div className="text-center text-red-500 font-semibold font-poppins">
+                  Please Enter Valid Email & Password!
+                </div>
+              ) : null}
+              <div className="flex justify-center  p-4 m-auto items-center ">
+                <input
+                  type="submit"
+                  value="Login"
+                  className="h-12 w-[40%] rounded-full pl-5 outline-none font-poppins bg-primary text-white cursor-pointer font-semibold text-xl"
+                  onClick={forms.handleSubmit}
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default LoginPage;
