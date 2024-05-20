@@ -11,10 +11,31 @@ html{
   background-color: white;
   display: flex;
   justify-content: center;
+  align-items: center;
+  padding: 10px;
+  height: 100vh;
+  /* overflow: hidden */
 }
 body{
-  height: 100vh;
-  width: 550px;
+  height: 98vh;
+  width: 350px;
   background-color:#5270b02d;
   margin: auto;
+  border-width: 5px;
+  border-radius: 30px;
+  border-color: black;
+  /* padding: 100px; */
+}
+
+@media (max-width: 500px) {
+  html{
+    padding: 0px;
+  }
+  body{
+    width: 100%;
+    height: 100vh;
+    border-width: 0;
+    padding: 0px;
+    border-radius:0px;
+  }
 }
