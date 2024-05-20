@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { FaArrowLeft, FaTachometerAlt, FaWallet, FaDice, FaUserFriends, FaComments, FaLifeRing, FaCog, FaShareAlt } from "react-icons/fa";
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
@@ -6,7 +7,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
     <div
       className={`absolute top-0 left-0 h-[96vh] rounded-l-3xl rounded-r-3xl z-50 bg-gray-200 shadow-lg transform transition-transform duration-300 ${
         isOpen ? 'translate-x-0' : '-translate-x-full'
-      } `}
+      }`}
       style={{ width: '75%' }}
     >
       <button
@@ -18,7 +19,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
       <div className="pt-6">
         {/* User Info */}
         <div className="flex items-center mt-7 bg-blue-800 w-full p-2">
-          <div className="w-12 h-12 bg-gray-300 rounded-full mr-4 "></div>
+          <div className="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
           <div>
             <div className="font-bold text-white">User Name</div>
             <div className="text-gray-300">user@mail.com</div>
@@ -28,25 +29,32 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         {/* Sidebar Links */}
         <ul>
           <li className="py-3 px-4 border-b border-gray-200 flex items-center">
-            <FaTachometerAlt className="mr-3" /> DashBoard
+            <FaTachometerAlt className="mr-3" />
+            <Link to="/DashBoard" onClick={toggleSidebar}>DashBoard</Link>
           </li>
           <li className="py-3 px-4 border-b border-gray-200 flex items-center">
-            <FaWallet className="mr-3" /> Wallet
+            <FaWallet className="mr-3" />
+            <Link to="/Wallet" onClick={toggleSidebar}>Wallet</Link>
           </li>
           <li className="py-3 px-4 border-b border-gray-200 flex items-center">
-            <FaDice className="mr-3" /> FC Slots
+            <FaDice className="mr-3" />
+            <Link to="/FCSlots" onClick={toggleSidebar}>FC Slots</Link>
           </li>
           <li className="py-3 px-4 border-b border-gray-200 flex items-center">
-            <FaUserFriends className="mr-3" /> Referrals
+            <FaUserFriends className="mr-3" />
+            <Link to="/Refferals" onClick={toggleSidebar}>Referrals</Link>
           </li>
           <li className="py-3 px-4 border-b border-gray-200 flex items-center">
-            <FaComments className="mr-3" /> Chat
+            <FaComments className="mr-3" />
+            <Link to="/Chat" onClick={toggleSidebar}>Chat</Link>
           </li>
           <li className="py-3 px-4 border-b border-gray-200 flex items-center">
-            <FaLifeRing className="mr-3" /> Support
+            <FaLifeRing className="mr-3" />
+            <Link to="/Support" onClick={toggleSidebar}>Support</Link>
           </li>
           <li className="py-3 px-4 border-b border-gray-200 flex items-center">
-            <FaCog className="mr-3" /> Settings
+            <FaCog className="mr-3" />
+            <Link to="/Settings" onClick={toggleSidebar}>Settings</Link>
           </li>
         </ul>
         {/* Invite Section */}
