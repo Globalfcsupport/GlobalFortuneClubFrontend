@@ -5,7 +5,7 @@ import { FaArrowLeft } from "react-icons/fa";
 const Sidebar = ({ isOpen, toggleSidebar }) => {
   return (
     <div
-      className={` absolute top-0 left-0 h-[96vh] rounded-l-3xl rounded-r-3xl bg-gray-200 shadow-lg transform transition-transform duration-300 ${
+      className={` absolute top-0 left-0 h-[96vh] rounded-l-3xl rounded-r-3xl z-50 bg-gray-200 shadow-lg transform transition-transform duration-300 ${
         isOpen ? 'translate-x-0' : '-translate-x-full'
       } `}
       style={{ width: '75%' }}
