@@ -7,6 +7,7 @@ const SignIn = () => {
   const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
   const [recaptchaValue, setRecaptchaValue] = useState('');
+  const [isOTPEnabled, setIsOTPEnabled] = useState(false);
 
   const handleOtpChange = (otp) => {
     setOtp(otp);
@@ -18,6 +19,10 @@ const SignIn = () => {
   };
   const handleRecaptchaChange = (value) => {
     setRecaptchaValue(value);
+  };
+
+  const handleGetOTP = () => {
+    setIsOTPEnabled(true);
   };
 
   return (
@@ -77,13 +82,14 @@ const SignIn = () => {
           <div className="flex flex-col gap-2 relative w-full">
             <label htmlFor='email'>Email</label>
             <input type="email" name="email" placeholder='Enter Your Email' className='w-full py-3 rounded-md pl-2 pr-32 outline-none text-sm'/>
-            <button className='absolute bg-blue-700 text-white px-5 py-1 rounded-md bottom-[0.375rem] right-1'>Send OTP</button>
+            <button className='absolute bg-blue-700 text-white px-5 py-1 rounded-md bottom-[0.375rem] right-1 'onClick={handleGetOTP}>Send OTP</button>
           </div>
           <div className='flex justify-center w-full'>
             <OTPInput
               value={otp}
               onChange={handleOtpChange}
               numInputs={4}
+              isDisabled={!isOTPEnabled}
               // renderSeparator={<span>-</span>}
               renderInput={(props) => <input {...props} />}
               isInputNum

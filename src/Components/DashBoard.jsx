@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FaArrowRight, FaWallet } from 'react-icons/fa';
-import { GiWallet } from 'react-icons/gi';
+import { FiAlertCircle } from "react-icons/fi";
 
 const DashBoard = () => {
   const [userData, setUserData] = useState({
@@ -8,16 +8,25 @@ const DashBoard = () => {
     id: '',
     wallet: 0,
     reserveWallet: 0,
+    CrowdStacking: 0,
+    ActiveSlots: 0,
+    CompletedSlots: 0,
+    YieldToday: 0,
+    YieldOverall: 0,
+    ReferralIncomeToday: 0,
+    ReferralIncomeOverall: 0,
+    TotalCryptoTopUp: 10800,
+    TotalCryptoWithdraw: 223,
+    TotalInternalTransferIn: 0
   });
 
   useEffect(() => {
-    // Fetch data from the backend API
     const fetchData = async () => {
       try {
-        const response = await fetch('https://api.example.com/user'); // Replace with your actual API endpoint
+        const response = await fetch('https://api.example.com/user'); 
         const data = await response.json();
 
-        // Update state with the fetched data
+      
         setUserData({
           name: data.name,
           id: data.id,
@@ -33,9 +42,8 @@ const DashBoard = () => {
   }, []);
 
   return (
-    <div className="h-full p-4 space-y-4">
-      {/* Blue Background Section */}
-      <div className="bg-blue-500 p-4 flex justify-between items-center text-white rounded-lg">
+    <div className="h-full p-2">
+      <div className="bg-blue-500 p-3 flex justify-between items-center text-white rounded-lg">
         <div>
           <div className="font-bold">{userData.name}</div>
           <div>ID: {userData.id}</div>
@@ -43,30 +51,212 @@ const DashBoard = () => {
         <button className="bg-white text-blue-500 px-4 py-2 rounded">Start</button>
       </div>
 
-      {/* Wallet Section */}
-      <div className="bg-white p-4 flex justify-between items-center rounded-lg shadow">
-        <div className="flex items-center space-x-2">
-          <FaWallet className="text-2xl text-blue-500" />
-          <span className="font-bold">My Wallet</span>
-        </div>
-        <div className="flex items-center space-x-2">
-          <span>{userData.wallet.toFixed(4)}</span>
-          <FaArrowRight className="text-gray-400" />
-        </div>
-      </div>
+      <div 
+        className="h-full overflow-auto space-y-1 mt-2"
+        style={{
+          height: 'calc(100vh - 180px)',
+          scrollbarWidth: "none", // For Firefox
+          msOverflowStyle: "none" // For Internet Explorer and Edge
+        }}
+      >
 
-      {/* Reserve - My Wallet Section */}
-      <div className="bg-white p-4 flex justify-between items-center rounded-lg shadow">
-        <div className="flex items-center space-x-2">
-          <GiWallet className="text-2xl text-blue-500" />
-          <span className="font-bold">Reserve - My Wallet</span>
-        </div>
-        <div className="bg-blue-500 text-white px-4 py-2 rounded">
-          ${userData.reserveWallet.toFixed(2)}
-        </div>
-      </div>
+        <style>
+          {`
+            .h-full::-webkit-scrollbar {
+              display: none;
+            }
+          `}
+        </style>
 
-      {/* Add more sections as needed */}
+        {/* Wallet Section */}
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
+          <div className="flex items-center space-x-2">
+            <FiAlertCircle />
+            <span>My Wallet</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <span>{userData.wallet.toFixed(4)}</span>
+            <FaArrowRight className="text-gray-400" />
+          </div>
+        </div>
+
+        {/* Reserve - My Wallet Section */}
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
+          <div className="flex items-center space-x-2">
+            <FiAlertCircle />
+            <span>Reserve - My Wallet</span>
+          </div>
+          <div className="bg-blue-500 text-white px-6 py-1 rounded">
+            ${userData.reserveWallet.toFixed(2)}
+          </div>
+        </div>
+
+        {/* Crowd - Stacking Section */}
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
+          <div className='flex items-center space-x-2'>
+            <FiAlertCircle />
+            <span>Crowd Stacking</span>
+          </div>
+          <div className='flex items-center space-x-2'>
+            <span>${userData.CrowdStacking.toFixed(4)}</span>
+            <FaArrowRight className='text-gray-400' />
+          </div>
+        </div>
+
+        {/* Active Slots */}
+        <div className='bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm'>
+          <div className='flex items-center space-x-2'>
+            <FiAlertCircle />
+            <span>Active Slots</span>
+          </div>
+          <div className='flex items-center space-x-2'>
+            <span>${userData.ActiveSlots}</span>
+            <FaArrowRight className='text-gray-400' />
+          </div>
+        </div>
+
+        {/* Completed Slots */}
+        <div className='bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm'>
+          <div className='flex items-center space-x-2'>
+            <FiAlertCircle />
+            <span>Completed Slots</span>
+          </div>
+          <div className='flex items-center space-x-2'>
+            <span>${userData.CompletedSlots}</span>
+            <FaArrowRight className='text-gray-400' />
+          </div>
+        </div>
+
+        
+        <div className='bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm'>
+          <div className='flex items-center space-x-2'>
+            <FiAlertCircle />
+            <span>Yield - Today</span>
+          </div>
+          <div className='flex items-center space-x-2'>
+            <span>${userData.YieldToday}</span>
+            <FaArrowRight className='text-gray-400' />
+          </div>
+        </div>
+
+        <div className='bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm'>
+          <div className='flex items-center space-x-2'>
+            <FiAlertCircle />
+            <span>Yield - Overall</span>
+          </div>
+          <div className='flex items-center space-x-2'>
+            <span>${userData.YieldOverall}</span>
+            <FaArrowRight className='text-gray-400' />
+          </div>
+        </div>
+
+        <div className='bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm'>
+          <div className='flex items-center space-x-2'>
+            <FiAlertCircle />
+            <span>Referral Income -Today</span>
+          </div>
+          <div className='flex items-center space-x-2'>
+            <span>${userData.ReferralIncomeToday}</span>
+            <FaArrowRight className='text-gray-400' />
+          </div>
+        </div>
+
+        
+        <div className='bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm'>
+          <div className='flex items-center space-x-2'>
+            <FiAlertCircle />
+            <span>Referral Income -Overall</span>
+          </div>
+          <div className='flex items-center space-x-2'>
+            <span>${userData.ReferralIncomeOverall}</span>
+            <FaArrowRight className='text-gray-400' />
+          </div>
+        </div>
+
+        
+        <div className='bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm'>
+          <div className='flex items-center space-x-2'>
+            <FiAlertCircle />
+            <span>Total Crypto Top-Up</span>
+          </div>
+          <div className='flex items-center space-x-2'>
+            <span>${userData.TotalCryptoTopUp}</span>
+            <FaArrowRight className='text-gray-400' />
+          </div>
+        </div>
+
+        
+        <div className='bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm'>
+          <div className='flex items-center space-x-2'>
+            <FiAlertCircle />
+            <span>Total Crypto Withdraw</span>
+          </div>
+          <div className='flex items-center space-x-2'>
+            <span>${userData.TotalCryptoWithdraw}</span>
+            <FaArrowRight className='text-gray-400' />
+          </div>
+        </div>
+
+        
+        <div className='bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm'>
+          <div className='flex items-center space-x-2'>
+            <FiAlertCircle />
+            <span>Total Internal Transfer IN</span>
+          </div>
+          <div className='flex items-center space-x-2'>
+            <span>${userData.TotalInternalTransferIn}</span>
+            <FaArrowRight className='text-gray-400' />
+          </div>
+        </div>
+
+        
+        <div className='bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm'>
+          <div className='flex items-center space-x-2'>
+            <FiAlertCircle />
+            <span>More Content</span>
+          </div>
+          <div className='flex items-center space-x-2'>
+            <span>${userData.CompletedSlots}</span>
+            <FaArrowRight className='text-gray-400' />
+          </div>
+        </div>
+
+        
+        <div className='bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm'>
+          <div className='flex items-center space-x-2'>
+            <FiAlertCircle />
+            <span>More Content</span>
+          </div>
+          <div className='flex items-center space-x-2'>
+            <span>${userData.CompletedSlots}</span>
+            <FaArrowRight className='text-gray-400' />
+          </div>
+        </div>
+
+        
+        <div className='bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm'>
+          <div className='flex items-center space-x-2'>
+            <FiAlertCircle />
+            <span>More Content</span>
+          </div>
+          <div className='flex items-center space-x-2'>
+            <span>${userData.CompletedSlots}</span>
+            <FaArrowRight className='text-gray-400' />
+          </div>
+        </div>
+
+
+      </div>
+      <div className="fixed bottom-0 left-0 w-full mb-3 p-2 shadow-lg flex justify-around"
+          style={{
+            width: '350px',
+            left: '50%',
+            transform: 'translateX(-50%)'
+          }}>
+        <button className="bg-blue-500 text-white px-5 py-1 rounded-md">TopUp</button>
+        <button className="bg-blue-500 text-white px-5 py-1 rounded-md">Withdraw</button>
+        <button className="bg-blue-500 text-white px-5 py-1 rounded-md">Transfer</button>
+      </div>
     </div>
   );
 };

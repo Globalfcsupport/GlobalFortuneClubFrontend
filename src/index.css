@@ -24,6 +24,7 @@ body{
   border-width: 5px;
   border-radius: 30px;
   border-color: black;
+  position: relative;
   /* padding: 100px; */
 }
 
