@@ -18,7 +18,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
       </button>
       <div className="pt-6">
         {/* User Info */}
-        <div className="flex items-center mt-7 bg-blue-800 w-full p-2">
+        <div className="flex items-center mt-6 bg-blue-800 w-full p-2  text-sm">
           <div className="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
           <div>
             <div className="font-bold text-white">User Name</div>
@@ -27,8 +27,8 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           </div>
         </div>
         {/* Sidebar Links */}
-        <ul>
-          <li className="py-3 px-4 border-b border-gray-200 flex items-center">
+        <ul className=' text-sm'>
+          <li className="py-3 px-4 border-b border-gray-200 flex items-center ">
             <FaTachometerAlt className="mr-3" />
             <Link to="/DashBoard" onClick={toggleSidebar}>DashBoard</Link>
           </li>
@@ -58,7 +58,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           </li>
         </ul>
         {/* Invite Section */}
-        <div className="mt-6 p-2 bg-blue-600 text-white text-center py-3 mx-4 rounded-lg">
+        <div className="mt-4 p-2 bg-blue-600 text-white text-center py-3 mx-4 rounded-lg  text-sm">
           Invite your friends and earn $1 for every slot they create!
           <button className="mt-4 bg-white text-blue-600 px-4 py-2 rounded-full flex items-center mx-auto">
             <FaShareAlt className="mr-2" /> Share

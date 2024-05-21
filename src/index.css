@@ -24,8 +24,10 @@ body{
   border-width: 5px;
   border-radius: 30px;
   border-color: black;
-  position: relative;
+  overflow: hidden;
   /* padding: 100px; */
+  position: relative;
+  
 }
 
 @media (max-width: 500px) {
