@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import OTPInput from 'react-otp-input';
 import Logo from '../../public/vite.svg';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
+import { Link } from 'react-router-dom';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
@@ -39,7 +40,7 @@ const SignIn = () => {
   };
 
   return (
-    <div className='w-full h-full font-poppins'>
+    <div className='w-full h-full font-poppins mt-4'>
       <div className='flex justify-center items-center flex-col '>
         <img src={Logo} className='w-20' alt="Logo" />
         <h1 className='text-xl font-medium mt-2 text-blue-600'>Login</h1>
@@ -88,7 +89,6 @@ const SignIn = () => {
             </div>
           )}
           <div className='flex flex-col justify-center w-full'>
-            <label htmlFor='captcha' className='mb-2'>Enter Captcha</label>
             <div className='flex justify-between items-center w-full'>
               <LoadCanvasTemplate />
               <input
@@ -109,6 +109,9 @@ const SignIn = () => {
             >
               Submit
             </button>
+          </div>
+          <div className='flex  text-sm items-center justify-center w-full'>
+             <p className='text-blue-500'>Don't you have an account ?</p><Link to={`/Signup`}  className='text-blue-800'>Sign Up</Link>
           </div>
         </form>
       </div>
