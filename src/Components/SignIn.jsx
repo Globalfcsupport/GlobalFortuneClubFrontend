@@ -9,7 +9,6 @@ const SignIn = () => {
   const [otp, setOtp] = useState('');
   const [showOTPInput, setShowOTPInput] = useState(false);
   const [captchaText, setCaptchaText] = useState('');
-  const [isCaptchaValid, setIsCaptchaValid] = useState(false);
 
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -40,7 +39,12 @@ const SignIn = () => {
   };
 
   return (
-    <div className='w-full h-full font-poppins mt-4'>
+    <div  className="h-full overflow-auto space-y-1 mt-2"
+    style={{
+      height: 'calc(100vh - 90px)',
+      scrollbarWidth: "none", // For Firefox
+      msOverflowStyle: "none" // For Internet Explorer and Edge
+    }}>
       <div className='flex justify-center items-center flex-col '>
         <img src={Logo} className='w-20' alt="Logo" />
         <h1 className='text-xl font-medium mt-2 text-blue-600'>Login</h1>
@@ -88,19 +92,17 @@ const SignIn = () => {
               />
             </div>
           )}
-          <div className='flex flex-col justify-center w-full'>
-            <div className='flex justify-between items-center w-full'>
-              <LoadCanvasTemplate />
-              <input
-                type="text"
-                id="user_captcha_input"
-                name="user_captcha_input"
-                placeholder='Enter Captcha Value'
-                className='w-1/2 py-3 rounded-md pl-2 pr-4 outline-none text-sm ml-4'
-                value={captchaText}
-                onChange={(e) => setCaptchaText(e.target.value)}
-              />
-            </div>
+          <div className='flex flex-col justify-center items-center w-full'>
+            <LoadCanvasTemplate />
+            <input
+              type="text"
+              id="user_captcha_input"
+              name="user_captcha_input"
+              placeholder='Enter Captcha Value'
+              className='w-full py-3 rounded-md pl-2 pr-4 outline-none text-sm mt-2'
+              value={captchaText}
+              onChange={(e) => setCaptchaText(e.target.value)}
+            />
           </div>
           <div className='flex w-full justify-center items-center mt-5'>
             <button
@@ -110,8 +112,9 @@ const SignIn = () => {
               Submit
             </button>
           </div>
-          <div className='flex  text-sm items-center justify-center w-full'>
-             <p className='text-blue-500'>Don't you have an account ?</p><Link to={`/Signup`}  className='text-blue-800'>Sign Up</Link>
+          <div className='flex text-sm items-center justify-center w-full'>
+            <p className='text-blue-500'>Don't you have an account?</p>
+            <Link to={`/Signup`} className='text-blue-800'>Sign Up</Link>
           </div>
         </form>
       </div>
