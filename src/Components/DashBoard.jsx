@@ -42,7 +42,7 @@ const DashBoard = () => {
   }, []);
 
   return (
-    <div className="h-full p-2">
+    <div className="h-full p-2 ">
       <div className="bg-blue-500 p-3 flex justify-between items-center text-white rounded-lg">
         <div>
           <div className="font-bold">{userData.name}</div>
@@ -52,7 +52,7 @@ const DashBoard = () => {
       </div>
 
       <div 
-        className="h-full overflow-auto space-y-1 mt-2"
+        className="h-full overflow-auto space-y-1 mt-2 "
         style={{
           height: 'calc(100vh - 180px)',
           scrollbarWidth: "none", // For Firefox
