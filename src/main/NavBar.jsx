@@ -7,8 +7,8 @@ import { useLocation } from 'react-router';
 const NavBar = () => {
 
   const location = useLocation();
-  const currentPage = location.pathname.substring(1);
-  console.log(currentPage + "estfyuj");
+  const currentPage = location.pathname.split('/')
+  console.log(currentPage);
 
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
@@ -26,7 +26,7 @@ const NavBar = () => {
           />
           <FaArrowLeft className="text-xl text-black cursor-pointer" />
         </div>
-        <h1 className="text-lg font-semibold text-black">{currentPage}</h1>
+        <h1 className="text-lg font-semibold text-black">{currentPage[2]}</h1>
         <FaEnvelope className="text-xl text-black cursor-pointer" />
       </div>
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />

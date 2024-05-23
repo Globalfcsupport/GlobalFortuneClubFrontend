@@ -30,31 +30,31 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         <ul className=' text-sm'>
           <li className="py-3 px-4 border-b border-gray-200 flex items-center ">
             <FaTachometerAlt className="mr-3" />
-            <Link to="/DashBoard" onClick={toggleSidebar}>DashBoard</Link>
+            <Link to="/Homepage/DashBoard" onClick={toggleSidebar}>DashBoard</Link>
           </li>
           <li className="py-3 px-4 border-b border-gray-200 flex items-center">
             <FaWallet className="mr-3" />
-            <Link to="/Wallet" onClick={toggleSidebar}>Wallet</Link>
+            <Link to="/Homepage/Wallet" onClick={toggleSidebar}>Wallet</Link>
           </li>
           <li className="py-3 px-4 border-b border-gray-200 flex items-center">
             <FaDice className="mr-3" />
-            <Link to="/FCSlots" onClick={toggleSidebar}>FC Slots</Link>
+            <Link to="/Homepage/FCSlots" onClick={toggleSidebar}>FC Slots</Link>
           </li>
           <li className="py-3 px-4 border-b border-gray-200 flex items-center">
             <FaUserFriends className="mr-3" />
-            <Link to="/Refferals" onClick={toggleSidebar}>Referrals</Link>
+            <Link to="/Homepage/Refferals" onClick={toggleSidebar}>Referrals</Link>
           </li>
           <li className="py-3 px-4 border-b border-gray-200 flex items-center">
             <FaComments className="mr-3" />
-            <Link to="/Chat" onClick={toggleSidebar}>Chat</Link>
+            <Link to="/Homepage/Chat" onClick={toggleSidebar}>Chat</Link>
           </li>
           <li className="py-3 px-4 border-b border-gray-200 flex items-center">
             <FaLifeRing className="mr-3" />
-            <Link to="/Support" onClick={toggleSidebar}>Support</Link>
+            <Link to="/Homepage/Support" onClick={toggleSidebar}>Support</Link>
           </li>
           <li className="py-3 px-4 border-b border-gray-200 flex items-center">
             <FaCog className="mr-3" />
-            <Link to="/Settings" onClick={toggleSidebar}>Settings</Link>
+            <Link to="/Homepage/Settings" onClick={toggleSidebar}>Settings</Link>
           </li>
         </ul>
         {/* Invite Section */}

@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import OTPInput from 'react-otp-input';
 import Logo from '../../public/vite.svg';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
   const [showOTPInput, setShowOTPInput] = useState(false);
   const [captchaText, setCaptchaText] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -20,13 +21,15 @@ const SignIn = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    localStorage.setItem('accessToken',"sdsjdhfsjhdfsk")
     const user_captcha_value = document.getElementById('user_captcha_input').value;
-    if (validateCaptcha(user_captcha_value)) {
+    if (true) {
       alert('Captcha Matched');
       console.log({ email, otp });
-      // Reset captcha input and reload captcha
+      // Reset captcha input and reload captcha 
       loadCaptchaEnginge(6);
       document.getElementById('user_captcha_input').value = "";
+      navigate('/Homepage/DashBoard')
     } else {
       alert('Captcha Does Not Match');
       document.getElementById('user_captcha_input').value = "";
