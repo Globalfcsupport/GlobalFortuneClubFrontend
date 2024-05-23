@@ -21,13 +21,13 @@ function App() {
   <Routes>
   {/* <Route path="/" element={localStorage.getItem('accessToken')?<Homepage />:<SignIn />}> */}
   <Route path="/" element={<SignIn />}></Route>
+  <Route path="/Signup" element={<Signup />}></Route>
   <Route path="/Homepage" element={<Homepage/>}>
     <Route path="/Homepage/DashBoard" index element={<DashBoard/>}></Route>
     <Route path="/Homepage/Chat" element={<Chat />}></Route>
     <Route path="/Homepage/FCSlots" element={<FCSlots />}></Route>
     <Route path="/Homepage/Refferals" element={<Refferals />}></Route>
     <Route path="/Homepage/Settings" element={<Settings />}></Route>
-    <Route path="/Homepage/Signup" element={<Signup />}></Route>
     <Route path="/Homepage/Support" element={<Support />}></Route>
     <Route path="/Homepage/TopUp" element={<TopUp />}></Route>
     <Route path="/Homepage/Wallet" element={<Wallet />}></Route>

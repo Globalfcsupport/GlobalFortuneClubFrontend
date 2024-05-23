@@ -1,14 +1,32 @@
 
 import React, { useState, useEffect } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import OTPInput from 'react-otp-input';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
+import axios from 'axios'
+import { Register } from '../services/services';
 
 const Signup = () => {
   const [showOTPInput, setShowOTPInput] = useState(false);
   const [otp, setOtp] = useState('');
   const [captchaText, setCaptchaText] = useState('');
+  const navigate = useNavigate();
+
+  const initialValues = {
+    userName: '',
+    email: '',
+    role: 'user',
+    refId: ''
+  }
+
+  const [ data, setData ] = useState(initialValues);
+
+  const handleChange = (e)=> {
+    setData(prev=> ({
+      ...prev, [e.target.name]: e.target.value
+    }))
+  }
 
   useEffect(() => {
     loadCaptchaEnginge(6); 
@@ -27,11 +45,14 @@ const Signup = () => {
     event.preventDefault();
     const user_captcha_value = document.getElementById('user_captcha_input').value;
     if (validateCaptcha(user_captcha_value)) {
-      alert('Captcha Matched');
-      console.log({ email, otp });
-      // Reset captcha input and reload captcha
-      loadCaptchaEnginge(6);
+      // alert('Captcha Matched');
       document.getElementById('user_captcha_input').value = "";
+      Register(data).then((response)=> {
+        console.log(response);
+        navigate('/Homepage/Dashboard')
+      }).catch((error)=> {
+        console.log(error);
+      })
     } else {
       alert('Captcha Does Not Match');
       document.getElementById('user_captcha_input').value = "";
@@ -60,20 +81,22 @@ const Signup = () => {
         </div>
         <form className="flex flex-col w-full gap-3" onSubmit={handleSubmit}>
           <div className="w-full flex flex-col relative px-7">
-            <label htmlFor="referral">Referral ID</label>
+            <label htmlFor="refId">Referral ID</label>
             <input
               type="text"
-              name="referral"
+              name="refId"
               className="w-full py-3 rounded-md outline-none"
+              onChange={handleChange}
             />
             <button className="absolute bg-blue-800 text-white rounded-md bottom-[0.375rem] right-7 px-6 py-2">Verify</button>
           </div>
           <div className="w-full flex flex-col gap-2 relative px-7">
-            <label htmlFor="name">Enter Your Name</label>
+            <label htmlFor="userName">Enter Your Name</label>
             <input
               type="text"
-              name="name"
+              name="userName"
               className="w-full py-3 rounded-md outline-none"
+              onChange={handleChange}
             />
           </div>
           <div className="w-full flex flex-col gap-2 relative px-7">
@@ -82,6 +105,7 @@ const Signup = () => {
               type="text"
               name="email"
               className="w-full py-3 rounded-md outline-none"
+              onChange={handleChange}
             />
             <button className="absolute bg-blue-800 text-white rounded-md bottom-[0.375rem] right-7 px-3 py-2" onClick={handleGetOTP}>Send OTP</button>
           </div>
