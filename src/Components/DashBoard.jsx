@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FaArrowRight, FaWallet } from 'react-icons/fa';
 import { FiAlertCircle } from "react-icons/fi";
+import { Link } from 'react-router-dom';
 
 const DashBoard = () => {
   const [userData, setUserData] = useState({
@@ -21,52 +22,26 @@ const DashBoard = () => {
   });
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('https://api.example.com/user'); 
-        const data = await response.json();
 
-      
-        setUserData({
-          name: data.name,
-          id: data.id,
-          wallet: data.wallet,
-          reserveWallet: data.reserveWallet,
-        });
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
   }, []);
 
   return (
-    <div className="h-full p-2 ">
+    <div className="h-full p-2 font-poppins">
       <div className="bg-blue-500 p-3 flex justify-between items-center text-white rounded-lg">
         <div>
-          <div className="font-bold">{userData.name}</div>
-          <div>ID: {userData.id}</div>
+          <p className="text-sm font-semibold">User Name: Tamizh</p>
+          <p className='text-sm'>ID: {userData.id}</p>
         </div>
-        <button className="bg-white text-blue-500 px-4 py-2 rounded">Start</button>
+        <button className="bg-white text-blue-500 px-4 py-1 rounded">Start</button>
       </div>
 
-      <div 
-        className="h-full overflow-auto space-y-1 mt-2 "
+      <div className="h-full overflow-auto space-y-1 mt-2 "
         style={{
-          height: 'calc(100vh - 180px)',
+          height: 'calc(97vh - 180px)',
           scrollbarWidth: "none", // For Firefox
           msOverflowStyle: "none" // For Internet Explorer and Edge
         }}
       >
-
-        <style>
-          {`
-            .h-full::-webkit-scrollbar {
-              display: none;
-            }
-          `}
-        </style>
 
         {/* Wallet Section */}
         <div className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
@@ -126,7 +101,6 @@ const DashBoard = () => {
             <FaArrowRight className='text-gray-400' />
           </div>
         </div>
-
         
         <div className='bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm'>
           <div className='flex items-center space-x-2'>
@@ -160,8 +134,7 @@ const DashBoard = () => {
             <FaArrowRight className='text-gray-400' />
           </div>
         </div>
-
-        
+       
         <div className='bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm'>
           <div className='flex items-center space-x-2'>
             <FiAlertCircle />
@@ -172,7 +145,6 @@ const DashBoard = () => {
             <FaArrowRight className='text-gray-400' />
           </div>
         </div>
-
         
         <div className='bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm'>
           <div className='flex items-center space-x-2'>
@@ -184,7 +156,6 @@ const DashBoard = () => {
             <FaArrowRight className='text-gray-400' />
           </div>
         </div>
-
         
         <div className='bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm'>
           <div className='flex items-center space-x-2'>
@@ -196,7 +167,6 @@ const DashBoard = () => {
             <FaArrowRight className='text-gray-400' />
           </div>
         </div>
-
         
         <div className='bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm'>
           <div className='flex items-center space-x-2'>
@@ -208,7 +178,6 @@ const DashBoard = () => {
             <FaArrowRight className='text-gray-400' />
           </div>
         </div>
-
         
         <div className='bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm'>
           <div className='flex items-center space-x-2'>
@@ -220,7 +189,6 @@ const DashBoard = () => {
             <FaArrowRight className='text-gray-400' />
           </div>
         </div>
-
         
         <div className='bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm'>
           <div className='flex items-center space-x-2'>
@@ -232,7 +200,6 @@ const DashBoard = () => {
             <FaArrowRight className='text-gray-400' />
           </div>
         </div>
-
         
         <div className='bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm'>
           <div className='flex items-center space-x-2'>
@@ -244,18 +211,18 @@ const DashBoard = () => {
             <FaArrowRight className='text-gray-400' />
           </div>
         </div>
-
 
       </div>
+
       <div className="fixed bottom-0 left-0 w-full mb-3 p-2 shadow-lg flex justify-around"
           style={{
             width: '350px',
             left: '50%',
             transform: 'translateX(-50%)'
           }}>
-        <button className="bg-blue-500 text-white px-5 py-1 rounded-md">TopUp</button>
-        <button className="bg-blue-500 text-white px-5 py-1 rounded-md">Withdraw</button>
-        <button className="bg-blue-500 text-white px-5 py-1 rounded-md">Transfer</button>
+        <Link to='/app/TopUp' className="bg-blue-500 text-white px-5 py-1 rounded-md">TopUp</Link>
+        <Link to='/app/WithDraw' className="bg-blue-500 text-white px-5 py-1 rounded-md">Withdraw</Link>
+        <Link to='Transfer' className="bg-blue-500 text-white px-5 py-1 rounded-md">Transfer</Link>
       </div>
     </div>
   );

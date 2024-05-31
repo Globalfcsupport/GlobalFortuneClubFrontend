@@ -1,11 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { FaArrowLeft, FaTachometerAlt, FaWallet, FaDice, FaUserFriends, FaComments, FaLifeRing, FaCog, FaShareAlt } from "react-icons/fa";
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
   return (
     <div
-      className={`absolute top-0 left-0 h-[96vh] rounded-l-3xl rounded-r-3xl z-50 bg-gray-200 shadow-lg transform transition-transform duration-300 ${
+      className={`font-poppins absolute top-0 left-0 h-[100vh] rounded-l-3xl rounded-r-3xl z-50 bg-gray-200 shadow-lg transform transition-transform duration-300 ${
         isOpen ? 'translate-x-0' : '-translate-x-full'
       }`}
       style={{ width: '75%' }}
@@ -27,35 +27,35 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           </div>
         </div>
         {/* Sidebar Links */}
-        <ul className=' text-sm'>
-          <li className="py-3 px-4 border-b border-gray-200 flex items-center ">
+        <ul className=' text-sm navs'>         
+          <NavLink to="DashBoard" className='px-4 py-3 flex items-center' onClick={toggleSidebar}>
             <FaTachometerAlt className="mr-3" />
-            <Link to="/Homepage/DashBoard" onClick={toggleSidebar}>DashBoard</Link>
-          </li>
-          <li className="py-3 px-4 border-b border-gray-200 flex items-center">
+            <p>DashBoard</p>
+          </NavLink>                  
+          <NavLink to="Wallet" className='px-4 py-3 flex items-center' onClick={toggleSidebar}>
             <FaWallet className="mr-3" />
-            <Link to="/Homepage/Wallet" onClick={toggleSidebar}>Wallet</Link>
-          </li>
-          <li className="py-3 px-4 border-b border-gray-200 flex items-center">
+            <p>Wallet</p>
+          </NavLink>                  
+          <NavLink to="FCSLots" className='px-4 py-3 flex items-center' onClick={toggleSidebar}>
             <FaDice className="mr-3" />
-            <Link to="/Homepage/FCSlots" onClick={toggleSidebar}>FC Slots</Link>
-          </li>
-          <li className="py-3 px-4 border-b border-gray-200 flex items-center">
+            <p>FC Slots</p>
+          </NavLink>                  
+          <NavLink to="Referrals" className='px-4 py-3 flex items-center' onClick={toggleSidebar}>
             <FaUserFriends className="mr-3" />
-            <Link to="/Homepage/Refferals" onClick={toggleSidebar}>Referrals</Link>
-          </li>
-          <li className="py-3 px-4 border-b border-gray-200 flex items-center">
+            <p>Referrals</p>
+          </NavLink>                  
+          <NavLink to="Chat" className='px-4 py-3 flex items-center' onClick={toggleSidebar}>
             <FaComments className="mr-3" />
-            <Link to="/Homepage/Chat" onClick={toggleSidebar}>Chat</Link>
-          </li>
-          <li className="py-3 px-4 border-b border-gray-200 flex items-center">
+            <p>Chats</p>
+          </NavLink>                  
+          <NavLink to="Support" className='px-4 py-3 flex items-center' onClick={toggleSidebar}>
             <FaLifeRing className="mr-3" />
-            <Link to="/Homepage/Support" onClick={toggleSidebar}>Support</Link>
-          </li>
-          <li className="py-3 px-4 border-b border-gray-200 flex items-center">
+            <p>Support</p>
+          </NavLink>                  
+          <NavLink to="Settings" className='px-4 py-3 flex items-center' onClick={toggleSidebar}>
             <FaCog className="mr-3" />
-            <Link to="/Homepage/Settings" onClick={toggleSidebar}>Settings</Link>
-          </li>
+            <p>Settings</p>
+          </NavLink>                  
         </ul>
         {/* Invite Section */}
         <div className="mt-4 p-2 bg-blue-600 text-white text-center py-3 mx-4 rounded-lg  text-sm">

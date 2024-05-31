@@ -3,83 +3,124 @@ import OTPInput from 'react-otp-input';
 import Logo from '../../public/vite.svg';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { Link, useNavigate } from 'react-router-dom';
+import { Login, sendOTP } from '../services/services';
+import { message, Button } from 'antd';
 
-const SignIn = () => {
-  const [email, setEmail] = useState('');
-  const [otp, setOtp] = useState('');
-  const [showOTPInput, setShowOTPInput] = useState(false);
+
+const FormikSignIn = () => {
+
+  const [ sendOTPLoading, setSendOTPLoading ] = useState(false);
+  const [ submitLoading, setSubmitLoading ] = useState(false);
+
+  const [ data, setData ] = useState({}); 
+  const [ email, setEmail ] = useState('');
   const [captchaText, setCaptchaText] = useState('');
+  const [ showOTPInput, setOTPShowInput ] = useState(false);
+  const [ OTP, setOTP ] = useState('');
+  const [messageApi, contextHolder] = message.useMessage();
   const navigate = useNavigate();
 
   useEffect(() => {
     loadCaptchaEnginge(6);
+    document.getElementById('reload_href').textContent = 'Reload'
   }, []);
 
-  const handleOtpChange = (otp) => {
-    setOtp(otp);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    localStorage.setItem('accessToken',"sdsjdhfsjhdfsk")
-    const user_captcha_value = document.getElementById('user_captcha_input').value;
-    if (true) {
-      alert('Captcha Matched');
-      console.log({ email, otp });
-      // Reset captcha input and reload captcha 
-      loadCaptchaEnginge(6);
-      document.getElementById('user_captcha_input').value = "";
-      navigate('/Homepage/DashBoard')
-    } else {
-      alert('Captcha Does Not Match');
-      document.getElementById('user_captcha_input').value = "";
+  const handleSendOTP = async ()=> {
+    setSendOTPLoading(true);
+    // console.log(email);
+    if(email){
+      setOTPShowInput(false);
+      await sendOTP({email: email}).then((response)=> {
+        setSendOTPLoading(false)
+        setOTPShowInput(true)
+        // console.log(response);
+      }).catch((error)=> {
+        messageApi.warning(error.response.data.message)
+      })
     }
-  };
+    else{
+      setSendOTPLoading(false)
+      // console.log((data.email));
+      messageApi.error('Enter Valid Email ID')
+    }
+  }
 
-  const handleGetOTP = (e) => {
-    e.preventDefault();
-    setShowOTPInput(true);
+   const handleSubmit = (event) => {
+    event.preventDefault();
+    setSubmitLoading(true);
+    const user_captcha_value = document.getElementById('user_captcha_input').value;
+    if (OTP.length == 4) {
+        if(validateCaptcha(user_captcha_value)){
+            Login({
+              email: email,
+              otp: OTP
+          }).then((response)=>{
+                localStorage.setItem('accessToken', response.data.token);
+                localStorage.setItem('refId', response.data.data.refId);
+                navigate('/DashBoard')
+                // setSubmitLoading(false);
+            })
+            .catch((error)=>{
+              // setSubmitLoading(false)
+              message.error(error.response.data.message)
+            }
+            )
+        }
+        else{
+            message.error('Please Enter Valid Captcha')
+        }
+    }
+    else {
+        message.error('Please Enter OTP');
+    }
+    setSubmitLoading(false);
+
   };
 
   return (
-    <div  className="h-full overflow-auto space-y-1 mt-2"
-    style={{
-      height: 'calc(100vh - 90px)',
-      scrollbarWidth: "none", // For Firefox
-      msOverflowStyle: "none" // For Internet Explorer and Edge
-    }}>
-      <div className='flex justify-center items-center flex-col '>
+    <>
+      {contextHolder}
+    
+    <div  className="h-full px-5 gap-5 font-poppins flex flex-col justify-center" 
+      style={{
+        height: 'calc(100vh - 90px)',
+        scrollbarWidth: "none", // For Firefox
+        msOverflowStyle: "none" // For Internet Explorer and Edge
+      }}>
+      <div className='flex justify-center items-center flex-col gap-3'>
         <img src={Logo} className='w-20' alt="Logo" />
-        <h1 className='text-xl font-medium mt-2 text-blue-600'>Login</h1>
-        <h2 className='text-lg font-medium mt-2 text-blue-600'>Welcome Back!</h2>
+        <h1 className='text-xl font-bold text-blue-600'>Login</h1>
+        <h2 className='text-lg font-medium text-blue-600'>Welcome Back!</h2>
       </div>
-      <div className='flex justify-center items-center w-full px-5'>
+      <div className='flex justify-center items-center w-full'>
         <form className="flex flex-col justify-center items-start w-full gap-5" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-2 relative w-full">
-            <label htmlFor='email'>Email</label>
+            <label htmlFor='email' className='text-blue-800'>Email</label>
             <input
+              required
               type="email"
               name="email"
               placeholder='Enter Your Email'
-              className='w-full py-3 rounded-md pl-2 pr-32 outline-none text-sm'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              className='w-full py-3 rounded-md pl-4 pr-32 outline-none text-sm'
+              onChange={(e)=> setEmail(e.target.value)}
             />
-            <button
+            <Button
+              loading={sendOTPLoading}
               className='absolute bg-blue-700 text-white px-5 py-1 rounded-md bottom-[0.375rem] right-1'
-              onClick={handleGetOTP}
+              onClick={handleSendOTP}
             >
-              Send OTP
-            </button>
+              {sendOTPLoading ? 'Sending' : 'Send OTP'}
+            </Button>
           </div>
           {showOTPInput && (
             <div className='flex justify-center w-full'>
               <OTPInput
-                value={otp}
-                onChange={handleOtpChange}
+                name='OTP'
+                value={OTP}
+                onChange={(e)=>setOTP(e)}
                 numInputs={4}
                 renderInput={(props) => <input {...props} />}
-                isInputNum
+                inputType='number'
                 shouldAutoFocus
                 inputStyle={{
                   width: '3rem',
@@ -92,37 +133,39 @@ const SignIn = () => {
                   outline: 'none',
                   fontFamily: 'poppins'
                 }}
-              />
+              />                                                                                                                                                                                                                                                                                                                        
             </div>
           )}
-          <div className='flex flex-col justify-center items-center w-full'>
+          <div className='flex flex-row gap-2 justify-center items-start w-full'>
             <LoadCanvasTemplate />
             <input
-              type="text"
+            //   type="text"
               id="user_captcha_input"
               name="user_captcha_input"
-              placeholder='Enter Captcha Value'
-              className='w-full py-3 rounded-md pl-2 pr-4 outline-none text-sm mt-2'
-              value={captchaText}
-              onChange={(e) => setCaptchaText(e.target.value)}
+              placeholder='Enter Captcha'
+              className='py-2 w-full rounded-md pl-2 outline-none text-xs'
+              onChange={(e) =>setCaptchaText(e.target.value)}
             />
           </div>
+
           <div className='flex w-full justify-center items-center mt-5'>
-            <button
+            <Button
+              loading={submitLoading}
               className="bg-blue-700 w-fit mx-auto text-white px-5 py-1 rounded-md"
-              type="submit"
+              onClick={handleSubmit}
             >
               Submit
-            </button>
+            </Button>
           </div>
           <div className='flex text-sm items-center justify-center w-full'>
-            <p className='text-blue-500'>Don't you have an account?</p>
-            <Link to={`/Signup`} className='text-blue-800'>Sign Up</Link>
+            <p className='text-blue-500'>Don't you have an account ? <Link to={`/Signup`} className='text-blue-800'>Sign Up</Link></p>
+            
           </div>
         </form>
       </div>
     </div>
+    </>
   );
 };
 
-export default SignIn;
+export default FormikSignIn;

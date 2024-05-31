@@ -5,6 +5,9 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      screens: {
+        xs:'500px'
+      },
       colors: {
         primary: "#526FB0",
         bg_primary: "#5270b02d",
@@ -12,7 +15,10 @@ export default {
       fontFamily: {
         poppins: ['"Poppins"', ...defaultTheme.fontFamily.sans],
       },
+      
     },
   },
-  plugins: [],
+  plugins: [
+    // require('daisyui')
+  ],
 };

@@ -15,7 +15,7 @@ const Homepage = () => {
   };
 
   return (
-    <div className="relative h-[100vh] w-full overflow-hidden  rounded-tl-3xl rounded-tr-3xl">
+    <div className="relative h-[100vh] w-full overflow-hidden flex flex-col sm:rounded-tl-3xl sm:rounded-tr-3xl">
       <NavBar toggleSidebar={toggleSidebar} />
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       <div className={`${isSidebarOpen ? 'ml-3/4' : ''} transition-all duration-300`}>

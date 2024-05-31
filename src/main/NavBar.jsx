@@ -8,7 +8,7 @@ const NavBar = () => {
 
   const location = useLocation();
   const currentPage = location.pathname.split('/')
-  console.log(currentPage);
+  // console.log(currentPage);
 
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 

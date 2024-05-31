@@ -20,8 +20,8 @@ const FCSlots = () => {
   };
 
   return (
-    <div className='w-full h-full font-poppins  text-sm'>
-      <div className='bg-blue-800 pt-3 w-full'>
+    <div className='w-full h-full font-poppins  text-sm '>
+      <div className='bg-blue-800 pt-3 w-full xs:rounded-tr-3xl xs:rounded-tl-3xl'>
       <div className='flex relative justify-between px-6 items-center w-full'>
         {/* <div> */}
           <button onClick={() => handleTabClick('active')}
