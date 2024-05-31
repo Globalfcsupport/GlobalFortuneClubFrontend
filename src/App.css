@@ -1,10 +1,3 @@
-#span{
-  transition: 0.20s all ease-in-out;
-}
-.wr .active{
-  background-color: #5270b02d;
-}
-
 #pendingS{
   animation: pending 0.4s linear;
   transition: 0.4s all;
@@ -17,7 +10,7 @@
 
 @keyframes pending {
   0%{
-      transform: translateX(-100%);
+      transform: translateX(-50%);
   }
   100%{
       transform: translateX(0%);
@@ -25,12 +18,44 @@
 }
 @keyframes completed {
   0%{
-      transform: translateX(100%);
+      transform: translateX(50%);
   }
   100%{
       transform: translateX(0%);
   }
 }
+
+/* .move-right{
+  animation: moveright 1s linear;
+}
+
+@keyframes moveright {
+  0%{
+    width: 50%;
+  }
+  10%{
+    width: 100%;
+  }
+  100%{
+    width: 50%;
+  }
+}
+.move-left{
+  animation: moveleft 1s linear;
+}
+
+@keyframes moveleft {
+  0%{
+    width: 50%;
+  }
+  40%{
+    width: 200%;
+  }
+  100%{
+    width: 50%;
+  }
+} */
+
 table{
   border-radius: 10px;
   overflow: hidden;
@@ -38,14 +63,13 @@ table{
   width: 100%;
 }
 thead{
-  /* display: flex;
-  justify-content: space-around; */
   padding-left: 20px;
 }
 td{
   padding-left: 60px;
-  /* display: flex;
-  justify-content: space-around; */
-  /* padding-left: 100px; */
-  /* padding-right: 100px; */
+}
+
+.active{
+  color: black;
+  background-color: #5270b02d;
 }

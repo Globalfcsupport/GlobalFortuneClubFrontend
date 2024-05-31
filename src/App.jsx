@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Router, useNavigate } from "react-router-dom";
 import Routers from "./routers";
-import { DataProvider } from "./context/HomeContext";
+// import { DataProvider } from "./context/HomeContext";
 import "./App.css";
 import LoginPage from './main/LoginPage'
 import UserList from './Component/UserList'
@@ -19,15 +19,11 @@ const App = () => {
   };
 
   useEffect(() => {
-    AuthGuard();
+      // AuthGuard();
   }, []);
 
   return (
-    <DataProvider>
-      <div>
-        <Routers />
-      </div>
-    </DataProvider>
+    <Routers />
   );
 };
 

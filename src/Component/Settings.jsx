@@ -98,7 +98,7 @@ const Settings = () => {
       </div>
 
       <div className='h-screen w-full bg-bg_primary p-5 rounded-xl'>
-        <div className="border border-gray-200 bg-white grid grid-cols-2 gap-2 p-6 w-fit relative rounded-md">
+        <div className="border border-gray-200 bg-white grid grid-cols-2 gap-2 p-6 w-fit rounded-md">
           {/* <div className=""> */}
 
             <label htmlFor="platformFee">Platform Fee:</label>

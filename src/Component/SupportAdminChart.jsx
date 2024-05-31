@@ -1,7 +1,7 @@
 const SupportAdminChart = () => {
   return (
-    <div>
-      
+    <div className="h-full">
+      Support Chat
     </div>
   )
 }

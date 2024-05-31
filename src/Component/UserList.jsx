@@ -2,26 +2,25 @@ import { Pagination } from "antd"
 import { useEffect, useState } from "react";
 import { FaUser } from "react-icons/fa";
 
-const page_size= 10;
-
 const UserList = () => {
 
     const [ page, setPage ] = useState(0);
     const [ searchText, setSearchText ] = useState("");
+    const [ pageSize, setPageSize ] = useState(10);
     
     useEffect(()=> {
         if(!searchText){
-            const res = sdata.splice((page-1)*page_size, page_size);
+            const res = sdata.splice((page-1)*pageSize, pageSize);
             setData(res);
         }
         else{
             const filteredData = sdata.filter((item)=> (
                 item.name.toLowerCase().includes(searchText.toLowerCase())
             ));
-            const res = filteredData.splice((page-1)*page_size, page_size);
+            const res = filteredData.splice((page-1)*pageSize, pageSize);
             setData(res)
         }
-    }, [page, searchText])
+    }, [page, searchText, pageSize])
     
     const sdata = [
         {
@@ -166,7 +165,7 @@ const UserList = () => {
         },
     ]
 
-    const [ data, setData] = useState(sdata);
+    const [ data, setData] = useState(sdata.slice(0,10));
 
     const handleSearch = (e)=> {
         setPage(1);
@@ -174,41 +173,45 @@ const UserList = () => {
     }
 
     return (
-        <div className="flex flex-col w-full h-screen font-poppins">
+        <div className="flex flex-col w-full font-poppins">
             <div className="h-16 bg-white flex justify-between px-10 items-center">
               <div className="flex items-center gap-3">
                 <FaUser className="text-blue-700"/>
-                <h1 className="text-2xl font-semibold text-blue-700">UserList</h1>
+                <h1 className="text-xl font-semibold text-blue-700">UserList</h1>
               </div>
               <input type="text" placeholder="Search Name" className="bg-blue-100 rounded-md outline-none px-4 py-1" id="searchText" onChange={handleSearch}/>
             </div>  
 
-            <div className="p-10 bg-bg_primary flex flex-col gap-5 h-full rounded-tr-xl rounded-tl-xl">
+            <div className="p-10 bg-bg_primary flex h-full flex-col gap-5 rounded-tr-xl rounded-tl-xl">
                 <table cellPadding={10} cellSpacing={50} >  
-                    <thead className="font-semibold bg-blue-200">          
+                    <thead className="font-semibold bg-blue-200"> 
+                      <tr>
                         <td>ID</td>
                         <td>Name</td>
                         <td>MW Balance</td>
                         <td>Total Yield</td>
                         <td>Status</td>
+                      </tr>         
                     </thead>
                     <tbody className="bg-white">
                       {
                         data.map((item)=> (
-                            <tr key={item.id}>
-                                <td>{item.id}</td>
-                                <td>{item.name}</td>
-                                <td>{item.mwbalance}</td>
-                                <td>{item.totalYield}</td>
-                                <td className={`${item.status ? 'text-green-500' : 'text-red-500'}`}>{item.status ? "true" : "false"}</td>
-                            </tr>
+                          <tr key={item.id}>
+                              <td>{item.id}</td>
+                              <td>{item.name}</td>
+                              <td>{item.mwbalance}</td>
+                              <td>{item.totalYield}</td>
+                              <td className={`${item.status ? 'text-green-500' : 'text-red-500'}`}>{item.status ? "true" : "false"}</td>
+                          </tr>
                         ))
                       }
                     </tbody>
                 </table>
                 <Pagination className="flex justify-end"
                     total={sdata.length}
-                    pageSize={page_size}
+                    pageSize={pageSize}
+                    showSizeChanger
+                    onShowSizeChange={(current, value)=>setPageSize(value)}
                     current={page}
                     showQuickJumper={true}
                     onChange={(page)=>setPage(page)}

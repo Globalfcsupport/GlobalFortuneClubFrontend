@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { NavLink,useLocation, useNavigate } from "react-router-dom";
 import logo from "../assets/Images/logo.png";
-import { useDataContext } from "../context/HomeContext";
+import { IoIosClose } from "react-icons/io";
 import {
   FaHome,
   FaUser,
@@ -12,14 +12,16 @@ import {
   FaCog,
   FaSignOutAlt,
   FaAngleDoubleLeft,
-  FaAngleDoubleRight
+  FaAngleDoubleRight,
+  FaXRay
 } from "react-icons/fa";
 import { Button } from "antd";
 
 
 const SideBar = () => {
   const navigate = useNavigate();
-  const {isCollapsed, setIsCollapsed} = useDataContext();
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [ show, setShow ] = useState(true);
   const location = useLocation()
 
   const admin = [
@@ -49,7 +51,7 @@ const SideBar = () => {
       path: "/transaction",
     },
     {
-      title: "Support(Admin Chat)",
+      title: "Support (Admin Chat)",
       icon: <FaHeadset />,
       path: "/support",
     },
@@ -65,56 +67,58 @@ const SideBar = () => {
     navigate("/");
   };
 
-  const roleList = {
-    admin: admin,
-  };
-
   const toggleCollapse = () => {
-    setIsCollapsed(!isCollapsed);
+    if(window.innerWidth>=1024){
+      setIsCollapsed(!isCollapsed);
+    }
+    else{
+      setIsCollapsed(true)
+    }
   };
 
-  const role = 'admin';
 
   return (
-    <div className={` h-full overflow-hidden ${isCollapsed ? 'w-14' : 'w-full'}`}>
-      <div className="grid flex-col place-items-center  pt-2">
-        <div className="w-13">
-          <img
-            src={logo}
-            alt="Logo"
-            className={`w-10 h-full cursor-pointer  `}
-          />
-        </div>
-        <h1 className="text-xl text-center font-bold mt-[6px] text-blue-600">
-          {isCollapsed?<abbr className="no-underline" title="Global Fortune Club">GFC</abbr>:"Global Fortune Club"}
-        </h1>
+    <>
+    
+    {
+      <div className="absolute md:hidden h-screen w-14 bg-blue-600 -top-10 flex flex-col gap-10 items-center justify-center p-5">
+        {admin.map((menu, id) => (
+          <NavLink key={id} to={menu.path} className="navs text-sm w-full text-gray-400"> {menu.icon}</NavLink>
+        ))}
+        <Button className="text-gray-700 font-semibold text-xs h-6 px-1 p-0" onClick={handleLogout}>Logout</Button>
       </div>
-      <div className="h-[80%] w-full grid overflow-hidden">
-        <div className={`w-full mr-6 grid place-items-center grid-cols-1 mt-2  text-black h-full ${isCollapsed ? 'w-16' : 'w-full'}`}>
-          {roleList &&
-            roleList[role]?.map((menu, id) => (
-              <div key={id} className="w-[100%]">
-                <NavLink
-                  to={menu.path}
-                  // activeClassName={(location.pathname === menu.path) ? 'bg-bg text-blue-900' :''}
-                  className={`flex items-center ${isCollapsed ? 'justify-center':"justify-left pl-2"} gap-3 py-2 w-full ${location.pathname=== menu.path?'text-gray-700 bg-bg_primary': 'text-gray-400 bg-whi'}`}
-
-                >
-                  <span className="ml-4">{menu.icon}</span>
-                  <span className={`font-semibold ${isCollapsed ? 'hidden' : 'hidden md:inline'}`}>{menu.title}</span>
-                  <div className={`absolute left-0 h-7 w-1 ml-2 border rounded-full bg-blue-500 ${menu.path===location.pathname + location.search ? 'block':'hidden'}`}></div>
-                </NavLink>
-              </div>
-            ))}
-            <Button className="text-gray-700 font-semibold" onClick={handleLogout}>LogOut</Button>
-            <abbr title="Mode Of View">
-            <div className="flex justify-center text-gray-400 items-center mt-2 cursor-pointer" onClick={toggleCollapse}>
-              {isCollapsed ? <FaAngleDoubleRight /> : <FaAngleDoubleLeft />}
-            </div>
-            </abbr>
+    }
+    <div className="font-poppins w-fit md:block hidden bg-white">
+      <div className="flex flex-col gap-5 justify-center items-center py-2">     
+        <img
+          src={logo}
+          alt="Logo"
+          className={`w-14 h-20 cursor-pointer p-2`}
+        />
+        <h1 className="text-base text-center lg:block hidden font-bold text-blue-600">{!isCollapsed?'Global Fortune Club' : ''}</h1>
+      </div>
+      <div className={`${isCollapsed?'w-14': 'w-full'} lg:w-full w-14 flex flex-col gap-5 justify-between  py-5`}>
+        {admin.map((menu, id) => (
+          <div key={id} className="w-full transition-all duration-150 navs">
+            <NavLink
+              to={menu.path}
+              className={`flex items-center gap-3 lg:${isCollapsed?'pl-0': 'pl-6'} pl-6 p-2 text-sm w-full text-gray-400`}
+            >
+              <span>{menu.icon}</span>
+              <span className={`font-semibold lg:${isCollapsed?'hidden': 'block'} hidden`}>{menu.title}</span>
+              <div className={`absolute left-0 h-7 w-1 ml-2 border rounded-full bg-blue-500 ${menu.path===location.pathname + location.search ? 'block':'hidden'}`}></div>
+            </NavLink>
+          </div>
+        ))}
+        <div className="p-1 flex justify-center items-center">
+          <Button className="text-gray-700 font-semibold px-5" onClick={handleLogout}></Button>
+        </div>
+        <div className="flex justify-center text-gray-400 items-center mt-2 cursor-pointer " onClick={toggleCollapse}>
+          <FaAngleDoubleRight className={`transition-all duration-500 ${isCollapsed?'rotate-0': 'rotate-180'}`}/>
         </div>
       </div>
     </div>
+    </>
   );
 };
 

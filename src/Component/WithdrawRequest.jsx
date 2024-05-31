@@ -1,22 +1,10 @@
-// import React from 'react'
-
 import { useState } from "react"
 import { FaMoneyBillAlt } from "react-icons/fa"
 
 const WithdrawRequest = () => {
 
-    const handleClick = ()=> {
-        setActive('pending')
-        document.getElementById('pending').classList.add('active')
-        document.getElementById('completed').classList.remove('active')
-    }
-    const handleClick2 = ()=> {
-        setActive('completed')
-        // document.getElementById("span").style.left = '50%';
-        document.getElementById('completed').classList.add('active')
-        document.getElementById('pending').classList.remove('active')
-        // document.getElementById('pendingS').style.transform = 'translateX(-100%)'
-        // document.getElementById('completedS').style.transform = 'translateX(100%)'
+    const handleClick = (status)=> {
+        setActive(status);
     }
 
     const value = 100
@@ -31,13 +19,15 @@ const WithdrawRequest = () => {
                 <h1 className="text-xl font-semibold text-blue-700">WithDraw Request</h1>
               </div>
             </div>
-            <div className="h-full flex flex-col">
+            <div className="h-full flex flex-col overflow-hidden">
                 <div className='w-full flex text-center relative wr'>
                     <div className="flex w-full">
-                        <p className="w-1/2 cursor-pointer p-3 rounded-tr-lg rounded-tl-lg active" onClick={handleClick} id="pending">Pending</p>
-                        <p className='w-1/2 cursor-pointer p-3 rounded-tr-lg rounded-tl-lg ' onClick={handleClick2} id="completed">Completed</p>
+                        <p className={`w-1/2 cursor-pointer p-3 rounded-tr-lg rounded-tl-lg `} onClick={()=>handleClick('pending')}>Pending</p>
+                        <p className={`w-1/2 cursor-pointer p-3 rounded-tr-lg rounded-tl-lg `} onClick={()=>handleClick('completed')}>Completed</p>
                     </div>
-                    {/* <span className="absolute inline-block top-[100%] bg-blue-700 w-1/2 h-1" id="span"></span> */}
+                    {/* <span className="h-full absolute w-1/2 bg-black"></span> */}
+                    <span className={`${active==='pending' ? 'left-0': 'left-[50%]'} absolute -z-10 inline-block transition-all duration-300 top-0 bg-bg_primary w-1/2 h-full rounded-tr-lg rounded-tl-lg`} id="span"></span>
+                    <span className={`${active==='pending' ? 'left-0': 'left-[50%]'} absolute -z-10 inline-block transition-all duration-300 top-[100%] bg-blue-700 w-1/2 h-1`} id="span"></span>
                 </div>
                 <div className="p-5 bg-bg_primary h-full">
                     { active === 'pending' ?
