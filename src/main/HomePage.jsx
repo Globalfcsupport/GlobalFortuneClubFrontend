@@ -8,11 +8,11 @@ const HomePage = () => {
   
   return (
     <>
-      <section className="w-full h-full flex relative">
-        <div className="h-fit sticky top-10">
+      <section className="w-full h-full flex relative bg-white">
+        <div className="h-screen sticky top-0">
           <SideBar />
         </div>
-        <div className="flex-1 w-full h-full">
+        <div className="flex-1 w-full ">
           <Outlet />
         </div>
       </section>

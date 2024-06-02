@@ -204,8 +204,8 @@ const FCSlotLog = () => {
                     <p className={`w-1/2 cursor-pointer p-3 rounded-tr-lg rounded-tl-lg`} onClick={()=>handleClick('pending')}>Active</p>
                     <p className={`w-1/2 cursor-pointer p-3 rounded-tr-lg rounded-tl-lg`} onClick={()=>handleClick('completed')}>Completed</p>
                 </div>
-                <span className={`${active==='pending' ? 'left-0': 'left-[50%]'} absolute -z-10 inline-block transition-all duration-300 top-0 bg-bg_primary w-1/2 h-full rounded-tr-lg rounded-tl-lg -z-10`} id="spanBG"></span>
-                <span className={`${active==='pending' ? 'left-0': 'left-[50%]'} absolute -z-10 inline-block transition-all duration-300 top-[100%] bg-blue-700 w-1/2 h-1`} id="spanUnderline"></span>
+                <span className={`${active==='pending' ? 'left-0': 'left-[50%]'} absolute inline-block transition-all duration-300 top-0 bg-bg_primary w-1/2 h-full rounded-tr-lg rounded-tl-lg`} id="spanBG"></span>
+                <span className={`${active==='pending' ? 'left-0': 'left-[50%]'} absolute inline-block transition-all duration-300 top-[100%] bg-blue-700 w-1/2 h-[0.125rem]`} id="spanUnderline"></span>
               </div>
               <div className="bg-bg_primary h-full p-5 ">
                 {active==='pending' ?

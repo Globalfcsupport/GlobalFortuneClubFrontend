@@ -15,33 +15,11 @@ const Settings = () => {
     confirmPassword: ''
   });
 
-  const initialValues = {
-    platformFee: 10,
-    withdrawFee: 8,
-    internalTransactionFee: 6,
-    minimumCryptoTransaction: 12,
-    minimumInternalTransaction:4,
-    spacer: 3,
-    withdrawInternal: 9,
-    minimumWithdrae: 15,
-    allowNewSignUp: true,
-    allowNewSlots: true,
-    maintenanceMode: false,
-    referralComission: 10,
-    confirmPassword:"",
-    newPassword:"",
-    currentPassword:""
-  }
-
   const [ data, setData] = useState(initialValues)
 
   const handleEdit = ()=>{
     setReadonly(!readOnly);
-    if (readOnly) {
-      message.warning('Please enable editing to make changes.');
-    }
   }
-
 
   const togglePasswordForm = () => {
     setShowPasswordForm(!showPasswordForm);
@@ -64,25 +42,6 @@ const Settings = () => {
     console.log('ada')
   }
 
-
-    // if (passwords.newPassword === passwords.confirmPassword) {
-    //   // Send Axios POST request
-    //   axios.post('http://localhost:8000/setting', {
-    //     newPassword: passwords.newPassword,
-    //     confirmPassword: passwords.confirmPassword,
-    //   })
-    //   .then(response => {
-    //     console.log('Password changed successfully:', response.data);
-    //   })
-    //   .catch(error => {
-    //     console.error('Error changing password:', error);
-    //   });
-    //   setShowPasswordForm(false);
-    // } else {
-    //   console.log("New password and confirm password do not match.");
-    // }
-
-
   return (
     <div className="w-full h-full ">
 
@@ -97,7 +56,7 @@ const Settings = () => {
         }
       </div>
 
-      <div className='h-screen w-full bg-bg_primary p-5 rounded-xl'>
+      <div className='h-screen w-full bg-bg_primary p-5 rounded-xl' onClick={handleClick}>
         <div className="border border-gray-200 bg-white grid grid-cols-2 gap-2 p-6 w-fit rounded-md">
           {/* <div className=""> */}
 

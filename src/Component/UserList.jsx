@@ -173,16 +173,16 @@ const UserList = () => {
     }
 
     return (
-        <div className="flex flex-col w-full font-poppins">
-            <div className="h-16 bg-white flex justify-between px-10 items-center">
+        <div className="flex flex-col justify-between h-full font-poppins">
+            <div className="h-12 md:h-16 bg-white flex justify-between px-5 md:px-10 items-center">
               <div className="flex items-center gap-3">
-                <FaUser className="text-blue-700"/>
-                <h1 className="text-xl font-semibold text-blue-700">UserList</h1>
+                <FaUser className="md:text-xl text-blue-700"/>
+                <h1 className="md:text-xl font-semibold text-blue-700">UserList</h1>
               </div>
-              <input type="text" placeholder="Search Name" className="bg-blue-100 rounded-md outline-none px-4 py-1" id="searchText" onChange={handleSearch}/>
+              <input type="text" placeholder="Search Name" className="bg-blue-100 rounded-md outline-none text-xs px-2 md:px-4 py-1s md:py-2" id="searchText" onChange={handleSearch}/>
             </div>  
 
-            <div className="p-10 bg-bg_primary flex h-full flex-col gap-5 rounded-tr-xl rounded-tl-xl">
+            <div className="p-5 md:p-10 bg-bg_primary flex md:text-base text-xs h-full flex-col gap-5 rounded-tr-xl rounded-tl-xl">
                 <table cellPadding={10} cellSpacing={50} >  
                     <thead className="font-semibold bg-blue-200"> 
                       <tr>

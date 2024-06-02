@@ -7,7 +7,16 @@ const WithdrawRequest = () => {
         setActive(status);
     }
 
-    const value = 100
+    const pendingRequest = [
+        {
+            amount: 121,
+            request_raised_on: '12/12/12',
+            USDT_Address: 'adaddasd',
+            status: false
+        }
+    ]
+
+    const value = 100;
 
     const [ active, setActive ] = useState('pending');
     
@@ -26,8 +35,8 @@ const WithdrawRequest = () => {
                         <p className={`w-1/2 cursor-pointer p-3 rounded-tr-lg rounded-tl-lg `} onClick={()=>handleClick('completed')}>Completed</p>
                     </div>
                     {/* <span className="h-full absolute w-1/2 bg-black"></span> */}
-                    <span className={`${active==='pending' ? 'left-0': 'left-[50%]'} absolute -z-10 inline-block transition-all duration-300 top-0 bg-bg_primary w-1/2 h-full rounded-tr-lg rounded-tl-lg`} id="span"></span>
-                    <span className={`${active==='pending' ? 'left-0': 'left-[50%]'} absolute -z-10 inline-block transition-all duration-300 top-[100%] bg-blue-700 w-1/2 h-1`} id="span"></span>
+                    <span className={`${active==='pending' ? 'left-0': 'left-[50%]'} absolute inline-block transition-all duration-300 top-0 bg-bg_primary w-1/2 h-full rounded-tr-lg rounded-tl-lg`} id="span"></span>
+                    <span className={`${active==='pending' ? 'left-0': 'left-[50%]'} absolute inline-block transition-all duration-300 top-[100%] bg-blue-700 w-1/2 h-[0.125rem]`} id="span"></span>
                 </div>
                 <div className="p-5 bg-bg_primary h-full">
                     { active === 'pending' ?

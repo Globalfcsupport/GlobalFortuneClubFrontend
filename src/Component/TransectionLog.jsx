@@ -198,8 +198,8 @@ const FCSlotLog = () => {
                     <p className='w-1/3 cursor-pointer p-3 rounded-tr-lg rounded-tl-lg' onClick={()=>handleClick('internal')} id="internal">Internal</p>
                 </div>
                 {/* <span className={`${active==='all' ? 'left-0': 'left-[50%]'} absolute inline-block top-0 bg-bg_primary w-1/2 h-full rounded-tr-lg rounded-tl-lg -z-10`} id="span"></span> */}
-                <span className={`${active==='all'? 'left-0': active==='crypto' ? 'left-[33%]' : 'left-[66%]'} absolute -z-10 inline-block top-0 bg-bg_primary w-1/3 h-full rounded-tr-lg rounded-tl-lg -z-10`} id="span"></span>
-                <span className={`${active==='all'? 'left-0': active==='crypto' ? 'left-[33%]' : 'left-[66%]'} absolute -z-10 inline-block top-[100%] bg-blue-700 w-1/3 h-1`} id="span"></span>
+                <span className={`${active==='all'? 'left-0': active==='crypto' ? 'left-[33%]' : 'left-[66%]'} absolute inline-block transition-all duration-300 top-0 bg-bg_primary w-1/3 h-full rounded-tr-lg rounded-tl-lg`} id="span"></span>
+                <span className={`${active==='all'? 'left-0': active==='crypto' ? 'left-[33%]' : 'left-[66%]'} absolute inline-block transition-all duration-300 top-[100%] bg-blue-700 w-1/3 h-[0.125rem]`} id="span"></span>
               </div>
               <div className="bg-bg_primary h-full">
                 { active==='all' ?

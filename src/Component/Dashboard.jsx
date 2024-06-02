@@ -1,9 +1,13 @@
 // import { useState } from "react";
 import { useState } from "react";
 import { FaBars, FaHome } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import admin from "../utils/adminSideBar";
+import { Button } from "antd";
 
 const UserList = () => {
+
+  const navigate = useNavigate();
 
     const sdata = [
         {
@@ -84,27 +88,35 @@ const UserList = () => {
 
     const handleClick = ()=> {
       setShowSideBar(!showSideBar)
+      // console.log(showSideBar);
+    }
+
+    const handleLogout = ()=> {
+      localStorage.removeItem('userAuthToken');
+      navigate('/');
     }
 
     return (
-        <div className="flex flex-col w-full h-screen font-poppins">
-            <div className="h-16 bg-white flex justify-between px-10 items-center">
+        <div className="flex flex-col w-full h-screen font-poppins relative">
+          {showSideBar &&
+            <div className="absolute h-screen w-44 right-0 top-0 bg-blue-600 flex-col gap-10 items-center justify-center p-5">
+              {admin.map((menu, id) => (
+                <NavLink key={id} to={menu.path} className="navs text-sm w-full text-gray-400"> {menu.icon}</NavLink>
+              ))}
+              <Button className="text-gray-700 font-semibold text-xs h-6 px-1 p-0" onClick={handleLogout}>Logout</Button>
+            </div>
+          }
+            <div className="h-12 md:h-16 bg-white flex justify-between px-5 md:px-10 items-center">
               <div className="flex items-center gap-3">
                 <FaHome className="text-blue-700"/>
-                <h1 className="text-2xl font-semibold text-blue-700">Dashboard</h1>
+                <h1 className="md:text-2xl font-semibold text-blue-700">Dashboard</h1>
               </div>
-              <div>
-                <FaBars className="md:hidden text-blue-500" onClick={handleClick}/>
+              <div onClick={handleClick}>
+                <FaBars className="md:hidden text-blue-500"/>
               </div>
             </div>
-            {showSideBar &&
-              <div className="absolute h-screen w-60 bg- right-0">
-                <NavLink to='/Da' />
-              </div>
 
-            }
-
-            <div className="p-10 bg-bg_primary flex flex-col gap-5 h-full rounded-tr-xl rounded-tl-xl">
+            <div className="p-5 md:p-10 bg-bg_primary flex flex-col gap-5 md:text-base text-xs h-full rounded-tr-xl rounded-tl-xl">
                 <table cellPadding={10} cellSpacing={50} >  
                     <thead className="font-semibold bg-blue-200"> 
                       <tr>
