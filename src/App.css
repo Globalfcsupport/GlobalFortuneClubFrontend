@@ -42,10 +42,6 @@ td{
   background-color: #5270b02d;
 }
 
-body{
-  /* background-color: #5270b02d; */
-}
-
 @media (max-width: 768px) {
   td{
     padding-left: 30px;
