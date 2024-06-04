@@ -83,10 +83,6 @@
           },
     ]
 
-    const handleClick = ()=> {
-      console.log('aad');
-    }
-
       return (
         <div className="flex flex-col w-full h-screen font-poppins">
             <div className="h-12 md:h-16 bg-white flex justify-between px-5 md:px-10 items-center">
@@ -94,13 +90,14 @@
                 <FaHome className="text-blue-700"/>
                 <h1 className="md:text-2xl font-semibold text-blue-700">Dashboard</h1>
               </div>
-              <div onClick={toggleSideBar} id="bars">
-                <FaBars className="md:hidden text-blue-500"/>
+              <div className="md:hidden text-blue-500" onClick={toggleSideBar} id="bars">
+                <FaBars/>
               </div>
             </div>
 
             <div className="p-5 md:p-10 bg-bg_primary flex flex-col gap-5 md:text-base text-xs h-full rounded-tr-xl rounded-tl-xl">
-                <table cellPadding={10} cellSpacing={50} >  
+              <div className="rounded-md overflow-hidden">
+                <table cellPadding={10} cellSpacing={50}>  
                     <thead className="font-semibold bg-blue-200"> 
                       <tr>
                         <td>Title</td>
@@ -121,6 +118,7 @@
                       }
                     </tbody>
                 </table>
+              </div>
             </div>
         </div>
     )

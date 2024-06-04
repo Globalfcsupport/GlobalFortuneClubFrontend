@@ -1,6 +1,7 @@
 import { Pagination } from "antd"
 import { useEffect, useState } from "react";
-import { FaHistory, FaUser } from "react-icons/fa";
+import { FaBars, FaHistory, FaUser } from "react-icons/fa";
+import { useSideBar } from "../context/SideBarContext";
 
 const FCSlotLog = () => {
 
@@ -8,6 +9,7 @@ const FCSlotLog = () => {
     const [ searchText, setSearchText ] = useState("");
     const [ active, setActive ] = useState('all');
     const [ pageSize, setPageSize ] = useState(10);
+    const { toggleSideBar } = useSideBar();
     
     const handleClick = (status)=> {
       setActive(status)
@@ -182,15 +184,18 @@ const FCSlotLog = () => {
 
     return (
         <div className="flex flex-col w-full h-screen font-poppins">
-            <div className="h-16 bg-white flex justify-between px-10 items-center">
+            <div className="h-16 bg-white flex justify-between px-5 md:px-10 items-center">
               <div className="flex items-center gap-3">
                 <FaHistory className="text-blue-700"/>
-                <h1 className="text-xl font-semibold text-blue-700">Transaction Log</h1>
+                <h1 className="md:text-xl font-semibold text-blue-700">Transaction Log</h1>
               </div>
-              <input type="text" placeholder="Search Name" className="bg-blue-100 rounded-md outline-none px-4 py-1" id="searchText" onChange={handleSearch}/>
+              <input type="text" placeholder="Search Name" className="bg-blue-100 rounded-md outline-none text-xs px-2 md:px-4 py-1 md:py-2" id="searchText" onChange={handleSearch}/>
+              <div className="md:hidden text-blue-500" onClick={toggleSideBar} id="bars">
+                <FaBars/>
+              </div>
             </div>  
 
-            <div className="flex flex-col h-full rounded-tr-xl rounded-tl-xl">
+            <div className="flex flex-col h-full text-sm md:text-base rounded-tr-xl rounded-tl-xl">
               <div className='w-full flex text-center relative wr'>
                 <div className="flex w-full relative">
                     <p className="w-1/3 cursor-pointer p-3 rounded-tr-lg rounded-tl-lg" onClick={()=>handleClick('all')} id="all">All</p>
@@ -204,30 +209,32 @@ const FCSlotLog = () => {
               <div className="bg-bg_primary h-full">
                 { active==='all' ?
                   <div className="p-5 flex flex-col gap-5" id="allS">
-                    <table cellPadding={10} cellSpacing={50}>  
-                        <thead className="font-semibold bg-blue-200">  
-                          <tr>
-                            <td>S. No</td>
-                            <td>Date</td>
-                            <td>User ID</td>
-                            <td>Description</td>
-                            <td>Amount</td>
-                          </tr>        
-                        </thead>
-                        <tbody className="bg-white">
-                          {
-                            data.map((item)=> (
-                                <tr key={item.id}>
-                                    <td>{item.id}</td>
-                                    <td>{item.name}</td>
-                                    <td>{item.mwbalance}</td>
-                                    <td>{item.totalYield}</td>
-                                    <td className={`${item.status ? 'text-green-500' : 'text-red-500'}`}>{item.status ? "true" : "false"}</td>
-                                </tr>
-                            ))
-                          }
-                        </tbody>
-                    </table>
+                    <div className="rounded-md overflow-hidden">
+                      <table cellPadding={10} cellSpacing={50}>  
+                          <thead className="font-semibold bg-blue-200">  
+                            <tr>
+                              <td>S. No</td>
+                              <td>Date</td>
+                              <td>User ID</td>
+                              <td>Description</td>
+                              <td>Amount</td>
+                            </tr>        
+                          </thead>
+                          <tbody className="bg-white">
+                            {
+                              data.map((item)=> (
+                                  <tr key={item.id}>
+                                      <td>{item.id}</td>
+                                      <td>{item.name}</td>
+                                      <td>{item.mwbalance}</td>
+                                      <td>{item.totalYield}</td>
+                                      <td className={`${item.status ? 'text-green-500' : 'text-red-500'}`}>{item.status ? "true" : "false"}</td>
+                                  </tr>
+                              ))
+                            }
+                          </tbody>
+                      </table>
+                    </div>
                     <Pagination className="flex justify-end"
                         total={sdata.length}
                         pageSize={pageSize}

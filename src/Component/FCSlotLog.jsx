@@ -1,6 +1,7 @@
 import { Pagination } from "antd"
 import { useEffect, useState } from "react";
-import { FaListAlt, FaUser } from "react-icons/fa";
+import { FaBars, FaListAlt, FaUser } from "react-icons/fa";
+import { useSideBar } from "../context/SideBarContext";
 
 const FCSlotLog = () => {
 
@@ -8,6 +9,7 @@ const FCSlotLog = () => {
     const [ searchText, setSearchText ] = useState("");
     const [ active, setActive ] = useState('pending');
     const [ pageSize, setPageSize ] = useState(10);
+    const { toggleSideBar } = useSideBar();
     
     const handleClick = (status)=> {
       setActive(status)
@@ -190,15 +192,18 @@ const FCSlotLog = () => {
 
     return (
         <div className="flex flex-col w-full h-screen font-poppins">
-            <div className="h-16 bg-white flex justify-between px-10 items-center">
+            <div className="h-12 md:h-16 bg-white flex justify-between px-5 md:px-10 items-center">
               <div className="flex items-center gap-3">
                 <FaListAlt className="text-blue-700"/>
-                <h1 className="text-xl font-semibold text-blue-700">FC Slot Log</h1>
+                <h1 className="md:text-xl font-semibold text-blue-700">FC Slot Log</h1>
               </div>
-              <input type="text" placeholder="Search Name" className="bg-blue-100 rounded-md outline-none px-4 py-1" id="searchText" onChange={handleSearch}/>
+              <input type="text" placeholder="Search Name" className="bg-blue-100 rounded-md outline-none text-xs px-2 md:px-4 py-1 md:py-2" id="searchText" onChange={handleSearch}/>
+              <div onClick={toggleSideBar} id="bars">
+                <FaBars className="md:hidden text-blue-500"/>
+              </div>
             </div>  
 
-            <div className="flex flex-col h-full rounded-tr-xl rounded-tl-xl overflow-hidden">
+            <div className="flex flex-col h-full text-sm md:text-base rounded-tr-xl rounded-tl-xl overflow-hidden py-2">
               <div className='w-full flex text-center relative'>
                 <div className="flex w-full">
                     <p className={`w-1/2 cursor-pointer p-3 rounded-tr-lg rounded-tl-lg`} onClick={()=>handleClick('pending')}>Active</p>
@@ -209,31 +214,34 @@ const FCSlotLog = () => {
               </div>
               <div className="bg-bg_primary h-full p-5 ">
                 {active==='pending' ?
-                  <div className="p-5 flex flex-col gap-5 overflow-x-auto" id="pendingS">
-                    <table cellPadding={10} cellSpacing={50}>  
-                        <thead className="font-semibold bg-blue-200">
-                          <tr>
-                            <td>S. No</td>
-                            <td>Slot ID</td>
-                            <td>Joining Date</td>
-                            <td>Yield</td>
-                            <td>Remaining</td>
-                          </tr>          
-                        </thead>
-                        <tbody className="bg-white">
-                          {
-                            data.map((item)=> (
-                                <tr key={item.id}>
-                                    <td>{item.id}</td>
-                                    <td>{item.name}</td>
-                                    <td>{item.mwbalance}</td>
-                                    <td>{item.totalYield}</td>
-                                    <td className={`${item.status ? 'text-green-500' : 'text-red-500'}`}>{item.status ? "true" : "false"}</td>
-                                </tr>
-                            ))
-                          }
-                        </tbody>
-                    </table>
+                  <div className="p-2 md:p-5 flex flex-col gap-5 overflow-x-auto" id="pendingS">
+                    <div className="">
+                      <table cellPadding={10} cellSpacing={50} className="rounded-table">  
+                          <thead className="font-semibold bg-blue-200">
+                            <tr>
+                              <td>S. No</td>
+                              <td>Slot ID</td>
+                              <td>Joining Date</td>
+                              <td>Yield</td>
+                              <td>Remaining</td>
+                            </tr>          
+                          </thead>
+                          <tbody className="bg-white">
+                            {
+                              data.map((item)=> (
+                                  <tr key={item.id}>
+                                      <td>{item.id}</td>
+                                      <td>{item.name}</td>
+                                      <td>{item.mwbalance}</td>
+                                      <td>{item.totalYield}</td>
+                                      <td className={`${item.status ? 'text-green-500' : 'text-red-500'}`}>{item.status ? "true" : "false"}</td>
+                                  </tr>
+                              ))
+                            }
+                          </tbody>
+                      </table>
+                    </div>
+                    
                     <Pagination className="flex justify-end"
                         total={sdata.length}
                         pageSize={pageSize}
@@ -246,30 +254,32 @@ const FCSlotLog = () => {
                   </div> 
                   :
                   <div className="p-5 flex flex-col gap-5" id="completedS">
-                    <table cellPadding={10} cellSpacing={50}>  
-                        <thead className="font-semibold bg-blue-200">  
-                          <tr>
-                            <td>S. No</td>
-                            <td>Slot ID</td>
-                            <td>Joining Date</td>
-                            <td>Yield</td>
-                            <td>Remaining</td>
-                          </tr>        
-                        </thead>
-                        <tbody className="bg-white">
-                          {
-                            data.map((item)=> (
-                                <tr key={item.id}>
-                                    <td>{item.id}</td>
-                                    <td>{item.name}</td>
-                                    <td>{item.mwbalance}</td>
-                                    <td>{item.totalYield}</td>
-                                    <td className={`${item.status ? 'text-green-500' : 'text-red-500'}`}>{item.status ? "true" : "false"}</td>
-                                </tr>
-                            ))
-                          }
-                        </tbody>
-                    </table>
+                    <div className="rounded-md overflow-hidden">
+                      <table cellPadding={10} cellSpacing={50}>  
+                          <thead className="font-semibold bg-blue-200">  
+                            <tr>
+                              <td>S. No</td>
+                              <td>Slot ID</td>
+                              <td>Joining Date</td>
+                              <td>Yield</td>
+                              <td>Remaining</td>
+                            </tr>        
+                          </thead>
+                          <tbody className="bg-white">
+                            {
+                              data.map((item)=> (
+                                  <tr key={item.id}>
+                                      <td>{item.id}</td>
+                                      <td>{item.name}</td>
+                                      <td>{item.mwbalance}</td>
+                                      <td>{item.totalYield}</td>
+                                      <td className={`${item.status ? 'text-green-500' : 'text-red-500'}`}>{item.status ? "true" : "false"}</td>
+                                  </tr>
+                              ))
+                            }
+                          </tbody>
+                      </table>
+                    </div>
                     <Pagination className="flex justify-end"
                         total={sdata.length}
                         pageSize={pageSize}

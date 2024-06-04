@@ -1,7 +1,10 @@
 import { useState } from "react"
-import { FaMoneyBillAlt } from "react-icons/fa"
+import { FaBars, FaMoneyBillAlt } from "react-icons/fa"
+import { useSideBar } from "../context/SideBarContext"
 
 const WithdrawRequest = () => {
+
+    const { toggleSideBar } = useSideBar();
 
     const handleClick = (status)=> {
         setActive(status);
@@ -13,7 +16,7 @@ const WithdrawRequest = () => {
             request_raised_on: '12/12/12',
             USDT_Address: 'adaddasd',
             status: false
-        }
+        },
     ]
 
     const value = 100;
@@ -21,14 +24,17 @@ const WithdrawRequest = () => {
     const [ active, setActive ] = useState('pending');
     
     return (
-        <div className="flex flex-col w-full h-screen font-poppins">
-            <div className="h-16 bg-white flex justify-between px-10 items-center">
+        <div className="flex flex-col w-full h-full font-poppins">
+            <div className="h-12 md:h-16 bg-white flex justify-between px-5 md:px-10 items-center">
               <div className="flex items-center gap-3">
                 <FaMoneyBillAlt className="text-blue-700"/>
-                <h1 className="text-xl font-semibold text-blue-700">WithDraw Request</h1>
+                <h1 className="md:text-xl font-semibold text-blue-700">WithDraw Request</h1>
+              </div>
+              <div className="md:hidden text-blue-500" onClick={toggleSideBar} id="bars">
+                <FaBars/>
               </div>
             </div>
-            <div className="h-full flex flex-col overflow-hidden">
+            <div className="h-full flex flex-col overflow-auto text-sm md:text-base py-2">
                 <div className='w-full flex text-center relative wr'>
                     <div className="flex w-full">
                         <p className={`w-1/2 cursor-pointer p-3 rounded-tr-lg rounded-tl-lg `} onClick={()=>handleClick('pending')}>Pending</p>

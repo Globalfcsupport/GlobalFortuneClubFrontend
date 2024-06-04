@@ -1,12 +1,14 @@
 import { Pagination } from "antd"
 import { useEffect, useState } from "react";
-import { FaUser } from "react-icons/fa";
+import { FaBars, FaUser } from "react-icons/fa";
+import { useSideBar } from "../context/SideBarContext";
 
 const UserList = () => {
 
     const [ page, setPage ] = useState(0);
     const [ searchText, setSearchText ] = useState("");
     const [ pageSize, setPageSize ] = useState(10);
+    const { toggleSideBar, isSideBarOpen } = useSideBar();
     
     useEffect(()=> {
         if(!searchText){
@@ -179,10 +181,14 @@ const UserList = () => {
                 <FaUser className="md:text-xl text-blue-700"/>
                 <h1 className="md:text-xl font-semibold text-blue-700">UserList</h1>
               </div>
-              <input type="text" placeholder="Search Name" className="bg-blue-100 rounded-md outline-none text-xs px-2 md:px-4 py-1s md:py-2" id="searchText" onChange={handleSearch}/>
+              <input type="text" placeholder="Search Name" className="bg-blue-100 rounded-md outline-none text-xs px-2 md:px-4 py-1 md:py-2" id="searchText" onChange={handleSearch}/>
+              <div className="md:hidden text-blue-500" onClick={toggleSideBar} id="bars">
+                <FaBars/>
+              </div>
             </div>  
 
             <div className="p-5 md:p-10 bg-bg_primary flex md:text-base text-xs h-full flex-col gap-5 rounded-tr-xl rounded-tl-xl">
+              <div className="rounded-md overflow-hidden">                
                 <table cellPadding={10} cellSpacing={50} >  
                     <thead className="font-semibold bg-blue-200"> 
                       <tr>
@@ -207,6 +213,8 @@ const UserList = () => {
                       }
                     </tbody>
                 </table>
+              </div>
+              
                 <Pagination className="flex justify-end"
                     total={sdata.length}
                     pageSize={pageSize}
