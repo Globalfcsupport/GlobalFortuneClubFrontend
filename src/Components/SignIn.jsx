@@ -57,7 +57,7 @@ const FormikSignIn = () => {
           }).then((response)=>{
                 localStorage.setItem('accessToken', response.data.token);
                 localStorage.setItem('refId', response.data.data.refId);
-                navigate('/DashBoard')
+                navigate('app/DashBoard')
                 // setSubmitLoading(false);
             })
             .catch((error)=>{

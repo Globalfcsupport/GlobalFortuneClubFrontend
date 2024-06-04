@@ -29,3 +29,8 @@ export const getPaymentHistoryByUser = async (data) => {
   let ApiResponse = await useAxiosInterceptors.get('/user/getpayment/history/byuser');
   return ApiResponse;
 }
+
+export const ActivateClub = async ()=>{
+  let response = await useAxiosInterceptors.get("/user/activate/club")
+  return response
+}

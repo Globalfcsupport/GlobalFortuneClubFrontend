@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FaArrowRight, FaWallet } from 'react-icons/fa';
 import { FiAlertCircle } from "react-icons/fi";
 import { Link } from 'react-router-dom';
+import { ActivateClub } from '../services/services';
 
 const DashBoard = () => {
   const [userData, setUserData] = useState({
@@ -21,9 +22,16 @@ const DashBoard = () => {
     TotalInternalTransferIn: 0
   });
 
-  useEffect(() => {
+  const ClubActivation = async () => {
+    try {
+      let datas = await ActivateClub();
+      if (datas.data) {
+        messageApi.success(datas.data);
+      }
+    } catch (error) {}
+  };
 
-  }, []);
+
 
   return (
     <div className="h-full p-2 font-poppins">
@@ -32,7 +40,12 @@ const DashBoard = () => {
           <p className="text-sm font-semibold">User Name: Tamizh</p>
           <p className='text-sm'>ID: {userData.id}</p>
         </div>
-        <button className="bg-white text-blue-500 px-4 py-1 rounded">Start</button>
+        <button
+          className="bg-white text-blue-500 px-4 py-1 rounded"
+          onClick={ClubActivation}
+        >
+          Start
+        </button>
       </div>
 
       <div className="h-full overflow-auto space-y-1 mt-2 "

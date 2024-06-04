@@ -27,11 +27,11 @@ function App() {
       navigate('/');
     }
     else{
-      navigate('/Dashboard')
+      navigate('app/Dashboard')
     }
   }
   useEffect(()=> {
-    // authGuard()
+    authGuard()
   }, [])
 
   return(
