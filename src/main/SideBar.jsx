@@ -1,11 +1,13 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaTachometerAlt, FaWallet, FaDice, FaUserFriends, FaComments, FaLifeRing, FaCog, FaShareAlt } from "react-icons/fa";
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
+
+  const navigate = useNavigate();
   return (
     <div
-      className={`font-poppins absolute top-0 left-0 h-[100vh] rounded-l-3xl rounded-r-3xl z-50 bg-gray-200 shadow-lg transform transition-transform duration-300 ${
+      className={`font-poppins absolute top-0 left-0 h-[96.7vh] rounded-l-3xl rounded-r-3xl z-50 bg-gray-200 shadow-lg transform transition-transform duration-300 ${
         isOpen ? 'translate-x-0' : '-translate-x-full'
       }`}
       style={{ width: '75%' }}

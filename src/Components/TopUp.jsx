@@ -10,7 +10,6 @@ const TopUp = () => {
 
   const [activeTab, setActiveTab] = useState('topUp');
   const [ amount , setAmount ] = useState('');
-  const [ paymentsHistory , setpaymentsHistory ] = useState([]);
   const [ loading, setLoading ] = useState(false);
   const [ messageApi, contextHolder ] = message.useMessage();
   const [ editUSDTAddress, setEditUSDTAddress ] = useState(true);
@@ -47,6 +46,31 @@ const TopUp = () => {
     // getPaymenthistory()
   }, [])
 
+  const paymentHistory = [
+    {
+      trackId: 'ABC12',
+      updatedAt: '09/23/12 12:34',
+      amount: 12
+    },
+    {
+      trackId: 'ABC12',
+      updatedAt: '09/23/12 12:34',
+      amount: 12
+    },
+    {
+      trackId: 'ABC12',
+      updatedAt: '09/23/12 12:34',
+      amount: 12
+    },
+    {
+      trackId: 'ABC12',
+      updatedAt: '09/23/12 12:34',
+      amount: 12
+    }
+  ]
+
+  const [ paymentsHistory , setpaymentsHistory ] = useState(paymentHistory);
+
   return (
     <div className='w-full flex flex-col h-full font-poppins text-sm overflow-hidden'>
       {contextHolder}
@@ -57,7 +81,7 @@ const TopUp = () => {
             className={`py-2 px-5 focus:outline-none ${activeTab === 'topUp' ? 'bg-white text-blue-800 rounded-t-md' : 'text-white'}`}>
             TopUp
           </NavLink>
-          <NavLink to='/app/withdraw'
+          <NavLink to='/app/Withdraw'
             className={`py-2 px-5 focus:outline-none ${activeTab === 'withdraw' ? 'bg-white text-blue-800 rounded-t-md ' : 'text-white'}`}>
             Withdraw
           </NavLink>
@@ -83,8 +107,8 @@ const TopUp = () => {
           <div className='px-5'>
             <h1 className='p-3 bg-blue-400 text-white'>Recent Top Ups</h1>
             <div className='bg-white h-full w-full'>
-              {paymentsHistory.map((item)=> (
-                <div className='flex justify-between h-14 px-3 items-center'>
+              {paymentsHistory.map((item, index)=> (
+                <div key={index} className='flex justify-between h-14 px-3 items-center'>
                   <CiCirclePlus size={25} />
                   <div>
                     <p className='text-xs text-blue-600'>C - In, track Id: {item.trackId}</p>

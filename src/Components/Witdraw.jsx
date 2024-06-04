@@ -50,6 +50,7 @@ const Withdraw = () => {
     setLoading(true);
     setTimeout(()=> {
       setLoading(false)
+      messageApi.success('Requested Raised Successfully')
     }, 2000)
 
     console.log(data)
@@ -65,7 +66,7 @@ const Withdraw = () => {
       
       <div className='bg-blue-800 pt-3 w-full'>
         <div className='flex relative justify-between px-6 items-center w-full'>
-          <NavLink to='/app/topup'
+          <NavLink to='/app/TopUp'
             className="py-2 px-5 focus:outline-none text-white">
             TopUp
           </NavLink>

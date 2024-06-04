@@ -1,18 +1,53 @@
 import React, { useState } from 'react';
+import { Flex, Progress } from 'antd'
 
 const FCSlots = () => {
   const [activeTab, setActiveTab] = useState('active');
 
   const activeData = [
-    'Active Data 1',
-    'Active Data 2',
-    'Active Data 3',
+    {
+      yield: 21,
+      slotId: 'ACB01',
+      date: '04/23/12 12:23'
+    },
+    {
+      yield: 120,
+      slotId: 'ACB01',
+      date: '04/23/12 12:23'
+    },
+    {
+      yield: 76,
+      slotId: 'ACB01',
+      date: '04/23/12 12:23'
+    },
+    {
+      yield: 198,
+      slotId: 'ACB01',
+      date: '04/23/12 12:23'
+    },
   ];
 
   const completedData = [
-    'Completed Data 1',
-    'Completed Data 2',
-    'Completed Data 3',
+    {
+      yield: 200,
+      slotId: 'ACB01',
+      date: '04/23/12 12:23'
+    },
+    {
+      yield: 200,
+      slotId: 'ACB01',
+      date: '04/23/12 12:23'
+    },
+    {
+      yield: 200,
+      slotId: 'ACB01',
+      date: '04/23/12 12:23'
+    },
+    {
+      yield: 200,
+      slotId: 'ACB01',
+      date: '04/23/12 12:23'
+    },
   ];
 
   const handleTabClick = (tab) => {
@@ -21,7 +56,7 @@ const FCSlots = () => {
 
   return (
     <div className='w-full h-full font-poppins  text-sm '>
-      <div className='bg-blue-800 pt-3 w-full xs:rounded-tr-3xl xs:rounded-tl-3xl'>
+      <div className='bg-blue-800 pt-3 w-full'>
       <div className='flex relative justify-between px-6 items-center w-full'>
         {/* <div> */}
           <button onClick={() => handleTabClick('active')}
@@ -46,8 +81,13 @@ const FCSlots = () => {
         {activeTab === 'active' && (
           <div>
             {activeData.map((item, index) => (
-              <div key={index} className='p-2'>
-                {item}
+              <div className='flex justify-between items-center'>
+                <Progress key={index} type='circle' size={80} percent={20} className='h-32 w-32'/>
+                <div>
+                  <p className='font-semibold text-lg'>{item.slotId}</p>
+                  <p>{item.yield}/200</p>
+                  <p>{item.date}</p>
+                </div>
               </div>
             ))}
           </div>

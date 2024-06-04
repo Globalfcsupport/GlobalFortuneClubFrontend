@@ -15,6 +15,7 @@ import Wallet from "./Components/Wallet";
 import Withdraw from "./Components/Witdraw";
 import NavBar from "./main/NavBar";
 import Homepage from "./main/HomePage";
+import Practice from "./Components/Practice";
 
 function App() {
 

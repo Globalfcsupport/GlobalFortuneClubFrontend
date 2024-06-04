@@ -221,7 +221,7 @@ const DashBoard = () => {
             transform: 'translateX(-50%)'
           }}>
         <Link to='/app/TopUp' className="bg-blue-500 text-white px-5 py-1 rounded-md">TopUp</Link>
-        <Link to='/app/WithDraw' className="bg-blue-500 text-white px-5 py-1 rounded-md">Withdraw</Link>
+        <Link to='/app/Withdraw' className="bg-blue-500 text-white px-5 py-1 rounded-md">Withdraw</Link>
         <Link to='Transfer' className="bg-blue-500 text-white px-5 py-1 rounded-md">Transfer</Link>
       </div>
     </div>
