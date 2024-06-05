@@ -100,9 +100,10 @@ const Settings = () => {
   };
 
   const HandleLogOut = () => {
-    localStorage.removeItem("gfcusertoken");
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refId");
     navigate('/');
-    window.location.reload();
+    // window.location.reload();
   }
 
   return (

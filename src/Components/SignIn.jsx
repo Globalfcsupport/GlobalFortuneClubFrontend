@@ -105,6 +105,7 @@ const FormikSignIn = () => {
               onChange={(e)=> setEmail(e.target.value)}
             />
             <Button
+              // disabled={sendOTPLoading}
               loading={sendOTPLoading}
               className='absolute bg-blue-700 text-white px-5 py-1 rounded-md bottom-[0.375rem] right-1'
               onClick={handleSendOTP}

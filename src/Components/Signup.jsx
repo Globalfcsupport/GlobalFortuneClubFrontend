@@ -104,7 +104,7 @@ const Signup = () => {
               className="w-full py-2 rounded-md outline-none px-5"
               onChange={handleChange}
             />
-            <Button loading={verifyLoading} type='button' className="absolute bg-blue-800 text-white rounded-md bottom-[0.15rem] right-[0.1rem] px-6" onClick={handleVerify}>Verify</Button>
+            <Button disabled={verifyLoading} loading={verifyLoading} type='button' className="absolute bg-blue-800 text-white rounded-md bottom-[0.15rem] right-[0.1rem] px-6" onClick={handleVerify}>Verify</Button>
           </div>
         <form className="flex flex-col w-full gap-3" onSubmit={handleSubmit}>
           <div className="w-full flex flex-col gap-2 relative">

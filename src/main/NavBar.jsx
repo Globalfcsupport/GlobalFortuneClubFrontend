@@ -40,7 +40,7 @@ const NavBar = () => {
     }
     customHistory.add(location.pathname);
     customHistory.delete()
-    console.log("set", customHistory);
+    console.log("set", customHistory);  
   }, [location])
 
   return (

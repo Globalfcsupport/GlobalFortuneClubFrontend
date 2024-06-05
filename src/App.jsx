@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-
 import "./App.css";
 import { Route, Routes, useNavigate } from "react-router";
 import Signup from "./Components/Signup";
@@ -15,7 +14,6 @@ import Wallet from "./Components/Wallet";
 import Withdraw from "./Components/Witdraw";
 import NavBar from "./main/NavBar";
 import Homepage from "./main/HomePage";
-import Practice from "./Components/Practice";
 
 function App() {
 
