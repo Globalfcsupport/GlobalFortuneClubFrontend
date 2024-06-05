@@ -1,6 +1,42 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { sdata } from '../utils/sdata'
+import { useSlotSearch } from '../context/SlotSearchContext';
+import { Pagination } from 'antd';
 
 const CompletedFCSlotLog = () => {
+    const { searchText   } = useSlotSearch();
+    const [ page, setPage ] = useState(1);
+    const [ pageSize, setPageSize ] = useState(10);
+    
+    const handleClick = (status)=> {
+      setActive(status)
+    }
+    
+    useEffect(()=> {
+      const data = {
+        "limit": pageSize,
+        "currentPage": page,
+        "searchText": searchText
+      }
+  
+      if(!searchText){
+        const startIndex = (page-1) * pageSize;
+        console.log(startIndex);
+        const res = sdata.slice(startIndex, startIndex+10);
+        setData(res);
+      }
+      else{
+        const filteredData = sdata.filter((item)=> (
+          item.name.toLowerCase().includes(searchText.toLowerCase())
+        ));
+        const res = filteredData.slice((page-1)*pageSize, pageSize);
+        setData(res)
+      }
+  
+    }, [page, searchText, pageSize])
+  
+    const [ data, setData] = useState(sdata);
+
     return (
         <div className="bg-bg_primary h-full p-5 ">
             <div className="p-5 flex flex-col gap-5" id="completedS">

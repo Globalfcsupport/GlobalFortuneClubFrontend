@@ -1,13 +1,16 @@
 import ActiveFCSlotLog from "../Component/ActiveFCSlotLog";
+import AllTransaction from "../Component/AllTransaction";
 import CompletedFCSlotLog from "../Component/CompletedFCSlotLog";
 import CompletedWithdrawRequest from "../Component/CompletedWithdrawRequest";
+import CryptoTransaction from "../Component/CryptoTransaction";
 import Dashboard from "../Component/Dashboard";
 import FCSlotLog from "../Component/FCSlotLog";
+import InternalTransaction from "../Component/InternalTransaction";
 import Logout from "../Component/Logout";
 import PendingWithdrawRequest from "../Component/PendingWithdrawRequest";
 import Settings from "../Component/Settings";
 import SupportAdminChart from "../Component/SupportAdminChart";
-import TransectionLog from "../Component/TransectionLog";
+import TransectionLog from "../Component/TransactionLog";
 import UserList from "../Component/UserList";
 import WithdrawRequest from "../Component/WithdrawRequest";
 import HomePage from "../main/HomePage";
@@ -63,6 +66,20 @@ const pages = [
         {
           nestedPath: "transaction",
           nestedElement: <TransectionLog/>,
+          nestedNestedRoutes: [
+            {
+              nestedNestedPath: 'all',
+              nestedNestedElement: <AllTransaction />
+            },
+            {
+              nestedNestedPath: 'crypto',
+              nestedNestedElement: <CryptoTransaction />
+            },
+            {
+              nestedNestedPath: 'internal',
+              nestedNestedElement: <InternalTransaction />
+            }
+          ]
         },
         {
           nestedPath: "support",

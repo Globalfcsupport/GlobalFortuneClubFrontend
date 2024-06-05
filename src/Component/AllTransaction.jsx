@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { useSlotSearch } from '../context/SlotSearchContext'
 import { sdata } from '../utils/sdata';
 import { Pagination } from 'antd';
+import { useTransactionSearch } from '../context/TransactionSearchContext'
 
-const ActiveFCSlotLog = () => {
-    const { searchText } = useSlotSearch();
+const AllTransaction = () => {
+    const { searchText } = useTransactionSearch();
+    console.log(searchText);
 
     const [ page, setPage ] = useState(1);
     const [ pageSize, setPageSize ] = useState(10);
@@ -25,21 +26,21 @@ const ActiveFCSlotLog = () => {
       }
     }, [page, searchText, pageSize])
   
-    const [ data, setData] = useState(sdata);
+    const [ data, setData] = useState(sdata.slice(0, pageSize));
 
     return (
-        <div className="bg-bg_primary h-full p-5 ">
-            <div className="p-2 md:p-5 flex flex-col gap-5 overflow-x-auto" id="pendingS">
-            <div className="">
-                <table cellPadding={10} cellSpacing={50} className="rounded-table">  
-                    <thead className="font-semibold bg-blue-200">
-                        <tr>
-                            <td>S. No</td>
-                            <td>Slot ID</td>
-                            <td>Joining Date</td>
-                            <td>Yield</td>
-                            <td>Remaining</td>
-                        </tr>          
+        <div className="bg-bg_primary h-full">
+            <div className="p-5 flex flex-col gap-5" id="allS">
+            <div className="rounded-md overflow-hidden">
+                <table cellPadding={10} cellSpacing={50}>  
+                    <thead className="font-semibold bg-blue-200">  
+                    <tr>
+                        <td>S. No</td>
+                        <td>Date</td>
+                        <td>User ID</td>
+                        <td>Description</td>
+                        <td>Amount</td>
+                    </tr>        
                     </thead>
                     <tbody className="bg-white">
                     {
@@ -56,7 +57,6 @@ const ActiveFCSlotLog = () => {
                     </tbody>
                 </table>
             </div>
-            
             <Pagination className="flex justify-end"
                 total={sdata.length}
                 pageSize={pageSize}
@@ -66,9 +66,9 @@ const ActiveFCSlotLog = () => {
                 showQuickJumper={true}
                 onChange={(page)=>setPage(page)}
             />
-            </div> 
+            </div>  
         </div>
     )
 }
 
-export default ActiveFCSlotLog
+export default AllTransaction
