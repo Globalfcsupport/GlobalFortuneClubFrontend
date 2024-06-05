@@ -5,8 +5,8 @@ const SideBarContext = createContext();
 export const SideBarProvider = ({ children }) => {
     const [isSideBarOpen, setSideBarOpen] = useState(false);
 
-    const toggleSideBar = () =>{ console.log(isSideBarOpen); setSideBarOpen(prev=>!prev)};
-    const closeSideBar = () => { console.log(isSideBarOpen); setSideBarOpen(false)};
+    const toggleSideBar = () =>setSideBarOpen(prev=>!prev);
+    const closeSideBar = () => setSideBarOpen(false);
 
     return (
         <SideBarContext.Provider value={{ isSideBarOpen, toggleSideBar, closeSideBar }}>

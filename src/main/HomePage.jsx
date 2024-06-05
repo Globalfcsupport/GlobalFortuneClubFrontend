@@ -7,7 +7,7 @@ import { useSideBar } from "../context/SideBarContext";
 const HomePage = () => {
   const { closeSideBar } = useSideBar();
   const sidebarRef = useRef(null);
-  console.log(sidebarRef.current)
+  // console.log(sidebarRef.current)
 
   const handleClickOutside = (event) => {
     if (!sidebarRef.current.contains(event.target)) {

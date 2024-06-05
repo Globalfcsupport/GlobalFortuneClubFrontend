@@ -1,300 +1,48 @@
-import { Pagination } from "antd"
+// FCSlotLog.js
 import { useEffect, useState } from "react";
 import { FaBars, FaListAlt, FaUser } from "react-icons/fa";
 import { useSideBar } from "../context/SideBarContext";
+import { Outlet } from "react-router-dom";
+import { SlotSearchProvider, useSlotSearch } from "../context/SlotSearchContext";
 
 const FCSlotLog = () => {
+  const { toggleSideBar } = useSideBar();
+  // const { handleSearch } = useSlotSearch();
 
-    const [ page, setPage ] = useState(0);
-    const [ searchText, setSearchText ] = useState("");
-    const [ active, setActive ] = useState('pending');
-    const [ pageSize, setPageSize ] = useState(10);
-    const { toggleSideBar } = useSideBar();
-    
-    const handleClick = (status)=> {
-      setActive(status)
-    }
-    
-    useEffect(()=> {
-      const data = {
-        "limit": pageSize,
-        "currentPage": page,
-        "searchText": searchText
-      }
+  const [ active, setActive ] = useState('pending');
+  
+  const handleClick = (status)=> {
+    setActive(status)
+  }
 
-        if(!searchText){
-            const res = sdata.splice((page-1)*pageSize, pageSize);
-            setData(res);
-        }
-        else{
-            const filteredData = sdata.filter((item)=> (
-                item.name.toLowerCase().includes(searchText.toLowerCase())
-            ));
-            const res = filteredData.splice((page-1)*pageSize, pageSize);
-            setData(res)
-        }
-        // console.log(initialData);
+  return (
+    <SlotSearchProvider >
+      <div className="flex flex-col w-full h-screen font-poppins">
+        <div className="h-12 md:h-16 bg-white flex justify-between px-5 md:px-10 items-center">
+          <div className="flex items-center gap-3">
+            <FaListAlt className="text-blue-700"/>
+            <h1 className="md:text-xl font-semibold text-blue-700">FC Slot Log</h1>
+          </div>
+          <input type="text" placeholder="Search Name" className="bg-blue-100 rounded-md outline-none text-xs px-2 md:px-4 py-1 md:py-2" id="searchText"/>
+          <div className="md:hidden text-blue-500" onClick={toggleSideBar} id="bars">
+            <FaBars />
+          </div>
+        </div>  
 
-    }, [page, searchText, pageSize])
-    
-    const sdata = [
-        {
-          id: 1,
-          name: 'Arun',
-          mwbalance: 1000,
-          totalYield: 2000,
-          status: false
-        },
-        {
-          id: 2,
-          name: 'Aahana',
-          mwbalance: 1000,
-          totalYield: 2000,
-          status: true
-        },
-        {
-          id: 3,
-          name: 'Arut',
-          mwbalance: 1000,
-          totalYield: 2000,
-          status: false
-        },
-        {
-          id: 4,
-          name: 'Amaira',
-          mwbalance: 1000,
-          totalYield: 2000,
-          status: true
-        },
-        {
-          id: 5,
-          name: 'Arunachalam',
-          mwbalance: 1000,
-          totalYield: 2000,
-          status: false
-        },
-        {
-          id: 6,
-          name: 'Deepa',
-          mwbalance: 1000,
-          totalYield: 2000,
-          status: true
-        },
-        {
-          id: 7,
-          name: 'Deepak',
-          mwbalance: 1000,
-          totalYield: 2000,
-          status: true
-        },
-        {
-          id: 8,
-          name: 'Gaurika',
-          mwbalance: 1000,
-          totalYield: 2000,
-          status: true
-        },
-        {
-          id: 9,
-          name: 'Krishna',
-          mwbalance: 1000,
-          totalYield: 2000,
-          status: true
-        },
-        {
-          id: 10,
-          name: 'Inaya',
-          mwbalance: 1000,
-          totalYield: 2000,
-          status: true
-        },
-        {
-          id: 11,
-          name: 'John',
-          mwbalance: 1000,
-          totalYield: 2000,
-          status: true
-        },
-        {
-          id: 12,
-          name: 'kavya',
-          mwbalance: 1000,
-          totalYield: 2000,
-          status: true
-        },
-        {
-          id: 13,
-          name: 'Karthik',
-          mwbalance: 1000,
-          totalYield: 2000,
-          status: true
-        },
-        {
-          id: 14,
-          name: 'Lavanya',
-          mwbalance: 1000,
-          totalYield: 2000,
-          status: true
-        },
-        {
-          id: 15,
-          name: 'Madhavan',
-          mwbalance: 1000,
-          totalYield: 2000,
-          status: true
-        },
-        {
-          id: 16,
-          name: 'Meghana',
-          mwbalance: 1000,
-          totalYield: 2000,
-          status: true
-        },
-        {
-          id: 17,
-          name: 'Nirav',
-          mwbalance: 1000,
-          totalYield: 2000,
-          status: true
-        },
-        {
-          id: 18,
-          name: 'Niharika',
-          mwbalance: 1000,
-          totalYield: 2000,
-          status: true
-        },
-        {
-          id: 19,
-          name: 'Nihal',
-          mwbalance: 1000,
-          totalYield: 2000,
-          status: true
-        },
-        {
-          id: 20,
-          name: 'Ria',
-          mwbalance: 1000,
-          totalYield: 2000,
-          status: true
-        },
-    ]
-
-    const copyData = sdata.slice();
-    const initialData = copyData.splice(page, pageSize)
-
-    const [ data, setData] = useState(initialData);
-
-    const handleSearch = (e)=> {
-        setPage(1);
-        setSearchText(e.target.value)
-    }
-
-    return (
-        <div className="flex flex-col w-full h-screen font-poppins">
-            <div className="h-12 md:h-16 bg-white flex justify-between px-5 md:px-10 items-center">
-              <div className="flex items-center gap-3">
-                <FaListAlt className="text-blue-700"/>
-                <h1 className="md:text-xl font-semibold text-blue-700">FC Slot Log</h1>
-              </div>
-              <input type="text" placeholder="Search Name" className="bg-blue-100 rounded-md outline-none text-xs px-2 md:px-4 py-1 md:py-2" id="searchText" onChange={handleSearch}/>
-              <div onClick={toggleSideBar} id="bars">
-                <FaBars className="md:hidden text-blue-500"/>
-              </div>
-            </div>  
-
-            <div className="flex flex-col h-full text-sm md:text-base rounded-tr-xl rounded-tl-xl overflow-hidden py-2">
-              <div className='w-full flex text-center relative'>
-                <div className="flex w-full">
-                    <p className={`w-1/2 cursor-pointer p-3 rounded-tr-lg rounded-tl-lg`} onClick={()=>handleClick('pending')}>Active</p>
-                    <p className={`w-1/2 cursor-pointer p-3 rounded-tr-lg rounded-tl-lg`} onClick={()=>handleClick('completed')}>Completed</p>
-                </div>
-                <span className={`${active==='pending' ? 'left-0': 'left-[50%]'} absolute inline-block transition-all duration-300 top-0 bg-bg_primary w-1/2 h-full rounded-tr-lg rounded-tl-lg`} id="spanBG"></span>
-                <span className={`${active==='pending' ? 'left-0': 'left-[50%]'} absolute inline-block transition-all duration-300 top-[100%] bg-blue-700 w-1/2 h-[0.125rem]`} id="spanUnderline"></span>
-              </div>
-              <div className="bg-bg_primary h-full p-5 ">
-                {active==='pending' ?
-                  <div className="p-2 md:p-5 flex flex-col gap-5 overflow-x-auto" id="pendingS">
-                    <div className="">
-                      <table cellPadding={10} cellSpacing={50} className="rounded-table">  
-                          <thead className="font-semibold bg-blue-200">
-                            <tr>
-                              <td>S. No</td>
-                              <td>Slot ID</td>
-                              <td>Joining Date</td>
-                              <td>Yield</td>
-                              <td>Remaining</td>
-                            </tr>          
-                          </thead>
-                          <tbody className="bg-white">
-                            {
-                              data.map((item)=> (
-                                  <tr key={item.id}>
-                                      <td>{item.id}</td>
-                                      <td>{item.name}</td>
-                                      <td>{item.mwbalance}</td>
-                                      <td>{item.totalYield}</td>
-                                      <td className={`${item.status ? 'text-green-500' : 'text-red-500'}`}>{item.status ? "true" : "false"}</td>
-                                  </tr>
-                              ))
-                            }
-                          </tbody>
-                      </table>
-                    </div>
-                    
-                    <Pagination className="flex justify-end"
-                        total={sdata.length}
-                        pageSize={pageSize}
-                        showSizeChanger
-                        onShowSizeChange={(current, value)=>setPageSize(value)}
-                        current={page}
-                        showQuickJumper={true}
-                        onChange={(page)=>setPage(page)}
-                    />
-                  </div> 
-                  :
-                  <div className="p-5 flex flex-col gap-5" id="completedS">
-                    <div className="rounded-md overflow-hidden">
-                      <table cellPadding={10} cellSpacing={50}>  
-                          <thead className="font-semibold bg-blue-200">  
-                            <tr>
-                              <td>S. No</td>
-                              <td>Slot ID</td>
-                              <td>Joining Date</td>
-                              <td>Yield</td>
-                              <td>Remaining</td>
-                            </tr>        
-                          </thead>
-                          <tbody className="bg-white">
-                            {
-                              data.map((item)=> (
-                                  <tr key={item.id}>
-                                      <td>{item.id}</td>
-                                      <td>{item.name}</td>
-                                      <td>{item.mwbalance}</td>
-                                      <td>{item.totalYield}</td>
-                                      <td className={`${item.status ? 'text-green-500' : 'text-red-500'}`}>{item.status ? "true" : "false"}</td>
-                                  </tr>
-                              ))
-                            }
-                          </tbody>
-                      </table>
-                    </div>
-                    <Pagination className="flex justify-end"
-                        total={sdata.length}
-                        pageSize={pageSize}
-                        showSizeChanger
-                        onShowSizeChange={(current, value)=>setPageSize(value)}
-                        current={page}
-                        showQuickJumper={true}
-                        onChange={(page)=>setPage(page)}
-                    />
-                  </div>
-                }
-              </div>
+        <div className="flex flex-col h-full text-xs md:text-base rounded-tr-xl rounded-tl-xl overflow-hidden py-2">
+          <div className='w-full flex text-center relative'>
+            <div className="flex w-full">
+              <p className={`w-1/2 cursor-pointer p-3 rounded-tr-lg rounded-tl-lg`} onClick={()=>handleClick('active')}>Active</p>
+              <p className={`w-1/2 cursor-pointer p-3 rounded-tr-lg rounded-tl-lg`} onClick={()=>handleClick('completed')}>Completed</p>
             </div>
+            <span className={`${active==='pending' ? 'left-0': 'left-[50%]'} absolute inline-block transition-all duration-300 top-0 bg-bg_primary w-1/2 h-full rounded-tr-lg rounded-tl-lg`} id="spanBG"></span>
+            <span className={`${active==='pending' ? 'left-0': 'left-[50%]'} absolute inline-block transition-all duration-300 top-[100%] bg-blue-700 w-1/2 h-[0.125rem]`} id="spanUnderline"></span>
+          </div>
+          <Outlet />
         </div>
+      </div>
+    </SlotSearchProvider>
   )
 }
 
-export default FCSlotLog
+export default FCSlotLog;
