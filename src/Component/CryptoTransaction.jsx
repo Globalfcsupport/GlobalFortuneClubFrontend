@@ -9,21 +9,27 @@ const CryptoTransaction = () => {
     const [ pageSize, setPageSize ] = useState(10);
     
     useEffect(()=> {
-        const startIndex = (page - 1) * pageSize;
-        let filteredData = sdata;
-
-        if (searchText) {
-            filteredData = sdata.filter((item) =>
-                item.name.toLowerCase().includes(searchText.toLowerCase())
-            );
-            console.log(filteredData);
-        }
-
-        const paginatedData = filteredData.slice(startIndex, startIndex + pageSize);
-        setData(paginatedData);
+        setPage(1)
+    },[searchText])
+    
+    useEffect(()=> {
+      if(!searchText){
+        const startIndex = (page-1) * pageSize;
+        console.log(startIndex, startIndex+pageSize);
+        const res = sdata.slice(startIndex, startIndex+pageSize);
+        setData(res);
+      }
+      else{
+        const filteredData = sdata.filter((item)=> (
+          item.name.toLowerCase().includes(searchText.toLowerCase())
+        ));
+        console.log(filteredData);
+        const res = filteredData.slice((page-1)*pageSize, pageSize);
+        setData(res)
+      }
     }, [page, searchText, pageSize])
   
-    const [ data, setData] = useState([]);
+    const [ data, setData] = useState(sdata);
 
     return (
         <div className="bg-bg_primary h-full">

@@ -7,35 +7,29 @@ const CompletedFCSlotLog = () => {
     const { searchText   } = useSlotSearch();
     const [ page, setPage ] = useState(1);
     const [ pageSize, setPageSize ] = useState(10);
-    
-    const handleClick = (status)=> {
-      setActive(status)
-    }
-    
+
     useEffect(()=> {
-      const data = {
-        "limit": pageSize,
-        "currentPage": page,
-        "searchText": searchText
-      }
+      setPage(1)
+    },[searchText])
   
-      if(!searchText){
-        const startIndex = (page-1) * pageSize;
-        console.log(startIndex);
-        const res = sdata.slice(startIndex, startIndex+10);
-        setData(res);
-      }
-      else{
-        const filteredData = sdata.filter((item)=> (
-          item.name.toLowerCase().includes(searchText.toLowerCase())
-        ));
-        const res = filteredData.slice((page-1)*pageSize, pageSize);
-        setData(res)
-      }
-  
-    }, [page, searchText, pageSize])
-  
-    const [ data, setData] = useState(sdata);
+  useEffect(()=> {
+    if(!searchText){
+      const startIndex = (page-1) * pageSize;
+      console.log(startIndex, startIndex+pageSize);
+      const res = sdata.slice(startIndex, startIndex+pageSize);
+      setData(res);
+    }
+    else{
+      const filteredData = sdata.filter((item)=> (
+        item.name.toLowerCase().includes(searchText.toLowerCase())
+      ));
+      console.log(filteredData);
+      const res = filteredData.slice((page-1)*pageSize, pageSize);
+      setData(res)
+    }
+  }, [page, searchText, pageSize])
+
+  const [ data, setData] = useState(sdata);
 
     return (
         <div className="bg-bg_primary h-full p-5 ">

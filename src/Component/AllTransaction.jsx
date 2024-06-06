@@ -11,22 +11,27 @@ const AllTransaction = () => {
     const [ pageSize, setPageSize ] = useState(10);
     
     useEffect(()=> {
+        setPage(1)
+    },[searchText])
+    
+    useEffect(()=> {
       if(!searchText){
         const startIndex = (page-1) * pageSize;
-        console.log(startIndex);
+        console.log(startIndex, startIndex+pageSize);
         const res = sdata.slice(startIndex, startIndex+pageSize);
         setData(res);
       }
       else{
-        const filteredData = data.filter((item)=> (
+        const filteredData = sdata.filter((item)=> (
           item.name.toLowerCase().includes(searchText.toLowerCase())
         ));
+        console.log(filteredData);
         const res = filteredData.slice((page-1)*pageSize, pageSize);
         setData(res)
       }
     }, [page, searchText, pageSize])
   
-    const [ data, setData] = useState(sdata.slice(0, pageSize));
+    const [ data, setData] = useState(sdata);
 
     return (
         <div className="bg-bg_primary h-full">

@@ -1,21 +1,32 @@
-import { Switch,Button,message  } from 'antd';
+import { Switch, Button, message  } from 'antd';
 import axios from 'axios';
 import { useState } from 'react';
 import { FaRegEdit  } from "react-icons/fa";
 import { IoSaveOutline } from "react-icons/io5";
-const onChange = (checked) => {
-    console.log(`switch to ${checked}`);
-  };
-const Settings = () => {
-  const [readOnly , setReadonly] = useState(true);
-  const [showPasswordForm, setShowPasswordForm] = useState(false);
-  const [passwords, setPasswords] = useState({
-    currentPassword: '',
-    newPassword: '',
-    confirmPassword: ''
-  });
 
-  const [ data, setData] = useState(initialValues)
+  const Settings = () => {
+
+    const [ messageAPI, contextHolder ] = message.useMessage();
+
+    const onChange = (checked) => {
+      console.log(`switch to ${checked}`);
+    };
+
+    const handleClick = ()=> {
+      if(readOnly){
+        messageAPI.warning('Click the Edit Button to Enter Edit Mode')
+      }
+    }
+
+    const [readOnly , setReadonly] = useState(true);
+    const [showPasswordForm, setShowPasswordForm] = useState(false);
+    const [passwords, setPasswords] = useState({
+      currentPassword: '',
+      newPassword: '',
+      confirmPassword: ''
+    });
+
+  const [ data, setData] = useState({})
 
   const handleEdit = ()=>{
     setReadonly(!readOnly);
@@ -44,6 +55,7 @@ const Settings = () => {
 
   return (
     <div className="w-full h-full ">
+      {contextHolder}
 
       <div className="flex items-center h-14">
         <h1 className="font-bold text-blue-600 text-xl p-4">Settings</h1>
@@ -109,13 +121,13 @@ const Settings = () => {
             </div>
 
             <label htmlFor="">Allow new Sign-Up:</label>
-            <Switch onChange={onChange} name="AllownewSignUp" value={data.allowNewSignUp} className='w-7'/> 
+            <Switch disabled={readOnly} onChange={onChange} name="AllownewSignUp" value={data.allowNewSignUp} className='w-7'/> 
 
             <label htmlFor="">Allow new FC slot:</label>
-            <Switch onChange={onChange} value={data.allowNewSlots} name="AllownewFCslot" className='w-7'/>
+            <Switch disabled={readOnly} onChange={onChange} value={data.allowNewSlots} name="AllownewFCslot" className='w-7'/>
 
             <label htmlFor="">Maintenance Mode:</label>
-            <Switch onChange={onChange} value={data.maintenanceMode} name="MaintenanceMode" className='w-7'/>
+            <Switch disabled={readOnly} onChange={onChange} value={data.maintenanceMode} name="MaintenanceMode" className='w-7'/>
 
             <label htmlFor="">Referral Commission Slot:</label>
             <div className='relative'>
@@ -149,6 +161,6 @@ const Settings = () => {
 
     </div>
   )
-}
+  }
 
 export default Settings;

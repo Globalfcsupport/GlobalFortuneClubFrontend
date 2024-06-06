@@ -6,23 +6,22 @@ import { sdata } from "../utils/sdata";
 
 const UserList = () => {
 
-    const [ page, setPage ] = useState(0);
+    const [ page, setPage ] = useState(1);
     const [ searchText, setSearchText ] = useState("");
     const [ pageSize, setPageSize ] = useState(10);
     const { toggleSideBar, isSideBarOpen } = useSideBar();
     
     useEffect(()=> {
+      const startIndex = (page-1) * pageSize;
       if(!searchText){
-        const startIndex = (page-1) * pageSize;
-        console.log(startIndex);
-        const res =   data.slice(startIndex, startIndex+pageSize);
+        const res = sdata.slice(startIndex, startIndex+pageSize);
         setData(res);
       }
       else{
-        const filteredData = data.filter((item)=> (
+        const filteredData = sdata.filter((item)=> (
           item.name.toLowerCase().includes(searchText.toLowerCase())
         ));
-        const res = filteredData.slice((page-1)*pageSize, pageSize);
+        const res = filteredData.slice(startIndex, pageSize);
         setData(res)
       }
     }, [page, searchText, pageSize])

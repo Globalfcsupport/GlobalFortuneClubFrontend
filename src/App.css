@@ -48,8 +48,8 @@ td{
 }
 
 .active{
-  color: black;
-  background-color: #5270b02d;
+  /* color: black;
+  background-color: #5270b02d; */
 }
 
 @media (max-width: 768px) {
