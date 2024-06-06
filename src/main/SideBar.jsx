@@ -15,7 +15,7 @@
 
     useEffect(()=> {
       const link = []
-      document.querySelectorAll('.navs').forEach((item)=> {
+      document.querySelectorAll('.navs a').forEach((item)=> {
         link.push(item.getAttribute('href'))
       })
       console.log(link);
