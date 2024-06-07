@@ -47,11 +47,6 @@ td{
   overflow: hidden;
 }
 
-.active{
-  /* color: black;
-  background-color: #5270b02d; */
-}
-
 @media (max-width: 768px) {
   td{
     padding-left: 30px;

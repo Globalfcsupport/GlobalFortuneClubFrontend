@@ -9,36 +9,64 @@ const SupportAdminChart = () => {
   const susers = [
     {
       image: gpmuthu,
-      name: 'GP Muthu',
+      name: 'User 1',
     },
     {
       image: gana_vicky,
-      name: 'Gana Vicky',
+      name: 'User 2',
     },
     {
       image: ronaldo,
-      name: 'Ronaldo',
+      name: 'User 3',
     },
   ]
 
-  const chats = [
+  const chat1 = [
     {
       sender: 'Suhail',
-      receiver: susers[0].name,
-      message: 'Vanakkam Da Mapla Royapuram la irunthu'
+      receiver: 'User 1',
+      message: 'Hi From Suhail'
     },
     {
-      sender: susers[0].name,
+      sender: 'User 1',
       receiver: 'Suhail',
-      message: 'Vanakkam Da Mapla Teynampet la irunthu'
+      message: 'Hi from User 1'
     }
   ]
 
-  const[chatstate,setchatstate]=useState(chats)
+  const chat2 = [
+    {
+      sender: 'Suhail',
+      receiver: 'User 2',
+      message: 'Hi From Suhail'
+    },
+    {
+      sender: 'User 2',
+      receiver: 'Suhail',
+      message: 'Hi from User 2'
+    }
+  ]
+
+  const chat3 = [
+    {
+      sender: 'Suhail',
+      receiver: 'User 3',
+      message: 'Hi From Suhail'
+    },
+    {
+      sender: 'User 3',
+      receiver: 'Suhail',
+      message: 'Hi from User 3'
+    }
+  ]
+
+  const chats = [ chat1, chat2, chat3];
+
   const [ sender, setSender ] = useState('Suhail');
   const [ users, setUsers ] = useState(susers);
   const [ activeChat, setActiveChat ] = useState(0);
-  const [ receiver, setReceiver ] = useState('');
+  const [ chatstate,setchatstate ]=useState(chats[activeChat])
+  const [ receiver, setReceiver ] = useState(susers[activeChat].name);
   const [ searchText, setSearchText ] = useState('');
 
   const handleSearch = (e)=> {
@@ -56,14 +84,17 @@ const SupportAdminChart = () => {
     else{
       setUsers(susers)
     }
-
   }, [searchText])
 
   const switchChat = (e)=> {
     const activeIndex = e.target.closest('div').getAttribute('data-index');
     setActiveChat(activeIndex);
-    setReceiver(users[activeChat].name)
   }
+
+  useEffect(() => {
+    setchatstate(chats[activeChat]);
+    setReceiver(susers[activeChat].name);
+  }, [activeChat]);
 
   const handleSend = ()=> {
     const text = document.getElementById('text').value;
@@ -73,14 +104,11 @@ const SupportAdminChart = () => {
       message: text
     }
     console.log(chat);
-    chats.push(chat);
-    document.getElementById('text').value = ''
+    console.log(chats[activeChat]);
+    chats[activeChat].push(chat);
+    document.getElementById('text').value = '';
     setchatstate((prev)=>([...prev,chat]))
   }
-
-  useEffect(()=> {
-    setchatstate(prev=>prev)
-  },[activeChat, receiver])
 
   const handleEnter = (e)=>{
     if(e.key=='Enter'){
@@ -90,7 +118,7 @@ const SupportAdminChart = () => {
  
   return (
     <div className="h-full w-full flex">
-      <div className="w-[30%] bg-[#5270b02d]  flex flex-col gap-3">
+      <div className="w-[30%] bg-[#5270b02d] flex flex-col gap-3">
         <div className="p-2">
           <input type="text" value={searchText} placeholder="Search User" onChange={handleSearch} className="w-[90%] mx-auto block rounded-lg px-4 py-2 outline-none text-sm"/>
         </div>
@@ -99,7 +127,8 @@ const SupportAdminChart = () => {
             <div key={index} data-index={index} className={`flex px-4 py-2 gap-2 ${activeChat==index && 'bg-blue-200'}`} onClick={switchChat}>
               <img src={item.image} className='h-10 w-10 rounded-full'/>
               <div>
-                {item.name}
+                <p>{item.name}</p>
+                <p>{}</p>
               </div>
             </div>
           ))}

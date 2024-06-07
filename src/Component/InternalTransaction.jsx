@@ -16,7 +16,6 @@ const InternalTransaction = () => {
     useEffect(()=> {
       if(!searchText){
         const startIndex = (page-1) * pageSize;
-        console.log(startIndex, startIndex+pageSize);
         const res = sdata.slice(startIndex, startIndex+pageSize);
         setData(res);
       }
@@ -24,7 +23,6 @@ const InternalTransaction = () => {
         const filteredData = sdata.filter((item)=> (
           item.name.toLowerCase().includes(searchText.toLowerCase())
         ));
-        console.log(filteredData);
         const res = filteredData.slice((page-1)*pageSize, pageSize);
         setData(res)
       }
