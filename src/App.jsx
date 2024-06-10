@@ -16,7 +16,7 @@ const App = () => {
   };
 
   useEffect(() => {
-      // AuthGuard();
+      AuthGuard();
   }, []);
 
   return (

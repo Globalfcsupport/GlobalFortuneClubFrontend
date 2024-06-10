@@ -1,6 +1,6 @@
-import gpmuthu from '../assets/Images/gpmuthu.jpeg'
-import gana_vicky from '../assets/Images/gana vicky.jpg'
-import ronaldo from '../assets/Images/ronaldo.jpg'
+import gpmuthu from '../assets/Images/profile 1.jpg'
+import gana_vicky from '../assets/Images/profile 2.jpg'
+import ronaldo from '../assets/Images/profile 3.jpeg'
 import { useEffect, useState } from 'react'
 import { FaTelegramPlane } from "react-icons/fa";
 
@@ -125,7 +125,7 @@ const SupportAdminChart = () => {
         <div className='flex flex-col'>
           {users.map((item, index)=> (
             <div key={index} data-index={index} className={`flex px-4 py-2 gap-2 ${activeChat==index && 'bg-blue-200'}`} onClick={switchChat}>
-              <img src={item.image} className='h-10 w-10 rounded-full'/>
+              <img src={item.image} className='object-cover h-10 w-10 rounded-full'/>
               <div>
                 <p>{item.name}</p>
                 <p>{}</p>
@@ -136,7 +136,7 @@ const SupportAdminChart = () => {
       </div>
       <div className="w-[70%] bg-blue-200 flex flex-col">
         <div className='bg-blue-400 h-16 py-8 px-5 flex gap-3 items-center'>
-          <img className='h-10 w-10 rounded-full' src={users[activeChat].image} />
+          <img className='h-10 w-10 object-cover rounded-full' src={users[activeChat].image} />
           <p className='text-white'>{users[activeChat].name}</p>
         </div>
         <div className='w-full h-full flex flex-col gap-2 overflow-y-auto p-5'>
