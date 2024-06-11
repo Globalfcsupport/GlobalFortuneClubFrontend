@@ -15,11 +15,13 @@ const Homepage = () => {
   };
 
   return (
-    <div className="relative h-[100vh] w-full overflow-hidden flex flex-col sm:rounded-tl-3xl sm:rounded-tr-3xl">
-      <NavBar toggleSidebar={toggleSidebar} />
+    <div className="relative h-full w-full overflow-hidden flex flex-col">
+      <div className='h-[8vh]'>
+        <NavBar toggleSidebar={toggleSidebar} />
+      </div>
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-      <div className={`${isSidebarOpen ? 'ml-3/4' : ''} transition-all duration-300`}>
-      <Outlet />
+      <div className={`${isSidebarOpen ? 'ml-3/4' : ''} w-full h-[88.5vh] transition-all duration-300 rounded-br-3xl rounded-bl-3xl overflow-hidden`}>
+        <Outlet />
       </div>
     </div>
   );

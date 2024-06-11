@@ -44,7 +44,7 @@ const NavBar = () => {
   }, [location])
 
   return (
-    <div className=" h-12 w-full overflow-hidden bg-[#5270b02d]">
+    <div className="h-full w-full rounded-tr-xl rounded-tl-xl bg-[#5270b02d]">
       <div className="flex items-center justify-between p-4">
         <div className="flex items-center gap-2">
           <GiFlowerEmblem
@@ -54,7 +54,7 @@ const NavBar = () => {
           <FaArrowLeft className="text-xl text-black cursor-pointer" onClick={handleNavigate}/>
         </div>
         <h1 className="text-lg font-semibold text-black -ml-5">{currentPage[2]}</h1>
-        <FaEnvelope className="text-xl text-black cursor-pointer" />
+        <FaEnvelope onClick={()=>navigate('/app/Chats')} className="text-xl text-black cursor-pointer" />
       </div>
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
     

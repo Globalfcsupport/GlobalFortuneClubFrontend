@@ -5,6 +5,7 @@ import { FaArrowLeft, FaTachometerAlt, FaWallet, FaDice, FaUserFriends, FaCommen
 const Sidebar = ({ isOpen, toggleSidebar }) => {
 
   const navigate = useNavigate();
+  
   return (
     <div
       className={`font-poppins absolute top-0 left-0 h-[96.7vh] rounded-l-3xl rounded-r-3xl z-50 bg-gray-200 shadow-lg transform transition-transform duration-300 ${
