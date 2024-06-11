@@ -15,30 +15,30 @@
     const [ activeIndex, setActiveIndex ] = useState(0);
     const [ paths, setPaths ] = useState([]);
 
-    useEffect(()=> {
-      const link = []
-      document.querySelectorAll('.navs a').forEach((item)=> {
-        link.push(item.getAttribute('href'))
-      })
-      setPaths(link);
-    },[]);
+    // useEffect(()=> {
+    //   const link = []
+    //   document.querySelectorAll('.navs a').forEach((item)=> {
+    //     link.push(item.getAttribute('href'))
+    //   })
+    //   setPaths(link);
+    // },[]);
 
-    useEffect(()=> {
-      const haha = []
-      const lengthOfActiveLink = location.pathname.split('/');
-      const correctLength = lengthOfActiveLink.slice(0,3);
-      const activeLink = correctLength.forEach(item=> {
-        haha.push(item)
-        haha.push('/')
-      })
-     console.log(correctLength);
-     if(lengthOfActiveLink.length>3){
-      console.log('false');
-     }
-     else{
-      console.log('correct');
-     }
-    },[location.pathname, paths])
+    // useEffect(()=> {
+    //   const haha = []
+    //   const lengthOfActiveLink = location.pathname.split('/');
+    //   const correctLength = lengthOfActiveLink.slice(0,3);
+    //   const activeLink = correctLength.forEach(item=> {
+    //     haha.push(item)
+    //     haha.push('/')
+    //   })
+    //  console.log(correctLength);
+    //  if(lengthOfActiveLink.length>3){
+    //   console.log('false');
+    //  }
+    //  else{
+    //   console.log('correct');
+    //  }
+    // },[location.pathname, paths])
 
     const handleLogout = () => {
       localStorage.removeItem("gfcadmintoken");
@@ -77,9 +77,8 @@
                     to={`/homepage${menu.path}`}
                     className={`navs flex items-center gap-3 lg:${isCollapsed?'pl-0': 'pl-6'} ${activeIndex===id ? 'text-black' : ''} pl-6 p-2 text-sm w-full rounded-tl-full rounded-bl-full`}
                   >
-                    <span>{menu.icon}</span>
-                    <span className={`font-semibold lg:${isCollapsed?'hidden': 'block'} hidden`}>{menu.title}</span>
-                    <div className={`absolute left-0 h-7 w-1 ml-2 border rounded-full bg-blue-500 ${menu.path===location.pathname + location.search ? 'block':'hidden'}`}></div>
+                    <span className="transition-all duration-1000">{menu.icon}</span>
+                    <span className={`transition-all duration-1000 font-semibold lg:${isCollapsed?'hidden': 'block'}`}>{menu.title}</span>
                   </NavLink>
                 </div>
               ))}

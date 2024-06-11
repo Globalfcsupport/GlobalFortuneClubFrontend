@@ -4,10 +4,12 @@ import { LoginInitValues, LoginSchema } from "../validations/login";
 import { useFormik } from "formik";
 import { Login } from "../services/servicces";
 import { message } from "antd";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
 
   const [messageApi, contextHolder] = message.useMessage();
+  const navigate = useNavigate();
 
   const forms = useFormik({
     initialValues: LoginInitValues,
@@ -24,6 +26,7 @@ const LoginPage = () => {
           type: "success",
           content: "Logged In Successfully",
         });
+        navigate('/homepage/dashboard')
       }
     } 
     catch (error) {

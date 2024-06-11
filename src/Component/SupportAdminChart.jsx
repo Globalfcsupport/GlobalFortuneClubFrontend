@@ -1,6 +1,6 @@
-import gpmuthu from '../assets/Images/profile 1.jpg'
-import gana_vicky from '../assets/Images/profile 2.jpg'
-import ronaldo from '../assets/Images/profile 3.jpeg'
+import profile1 from '../assets/Images/profile 1.jpg'
+import profile2 from '../assets/Images/profile 2.jpg'
+import profile3 from '../assets/Images/profile 3.jpeg'
 import { useEffect, useState } from 'react'
 import { FaTelegramPlane } from "react-icons/fa";
 
@@ -8,15 +8,15 @@ const SupportAdminChart = () => {
 
   const susers = [
     {
-      image: gpmuthu,
+      image: profile1,
       name: 'User 1',
     },
     {
-      image: gana_vicky,
+      image: profile2,
       name: 'User 2',
     },
     {
-      image: ronaldo,
+      image: profile3,
       name: 'User 3',
     },
   ]
@@ -158,7 +158,7 @@ const SupportAdminChart = () => {
           ))}
         </div>
         <div className='flex w-full pb-3 items-center justify-center gap-2 bottom-0'>
-          <input onKeyDown={handleEnter}  id='text' className='w-[90%] block px-5 py-2 rounded-xl outline-none' type='text' placeholder='Type Text....' />
+          <input onKeyDown={handleEnter} id='text' className='w-[90%] block px-5 py-2 rounded-xl outline-none' type='text' placeholder='Type Text....' />
           <FaTelegramPlane size={30} className='text-blue-600' onClick={handleSend}/>
         </div>
       </div>
