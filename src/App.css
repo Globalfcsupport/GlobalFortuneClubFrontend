@@ -1,60 +1,34 @@
-#canv{
-    border-radius: 8px;
-    padding-top: 2px;
+input:focus, input:active, input:not(:placeholder-shown){
+  border-color: #3b82f6;
+  outline-color: #3b82f6;
 }
+input{
+  /* outline: none; */
+  border-width: 2px;
+}
+input:placeholder-shown{
+  border-color: rgb(218, 218, 218);
+}
+
+.inputs input{
+  text-align: center;
+}
+
 #reload_href{
-    display: none;
-    width: 200%;
-    text-align: center;
-    font-size: small;
-    padding: 5px;
-    background-color: rgb(29, 118, 228);
-    border-radius: 20px;
-    margin-top: 20px;
-    color: white;
+  display: none;
 }
 
-.loader {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    display: inline-block;
-    border-top: 3px solid #FFF;
-    border-right: 3px solid transparent;
-    box-sizing: border-box;
-    animation: rotation 1s linear infinite;
-  }
-  
-  @keyframes rotation {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  } 
-
-  .input {
-    width: 40px;
-    border: none;
-    border-bottom: 3px solid rgba(0, 0, 0, 0.5);
-    margin: 0 10px;
-    text-align: center;
-    font-size: 36px;
-    cursor: not-allowed;
-    pointer-events: none;
+#canv{
+  /* padding-bottom: 2px; */
+  /* padding-top: 4px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  /* border: 2px solid black; */
+  /* width: 100%; */
+  /* height: 200%; */
 }
- 
-.input:focus {
-    border-bottom: 3px solid orange;
-    outline: none;
-}
- 
-.input:nth-child(1) {
-    cursor: pointer;
-    pointer-events: all;
-}
-
 /* Hide the arrow buttons in number input */
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
