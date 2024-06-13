@@ -13,14 +13,14 @@ const FormikSignIn = () => {
   const [ submitLoading, setSubmitLoading ] = useState(false);
   const [ email, setEmail ] = useState('');
   const [captchaText, setCaptchaText] = useState('');
+  const [captcha, setCaptcha] = useState('');
   const [ showOTPInput, setOTPShowInput ] = useState(false);
   const [ OTP, setOTP ] = useState('');
   const [messageApi, contextHolder] = message.useMessage();
   const navigate = useNavigate();
 
   useEffect(() => {
-    loadCaptchaEnginge(6);
-    document.getElementById('reload_href').textContent = 'Reload'
+    captchaGenerator()
   }, []);
 
   const handleSendOTP = async ()=> {
@@ -83,13 +83,13 @@ const FormikSignIn = () => {
   }
   
   const handleSubmit = (event) => {
+    console.log(captcha);
     event.preventDefault();
     setSubmitLoading(true);
     console.log(OTP);
     console.log(email);
-    const user_captcha_value = document.getElementById('user_captcha_input').value;
     if (OTP.length == 4) {
-        if(validateCaptcha(user_captcha_value)){
+        if(captcha===captchaText){
             Login({
               email: email,
               otp: OTP
@@ -115,6 +115,20 @@ const FormikSignIn = () => {
     setSubmitLoading(false);
 
   };
+
+  const captchaGenerator = ()=> {
+    let text = ''
+    const letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
+      'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'
+    ]
+
+    for( let i = 1; i <= 6; i++){
+      let random = Math.ceil(Math.random()*letters.length-1);
+      text = text + letters[random]
+    }
+
+    setCaptchaText(text)
+  }
 
   return (
     <>
@@ -146,14 +160,13 @@ const FormikSignIn = () => {
               </div>                                                                                                                                                                                                                                                                                                                 
             </div>
           )}
-          <div className='flex gap-2 items-start w-full'>
-            <LoadCanvasTemplate reloadText='' />
+          <div className='flex flex-col gap-2 items-start w-full'>
+            <h1 className='font-semibold text-blue-800'>Enter Captcha</h1>
+            <p className='text-center w-full py-1 text-sm rounded-md mx-auto tracking-[1rem] bg-white'>{captchaText}</p>
             <input
-              id="user_captcha_input"
-              name="user_captcha_input"
               placeholder='Enter Captcha'
-              className='py-2 w-full rounded-md pl-2 outline-none text-xs'
-              onChange={(e) =>setCaptchaText(e.target.value)}
+              className='py-2 w-full rounded-md pl-2 text-xs'
+              onChange={(e)=> setCaptcha(e.target.value)}
             />
           </div>
 

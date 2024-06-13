@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const apiInstance = axios.create({
-  baseURL: "https://gfcapi.globalfc.app/v1",
+  // baseURL: "https://gfcapi.globalfc.app/v1",
+  baseURL: 'http://localhost:3333/v1'
 });
 
 // Request interceptor
