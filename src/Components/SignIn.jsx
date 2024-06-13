@@ -13,7 +13,7 @@ const FormikSignIn = () => {
   const [ submitLoading, setSubmitLoading ] = useState(false);
   const [ email, setEmail ] = useState('');
   const [captchaText, setCaptchaText] = useState('');
-  const [ showOTPInput, setOTPShowInput ] = useState(true);
+  const [ showOTPInput, setOTPShowInput ] = useState(false);
   const [ OTP, setOTP ] = useState('');
   const [messageApi, contextHolder] = message.useMessage();
   const navigate = useNavigate();
@@ -53,11 +53,19 @@ const FormikSignIn = () => {
     }
  
     if (val != "") {
+      handleOTP(val)
         const next = target.nextElementSibling;
         if (next) {
             next.focus();
         }
     }
+  }
+
+  const handleOTP = (val)=> {
+    setOTP(prev=> (
+      prev + val
+    ))
+    console.log(OTP);
   }
 
   const handleBackSpace = (e)=> {
@@ -77,6 +85,8 @@ const FormikSignIn = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setSubmitLoading(true);
+    console.log(OTP);
+    console.log(email);
     const user_captcha_value = document.getElementById('user_captcha_input').value;
     if (OTP.length == 4) {
         if(validateCaptcha(user_captcha_value)){
