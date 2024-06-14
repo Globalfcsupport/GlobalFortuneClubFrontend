@@ -53,19 +53,23 @@ const FormikSignIn = () => {
     }
  
     if (val != "") {
-      handleOTP(val)
-        const next = target.nextElementSibling;
-        if (next) {
+      handleOTP()
+      const next = target.nextElementSibling;
+      if (next) {
+            // e.target.setAttribute('readOnly', true);
             next.focus();
         }
     }
   }
 
   const handleOTP = (val)=> {
-    setOTP(prev=> (
-      prev + val
-    ))
-    console.log(OTP);
+    let text = ''
+    const tags = document.querySelectorAll('.inputs input');
+    tags.forEach((item)=> {
+      text = text + item.value;
+    })
+    setOTP(text)
+    console.log(text);
   }
 
   const handleBackSpace = (e)=> {
@@ -76,6 +80,7 @@ const FormikSignIn = () => {
         target.value = "";
         const prev = target.previousElementSibling;
         if (prev) {
+          // e.target.setAttribute('readOnly', false);
             prev.focus();
         }
         return;
