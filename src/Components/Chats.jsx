@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { susers } from '../utils/Users';
+import { getUsersForChats } from '../services/services';
+import { FaUser } from "react-icons/fa";
 
 const Chats = () => {
 
@@ -8,12 +10,12 @@ const Chats = () => {
   const [ searchText, setSearchText ] = useState('');
 
   const handleChat = (item)=> {
-    setActiveChat(item.name)
-    handleNavigate(item);
+    setActiveChat(item.userName)
+    handleNavigate(item._id);
   }
 
   const handleNavigate = (item)=> {
-    navigate(`${item.name}`)
+    navigate(`${item}`)
   }
 
   const [ users, setUsers ] = useState(susers);
@@ -23,7 +25,18 @@ const Chats = () => {
     setSearchText(e.target.value)
   }
 
+const getUsers_ForChats = async ()=>{
+  try {
+    let apiResponse = await getUsersForChats()
+    setUsers(apiResponse.data)
+  } catch (error) {
+    
+  }
+  
+}
+
   useEffect(()=> {
+    getUsers_ForChats()
     if(searchText){
       const filteredUsers = susers.filter(item=> (
         item.name.toLowerCase().includes(searchText.toLowerCase())
@@ -44,9 +57,11 @@ const Chats = () => {
         {
           users.map((item, index)=> (
             <div key={index} className={`flex gap-5 px-5 py-3 `} onClick={()=>handleChat(item)}>
-              <img src={item.image} alt='user profile pic' className='h-10 w-10 object-cover rounded-full'/>
+              {
+                item.image? <img src={item.image} alt='user profile pic' className='h-10 w-10 object-cover rounded-full'/>:<FaUser />
+              }
               <div>
-                <p className='text-sm'>{item.name}</p>
+                <p className='text-sm'>{item.userName}</p>
                 <p className='text-xs'>Last Message</p>
               </div>
             </div>

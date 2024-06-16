@@ -1,16 +1,29 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router'
 import { susers } from '../utils/Users';
+import { getuserById } from '../services/services';
 
 const Chat = () => {
 
     const { id } = useParams();
-    const find = susers.filter(item=>
-        item.name===id
-    )
-    const [ user, setUser ] = useState(find[0]);
+
+    const [ user, setUser ] = useState({});
     const [sender, setSender ] = useState('Suhail');
-    const [ receiver, setReceiver ] = useState(user.name)
+    const [ receiver, setReceiver ] = useState(id)
+
+
+
+    const getUserById_Chat = async ()=>{
+        try {
+            let values = await getuserById(id);
+            console.log(values.data,"user");
+            setUser(values.data);
+        } catch (error) {
+            
+        }
+    }
+
+
 
     const chats = [
         {

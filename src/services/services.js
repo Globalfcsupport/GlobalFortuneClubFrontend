@@ -34,3 +34,13 @@ export const ActivateClub = async ()=>{
   let response = await useAxiosInterceptors.get("/user/activate/club")
   return response
 }
+
+export const getUsersForChats = async ()=>{
+  let response = await useAxiosInterceptors.get("/user/get/users/chats")
+  return response
+}
+
+export const getuserById = async (id)=>{
+  let response = await useAxiosInterceptors.get("/user/"+id);
+  return response
+}
