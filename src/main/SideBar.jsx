@@ -47,7 +47,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             <FaUserFriends className="mr-3" />
             <p>Referrals</p>
           </NavLink>                  
-          <NavLink to="Chat" className='px-4 py-3 flex items-center' onClick={toggleSidebar}>
+          <NavLink to="Chats" className='px-4 py-3 flex items-center' onClick={toggleSidebar}>
             <FaComments className="mr-3" />
             <p>Chats</p>
           </NavLink>                  
