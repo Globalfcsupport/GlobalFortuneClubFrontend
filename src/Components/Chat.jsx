@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useParams } from 'react-router'
 import { susers } from '../utils/Users';
 import { getuserById } from '../services/services';
+import { FaTelegramPlane } from 'react-icons/fa';
 
 const Chat = () => {
 
@@ -24,6 +25,21 @@ const Chat = () => {
     }
 
 
+    const handleSend = ()=> {
+        const text = document.getElementById('text').value;
+        const chat = {
+          sender: 'Suhail',
+          receiver: receiver,
+          message: text
+        }
+        document.getElementById('text').value = '';
+      }
+    
+      const handleEnter = (e)=>{
+        if(e.key=='Enter'){
+          handleSend()
+        }
+      }
 
     const chats = [
         {
@@ -129,8 +145,9 @@ const Chat = () => {
                     </div>
                 ))}
             </div>
-            <div className='px-5 py-2 flex justify-center w-full'>
-                <input type='text' className='bg-blue-200 w-[95%] outline-none rounded-lg px-5 py-2 text-sm' placeholder='Type any Text....' />
+            <div className='px-5 py-2 flex items-center gap-2 justify-center w-full'>
+                <input onKeyDown={handleEnter} id='text' className='w-[90%] block px-5 py-1 rounded-xl' type='text' placeholder='Type Text....' />
+                <FaTelegramPlane size={25} className='text-blue-600' onClick={handleSend}/>
             </div>
         </div>
     )
