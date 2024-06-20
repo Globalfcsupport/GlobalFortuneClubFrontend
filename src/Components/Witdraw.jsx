@@ -85,7 +85,7 @@ const Withdraw = () => {
           <form className='flex flex-col gap-5' onSubmit={handleSubmit}>
             <div className='flex flex-col gap-2 relative'>
               <label htmlFor='USDTAddress' className='text-blue-600 font-semibold'>Enter Your USDT Address (TRC - 20)</label>
-              <input readOnly={editUSDTAddress} id='USDTAddress' name='USDTAddress' type='text' className='px-3 py-1 rounded-md outline-none' onChange={handleChange} value={data.USDTAddress}/>
+              <input readOnly={editUSDTAddress} id='USDTAddress' name='USDTAddress' type='text' className='px-3 py-1 rounded-md' onChange={handleChange} value={data.USDTAddress}/>
               {editUSDTAddress ?
                 <HiOutlinePencil size={15} className='absolute bottom-2 right-2' onClick={handleUSDTAddress}/>
                 : <IoSaveOutline size={15} className='absolute bottom-2 right-2' onClick={handleUSDTAddress}/>
@@ -93,7 +93,7 @@ const Withdraw = () => {
             </div>
             <div className='flex flex-col gap-2 relative'>
               <label htmlFor='amount' className='text-blue-600 font-semibold'>Enter Amount</label>
-              <input required id='amount' name='amount' type='text' className='px-3 py-1 rounded-md outline-none' onChange={handleChange} value={data.amount}/>
+              <input required id='amount' name='amount' type='text' className='px-3 py-1 rounded-md' onChange={handleChange} value={data.amount}/>
             </div>
             <div className='flex flex-col gap-2 relative'>
               <label className='text-blue-600 font-semibold'>Admin & Network Fee</label>
@@ -101,7 +101,7 @@ const Withdraw = () => {
             </div>
             <div className='flex flex-col gap-2 relative'>
               <label className='text-blue-600 font-semibold'>Receivable Amount</label>
-              <input id='ramount' readOnly={true} value={receivableAmount} type='text' className='px-3 py-1 rounded-md outline-none'/>                
+              <input id='ramount' readOnly={true} value={receivableAmount} type='text' className='px-3 py-1 rounded-md'/>                
             </div>
             <Button loading={loading} htmlType='submit' className='bg-blue-700 px-4 h-10 font-semibold rounded-lg text-white'>{loading? 'Loading' : 'Withdraw'}</Button>
           </form>

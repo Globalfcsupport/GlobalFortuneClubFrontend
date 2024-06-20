@@ -107,8 +107,8 @@ const Settings = () => {
   }
 
   return (
-    <div className='font-poppins text-sm'>
-      <div className='w-full h-14 bg-primary flex justify-between items-center px-5 '>
+    <div className='font-poppins space-y-2 text-sm'>
+      <div className='w-full h-12 bg-primary flex justify-between items-center px-5 '>
         <p className='font-semibold text-white'>My Wallet</p>
         <p className='px-3 bg-white rounded-md font-semibold py-[0.125rem] font-pri'>1000.0000</p>
       </div>
@@ -128,38 +128,38 @@ const Settings = () => {
         </div>
 
         <div className='flex justify-between'>
-          <div className='flex flex-col'>
+          <div className='flex flex-col gap-1'>
             <label htmlFor='userID' className='font-semibold text-primary'>User ID</label>
-            <input type='text' readOnly className='outline-none px-2 py-1 w-32 rounded-lg' value={data.userID} id='userID' name='userID' />
+            <input type='text' readOnly className='px-2 py-1 w-32 rounded-lg' value={data.userID} id='userID' name='userID' />
           </div>
-          <div className='flex flex-col text-right'>
+          <div className='flex flex-col gap-1 text-right'>
             <label htmlFor='uplineID' className='font-semibold text-primary'>Upline ID</label>
-            <input type='text' readOnly className='outline-none px-2 py-1 w-32 rounded-lg text-right' value={data.uplineID} id='uplineID' name='uplineID' />
+            <input type='text' readOnly className=' px-2 py-1 w-32 rounded-lg text-right' value={data.uplineID} id='uplineID' name='uplineID' />
           </div>
         </div>
-        <div className='flex flex-col'>
+        <div className='flex flex-col gap-1'>
           <label htmlFor='emailID' className='font-semibold text-primary'>Email ID</label>
-          <input type='email' readOnly className='outline-none px-2 py-1 w-full rounded-lg' value={data.emailID} id='emailID' name='emailID' />
+          <input type='email' readOnly className=' px-2 py-1 w-full rounded-lg' value={data.emailID} id='emailID' name='emailID' />
         </div>
-        <div className='flex flex-col relative'>
+        <div className='flex flex-col gap-1 relative'>
           <label htmlFor='name' className='font-semibold text-primary'>Name</label>
-          <input type='text' readOnly={!editName} className='outline-none px-2 py-1 w-full rounded-lg' value={data.name} id='name' name='name' onChange={handleChange} />
+          <input type='text' readOnly={!editName} className=' px-2 py-1 w-full rounded-lg' value={data.name} id='name' name='name' onChange={handleChange} />
           {editName ? 
             <IoSaveOutline className='absolute text-primary right-2 bottom-2 cursor-pointer' onClick={() => setEditName(!editName)} /> :
             <HiOutlinePencil className='absolute text-primary right-2 bottom-2 cursor-pointer' onClick={() => setEditName(!editName)} />
           }
         </div>
-        <div className='flex flex-col relative'>
+        <div className='flex flex-col gap-1 relative'>
           <label htmlFor='USDTAddress' className='font-semibold text-primary'>USDT Address</label>
-          <input type='text' readOnly={!editUSDTAddress} className='outline-none px-2 py-1 w-full rounded-lg' value={data.USDTAddress} id='USDTAddress' name='USDTAddress' onChange={handleChange} />
+          <input type='text' readOnly={!editUSDTAddress} className=' px-2 py-1 w-full rounded-lg' value={data.USDTAddress} id='USDTAddress' name='USDTAddress' onChange={handleChange} />
           {editUSDTAddress ? 
             <IoSaveOutline className='absolute text-primary right-2 bottom-2 cursor-pointer' onClick={() => setEditUSDTAddress(!editUSDTAddress)} /> :
             <HiOutlinePencil className='absolute text-primary right-2 bottom-2 cursor-pointer' onClick={() => setEditUSDTAddress(!editUSDTAddress)} />
           }
         </div>
-        <div className='flex flex-col'>
+        <div className='flex flex-col gap-1'>
           <label htmlFor='USDTNetwork' className='font-semibold text-primary'>USDT Network</label>
-          <select className='outline-none px-2 py-1 w-full rounded-lg' value={data.USDTNetwork} id='USDTNetwork' name='USDTNetwork' onChange={handleChange}>
+          <select className=' px-2 py-1 w-full rounded-lg' value={data.USDTNetwork} id='USDTNetwork' name='USDTNetwork' onChange={handleChange}>
             <option value=''>Select Your Network</option>
             <option value='A'>A</option>
             <option value='B'>B</option>

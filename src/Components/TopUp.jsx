@@ -75,8 +75,8 @@ const TopUp = () => {
             </div>
             <div className='relative w-full h-fit'>
               <form onSubmit={handleSubmit}>
-                <input required type='number' placeholder='Enter Amount' className='px-4 py-2 text-sm rounded-md w-full outline-none' id='amount' onChange={handleChange} value={amount}/>
-                <Button loading={loading} htmlType='submit' className='absolute bg-blue-700 px-4 py-1 rounded-lg right-[0.1rem] bottom-[0.12rem] text-white'>{loading? 'Loading' : 'Proceed'}</Button>
+                <input required type='number' placeholder='Enter Amount' className='px-4 py-2 text-sm rounded-md w-full' id='amount' onChange={handleChange} value={amount}/>
+                <Button loading={loading} htmlType='submit' className='absolute bg-blue-700 px-4 py-1 rounded-lg right-[0.1rem] bottom-[0.20rem] text-white'>{loading? 'Loading' : 'Proceed'}</Button>
               </form>
             </div>
           </div>

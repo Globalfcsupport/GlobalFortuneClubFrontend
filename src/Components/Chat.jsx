@@ -10,7 +10,7 @@ import { FaTelegramPlane, FaUser } from "react-icons/fa";
 import io from "socket.io-client";
 import { v4 } from "uuid";
 
-const socket = io("ws://gfcapi.globalfc.app/ws/");
+const socket = io("localhost://5001");
 
 const Chat = () => {
   const { id } = useParams();

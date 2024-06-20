@@ -25,7 +25,7 @@ const Referrals = () => {
   }, []);
 
   return (
-    <div className=''>
+    <div className='h-full'>
       <div className="flex flex-col bg-blue-500 p-5 gap-2">
         <div className="relative ">
           <input name='name' type="text" id='name' placeholder="Search ID/Name" className="w-full px-2 py-1 text-sm pr-10 border rounded-md outline-none" />
@@ -46,9 +46,9 @@ const Referrals = () => {
         </div>
 
       </div>
-      <div className='w-full bg-white flex flex-col'>
+      <div className='w-full h-full bg-white flex flex-col overflow-scroll'>
         {users.map((item, index)=> (
-          <div className='px-5 flex gap-5 p-2 items-center rounded-xl'>
+          <div key={index} className='px-5 flex gap-5 p-2 items-center rounded-xl'>
             <img src={item.image} className='h-10 w-10 rounded-full object-cover'/>
             <div className='text-xs'>
               <p>{item.name}</p>

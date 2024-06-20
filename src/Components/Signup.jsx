@@ -11,15 +11,15 @@ import { message, Button } from 'antd';
 const Signup = () => {
 
   const [showOTPInput, setShowOTPInput] = useState(false);
-  const [otp, setOtp] = useState('');
   const [captchaText, setCaptchaText] = useState('');
+  const [captcha, setCaptcha] = useState('');
   const navigate = useNavigate();
   const [ readOnly, setReadOnly ] = useState(true)
   const [messageApi, contextHolder] = message.useMessage();
   const [ verifyLoading, setVerifyLoading ] = useState(false);
   const [ sendOTPLoading, setSendOTPLoading ] = useState(false);
   const [ submitLoading, setSubmitLoading ] = useState(false);
-
+  const [ OTP, setOTP ] = useState('');
   const [ data, setData ] = useState({});
 
   const handleChange = (e)=> {
@@ -30,7 +30,7 @@ const Signup = () => {
   }
 
   useEffect(() => {
-    loadCaptchaEnginge(6); 
+    captchaGenerator();
   }, []);
 
   const handleVerify = ()=> {
@@ -57,11 +57,11 @@ const Signup = () => {
   }
 
   const handleSubmit = (event) => {
-    data.otp = otp;
+    console.log('inside submit');
+    data["otp"] = OTP;
+    console.log(data);
     event.preventDefault();
-    const user_captcha_value = document.getElementById('user_captcha_input').value;
-    if (validateCaptcha(user_captcha_value)) {
-      document.getElementById('user_captcha_input').value = "";
+    if (captcha===captchaText) {
       Register(data).then((response)=> {
         // console.log(response);
         navigate('/')
@@ -70,21 +70,78 @@ const Signup = () => {
       })
     } else {
       alert('Captcha Does Not Match');
-      document.getElementById('user_captcha_input').value = "";
     }
   };
+
+  const captchaGenerator = ()=> {
+    let text = ''
+    const letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
+      'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'
+    ]
+
+    for( let i = 1; i <= 6; i++){
+      let random = Math.ceil(Math.random()*letters.length-1);
+      text = text + letters[random]
+    }
+
+    setCaptchaText(text)
+  }
+
+  const handleBackSpace = (e)=> {
+    const target = e.target;
+    const key = e.key.toLowerCase();
+ 
+    if (key == "backspace" || key == "delete") {
+        target.value = "";
+        const prev = target.previousElementSibling;
+        if (prev) {
+          // e.target.setAttribute('readOnly', false);
+            prev.focus();
+        }
+        return;
+    }
+  }
+
+  const handleInput = (e)=> {
+    const target = e.target;
+    const val = target.value;
+ 
+    if (isNaN(val)) {
+        target.value = "";
+        return;
+    }
+ 
+    if (val != "") {
+      handleOTP()
+      const next = target.nextElementSibling;
+      if (next) {
+            // e.target.setAttribute('readOnly', true);
+            next.focus();
+        }
+    }
+  }
+
+  const handleOTP = (val)=> {
+    let text = ''
+    const tags = document.querySelectorAll('.inputs input');
+    tags.forEach((item)=> {
+      text = text + item.value;
+    })
+    setOTP(text)
+    console.log(text);
+  }
 
   return (
     <>
      {contextHolder}
    
     <div
-      className="h-full overflow-auto space-y-1 font-poppins px-5"
-      style={{
-        height: 'calc(100vh - 90px)',
-        scrollbarWidth: "none", // For Firefox
-        msOverflowStyle: "none" // For Internet Explorer and Edge
-      }}
+      className=" overflow-y-scroll space-y-1 py-5 font-poppins px-5"
+      // style={{
+      //   height: 'calc(100vh - 90px)',
+      //   scrollbarWidth: "none", // For Firefox
+      //   msOverflowStyle: "none" // For Internet Explorer and Edge
+      // }}
     >
       {/* <div className="w-full flex justify-between px-4">
         <button className="text-blue-800">
@@ -101,10 +158,10 @@ const Signup = () => {
             <input
               type="text"
               name="uplineId"
-              className="w-full py-2 rounded-md outline-none px-5"
+              className="w-full py-2 rounded-md px-5"
               onChange={handleChange}
             />
-            <Button disabled={verifyLoading} loading={verifyLoading} type='button' className="absolute bg-blue-800 text-white rounded-md bottom-[0.15rem] right-[0.1rem] px-6" onClick={handleVerify}>Verify</Button>
+            <Button disabled={verifyLoading} loading={verifyLoading} type='button' className="absolute bg-blue-800 text-white rounded-md bottom-[0.20rem] right-[0.2rem] px-6" onClick={handleVerify}>Verify</Button>
           </div>
         <form className="flex flex-col w-full gap-3" onSubmit={handleSubmit}>
           <div className="w-full flex flex-col gap-2 relative">
@@ -113,7 +170,7 @@ const Signup = () => {
               type="text"
               name="userName"
               readOnly={readOnly}
-              className="w-full py-2 rounded-md outline-none px-5"
+              className="w-full py-2 rounded-md px-5"
               onChange={handleChange}
             />
           </div>
@@ -123,47 +180,31 @@ const Signup = () => {
               type="text"
               name="email"
               readOnly={readOnly}
-              className="w-full py-2 rounded-md outline-none pl-5 pr-24"
+              className="w-full py-2 rounded-md pl-5 pr-24"
               onChange={handleChange}
             />
-            <button type='button' className="absolute bg-blue-800 text-white rounded-md bottom-1 right-1 px-3 py-1" onClick={handleSendOTP}>Send OTP</button>
+            <Button disabled={verifyLoading} loading={verifyLoading} type='button' className="absolute bg-blue-800 text-white rounded-md bottom-1 right-1 px-3 py-1" onClick={handleSendOTP}>Send OTP</Button>
           </div>
           <div>
-            {(showOTPInput && !readOnly) && (
-              <div className='flex justify-center w-full'>
-                <OTPInput
-                  value={otp}
-                  onChange={(value)=>setOtp(value)}
-                  numInputs={4}
-                  renderInput={(props) => <input {...props} />}
-                  isInputNum
-                  shouldAutoFocus
-                  inputStyle={{
-                    width: '3rem',
-                    height: '3rem',
-                    margin: '0 0.5rem',
-                    fontSize: '1rem',
-                    borderRadius: '4px',
-                    border: '1px solid rgba(0,0,0,0.3)',
-                    textAlign: 'center',
-                    outline: 'none',
-                    fontFamily: 'poppins'
-                  }}
-                />
-              </div>
-            )}
+          {showOTPInput && (
+            <div className='flex flex-col gap-2 justify-center w-full'>
+              <label htmlFor='email' className='font-semibold text-blue-800 text-center'>OTP</label>
+              <div className='inputs flex justify-center gap-3'>
+                <input onKeyUp={handleBackSpace} onInput={handleInput} placeholder='' type='number' className='w-10 h-10 rounded-md'/>
+                <input onKeyUp={handleBackSpace} onInput={handleInput} placeholder='' type='number' className='w-10 h-10 rounded-md'/>
+                <input onKeyUp={handleBackSpace} onInput={handleInput} placeholder='' type='number' className='w-10 h-10 rounded-md'/>
+                <input onKeyUp={handleBackSpace} onInput={handleInput} placeholder='' type='number' className='w-10 h-10 rounded-md'/>
+              </div>                                                                                                                                                                                                                                                                                                                 
+            </div>
+          )}
           </div>
-          <div className='flex flex-row gap-2 justify-center items-start w-full'>
-            <LoadCanvasTemplate />
+          <div className='flex flex-col gap-2 justify-center items-start w-full'>
+            <h1 className='font-semibold text-blue-800'>Enter Captcha</h1>
+            <p className='text-center w-full py-1 text-sm rounded-md mx-auto tracking-[1rem] bg-white'>{captchaText}</p>
             <input
-              type="text"
-              id="user_captcha_input"
-              name="user_captcha_input"
               placeholder='Enter Captcha'
-              readOnly={readOnly}
-              className='w-full py-2 rounded-md pl-2 outline-none text-xs'
-              value={captchaText}
-              onChange={(e) => setCaptchaText(e.target.value)}
+              className='py-2 w-full rounded-md pl-2 text-xs'
+              onChange={(e)=> setCaptcha(e.target.value)}
             />
           </div>
           <div className='flex w-full justify-center items-center mt-5'>

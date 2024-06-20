@@ -11,7 +11,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
     try{
       const datas = await getDashboardDetails();
       setData(datas.data)
-      console.log(datas.data);
+      // console.log(datas.data);
     }
     catch(error){
       console.log(error);
