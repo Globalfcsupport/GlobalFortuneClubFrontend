@@ -9,7 +9,7 @@ const apiInstance = axios.create({
 // Request interceptor
 apiInstance.interceptors.request.use(
   (config) => {
-    const authToken = localStorage.getItem("accessToken");
+    const authToken = localStorage.getItem("accessToken")
     config.headers.Authorization = `Bearer ${authToken}`;
     return config;
   },
