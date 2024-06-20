@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { getPaymentHistoryByUser, topUp } from '../services/services';
+import { getTopUpDetails, topUp } from '../services/services';
 import { CiCirclePlus } from "react-icons/ci";
 import { Button, message } from 'antd';
-import { HiOutlinePencil } from "react-icons/hi2";
-import { IoSaveOutline } from "react-icons/io5";
 import { NavLink } from 'react-router-dom';
 
 const TopUp = () => {
@@ -12,8 +10,7 @@ const TopUp = () => {
   const [ amount , setAmount ] = useState('');
   const [ loading, setLoading ] = useState(false);
   const [ messageApi, contextHolder ] = message.useMessage();
-  const [ editUSDTAddress, setEditUSDTAddress ] = useState(true);
-  const [ data, setData ] = useState({});
+  const [ data, setData ] = useState([]);
 
   const handleSubmit = (e)=> {
     e.preventDefault();
@@ -26,7 +23,6 @@ const TopUp = () => {
       setLoading(false) 
       window.location.href = response.data.payLink
     }).catch((error)=> {
-      // console.log(error);
       messageApi.error('An Unknown Error Occured')
       setLoading(false) 
     })
@@ -40,36 +36,16 @@ const TopUp = () => {
 
   const handleChange = (e)=> {
     setAmount(e.target.value)
+  } 
+
+  const topUpDetails = async ()=> {
+    const datas = await getTopUpDetails();
+    setData(datas.data.Payment);
   }
 
   useEffect(()=> {
-    // getPaymenthistory()
+    topUpDetails()
   }, [])
-
-  const paymentHistory = [
-    {
-      trackId: 'ABC12',
-      updatedAt: '09/23/12 12:34',
-      amount: 12
-    },
-    {
-      trackId: 'ABC12',
-      updatedAt: '09/23/12 12:34',
-      amount: 12
-    },
-    {
-      trackId: 'ABC12',
-      updatedAt: '09/23/12 12:34',
-      amount: 12
-    },
-    {
-      trackId: 'ABC12',
-      updatedAt: '09/23/12 12:34',
-      amount: 12
-    }
-  ]
-
-  const [ paymentsHistory , setpaymentsHistory ] = useState(paymentHistory);
 
   return (
     <div className='w-full flex flex-col h-full font-poppins text-sm overflow-hidden'>
@@ -106,15 +82,15 @@ const TopUp = () => {
           </div>
           <div className='px-5'>
             <h1 className='p-3 bg-blue-400 text-white'>Recent Top Ups</h1>
-            <div className='bg-white h-full w-full'>
-              {paymentsHistory.map((item, index)=> (
+            <div className='bg-white h-fit w-full'>
+              {data.map((item, index)=> (
                 <div key={index} className='flex justify-between h-14 px-3 items-center'>
-                  <CiCirclePlus size={25} />
+                  <CiCirclePlus size={25} className='text-green-600'/>
                   <div>
                     <p className='text-xs text-blue-600'>C - In, track Id: {item.trackId}</p>
                     <p className='text-xs'>Completed {new Date(item.updatedAt).toLocaleString()}</p>
                   </div>
-                  <p className='text-xs'>{item.amount}</p>
+                  <p className='text-xs'>{item.price}</p>
                 </div>
               ))}
             </div>

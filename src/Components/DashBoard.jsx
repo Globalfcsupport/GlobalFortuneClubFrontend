@@ -3,24 +3,11 @@ import { FaArrowRight, FaWallet } from 'react-icons/fa';
 import { FiAlertCircle } from "react-icons/fi";
 import { Link } from 'react-router-dom';
 import { ActivateClub } from '../services/services';
+import { getDashboardDetails } from '../services/services';
 
 const DashBoard = () => {
-  const [userData, setUserData] = useState({
-    name: '',
-    id: '',
-    wallet: 0,
-    reserveWallet: 0,
-    CrowdStacking: 0,
-    ActiveSlots: 0,
-    CompletedSlots: 0,
-    YieldToday: 0,
-    YieldOverall: 0,
-    ReferralIncomeToday: 0,
-    ReferralIncomeOverall: 0,
-    TotalCryptoTopUp: 10800,
-    TotalCryptoWithdraw: 223,
-    TotalInternalTransferIn: 0
-  });
+  
+  const [data, setData] = useState({});
 
   const ClubActivation = async () => {
     try {
@@ -31,20 +18,32 @@ const DashBoard = () => {
     } catch (error) {}
   };
 
+  const dashboardDetails = async ()=> {
+    try{
+      const datas = await getDashboardDetails();
+      setData(datas.data)
+    }
+    catch(error){
+      console.log(error);
+    }
+  }
 
+  useEffect(()=> {
+    dashboardDetails()
+  }, [])
 
   return (
     <div className="h-full p-2 font-poppins">
       <div className="bg-blue-500 p-3 flex justify-between items-center text-white rounded-lg">
         <div>
-          <p className="text-sm font-semibold">User Name: Tamizh</p>
-          <p className='text-sm'>ID: {userData.id}</p>
+          <p className="text-sm font-semibold">User Name: {data?.userName}</p>
+          <p className='text-sm'>ID: {data.refId}</p>
         </div>
         <button
           className="bg-white text-blue-500 px-4 py-1 rounded"
           onClick={ClubActivation}
         >
-          Start
+          {data.active ? "Started" : "Start"}
         </button>
       </div>
 
@@ -63,7 +62,7 @@ const DashBoard = () => {
             <span>My Wallet</span>
           </div>
           <div className="flex items-center space-x-2">
-            <span>{userData.wallet.toFixed(4)}</span>
+            <span>{data.wallet}</span>
             <FaArrowRight className="text-gray-400" />
           </div>
         </div>
@@ -74,9 +73,9 @@ const DashBoard = () => {
             <FiAlertCircle />
             <span>Reserve - My Wallet</span>
           </div>
-          <div className="bg-blue-500 text-white px-6 py-1 rounded">
-            ${userData.reserveWallet.toFixed(2)}
-          </div>
+          <p className="bg-blue-500 text-white px-6 py-1 rounded">
+            0.00
+          </p>
         </div>
 
         {/* Crowd - Stacking Section */}
@@ -86,7 +85,7 @@ const DashBoard = () => {
             <span>Crowd Stacking</span>
           </div>
           <div className='flex items-center space-x-2'>
-            <span>${userData.CrowdStacking.toFixed(4)}</span>
+            <span>{data?.crowd?.toFixed(4)}</span>
             <FaArrowRight className='text-gray-400' />
           </div>
         </div>
@@ -98,7 +97,7 @@ const DashBoard = () => {
             <span>Active Slots</span>
           </div>
           <div className='flex items-center space-x-2'>
-            <span>${userData.ActiveSlots}</span>
+            <span>{data.activatedTotal}</span>
             <FaArrowRight className='text-gray-400' />
           </div>
         </div>
@@ -110,7 +109,7 @@ const DashBoard = () => {
             <span>Completed Slots</span>
           </div>
           <div className='flex items-center space-x-2'>
-            <span>${userData.CompletedSlots}</span>
+            <span>{data.completedTotal}</span>
             <FaArrowRight className='text-gray-400' />
           </div>
         </div>
@@ -121,7 +120,7 @@ const DashBoard = () => {
             <span>Yield - Today</span>
           </div>
           <div className='flex items-center space-x-2'>
-            <span>${userData.YieldToday}</span>
+            <span>$0</span>
             <FaArrowRight className='text-gray-400' />
           </div>
         </div>
@@ -132,7 +131,7 @@ const DashBoard = () => {
             <span>Yield - Overall</span>
           </div>
           <div className='flex items-center space-x-2'>
-            <span>${userData.YieldOverall}</span>
+            <span>{data.Yield}</span>
             <FaArrowRight className='text-gray-400' />
           </div>
         </div>
@@ -143,7 +142,7 @@ const DashBoard = () => {
             <span>Referral Income -Today</span>
           </div>
           <div className='flex items-center space-x-2'>
-            <span>${userData.ReferralIncomeToday}</span>
+            <span>$0</span>
             <FaArrowRight className='text-gray-400' />
           </div>
         </div>
@@ -154,7 +153,7 @@ const DashBoard = () => {
             <span>Referral Income -Overall</span>
           </div>
           <div className='flex items-center space-x-2'>
-            <span>${userData.ReferralIncomeOverall}</span>
+            <span>$0</span>
             <FaArrowRight className='text-gray-400' />
           </div>
         </div>
@@ -165,7 +164,7 @@ const DashBoard = () => {
             <span>Total Crypto Top-Up</span>
           </div>
           <div className='flex items-center space-x-2'>
-            <span>${userData.TotalCryptoTopUp}</span>
+            <span>{data.totalCryptoTopup}</span>
             <FaArrowRight className='text-gray-400' />
           </div>
         </div>
@@ -176,7 +175,7 @@ const DashBoard = () => {
             <span>Total Crypto Withdraw</span>
           </div>
           <div className='flex items-center space-x-2'>
-            <span>${userData.TotalCryptoWithdraw}</span>
+            <span>$0</span>
             <FaArrowRight className='text-gray-400' />
           </div>
         </div>
@@ -187,7 +186,7 @@ const DashBoard = () => {
             <span>Total Internal Transfer IN</span>
           </div>
           <div className='flex items-center space-x-2'>
-            <span>${userData.TotalInternalTransferIn}</span>
+            <span>$0</span>
             <FaArrowRight className='text-gray-400' />
           </div>
         </div>
@@ -198,7 +197,7 @@ const DashBoard = () => {
             <span>More Content</span>
           </div>
           <div className='flex items-center space-x-2'>
-            <span>${userData.CompletedSlots}</span>
+            <span>$0</span>
             <FaArrowRight className='text-gray-400' />
           </div>
         </div>
@@ -209,7 +208,7 @@ const DashBoard = () => {
             <span>More Content</span>
           </div>
           <div className='flex items-center space-x-2'>
-            <span>${userData.CompletedSlots}</span>
+            <span>$0</span>
             <FaArrowRight className='text-gray-400' />
           </div>
         </div>
@@ -220,7 +219,7 @@ const DashBoard = () => {
             <span>More Content</span>
           </div>
           <div className='flex items-center space-x-2'>
-            <span>${userData.CompletedSlots}</span>
+            <span>$0</span>
             <FaArrowRight className='text-gray-400' />
           </div>
         </div>

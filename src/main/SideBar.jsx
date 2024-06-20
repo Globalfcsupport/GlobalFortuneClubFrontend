@@ -1,10 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaTachometerAlt, FaWallet, FaDice, FaUserFriends, FaComments, FaLifeRing, FaCog, FaShareAlt } from "react-icons/fa";
+import { getDashboardDetails } from '../services/services';
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
 
-  const navigate = useNavigate();
+  const [ data, setData ] = useState('');
+
+  const dashboardDetails = async ()=> {
+    try{
+      const datas = await getDashboardDetails();
+      setData(datas.data)
+      console.log(datas.data);
+    }
+    catch(error){
+      console.log(error);
+    }
+  }
+
+  useEffect(()=> {
+    dashboardDetails()
+  }, [])
   
   return (
     <div
@@ -25,8 +41,8 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           <div className="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
           <div>
             <div className="font-bold text-white">User Name</div>
-            <div className="text-gray-300">user@mail.com</div>
-            <div className="text-gray-300">ID: 12345</div>
+            <div className="text-gray-300 text-[10px]">{data.email}</div>
+            <div className="text-gray-300 text-[10px]">{data.refId}</div>
           </div>
         </div>
         {/* Sidebar Links */}

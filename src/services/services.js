@@ -59,3 +59,18 @@ export const getChathistories = async (id)=>{
   let response = await useAxiosInterceptors.get("/user/get/chat/history/"+id);
   return response
 }
+
+export const getFCSlots = async ()=>{
+  let response = await useAxiosInterceptors.get("/user/get/fc/slots");
+  return response
+}
+
+export const getDashboardDetails = async ()=>{
+  let response = await useAxiosInterceptors.get("/user/get/user/details/dashboard");
+  return response
+}
+
+export const getTopUpDetails = async ()=>{
+  let response = await useAxiosInterceptors.get("/user/get/topup/details");
+  return response
+}

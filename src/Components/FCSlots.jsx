@@ -1,71 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import { Flex, Progress } from 'antd'
+import { getFCSlots } from '../services/services';
 
 const FCSlots = () => {
   const [activeTab, setActiveTab] = useState('active');
+  const [ activeSlots, setActiveSlots ] = useState([])
+  const [ pendingSlots, setPendingSlots ] = useState([])
+  const [ completedSlots, setCompletedSlots ] = useState([]);
+  const [ data, setData ] = useState([]);
 
-  const activeData = [
-    {
-      yield: 191,
-      slotId: 'ACB01',
-      date: '04/23/12 12:23'
-    },
-    {
-      yield: 120,
-      slotId: 'ACB01',
-      date: '04/23/12 12:23'
-    },
-    {
-      yield: 76,
-      slotId: 'ACB01',
-      date: '04/23/12 12:23'
-    },
-    {
-      yield: 19,
-      slotId: 'ACB01',
-      date: '04/23/12 12:23'
-    },
-    {
-      yield: 10,
-      slotId: 'ACB01',
-      date: '04/23/12 12:23'
-    },
-    {
-      yield: 1,
-      slotId: 'ACB01',
-      date: '04/23/12 12:23'
-    },
-  ];
+  const fcSlots = async ()=> {
+    try{
+      const datas = await getFCSlots();
+      setData(datas.data)
+    }
+    catch(error){
+      console.log(error);
+    }
+  }
 
-  const completedData = [
-    {
-      yield: 200,
-      slotId: 'ACB01',
-      date: '04/23/12 12:23'
-    },
-    {
-      yield: 200,
-      slotId: 'ACB01',
-      date: '04/23/12 12:23'
-    },
-    {
-      yield: 200,
-      slotId: 'ACB01',
-      date: '04/23/12 12:23'
-    },
-    {
-      yield: 200,
-      slotId: 'ACB01',
-      date: '04/23/12 12:23'
-    },
-  ];
+  useEffect(()=> {
+    fcSlots()
+  }, [])
 
-  activeData.forEach((item)=> {
-    item.percent = (item.yield/200)*100
-  })
-  completedData.forEach((item)=> {
-    item.percent = (item.yield/200)*100
-  })
+  useEffect(()=> {
+    const active = data.filter(item=> (
+      item.status === 'Activated'
+    ))
+    setActiveSlots(active)
+    const pending = data.filter(item=> (
+      item.status === 'Pending'
+    ))
+    setPendingSlots(pending)
+    const completed = data.filter(item=> (
+      item.status === 'Completed'
+    ))
+    setCompletedSlots(completed)
+  }, [data])
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
@@ -97,12 +68,12 @@ const FCSlots = () => {
       <div className=''>
         {activeTab === 'active' && (
           <div>
-            {activeData.map((item, index) => (
-              <div className='flex items-center gap-5'>
-                <Progress key={index} type='circle' size={70} percent={item.percent} className='h-28 w-28 flex justify-center items-center'/>
+            {activeSlots.map((item, index) => (
+              <div key={index} className='flex items-center gap-5'>
+                <Progress key={index} type='circle' size={70} percent={(item.currentYield/item.totalYield)*100} className='h-28 w-28 flex justify-center items-center'/>
                 <div>
-                  <p className='font-semibold text-sm'>{item.slotId}</p>
-                  <p className='text-xs'>{item.yield}/200</p>
+                  <p className='font-semibold text-sm'>{item.slotId.slice(0,5)}</p>
+                  <p className='text-xs'>{item.currentYield}/{item.totalYield}</p>
                   <p className='text-xs'>{item.date}</p>
                 </div>
               </div>
@@ -111,8 +82,8 @@ const FCSlots = () => {
         )}
         {activeTab === 'completed' && (
           <div>
-            {completedData.map((item, index) => (
-              <div className='flex items-center gap-5'>
+            {completedSlots.map((item, index) => (
+              <div key={index} className='flex items-center gap-5'>
                 <Progress key={index} type='circle' size={70} percent={item.percent} className='h-28 w-28 flex justify-center items-center'/>
                 <div>
                   <p className='font-semibold text-sm'>{item.slotId}</p>

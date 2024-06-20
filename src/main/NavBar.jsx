@@ -21,7 +21,7 @@ const NavBar = () => {
   const handleNavigate = ()=> {
     
     const uniquePaths = Array.from(customHistory);
-    console.log(uniquePaths);
+    // console.log(uniquePaths);
     if(uniquePaths[uniquePaths.length-1]===location.pathname){
       navigate(uniquePaths[uniquePaths.length-2])
       uniquePaths.pop();
@@ -40,7 +40,7 @@ const NavBar = () => {
     }
     customHistory.add(location.pathname);
     customHistory.delete()
-    console.log("set", customHistory);  
+    // console.log("set", customHistory);  
   }, [location])
 
   return (
