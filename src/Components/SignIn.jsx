@@ -101,6 +101,7 @@ const FormikSignIn = () => {
           }).then((response)=>{
                 localStorage.setItem('accessToken', response.data.token);
                 localStorage.setItem('refId', response.data.data.refId);
+                localStorage.setItem('userName', response.data.data.userName);
                 navigate('app/DashBoard')
                 // setSubmitLoading(false);
             })

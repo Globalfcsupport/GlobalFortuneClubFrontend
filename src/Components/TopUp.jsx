@@ -3,6 +3,8 @@ import { getTopUpDetails, topUp } from '../services/services';
 import { CiCirclePlus } from "react-icons/ci";
 import { Button, message } from 'antd';
 import { NavLink } from 'react-router-dom';
+import { FcExpired } from "react-icons/fc";
+import { IoTimeOutline } from "react-icons/io5";
 
 const TopUp = () => {
 
@@ -82,15 +84,37 @@ const TopUp = () => {
           </div>
           <div className='px-5'>
             <h1 className='p-3 bg-blue-400 text-white'>Recent Top Ups</h1>
-            <div className='bg-white h-fit w-full'>
-              {data.map((item, index)=> (
+            <div className='bg-white w-full max-h-56 overflow-y-scroll'>
+              {data.length == 0 ?
+                <div>
+                  <p>No TopUp History</p>
+                </div> :
+              data.map((item, index)=> (
                 <div key={index} className='flex justify-between h-14 px-3 items-center'>
-                  <CiCirclePlus size={25} className='text-green-600'/>
+                  {item.status=="Paid" ? 
+                    <CiCirclePlus size={25} className='text-green-600'/> :
+                    item.status=="Expired" ?
+                      <FcExpired size={20} className='text-red-600' /> :
+                    item.status=="Waiting" ?
+                    <IoTimeOutline className='text-yellow-400'/> : null
+                  }
                   <div>
-                    <p className='text-xs text-blue-600'>C - In, track Id: {item.trackId}</p>
+                    <p className='text-xs text-blue-600'>C - {item.status=="Paid" ? 
+                        "Paid" :
+                        item.status=="Expired" ?
+                        "Expired" :
+                        item.status=="Waiting" ?
+                        "Waiting" : null
+                      }, track Id: {item.trackId}</p>
                     <p className='text-xs'>Completed {new Date(item.updatedAt).toLocaleString()}</p>
                   </div>
-                  <p className='text-xs'>{item.price}</p>
+                  <p className='text-xs text-blue-600'>{item.status=="Paid" ? 
+                        item.price :
+                        item.status=="Expired" ?
+                        "-" :
+                        item.status=="Waiting" ?
+                        "-" : null
+                      }</p>
                 </div>
               ))}
             </div>

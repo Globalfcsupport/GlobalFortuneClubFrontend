@@ -15,7 +15,9 @@ export default {
       fontFamily: {
         poppins: ['"Poppins"', ...defaultTheme.fontFamily.sans],
       },
-      
+      fontSize: {
+        xss: '10px'
+      }
     },
   },
   plugins: [

@@ -43,7 +43,7 @@ const DashBoard = () => {
           className="bg-white text-blue-500 px-4 py-1 rounded"
           onClick={ClubActivation}
         >
-          {data.active ? "Started" : "Start"}
+          {data.started ? "Started" : "Start"}
         </button>
       </div>
 
