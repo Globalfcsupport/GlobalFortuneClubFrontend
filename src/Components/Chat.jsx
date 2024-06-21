@@ -24,7 +24,6 @@ const Chat = () => {
   const [ minimumInternalTransaction, setMinimumInternalTransaction] = useState(10);
   const [ internalTransactionFee, setInternalTransactionFee ] = useState(1);
   const [ amount, setAmount ] = useState('');
-  const ref = useRef();
   // const roomId = "123";
 
   const getOldmessages = async () => {
@@ -182,7 +181,7 @@ const Chat = () => {
           onClick={sendMessage}
         />
       </div>
-      {pay ? 
+      { pay ? 
         <div className="absolute bg-transparent h-full w-full flex justify-center items-center" onClick={handleClick}>
           <div className="div relative w-80 bg-white rounded-lg text-black py-4 px-3 flex flex-col gap-2">
             <div className="flex div justify-between text-sm font-medium">

@@ -134,7 +134,7 @@ const Settings = () => {
           </div>
           <div className='flex flex-col gap-1 text-right'>
             <label htmlFor='uplineID' className='font-semibold text-primary'>Upline ID</label>
-            <input type='text' readOnly className=' px-2 py-1 w-32 rounded-lg text-right' value={data.uplineID} id='uplineID' name='uplineID' />
+            <input type='text' readOnly className='px-2 py-1 w-32 rounded-lg text-right' value={data.uplineID} id='uplineID' name='uplineID' />
           </div>
         </div>
         <div className='flex flex-col gap-1'>
