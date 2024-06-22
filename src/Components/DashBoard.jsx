@@ -267,7 +267,7 @@ const DashBoard = () => {
           }}>
         <Link to='/app/TopUp' className="bg-blue-500 text-white px-5 py-1 rounded-md">TopUp</Link>
         <Link to='/app/Withdraw' className="bg-blue-500 text-white px-5 py-1 rounded-md">Withdraw</Link>
-        <Link to='Transfer' className="bg-blue-500 text-white px-5 py-1 rounded-md">Transfer</Link>
+        <Link to='/app/chats' className="bg-blue-500 text-white px-5 py-1 rounded-md">Transfer</Link>
       </div>
       {editReserveMyWallet ? 
         <div className='absolute flex justify-center items-center h-full w-full bg-transparent top-0 left-0' onClick={handleClick}>

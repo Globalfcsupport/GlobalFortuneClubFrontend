@@ -8,6 +8,9 @@ const Chats = () => {
 
   const navigate = useNavigate();
   const [ searchText, setSearchText ] = useState('');
+  const [ users, setUsers ] = useState([]);
+  const [ activeChat, setActiveChat ] = useState('');
+  const [ datas, setDatas ] = useState([]);
 
   const handleChat = (item)=> {
     setActiveChat(item.userName)
@@ -18,9 +21,6 @@ const Chats = () => {
     navigate(`${item}`)
   }
 
-  const [ users, setUsers ] = useState([]);
-  const [ activeChat, setActiveChat ] = useState(susers[0].name);
-
   const handleSearch = (e)=> {
     setSearchText(e.target.value)
   }
@@ -28,6 +28,7 @@ const Chats = () => {
 const getUsers_ForChats = async ()=>{
   try {
     let apiResponse = await getUsersForChats()
+    setDatas(apiResponse.data)
     setUsers(apiResponse.data)
   } catch (error) {
     console.log(error);
@@ -37,21 +38,24 @@ const getUsers_ForChats = async ()=>{
 
   useEffect(()=> {
     getUsers_ForChats()
+  }, [])
+
+  useEffect(()=> {
     if(searchText){
-      const filteredUsers = susers.filter(item=> (
-        item.name.toLowerCase().includes(searchText.toLowerCase())
+      const filteredUsers = users.filter(item=> (
+        item.userName.toLowerCase().includes(searchText.toLowerCase())
       ))
       setUsers(filteredUsers)
     }
     else{
-      setUsers([])
+      setUsers(datas)
     }
   }, [searchText])
 
   return (
     <div className='rounded-bl-3xl rounded-br-3xl flex flex-col relative h-full'>
       <div className='px-5 py-2 sticky top-0 bg-blue-300'>
-        <input type='text' onChange={handleSearch} className='px-5 py-1 text-sm outline-none w-full rounded-md' placeholder='Search User' />
+        <input type='text' onChange={handleSearch} className='px-5 py-1 text-sm w-full rounded-md' placeholder='Search User' />
       </div>
       <div className='h-full overflow-scroll'>
         {users.length == 0 ? 
