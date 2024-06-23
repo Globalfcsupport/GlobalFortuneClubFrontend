@@ -89,6 +89,11 @@ const Chat = () => {
         console.log(data, "new room message");
         setMessages((prevMessages) => [...prevMessages, data.message]);
       });
+      // listen For New Transaction
+      socket.on("Trnsaction", (data) => {
+        console.log(data, "new room message");
+        setMessages((prevMessages) => [...prevMessages, data.message]);
+      });
 
       // Listen for private messages
       socket.on("newMessage", (data) => {
