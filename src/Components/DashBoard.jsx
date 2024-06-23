@@ -4,18 +4,26 @@ import { FiAlertCircle } from "react-icons/fi";
 import { Link } from 'react-router-dom';
 import { ActivateClub } from '../services/services';
 import { getDashboardDetails } from '../services/services';
+import { message } from 'antd';
 
 const DashBoard = () => {
   
   const [data, setData] = useState({});
+  const [ messageApi, contextHolder ] = message.useMessage();
+  const [ editReserveMyWallet, setEditReserveMyWallet ] = useState(false);
 
   const ClubActivation = async () => {
     try {
       let datas = await ActivateClub();
+      // console.log(datas);
       if (datas.data) {
-        messageApi.success(datas.data);
+        // console.log('inside if');
+        messageApi.success(datas.status);
+        // console.log(datas.data);
+        window.location.reload();
       }
     } catch (error) {}
+    console.log('clicked');
   };
 
   const dashboardDetails = async ()=> {
@@ -32,14 +40,39 @@ const DashBoard = () => {
     dashboardDetails()
   }, [])
 
+  const handleReserveMyWallet = ()=> {
+    setEditReserveMyWallet(!editReserveMyWallet);
+  }
+
+  const handleCancel = ()=> {
+    setEditReserveMyWallet(!editReserveMyWallet)
+  }
+
+  const handleConfirm = ()=> {
+    if(true){
+      console.log('done');
+    }
+    else{
+      console.log('not done');
+    }
+  }
+
+  const handleClick = (e)=> {
+    // console.log(e.target.closest("div").className.includes('div'));
+    if(!e.target.closest("div").className.includes('div')){
+      setEditReserveMyWallet(!editReserveMyWallet)
+    }
+  }
+
   return (
     <div className="h-full p-2 font-poppins">
+      {contextHolder}
       <div className="bg-blue-500 p-3 flex justify-between items-center text-white rounded-lg">
         <div>
           <p className="text-sm font-semibold">User Name: {data?.userName}</p>
           <p className='text-sm'>ID: {data.refId}</p>
         </div>
-        <button
+        <button disabled={data.started ? true : false}
           className="bg-white text-blue-500 px-4 py-1 rounded"
           onClick={ClubActivation}
         >
@@ -68,7 +101,7 @@ const DashBoard = () => {
         </div>
 
         {/* Reserve - My Wallet Section */}
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
+        <div onClick={handleReserveMyWallet} className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
           <div className="flex items-center space-x-2">
             <FiAlertCircle />
             <span>Reserve - My Wallet</span>
@@ -234,8 +267,20 @@ const DashBoard = () => {
           }}>
         <Link to='/app/TopUp' className="bg-blue-500 text-white px-5 py-1 rounded-md">TopUp</Link>
         <Link to='/app/Withdraw' className="bg-blue-500 text-white px-5 py-1 rounded-md">Withdraw</Link>
-        <Link to='Transfer' className="bg-blue-500 text-white px-5 py-1 rounded-md">Transfer</Link>
+        <Link to='/app/chats' className="bg-blue-500 text-white px-5 py-1 rounded-md">Transfer</Link>
       </div>
+      {editReserveMyWallet ? 
+        <div className='absolute flex justify-center items-center h-full w-full bg-transparent top-0 left-0' onClick={handleClick}>
+          <div className='div bg-white p-5 border border-black rounded-xl h-fit flex flex-col gap-5'>
+            <p>Reserve - My Wallet</p>
+            <input type="text" className='px-3 py-1 text-sm rounded-lg' placeholder='Enter Amount' />
+            <div className="div flex justify-around">
+              <button type="button" onClick={handleCancel} className="bg-red-600 px-5 rounded-full text-sm py-1 text-white">Cancel</button>
+              <button type="button" onClick={handleConfirm} className="bg-green-600 px-5 rounded-full text-sm py-1 text-white">Confirm</button>
+            </div>
+          </div>
+        </div> : null
+      }
     </div>
   );
 };

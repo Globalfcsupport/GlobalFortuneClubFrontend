@@ -31,9 +31,11 @@ const FormikSignIn = () => {
       await sendOTP({email: email}).then((response)=> {
         setSendOTPLoading(false)
         setOTPShowInput(true)
+        messageApi.success("OTP Sent Successfully!")
         // console.log(response);
       }).catch((error)=> {
         messageApi.warning(error.response.data.message)
+        setSendOTPLoading(false)
       })
     }
     else{
@@ -69,7 +71,7 @@ const FormikSignIn = () => {
       text = text + item.value;
     })
     setOTP(text)
-    console.log(text);
+    // console.log(text);
   }
 
   const handleBackSpace = (e)=> {
@@ -88,11 +90,11 @@ const FormikSignIn = () => {
   }
   
   const handleSubmit = (event) => {
-    console.log(captcha);
+    // console.log(captcha);
     event.preventDefault();
     setSubmitLoading(true);
-    console.log(OTP);
-    console.log(email);
+    // console.log(OTP);
+    // console.log(email);
     if (OTP.length == 4) {
         if(captcha===captchaText){
             Login({
@@ -102,7 +104,10 @@ const FormikSignIn = () => {
                 localStorage.setItem('accessToken', response.data.token);
                 localStorage.setItem('refId', response.data.data.refId);
                 localStorage.setItem('userName', response.data.data.userName);
-                navigate('app/DashBoard')
+                console.log('before');
+                messageApi.success("Logged In Successfully!")
+                navigate('app/DashBoard');
+                console.log('after');
                 // setSubmitLoading(false);
             })
             .catch((error)=>{
@@ -151,7 +156,7 @@ const FormikSignIn = () => {
           <div className="flex flex-col gap-2 relative w-full">
             <label htmlFor='email' className='font-semibold text-blue-800'>Email</label>
             <input required type="email" name="email" placeholder='Enter Your Email' className='w-full py-3 rounded-md pl-4 pr-32 text-sm' onChange={(e)=> setEmail(e.target.value)} />
-            <Button loading={sendOTPLoading} className='absolute bg-blue-700 text-white px-5 py-1 rounded-md bottom-[0.375rem] h-9 right-1' onClick={handleSendOTP} >
+            <Button loading={sendOTPLoading} className='absolute bg-blue-700 text-white px-5 py-1 rounded-md bottom-[0.375rem] h-9 right-[0.325rem]' onClick={handleSendOTP} >
               {sendOTPLoading ? 'Sending' : 'Send OTP'}
             </Button>
           </div>
@@ -159,10 +164,10 @@ const FormikSignIn = () => {
             <div className='flex flex-col gap-2 justify-center w-full'>
               <label htmlFor='email' className='font-semibold text-blue-800 text-center'>OTP</label>
               <div className='inputs flex justify-center gap-3'>
-                <input onKeyUp={handleBackSpace} onInput={handleInput} placeholder='' type='number' className='w-10 h-10 rounded-md'/>
-                <input onKeyUp={handleBackSpace} onInput={handleInput} placeholder='' type='number' className='w-10 h-10 rounded-md'/>
-                <input onKeyUp={handleBackSpace} onInput={handleInput} placeholder='' type='number' className='w-10 h-10 rounded-md'/>
-                <input onKeyUp={handleBackSpace} onInput={handleInput} placeholder='' type='number' className='w-10 h-10 rounded-md'/>
+                <input onKeyUp={handleBackSpace} onInput={handleInput} maxLength={1} placeholder='' type='text' className='w-10 h-10 rounded-md'/>
+                <input onKeyUp={handleBackSpace} onInput={handleInput} maxLength={1} placeholder='' type='text' className='w-10 h-10 rounded-md'/>
+                <input onKeyUp={handleBackSpace} onInput={handleInput} maxLength={1} placeholder='' type='text' className='w-10 h-10 rounded-md'/>
+                <input onKeyUp={handleBackSpace} onInput={handleInput} maxLength={1} placeholder='' type='text' className='w-10 h-10 rounded-md'/>
               </div>                                                                                                                                                                                                                                                                                                                 
             </div>
           )}

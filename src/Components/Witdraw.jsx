@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { getPaymentHistoryByUser, topUp } from '../services/services';
-import { CiCirclePlus } from "react-icons/ci";
 import { Button, message } from 'antd';
 import { HiOutlinePencil } from "react-icons/hi2";
 import { IoSaveOutline } from "react-icons/io5";
@@ -8,18 +6,12 @@ import { NavLink } from 'react-router-dom';
 
 const Withdraw = () => {
 
-  const initialValues = {
-    USDTAddress: '',
-    amount: '',
-    refId: localStorage.getItem('refId')
-  }
-
   const [ loading, setLoading ] = useState(false);
   const [ messageApi, contextHolder ] = message.useMessage();
   const [ editUSDTAddress, setEditUSDTAddress ] = useState(true);
   const [ networkFee, setNetworkFee ] = useState(2);
   const [ receivableAmount, setReceivableAmount ] = useState('');
-  const [ data, setData ] = useState(initialValues);
+  const [ data, setData ] = useState({});
 
   const handleUSDTAddress = ()=> {
     setEditUSDTAddress(!editUSDTAddress)
@@ -38,15 +30,7 @@ const Withdraw = () => {
 
   const handleSubmit = (e)=> {
     e.preventDefault();
-    const USDTAddress = document.getElementById('USDTAddress').value;
-    const amount = document.getElementById('amount').value;
-    const refId = localStorage.getItem('refId');
-
-    const data = {
-      USDTAddress: USDTAddress,
-      amount: amount,
-      refId: refId,
-    }
+    console.log(data);
     setLoading(true);
     setTimeout(()=> {
       setLoading(false)
@@ -55,10 +39,6 @@ const Withdraw = () => {
 
     console.log(data)
   }
-
-  useEffect(()=> {
-    // getPaymenthistory()
-  }, [])
 
   return (
     <div className='w-full flex flex-col h-full font-poppins text-sm overflow-hidden'>
@@ -85,7 +65,7 @@ const Withdraw = () => {
           <form className='flex flex-col gap-5' onSubmit={handleSubmit}>
             <div className='flex flex-col gap-2 relative'>
               <label htmlFor='USDTAddress' className='text-blue-600 font-semibold'>Enter Your USDT Address (TRC - 20)</label>
-              <input readOnly={editUSDTAddress} id='USDTAddress' name='USDTAddress' type='text' className='px-3 py-1 rounded-md' onChange={handleChange} value={data.USDTAddress}/>
+              <input placeholder='Enter USDT Address' readOnly={editUSDTAddress} id='USDTAddress' name='USDTAddress' type='text' className='px-3 py-1 rounded-md' onChange={handleChange} value={data.USDTAddress}/>
               {editUSDTAddress ?
                 <HiOutlinePencil size={15} className='absolute bottom-2 right-2' onClick={handleUSDTAddress}/>
                 : <IoSaveOutline size={15} className='absolute bottom-2 right-2' onClick={handleUSDTAddress}/>
@@ -93,11 +73,11 @@ const Withdraw = () => {
             </div>
             <div className='flex flex-col gap-2 relative'>
               <label htmlFor='amount' className='text-blue-600 font-semibold'>Enter Amount</label>
-              <input required id='amount' name='amount' type='text' className='px-3 py-1 rounded-md' onChange={handleChange} value={data.amount}/>
+              <input placeholder='Enter Amount' required id='amount' name='amount' type='number' className='px-3 py-1 rounded-md' onChange={handleChange} value={data.amount}/>
             </div>
             <div className='flex flex-col gap-2 relative'>
               <label className='text-blue-600 font-semibold'>Admin & Network Fee</label>
-              <p id='networkfee' className='px-3 py-1 rounded-md outline-none bg-white'>{networkFee} %</p>
+              <input id='networkfee' value={networkFee+"%"} className='px-3 py-1 rounded-md bg-white' />
             </div>
             <div className='flex flex-col gap-2 relative'>
               <label className='text-blue-600 font-semibold'>Receivable Amount</label>

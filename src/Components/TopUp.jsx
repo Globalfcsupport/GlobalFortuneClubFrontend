@@ -87,7 +87,7 @@ const TopUp = () => {
             <div className='bg-white w-full max-h-56 overflow-y-scroll'>
               {data.length == 0 ?
                 <div>
-                  <p>No TopUp History</p>
+                  <p className='text-center p-5'>No TopUp History</p>
                 </div> :
               data.map((item, index)=> (
                 <div key={index} className='flex justify-between h-14 px-3 items-center'>
