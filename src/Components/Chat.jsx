@@ -10,7 +10,7 @@ import { FaTelegramPlane, FaUser } from "react-icons/fa";
 import io from "socket.io-client";
 import { v4 } from "uuid";
 
-const socket = io("localhost://5001");
+const socket = io("http://localhost:5001");
 
 const Chat = () => {
   const { id } = useParams();
@@ -32,6 +32,8 @@ const Chat = () => {
       setMessages(val.data);
     } catch (error) {}
   };
+
+  // console.log(message,"mess");
 
   const getRoom = async () => {
     try {
@@ -68,46 +70,52 @@ const Chat = () => {
         senderId: sender,
         receiverId: receiver,
       });
-
       // setMessages((prev) => [...prev, message]);
       setMessage("");
     }
   };
+
+
 
   useEffect(() => {
     getUserById_Chat();
     getMyDetails();
     getRoom();
     getOldmessages();
-
+  
     if (roomId) {
       socket.emit("joinRoom", roomId);
-
+  
       // Listen for new messages
       socket.on("message", (data) => {
         console.log(data, "new room message");
-        setMessages((prevMessages) => [...prevMessages, data.message]);
+        setMessages((prevMessages) => [...prevMessages, data]);
       });
-      // listen For New Transaction
+  
+      // Listen for new transaction messages
       socket.on("Trnsaction", (data) => {
-        console.log(data, "new room message");
-        setMessages((prevMessages) => [...prevMessages, data.message]);
+        console.log(data, "new transaction message");
+        setMessages((prevMessages) => [...prevMessages, data.data]);
       });
-
+  
       // Listen for private messages
       socket.on("newMessage", (data) => {
         console.log(data, "new private message");
         setMessages((prevMessages) => [...prevMessages, data.message]);
       });
-
+  
       // Clean up on unmount
       return () => {
         socket.off("message");
+        socket.off("Trnsaction");
         socket.off("newMessage");
         socket.disconnect();
       };
     }
   }, [roomId]);
+  
+
+
 
   const showPay = ()=> {
     console.log('show pay');
@@ -128,12 +136,26 @@ const Chat = () => {
   const handleConfirm = ()=> {
     if(amount >= minimumInternalTransaction){
       console.log('done');
+      if (amount.trim() !== "") {
+        console.log(amount, "sending message");
+        socket.emit("sendMoney", {
+          roomId,
+          message:amount,
+          money:amount,
+          senderId: sender,
+          receiverId: receiver,
+          payment:true,
+        });
+        setPay("");
+      }
       setPay(!pay)
     }
     else{
       console.log('not done');
     }
   }
+
+  console.log("mes", messages);
 
   return (
     <div className="flex flex-col justify-between overflow-hidden h-full relative font-poppins">
@@ -153,16 +175,17 @@ const Chat = () => {
       <div className="flex flex-col gap-2 w-full h-full py-1 overflow-y-scroll">
         {messages.map((msg, index) => (
           <div key={index} className="flex flex-col">
-            {msg.msg.includes("You:") ? (
+            {/* {console.log(msg.message)} */}
+            {msg?.message?.includes("You:") ? (
               <div className="w-full flex justify-end px-2">
                 <p className="text-right max-w-60 w-fit px-2 py-1 text-sm bg-black rounded-xl text-white">
-                  {msg.msg}
+                  {msg.message}
                 </p>
               </div>
             ) : (
               <div className="w-full flex justify-start px-2">
                 <p className="text-left max-w-60 w-fit px-2 py-1 text-sm bg-black rounded-xl text-white">
-                  {msg.msg}
+                  {msg.message}
                 </p>
               </div>
             )}

@@ -19,18 +19,18 @@ import Chats from "./Components/Chats";
 function App() {
 
   const navigate = useNavigate();
-  const authGuard = ()=> {
-    let token = localStorage.getItem('accessToken');
-    // console.log(token);
-    if(!token){
-      navigate('/');
-    }
-    else{
-      navigate('app/Dashboard')
-    }
-  }
   useEffect(()=> {
-    authGuard()
+    // const authGuard = ()=> {
+      let token = localStorage.getItem('accessToken');
+      // console.log(token);
+      if(!token){
+        navigate('/');
+      }
+      // else{
+      //   navigate('app/Dashboard')
+      // }
+    // }
+    // authGuard()
   }, [])
 
   return(
