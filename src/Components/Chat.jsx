@@ -9,6 +9,8 @@ import {
 import { FaTelegramPlane, FaUser } from "react-icons/fa";
 import io from "socket.io-client";
 import { v4 } from "uuid";
+import { TiTick } from "react-icons/ti";
+import { FaChevronRight } from "react-icons/fa6";
 
 const socket = io("http://localhost:5001");
 
@@ -24,6 +26,8 @@ const Chat = () => {
   const [ minimumInternalTransaction, setMinimumInternalTransaction] = useState(10);
   const [ internalTransactionFee, setInternalTransactionFee ] = useState(1);
   const [ amount, setAmount ] = useState('');
+  const [ senderDetails, setSenderDetails ] = useState({});
+  const [ sendButton, setSendButton ] = useState(true)
   // const roomId = "123";
 
   const getOldmessages = async () => {
@@ -45,8 +49,9 @@ const Chat = () => {
   const getMyDetails = async () => {
     try {
       let apiResponse = await getUserByAuth();
+      setSenderDetails(apiResponse.data)
       setSender(apiResponse.data._id);
-      console.log(apiResponse.data._id, "asasas");
+      // console.log(apiResponse.data, "asasas");
     } catch (error) {
       console.error("Error fetching user details:", error);
     }
@@ -55,6 +60,7 @@ const Chat = () => {
   const getUserById_Chat = async () => {
     try {
       let userData = await getUserById(id);
+      // console.log(userData)
       setUser(userData.data);
     } catch (error) {
       console.error("Error fetching user details:", error);
@@ -74,8 +80,6 @@ const Chat = () => {
       setMessage("");
     }
   };
-
-
 
   useEffect(() => {
     getUserById_Chat();
@@ -113,12 +117,9 @@ const Chat = () => {
       };
     }
   }, [roomId]);
-  
-
-
 
   const showPay = ()=> {
-    console.log('show pay');
+    // console.log('show pay');
     setPay(!pay);
   }
 
@@ -147,6 +148,7 @@ const Chat = () => {
           payment:true,
         });
         setPay("");
+        setMessage('')
       }
       setPay(!pay)
     }
@@ -155,7 +157,17 @@ const Chat = () => {
     }
   }
 
-  console.log("mes", messages);
+  const handlePhonePe = (e)=> {
+    // console.log(e.target.value)
+    if(!isNaN(e.target.value) && e.target.value!==''){
+      setSendButton(false);
+      setAmount(e.target.value)
+    }
+    else{
+      setSendButton(true)
+      setAmount('')
+    }
+  }
 
   return (
     <div className="flex flex-col justify-between overflow-hidden h-full relative font-poppins">
@@ -174,17 +186,26 @@ const Chat = () => {
       </div>
       <div className="flex flex-col gap-2 w-full h-full py-1 overflow-y-scroll">
         {messages.map((msg, index) => (
-          <div key={index} className="flex flex-col">
+          <div key={index} className={`flex flex-col ${msg.senderId===sender ? 'items-end' : 'items-start'}`}>
             {/* {console.log(msg.message)} */}
-            {msg?.message?.includes("You:") ? (
-              <div className="w-full flex justify-end px-2">
-                <p className="text-right max-w-60 w-fit px-2 py-1 text-sm bg-black rounded-xl text-white">
-                  {msg.message}
-                </p>
+            {msg?.payment ? ( 
+              <div className="w-full flex flex-col mx-2 p-3 gap-2 bg-white max-w-60 rounded-xl">
+                <h1 className="text-xs">Payment to {msg.senderId===sender ? user.userName : 'You'}</h1>
+                <h1 className="text-xl">${msg.money}</h1>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2 text-sm">
+                    <TiTick className="rounded-full bg-green-600 text-white"/>
+                    <p>{msg.payment==true ? 'Paid' : 'Not Paid'}</p>
+                  </div>
+                  <FaChevronRight className="text-sm"/>
+                </div>
               </div>
-            ) : (
-              <div className="w-full flex justify-start px-2">
-                <p className="text-left max-w-60 w-fit px-2 py-1 text-sm bg-black rounded-xl text-white">
+            ) :
+             (
+              
+              <div className={`flex ${msg.senderId===sender ? 'justify-end' : 'justify-start'} w-full px-2`}>
+                {/* {console.log(msg.senderId, sender)} */}
+                <p className={`max-w-60 w-fit px-2 py-1 text-sm bg-white rounded-xl text-black`}>
                   {msg.message}
                 </p>
               </div>
@@ -194,24 +215,29 @@ const Chat = () => {
       </div>
       <div className="px-5 py-2 flex items-center gap-2 justify-center w-full">
         <input
-          className="w-[90%] block px-5 py-1 rounded-xl"
+          className="w-[90%] block px-5 py-2 rounded-xl text-sm "
           type="text"
-          placeholder="Type Text...."
+          placeholder="Type Text or Amount..."
           value={message}
           onChange={(e) => setMessage(e.target.value)}
+          onInput={handlePhonePe}
           // onKeyDown={(e) => {
           //   if (e.key === "Enter") sendMessage();
           // }}
         />
-        <FaTelegramPlane
-          size={25}
-          className="text-blue-600 cursor-pointer"
-          onClick={sendMessage}
-        />
+        {sendButton ? 
+          <button onClick={sendMessage} className="outline-blue-400">
+            <FaTelegramPlane
+            size={25}
+            className="text-blue-600 cursor-pointer"
+            />
+          </button> : 
+          <button onClick={showPay} className="bg-blue-500 text-white px-3 py-1 rounded-lg">Pay</button>
+          }
       </div>
       { pay ? 
         <div className="absolute bg-transparent h-full w-full flex justify-center items-center" onClick={handleClick}>
-          <div className="div relative w-80 bg-white rounded-lg text-black py-4 px-3 flex flex-col gap-2">
+          <div className="div relative w-80 bg-white rounded-lg text-black py-4 px-3 flex flex-col gap-2 border border-black">
             <div className="flex div justify-between text-sm font-medium">
               <p className="">Transfer to {user.userName}</p>
               <p>MW: 1000.0000</p>
