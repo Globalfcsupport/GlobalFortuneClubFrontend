@@ -104,6 +104,7 @@ const FormikSignIn = () => {
                 localStorage.setItem('accessToken', response.data.token);
                 localStorage.setItem('refId', response.data.data.refId);
                 localStorage.setItem('userName', response.data.data.userName);
+                localStorage.setItem('email', response.data.data.email);
                 console.log('before');
                 messageApi.success("Logged In Successfully!")
                 navigate('app/DashBoard');

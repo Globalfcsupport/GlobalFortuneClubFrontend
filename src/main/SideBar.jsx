@@ -1,25 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaTachometerAlt, FaWallet, FaDice, FaUserFriends, FaComments, FaLifeRing, FaCog, FaShareAlt } from "react-icons/fa";
-import { getDashboardDetails } from '../services/services';
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
-
-  const [ data, setData ] = useState('');
-
-  const dashboardDetails = async ()=> {
-    try{
-      const datas = await getDashboardDetails();
-      setData(datas.data)
-      // console.log(datas.data);
-    }
-    catch(error){
-      console.log(error);
-    }
-  }
+  const [ data, setData ] = useState({});
 
   useEffect(()=> {
-    dashboardDetails()
+    data['userName'] = localStorage.getItem('userName');
+    data['email'] = localStorage.getItem('email');
+    data['refId'] = localStorage.getItem('refId');
   }, [])
   
   return (
@@ -40,7 +29,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         <div className="flex items-center mt-6 bg-blue-800 w-full p-2  text-sm">
           <div className="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
           <div>
-            <div className="font-bold text-white">User Name</div>
+            <div className="font-bold text-white">{data.userName}</div>
             <div className="text-gray-300 text-[10px]">{data.email}</div>
             <div className="text-gray-300 text-[10px]">{data.refId}</div>
           </div>
