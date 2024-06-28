@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Register, verifyUplineId, sendOTP } from '../services/services';
 import { message, Button } from 'antd';
+import { IoReload } from 'react-icons/io5';
 
 const Signup = () => {
 
@@ -16,17 +17,23 @@ const Signup = () => {
   const [ sendOTPLoading, setSendOTPLoading ] = useState(false);
   const [ submitLoading, setSubmitLoading ] = useState(false);
   const [ OTP, setOTP ] = useState('');
-  const [ data, setData ] = useState({});
+  const [ data, setData ] = useState({
+    otp:'',
+    email:'',
+    uplineId:'',
+    userName:''
+  });
   const [ refDetails, setRefDetails ] = useState({});
   const [ showRefDetails, setShowRefDetails ] = useState(false);
+  const [changeCaptcha, setChangeCaptcha ] = useState(false)
 
   const handleChange = (e)=> {
-    console.log(e.target.name,e.target.value);
+    // console.log(e.target.name,e.target.value);
     if(e.target.name=='uplineId'){
       setData(prev=> ({
         ...prev, [e.target.name]: e.target.value.toUpperCase()
       }))
-      console.log('inside if');
+      // console.log('inside if');
     }
     else{
       setData(prev=> ({
@@ -37,7 +44,7 @@ const Signup = () => {
 
   useEffect(() => {
     captchaGenerator();
-  }, []);
+  }, [changeCaptcha]);
 
   const handleVerify = ()=> {
     setVerifyLoading(true);
@@ -76,12 +83,18 @@ const Signup = () => {
     // console.log(data);
     event.preventDefault();
     if (captcha===captchaText) {
-      Register(data).then((response)=> {
-        // console.log(response);
-        navigate('/')
-      }).catch((error)=> {
-        console.log(error);
-      })
+      if(data.userName!='' && data.email!=''){
+      console.log(data)
+        Register(data).then((response)=> {
+          // console.log(response);
+          navigate('/')
+        }).catch((error)=> {
+          messageApi.error(error.response.data.message);
+        })
+      }
+      else{
+        messageApi.warning('Please Enter All Details')
+      }
     } else {
       alert('Captcha Does Not Match');
     }
@@ -142,7 +155,7 @@ const Signup = () => {
       text = text + item.value;
     })
     setOTP(text)
-    console.log(text);
+    // console.log(text);
   }
 
   return (
@@ -213,7 +226,7 @@ const Signup = () => {
           </div>
           <div className='flex flex-col gap-2 justify-center items-start w-full'>
             <h1 className='font-semibold text-blue-800'>Enter Captcha</h1>
-            <p className='text-center w-full py-1 text-sm rounded-md mx-auto tracking-[1rem] bg-white'>{captchaText}</p>
+            <p className='text-center w-full py-1 text-sm rounded-md mx-auto tracking-[1rem] bg-white select-none relative'>{captchaText}<IoReload onClick={()=>setChangeCaptcha(!changeCaptcha)} className='absolute top-0 right-1 translate-y-1/2'/></p>
             <input
               placeholder='Enter Captcha'
               className='py-2 w-full rounded-md pl-2 text-xs'
