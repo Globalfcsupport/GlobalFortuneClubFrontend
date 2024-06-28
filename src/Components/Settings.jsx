@@ -102,6 +102,8 @@ const Settings = () => {
   const HandleLogOut = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refId");
+    localStorage.removeItem("email");
+    localStorage.removeItem("userName");
     navigate('/');
     // window.location.reload();
   }

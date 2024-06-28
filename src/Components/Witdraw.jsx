@@ -32,12 +32,18 @@ const Withdraw = () => {
     e.preventDefault();
     console.log(data);
     setLoading(true);
-    setTimeout(()=> {
+    if(data.amount<=0){
+      messageApi.error("Can't Withdraw Amount Less than $0")
       setLoading(false)
-      messageApi.success('Requested Raised Successfully')
-    }, 2000)
+    }
+    else{
 
-    console.log(data)
+      setTimeout(()=> {
+        setLoading(false)
+        messageApi.success('Requested Raised Successfully')
+      }, 2000)
+      console.log(data)
+    }
   }
 
   return (
