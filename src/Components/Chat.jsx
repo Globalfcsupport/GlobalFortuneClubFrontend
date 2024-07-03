@@ -12,7 +12,7 @@ import { v4 } from "uuid";
 import { TiTick } from "react-icons/ti";
 import { FaChevronRight } from "react-icons/fa6";
 
-const socket = io("http://localhost:5001");
+const SOCKET_SERVER_URL = "wss://gfcapi.globalfc.app"
 
 const Chat = () => {
   const { id } = useParams();
@@ -36,7 +36,8 @@ const Chat = () => {
       setMessages(val.data);
     } catch (error) {}
   };
-
+  
+  
   // console.log(message,"mess");
 
   const getRoom = async () => {
@@ -67,6 +68,11 @@ const Chat = () => {
     }
   };
 
+  const socket = io(SOCKET_SERVER_URL, {
+    path: '/ws',
+    transports:['websocket']
+  });
+
   const sendMessage = () => {
     if (message.trim() !== "") {
       console.log(message, "sending message");
@@ -80,8 +86,8 @@ const Chat = () => {
       setMessage("");
     }
   };
-
   useEffect(() => {
+   
     getUserById_Chat();
     getMyDetails();
     getRoom();
@@ -107,6 +113,8 @@ const Chat = () => {
         console.log(data, "new private message");
         setMessages((prevMessages) => [...prevMessages, data.message]);
       });
+
+    
   
       // Clean up on unmount
       return () => {
