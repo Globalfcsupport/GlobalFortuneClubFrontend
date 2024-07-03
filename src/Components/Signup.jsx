@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Register, verifyUplineId, sendOTP } from '../services/services';
 import { message, Button } from 'antd';
+import { IoReload } from 'react-icons/io5';
 
 const Signup = () => {
 
@@ -16,17 +17,23 @@ const Signup = () => {
   const [ sendOTPLoading, setSendOTPLoading ] = useState(false);
   const [ submitLoading, setSubmitLoading ] = useState(false);
   const [ OTP, setOTP ] = useState('');
-  const [ data, setData ] = useState({});
+  const [ data, setData ] = useState({
+    otp:'',
+    email:'',
+    uplineId:'',
+    userName:''
+  });
   const [ refDetails, setRefDetails ] = useState({});
   const [ showRefDetails, setShowRefDetails ] = useState(false);
+  const [changeCaptcha, setChangeCaptcha ] = useState(false)
 
   const handleChange = (e)=> {
-    console.log(e.target.name,e.target.value);
+    // console.log(e.target.name,e.target.value);
     if(e.target.name=='uplineId'){
       setData(prev=> ({
         ...prev, [e.target.name]: e.target.value.toUpperCase()
       }))
-      console.log('inside if');
+      // console.log('inside if');
     }
     else{
       setData(prev=> ({
@@ -37,7 +44,7 @@ const Signup = () => {
 
   useEffect(() => {
     captchaGenerator();
-  }, []);
+  }, [changeCaptcha]);
 
   const handleVerify = ()=> {
     setVerifyLoading(true);
@@ -76,12 +83,18 @@ const Signup = () => {
     // console.log(data);
     event.preventDefault();
     if (captcha===captchaText) {
-      Register(data).then((response)=> {
-        // console.log(response);
-        navigate('/')
-      }).catch((error)=> {
-        console.log(error);
-      })
+      if(data.userName!='' && data.email!=''){
+      console.log(data)
+        Register(data).then((response)=> {
+          // console.log(response);
+          navigate('/')
+        }).catch((error)=> {
+          messageApi.error(error.response.data.message);
+        })
+      }
+      else{
+        messageApi.warning('Please Enter All Details')
+      }
     } else {
       alert('Captcha Does Not Match');
     }
@@ -142,33 +155,20 @@ const Signup = () => {
       text = text + item.value;
     })
     setOTP(text)
-    console.log(text);
+    // console.log(text);
   }
 
   return (
     <>
      {contextHolder}
    
-    <div
-      className=" overflow-y-scroll space-y-1 py-5 font-poppins px-5"
-      // style={{
-      //   height: 'calc(100vh - 90px)',
-      //   scrollbarWidth: "none", // For Firefox
-      //   msOverflowStyle: "none" // For Internet Explorer and Edge
-      // }}
-    >
-      {/* <div className="w-full flex justify-between px-4">
-        <button className="text-blue-800">
-          <FaArrowLeft size={18} />
-        </button>
-      </div> */}
-      <div className="flex flex-col h-full justify-center gap-2 flex-grow text-blue-800 text-sm">
+      <div className="flex flex-col h-[95vh] justify-center gap-2 flex-grow text-blue-800 text-sm px-5">
         <div className="flex flex-col justify-center items-center gap-2">
           <h1 className="text-2xl font-bold">Sign Up</h1>
           <span className="">Create an Account</span>
         </div>
           <div className="w-full flex flex-col relative ">
-            <label htmlFor="refId">Referral ID</label>
+            <label htmlFor="refId" className='font-semibold text-blue-800'>Referral ID</label>
             <input
               type="text"
               name="uplineId"
@@ -187,7 +187,7 @@ const Signup = () => {
           }
         <form className="flex flex-col w-full gap-3" onSubmit={handleSubmit}>
           <div className="w-full flex flex-col gap-2 relative">
-            <label htmlFor="userName">Enter Your Name</label>
+            <label htmlFor="userName" className='font-semibold text-blue-800'>Enter Your Name</label>
             <input
               type="text"
               name="userName"
@@ -195,10 +195,11 @@ const Signup = () => {
               readOnly={readOnly}
               className="w-full py-2 rounded-md px-5"
               onChange={handleChange}
+              required
             />
           </div>
           <div className="w-full flex flex-col gap-2 relative">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email" className='font-semibold text-blue-800'>Email</label>
             <input
               type="text"
               name="email"
@@ -206,6 +207,7 @@ const Signup = () => {
               readOnly={readOnly}
               className="w-full py-2 rounded-md pl-5 pr-28"
               onChange={handleChange}
+              required
             />
             <Button loading={sendOTPLoading} type='button' className="absolute bg-blue-800 text-white rounded-md bottom-1 right-1 px-3 py-1" onClick={handleSendOTP}>Send OTP</Button>
           </div>
@@ -224,11 +226,13 @@ const Signup = () => {
           </div>
           <div className='flex flex-col gap-2 justify-center items-start w-full'>
             <h1 className='font-semibold text-blue-800'>Enter Captcha</h1>
-            <p className='text-center w-full py-1 text-sm rounded-md mx-auto tracking-[1rem] bg-white'>{captchaText}</p>
+            <p className='text-center w-full py-1 text-sm rounded-md mx-auto tracking-[1rem] bg-white select-none relative'>{captchaText}<IoReload onClick={()=>setChangeCaptcha(!changeCaptcha)} className='absolute top-0 right-1 translate-y-1/2'/></p>
             <input
               placeholder='Enter Captcha'
               className='py-2 w-full rounded-md pl-2 text-xs'
               onChange={(e)=> setCaptcha(e.target.value)}
+              required
+              type='text'
             />
           </div>
           <div className='flex w-full justify-center items-center mt-5'>
@@ -240,12 +244,11 @@ const Signup = () => {
             </button>
           </div>
           <div className='flex text-sm items-center justify-center w-full'>
-            <p className='text-blue-500'>Already have an account?</p>
-            <Link to={`/`} className='text-blue-800'>Sign In</Link>
+            <p className='text-blue-500'>Already have an account?
+            <Link to={`/`} className='text-blue-800'> Sign In</Link></p>
           </div>
         </form>
       </div>
-    </div>
     </>
   );
 };

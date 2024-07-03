@@ -5,6 +5,7 @@ import { loadCaptchaEnginge, validateCaptcha, LoadCanvasTemplateNoReload, LoadCa
 import { Link, useNavigate } from 'react-router-dom';
 import { Login, sendOTP } from '../services/services';
 import { message, Button } from 'antd';
+import { IoReload } from 'react-icons/io5';
 
 
 const FormikSignIn = () => {
@@ -18,10 +19,11 @@ const FormikSignIn = () => {
   const [ OTP, setOTP ] = useState('');
   const [messageApi, contextHolder] = message.useMessage();
   const navigate = useNavigate();
+  const [changeCaptcha, setChangeCaptcha ] = useState(false)
 
   useEffect(() => {
     captchaGenerator()
-  }, []);
+  }, [changeCaptcha]);
 
   const handleSendOTP = async ()=> {
     setSendOTPLoading(true);
@@ -174,7 +176,7 @@ const FormikSignIn = () => {
           )}
           <div className='flex flex-col gap-2 items-start w-full'>
             <h1 className='font-semibold text-blue-800'>Enter Captcha</h1>
-            <p className='text-center w-full py-1 text-sm rounded-md mx-auto tracking-[1rem] bg-white'>{captchaText}</p>
+            <p className='text-center w-full py-1 text-sm rounded-md mx-auto tracking-[1rem] bg-white relative select-none'>{captchaText}<IoReload onClick={()=>setChangeCaptcha(!changeCaptcha)} className='absolute top-0 right-1 translate-y-1/2'/></p>
             <input
               placeholder='Enter Captcha'
               className='py-2 w-full rounded-md pl-2 text-xs'
