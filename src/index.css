@@ -13,19 +13,20 @@ html{
   justify-content: center;
   align-items: center;
   padding: 10px;
-  height: 100vh;
+  
   /* overflow: hidden */
 }
 body{
-  height: 98vh;
+  min-height: 97vh;
   width: 350px;
   background-color:#5270b02d;
   margin: auto;
   border-width: 5px;
   border-radius: 30px;
   border-color: black;
-  overflow: hidden;
-  /* padding: 100px; */
+  /* overflow: hidden; */
+  /* padding: 1300px; */
+  /* padding: 0px 20px; */
   position: relative;
   
 }
