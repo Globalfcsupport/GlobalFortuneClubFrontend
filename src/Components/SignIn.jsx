@@ -147,8 +147,8 @@ const FormikSignIn = () => {
   return (
     <>
       {contextHolder}
-    
-    <div  className="h-[95vh] px-5 gap-5 font-poppins flex flex-col justify-center">
+<div className=' h-full py-5 overflow-y-scroll w-full flex justify-center items-center'>
+<div  className="   px-5 gap-5 font-poppins flex flex-col justify-center items-center">
       <div className='flex justify-center items-center flex-col gap-1'>
         <img src={Logo} className='w-28' alt="Logo" />
         <h2 className='text-xl font-medium text-blue-600'>Welcome Back!</h2>
@@ -200,6 +200,8 @@ const FormikSignIn = () => {
         </form>
       </div>
     </div>
+</div>
+    
     </>
   );
 };

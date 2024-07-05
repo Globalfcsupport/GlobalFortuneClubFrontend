@@ -162,7 +162,7 @@ const Signup = () => {
     <>
      {contextHolder}
    
-      <div className="flex flex-col h-[95vh] justify-center gap-2 flex-grow text-blue-800 text-sm px-5">
+      <div className="flex flex-col h-fit py-5 justify-center gap-2 flex-grow text-blue-800 text-sm px-5">
         <div className="flex flex-col justify-center items-center gap-2">
           <h1 className="text-2xl font-bold">Sign Up</h1>
           <span className="">Create an Account</span>
