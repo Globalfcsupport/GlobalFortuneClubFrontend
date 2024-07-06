@@ -74,3 +74,13 @@ export const getTopUpDetails = async ()=>{
   let response = await useAxiosInterceptors.get("/user/get/topup/details");
   return response
 }
+
+export const UploadProfileImg = async (data)=>{
+  let response = await useAxiosInterceptors.post("/user/profile/image/upload", data)
+  return response
+}
+
+export const UpdateProfile = async (data)=>{
+  let response = await useAxiosInterceptors.post("/user/update/userprofile", data)
+  return response
+}
