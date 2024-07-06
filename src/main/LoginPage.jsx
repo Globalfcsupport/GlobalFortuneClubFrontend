@@ -38,23 +38,23 @@ const LoginPage = () => {
     <>
       {contextHolder}
 
-      <div className="w-full h-screen bg-bg_primary flex justify-between">
+      <div className="w-full h-screen bg-bg_primary flex flex-col md:flex-row justify-between">
 
-        <div className="w-[50%]">
-          <img src={ill} alt="" srcSet="" className="h-[100%]" />
+        <div className="hidden md:flex w-[50%]">
+          <img src={ill} alt="" className="h-full w-full" />
         </div>
 
-        <div className="w-[50%] m-auto flex justify-center items-center">
-          <form className="w-full justify-center">
+        <div className="w-full md:w-[50%] m-auto flex justify-center items-center">
+          <form className="w-full px-4 sm:px-8 md:px-0 justify-center">
             <h1 className="text-center font-poppins text-3xl mb-6 font-bold ">
               Admin Login
             </h1>
-            <div className=" w-full m-auto ">
-              <div className="flex justify-center  p-4 m-auto items-center">
+            <div className="w-full m-auto">
+              <div className="flex justify-center p-4 m-auto items-center">
                 <input
                   type="email"
                   required
-                  className="h-12 w-[40%] rounded-full pl-5 outline-none font-poppins"
+                  className="h-12 w-full md:w-[40%] rounded-full pl-5 outline-none font-poppins"
                   placeholder="E-mail"
                   name="email"
                   id="email"
@@ -62,11 +62,11 @@ const LoginPage = () => {
                   onChange={forms.handleChange}
                 />
               </div>
-              <div className="flex justify-center  p-4 m-auto items-center ">
+              <div className="flex justify-center p-4 m-auto items-center">
                 <input
                   type="password"
                   required
-                  className="h-12 w-[40%] rounded-full pl-5 outline-none font-poppins"
+                  className="h-12 w-full md:w-[40%] rounded-full pl-5 outline-none font-poppins"
                   placeholder="Password"
                   name="password"
                   id="password"
@@ -80,11 +80,11 @@ const LoginPage = () => {
                   Please Enter Valid Email & Password!
                 </div>
               ) : null}
-              <div className="flex justify-center  p-4 m-auto items-center ">
+              <div className="flex justify-center p-4 m-auto items-center">
                 <input
                   type="submit"
                   value="Login"
-                  className="h-12 w-[40%] rounded-full pl-5 outline-none font-poppins bg-primary text-white cursor-pointer font-semibold text-xl"
+                  className="h-12 w-full md:w-[40%] items-center rounded-full pl-5 outline-none font-poppins bg-primary text-white cursor-pointer font-semibold text-xl"
                   onClick={forms.handleSubmit}
                 />
               </div>
