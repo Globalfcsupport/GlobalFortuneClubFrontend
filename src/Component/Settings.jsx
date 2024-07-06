@@ -1,12 +1,14 @@
 import { Switch, Button, message  } from 'antd';
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaRegEdit  } from "react-icons/fa";
 import { IoSaveOutline } from "react-icons/io5";
+import { getSetting } from '../services/servicces';
 
   const Settings = () => {
 
     const [ messageAPI, contextHolder ] = message.useMessage();
+    const [setting, setSetting] = useState({})
 
     const onChange = (checked) => {
       console.log(`switch to ${checked}`);
@@ -53,6 +55,19 @@ import { IoSaveOutline } from "react-icons/io5";
     console.log('ada')
   }
 
+const getSettingDetails = async ()=>{
+  try {
+    let value = await getSetting()
+    setData(value.data)
+  } catch (error) {
+    
+  }
+}
+
+useEffect(()=>{
+  getSettingDetails()
+},[])
+
   return (
     <div className="w-full h-full ">
       {contextHolder}
@@ -74,49 +89,49 @@ import { IoSaveOutline } from "react-icons/io5";
 
             <label htmlFor="platformFee">Platform Fee:</label>
             <div className="relative">
-              <input id="platformFee" type="text" className={`bg-gray-200 border rounded-md px-4 outline-none ${readOnly ? 'cursor-text' : 'cursor-pointer'}`} readOnly={readOnly} value={data.platformFee} onChange={handleChange} name='platformFee'/>
+              <input id="platformFee" type="text" className={`bg-gray-200 border rounded-md px-4 outline-none ${readOnly ? 'cursor-text' : 'cursor-pointer'}`} readOnly={readOnly} value={data.platFormFee?data.platFormFee:0} onChange={handleChange} name='platformFee'/>
               <span className="absolute right-3 text-gray-700">$</span>
             </div>
 
             <label htmlFor="">Withdraw Fee:</label>
             <div className="relative">
-                <input type="text"  className={`bg-gray-200 border rounded-md px-4 outline-none ${readOnly ? 'cursor-text' : 'cursor-pointer'}`} readOnly={readOnly} value={data.withdrawFee} onChange={handleChange} name='withdrawFee' />
+                <input type="text"  className={`bg-gray-200 border rounded-md px-4 outline-none ${readOnly ? 'cursor-text' : 'cursor-pointer'}`} readOnly={readOnly} value={data.withdrawFee?data.withdrawFee:0} onChange={handleChange} name='withdrawFee' />
                 <span className="absolute right-3 text-gray-700">%</span>
             </div>
 
             <label htmlFor="">Internal Transaction Fee:</label>
             <div className="relative">
-              <input type="text"   className={`bg-gray-200 border rounded-md px-4 outline-none ${readOnly ? 'cursor-text' : 'cursor-pointer'}`} readOnly={readOnly} value={data.internalTransactionFee} onChange={handleChange} name='internalTransactionFee' />
+              <input type="text"   className={`bg-gray-200 border rounded-md px-4 outline-none ${readOnly ? 'cursor-text' : 'cursor-pointer'}`} readOnly={readOnly} value={data.internalTransactionFee?data.internalTransactionFee:0} onChange={handleChange} name='internalTransactionFee' />
               <span className="absolute right-3 text-gray-700">$</span>
             </div>
 
             <label htmlFor="">Minimum Crypto Deposit:</label>
             <div className="relative">
-              <input type="text"   className={`bg-gray-200 border rounded-md px-4 outline-none ${readOnly ? 'cursor-text' : 'cursor-pointer'}`} readOnly={readOnly} value={data.minimumCryptoTransaction} onChange={handleChange} name='minimumCryptoTransaction' />
+              <input type="text"   className={`bg-gray-200 border rounded-md px-4 outline-none ${readOnly ? 'cursor-text' : 'cursor-pointer'}`} readOnly={readOnly} value={data.minimumCryptoDeposite?data.minimumCryptoDeposite:0} onChange={handleChange} name='minimumCryptoTransaction' />
               <span className="absolute right-3 text-gray-700">$</span>
             </div>
 
             <label htmlFor="">Minimum Internal Trasaction:</label>
             <div className="relative">
-              <input type="text"   className={`bg-gray-200 border rounded-md px-4 outline-none ${readOnly ? 'cursor-text' : 'cursor-pointer'}`} readOnly={readOnly} value={data.minimumInternalTransaction} onChange={handleChange} name='minimumInternalTransaction' />
+              <input type="text"   className={`bg-gray-200 border rounded-md px-4 outline-none ${readOnly ? 'cursor-text' : 'cursor-pointer'}`} readOnly={readOnly} value={data.minimuminternalTransaction?data.minimuminternalTransaction:0} onChange={handleChange} name='minimumInternalTransaction' />
               <span className="absolute right-3 text-gray-700">$</span>
             </div>
 
             <label htmlFor="">Spacer:</label>
             <div className="relative">
-              <input type="text"   className={`bg-gray-200 border rounded-md px-4 outline-none ${readOnly ? 'cursor-text' : 'cursor-pointer'}`} readOnly={readOnly} value={data.spacer} onChange={handleChange} name='spacer' />
+              <input type="text"   className={`bg-gray-200 border rounded-md px-4 outline-none ${readOnly ? 'cursor-text' : 'cursor-pointer'}`} readOnly={readOnly} value={data.Sapcer?data.Sapcer:0} onChange={handleChange} name='spacer' />
               <span className="absolute right-3 text-gray-700">Gap</span>
             </div>
 
             <label htmlFor="">Withdraw Internal:</label>
             <div className="relative">
-              <input type="text"   className={`bg-gray-200 border rounded-md px-4 outline-none ${readOnly ? 'cursor-text' : 'cursor-pointer'}`} readOnly={readOnly} value={data.withdrawInternal} onChange={handleChange} name='withdrawInternal' />
+              <input type="text"   className={`bg-gray-200 border rounded-md px-4 outline-none ${readOnly ? 'cursor-text' : 'cursor-pointer'}`} readOnly={readOnly} value={data.withdrawInterval?data.withdrawInterval:0} onChange={handleChange} name='withdrawInternal' />
               <span className="absolute right-3 text-gray-700">Days</span>
             </div>
 
             <label htmlFor="">Minimum Withdraw:</label>
             <div className="relative">
-              <input type="text"   className={`bg-gray-200 border rounded-md px-4 outline-none ${readOnly ? 'cursor-text' : 'cursor-pointer'}`} readOnly={readOnly} value={data.minimumWithdrae} onChange={handleChange} name='minimumWithdrae' />
+              <input type="text"   className={`bg-gray-200 border rounded-md px-4 outline-none ${readOnly ? 'cursor-text' : 'cursor-pointer'}`} readOnly={readOnly} value={data.minimumWithdraw?data.minimumWithdraw:0} onChange={handleChange} name='minimumWithdrae' />
               <span className="absolute right-3">$</span>
             </div>
 
@@ -124,14 +139,14 @@ import { IoSaveOutline } from "react-icons/io5";
             <Switch disabled={readOnly} onChange={onChange} name="AllownewSignUp" value={data.allowNewSignUp} className='w-7'/> 
 
             <label htmlFor="">Allow new FC slot:</label>
-            <Switch disabled={readOnly} onChange={onChange} value={data.allowNewSlots} name="AllownewFCslot" className='w-7'/>
+            <Switch disabled={readOnly} onChange={onChange} value={data.allowNewFcSlot?data.allowNewFcSlot:false} name="AllownewFCslot" className='w-7'/>
 
             <label htmlFor="">Maintenance Mode:</label>
-            <Switch disabled={readOnly} onChange={onChange} value={data.maintenanceMode} name="MaintenanceMode" className='w-7'/>
+            <Switch disabled={readOnly} onChange={onChange} value={data.allowMaintainenceMode?data.allowMaintainenceMode:false} name="MaintenanceMode" className='w-7'/>
 
             <label htmlFor="">Referral Commission Slot:</label>
             <div className='relative'>
-              <input type="text"  className="bg-gray-200 border  w-full rounded-md" name="referralComission" readOnly={readOnly} value={data.referralComission} onChange={handleChange} />
+              <input type="text"  className="bg-gray-200 border  w-full rounded-md" name="referralComission" readOnly={readOnly} value={data.ReferalCommisionSlot?data.ReferalCommisionSlot:0} onChange={handleChange} />
               <span className='absolute right-3 '>$</span>
             </div>
 

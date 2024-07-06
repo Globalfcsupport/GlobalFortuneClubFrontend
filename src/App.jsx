@@ -6,17 +6,17 @@ import { SideBarProvider } from "./context/SideBarContext";
 
 const App = () => {
   const navigate = useNavigate();
-  const AuthGuard = async () => {
-    let token = localStorage.getItem("gfcadmintoken");
-    if (token) {
-      navigate("/dashboard");
-    } else {
-      navigate("/");
-    }
-  };
+  // const AuthGuard = async () => {
+  //   let token = localStorage.getItem("gfcadmintoken");
+  //   if (token) {
+  //     navigate("/dashboard");
+  //   } else {
+  //     navigate("/");
+  //   }
+  // };
 
   useEffect(() => {
-      AuthGuard();
+      // AuthGuard();
   }, []);
 
   return (

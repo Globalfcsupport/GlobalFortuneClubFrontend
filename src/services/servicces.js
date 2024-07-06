@@ -6,6 +6,12 @@ export const Login = async (data) => {
 };
 
 export const GetUsersList = async () => {
-  let ApiResponse = await useAxiosInterceptors.get("/user/get/users/chats");
+  let ApiResponse = await useAxiosInterceptors.get("/user/users/admin");
   return ApiResponse;
 };
+
+export const getSetting = async () => {
+  let ApiResponse = await useAxiosInterceptors.get("/admin/setting");
+  return ApiResponse;
+};
+

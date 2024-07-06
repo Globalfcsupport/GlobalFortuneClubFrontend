@@ -12,7 +12,7 @@ const UserList = () => {
   const { toggleSideBar, isSideBarOpen } = useSideBar();
   const [sdata, setsData] = useState([]);
 
-  const [data, setData] = useState(sdata);
+  const [data, setData] = useState([]);
 
   const handleSearch = (e) => {
     setPage(1);
@@ -23,6 +23,7 @@ const UserList = () => {
     try {
       let values = await GetUsersList();
       setsData(values.data);
+      setData(values.data);
     } catch (error) {}
   };
 
@@ -77,18 +78,18 @@ const UserList = () => {
               </tr>
             </thead>
             <tbody className="bg-white">
-              {data.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.id}</td>
-                  <td>{item.name}</td>
-                  <td>{item.mwbalance}</td>
+              {data.map((item, i) => (
+                <tr key={item._id}>
+                  <td>{i + 1}</td>
+                  <td>{item.userName}</td>
+                  <td>{item.myWallet}</td>
                   <td>{item.totalYield}</td>
                   <td
                     className={`${
-                      item.status ? "text-green-500" : "text-red-500"
+                      item.active ? "text-green-500" : "text-red-500"
                     }`}
                   >
-                    {item.status ? "true" : "false"}
+                    {item.active ? "true" : "false"}
                   </td>
                 </tr>
               ))}
