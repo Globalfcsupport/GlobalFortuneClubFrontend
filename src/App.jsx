@@ -12,11 +12,11 @@ const App = () => {
   const navigate = useNavigate();
   const AuthGuard = async () => {
     let token = localStorage.getItem("gfcadmintoken");
-    if (token) {
-      navigate("/dashboard");
-    } else {
-      navigate("/");
-    }
+    // if (token) {
+    //   navigate("/dashboard");
+    // } else {
+    //   navigate("/");
+    // }
   };
 
   useEffect(() => {
