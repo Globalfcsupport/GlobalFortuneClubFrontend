@@ -66,7 +66,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           </NavLink>                  
         </ul>
         {/* Invite Section */}
-        <div className="mt-4 p-2 bg-blue-600 text-white text-center py-3 mx-4 rounded-lg  text-sm">
+        <div className="mt-4  bg-blue-600 text-white text-center py-3  rounded-lg  text-sm">
           Invite your friends and earn $1 for every slot they create!
           <button className="mt-4 bg-white text-blue-600 px-4 py-2 rounded-full flex items-center mx-auto">
             <FaShareAlt className="mr-2" /> Share

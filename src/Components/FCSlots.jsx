@@ -70,10 +70,10 @@ const FCSlots = () => {
           <div>
             {activeSlots.map((item, index) => (
               <div key={index} className='flex items-center gap-5'>
-                <Progress key={index} type='circle' size={70} percent={(item.currentYield/item.totalYield)*100} className='h-28 w-28 flex justify-center items-center'/>
+                <Progress key={index} type='circle' size={70} percent={(item.currentYield?.toFixed(3)/item.totalYield)*100} className='h-28 w-28 flex justify-center items-center'/>
                 <div>
                   <p className='font-semibold text-sm'>{item.slotId.slice(0,5)}</p>
-                  <p className='text-xs'>{item.currentYield}/{item.totalYield}</p>
+                  <p className='text-xs'>{item.currentYield?.toFixed(3)}/{item.totalYield}</p>
                   <p className='text-xs'>{item.date}</p>
                 </div>
               </div>

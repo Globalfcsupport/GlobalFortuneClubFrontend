@@ -95,7 +95,7 @@ const DashBoard = () => {
             <span>My Wallet</span>
           </div>
           <div className="flex items-center space-x-2">
-            <span>{data.wallet}</span>
+            <span>{data.wallet?.toFixed(4)}</span>
             <FaArrowRight className="text-gray-400" />
           </div>
         </div>
@@ -153,7 +153,8 @@ const DashBoard = () => {
             <span>Yield - Today</span>
           </div>
           <div className='flex items-center space-x-2'>
-            <span>$0</span>
+            <span>{data.todayYeild?.toFixed(4)}</span>
+
             <FaArrowRight className='text-gray-400' />
           </div>
         </div>
@@ -164,7 +165,7 @@ const DashBoard = () => {
             <span>Yield - Overall</span>
           </div>
           <div className='flex items-center space-x-2'>
-            <span>{data.Yield}</span>
+            <span>{data.Yield?.toFixed(4)}</span>
             <FaArrowRight className='text-gray-400' />
           </div>
         </div>
