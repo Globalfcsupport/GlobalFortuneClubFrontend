@@ -9,7 +9,7 @@ import UserList2 from './Component/UserList2'
 import LoginPage from "./main/LoginPage";
 
 const App = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const AuthGuard = async () => {
     let token = localStorage.getItem("gfcadmintoken");
     // if (token) {
