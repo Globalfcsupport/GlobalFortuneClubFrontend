@@ -5,7 +5,7 @@ export const Login = async (data) => {
   return ApiResponse;
 };
 
-export const Summa = async (data) => {
-  let ApiResponse = await useAxiosInterceptors.post("/", data);
+export const GetUsersList = async () => {
+  let ApiResponse = await useAxiosInterceptors.get("/user/get/users/chats");
   return ApiResponse;
 };
