@@ -17,7 +17,7 @@ const pages = [
     },
     {
         title: "HOMEPAGE",
-        path:"homepage",
+        path:"",
         element: <HomePage/>,
         nestedRoutes: [
             {
