@@ -4,17 +4,16 @@ import { LoginInitValues, LoginSchema } from "../validations/login";
 import { useFormik } from "formik";
 import { Login } from "../services/servicces";
 import { message } from "antd";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
-
   const [messageApi, contextHolder] = message.useMessage();
-
+  const navigate = useNavigate();
   const forms = useFormik({
     initialValues: LoginInitValues,
     validationSchema: LoginSchema,
     onSubmit: (values) => submitForms(values),
   });
-  
 
   const submitForms = async (val) => {
     try {
@@ -25,9 +24,9 @@ const LoginPage = () => {
           type: "success",
           content: "Logged In Successfully",
         });
+        navigate("/homepage/dashboard")
       }
-    } 
-    catch (error) {
+    } catch (error) {
       messageApi.open({
         type: "error",
         content: error.response.data.message,
@@ -40,7 +39,6 @@ const LoginPage = () => {
       {contextHolder}
 
       <div className="w-full h-screen bg-bg_primary flex flex-col md:flex-row justify-between">
-
         <div className="hidden md:flex w-[50%]">
           <img src={ill} alt="" className="h-full w-full" />
         </div>
@@ -92,7 +90,6 @@ const LoginPage = () => {
             </div>
           </form>
         </div>
-        
       </div>
     </>
   );
