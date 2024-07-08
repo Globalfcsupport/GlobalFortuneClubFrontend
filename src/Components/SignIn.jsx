@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import OTPInput from 'react-otp-input';
+import OTPInput from "react-otp-input"
 import Logo from '../assets/Image/logo-remove.png';
 import { loadCaptchaEnginge, validateCaptcha, LoadCanvasTemplateNoReload, LoadCanvasTemplate } from 'react-simple-captcha';
 import { Link, useNavigate } from 'react-router-dom';
