@@ -81,35 +81,6 @@ const Signup = () => {
     setSendOTPLoading(false);
   };
 
-  // const handleSubmit = (event) => {
-  //   // console.log('inside submit');
-  //   event.preventDefault();
-  //   setSubmitLoading(true);
-  //   data["otp"] = OTP;
-  //   // console.log(data);
-
-  //   if (captcha === captchaText) {
-  //     if (data.userName != "" && data.email != "") {
-  //       console.log(data);
-  //       Register(data)
-  //         .then((response) => {
-
-  //           console.log(response);
-  //           setSubmitLoading(false)
-  //           navigate("/");
-  //         })
-  //         .catch((error) => {
-  //           messageApi.error(error.response.data.message);
-  //         });
-  //         setSubmitLoading(false);
-  //     } else {
-  //       messageApi.warning("Please Enter All Details");
-  //     }
-  //   } else {
-  //     alert("Captcha Does Not Match");
-  //     setSubmitLoading(false)
-  //   }
-  // };
   const handleSubmit = (event) => {
     event.preventDefault();
     setSubmitLoading(true);
