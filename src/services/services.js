@@ -84,3 +84,18 @@ export const UpdateProfile = async (data)=>{
   let response = await useAxiosInterceptors.post("/user/update/userprofile", data)
   return response
 }
+
+export const getUserByRefId = async ()=>{
+  let response = await useAxiosInterceptors.get("/user/get/users/byrefid")
+  return response
+}
+
+export const getSettingInfo = async ()=>{
+  let response = await useAxiosInterceptors.get("/admin/setting")
+  return response
+}
+
+export const Withdrawrequest = async (data)=>{
+  let response = await useAxiosInterceptors.post("/user/withdraw/request", data)
+  return response
+}

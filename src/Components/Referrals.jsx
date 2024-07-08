@@ -1,27 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { susers } from '../utils/Users';
-
+import { getUserByRefId } from '../services/services';
+import { BaseURL } from '../utils/const';
+import userIcon from "../assets/Image/user.png"
 const Referrals = () => {
   const [todayReferral, setTodayReferral] = useState(0);
   const [overallReferral, setOverallReferral] = useState(0);
-  const [ users, setUsers ] = useState(susers);
+  const [ users, setUsers ] = useState([]);
+
+
+  const getRefDetails = async ()=>{
+    try {
+      let values = await getUserByRefId()
+      console.log(values.data,"ref");
+      setTodayReferral(values.data.todayCount)
+      setOverallReferral(values.data.overallCount)
+      setUsers(values.data.overallData)
+    } catch (error) {
+      
+    }
+  }
 
   useEffect(() => {
-    // Replace with your actual backend API call
-    const fetchReferralData = async () => {
-      // Simulated backend response
-      const response = {
-        todayReferral: 0,
-        overallReferral: 0
-      };
-      
-      // Set the data from the backend to the state
-      setTodayReferral(response.todayReferral);
-      setOverallReferral(response.overallReferral);
-    };
-
-    fetchReferralData();
+    getRefDetails()
   }, []);
 
   return (
@@ -37,11 +39,11 @@ const Referrals = () => {
         <div className="flex justify-between">
           <div className="flex flex-col gap-2 justify-center items-center ">
             <p className='text-white'>Referral - Today</p>
-            <p className="bg-white rounded-md w-16 text-center">10</p>
+            <p className="bg-white rounded-md w-16 text-center">{todayReferral}</p>
           </div>
           <div className="flex flex-col gap-2 justify-center items-center ">
             <p className='text-white'>Referral - Overall</p>
-            <p className="bg-white rounded-md w-16 text-center">100</p>
+            <p className="bg-white rounded-md w-16 text-center">{overallReferral}</p>
           </div>
         </div>
 
@@ -49,10 +51,10 @@ const Referrals = () => {
       <div className='w-full h-full bg-white flex flex-col overflow-scroll'>
         {users.map((item, index)=> (
           <div key={index} className='px-5 flex gap-5 p-2 items-center rounded-xl'>
-            <img src={item.image} className='h-10 w-10 rounded-full object-cover'/>
+            <img src={item.image?`${BaseURL}${item.image}`:`${userIcon}`} className='h-10 w-10 rounded-full object-cover'/>
             <div className='text-xs'>
-              <p>{item.name}</p>
-              <p>Ref ID: AA0001</p>
+              <p>{item.userName}</p>
+              <p>Ref ID: {item.refId}</p>
             </div>
           </div>
         ))}
