@@ -14,4 +14,7 @@ export const getSetting = async () => {
   let ApiResponse = await useAxiosInterceptors.get("/admin/setting");
   return ApiResponse;
 };
-
+ export const getTransaction = async ()=>{
+  let ApiResponse = await useAxiosInterceptors.get("/admin/trnsaction/histories")
+  return ApiResponse
+ }

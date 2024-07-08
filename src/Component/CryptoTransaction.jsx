@@ -39,9 +39,9 @@ const CryptoTransaction = () => {
                     <thead className="font-semibold bg-blue-200">  
                     <tr>
                         <td>S. No</td>
-                        <td>Date</td>
+                        <td>User Name</td>
                         <td>User ID</td>
-                        <td>Description</td>
+                        <td>Date</td>
                         <td>Amount</td>
                     </tr>        
                     </thead>

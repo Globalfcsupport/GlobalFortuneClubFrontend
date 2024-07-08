@@ -3,19 +3,33 @@ import { FaBars, FaHistory, FaListAlt } from "react-icons/fa";
 import { useSideBar } from "../context/SideBarContext";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useTransactionSearch, TransactionSearchProvider } from "../context/TransactionSearchContext";
+import { getTransaction } from "../services/servicces";
 
-const TransactionLogContent = () => { // Define a separate component for the content
+const TransactionLogContent = () => { 
   const { toggleSideBar } = useSideBar();
   const { handleSearch } = useTransactionSearch(); // Use the context here
 
   const [active, setActive] = useState('all');
+  const [transaction, setTransaction] = useState()
   const navigate = useNavigate();
 
   const handleClick = (status) => {
     setActive(status);
     navigate(status);
   };
+  const getTransactionDetails = async ()=>{
+    try {
+      let value = await getTransaction()
+      setTransaction(value.data)
+      console.log(value.data,"API RES");
+    } catch (error) {
+      
+    }
+  }
+  useEffect(()=>{
+    getTransactionDetails()
 
+  },[]) 
   return (
     <div className="flex flex-col w-full h-screen font-poppins">
       <div className="h-16 bg-white flex justify-between px-5 md:px-10 items-center">

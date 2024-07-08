@@ -43,13 +43,13 @@ const LoginPage = () => {
 
       <div className="w-full h-screen bg-bg_primary flex justify-between">
 
-        <div className="w-[50%]">
+        <div className="hidden md:flex w-[50%]">
           <img src={ill} alt="" srcSet="" className="h-[100%]" />
         </div>
 
         <div className="w-[50%] m-auto flex justify-center items-center">
           <form className="w-full justify-center">
-            <h1 className="text-center font-poppins text-3xl mb-6 font-bold ">
+            <h1 className="text-center font-poppins text-2xl md:text-3xl mb-6 font-bold ">
               Admin Login
             </h1>
             <div className=" w-full m-auto ">
@@ -57,7 +57,7 @@ const LoginPage = () => {
                 <input
                   type="email"
                   required
-                  className="h-12 w-[40%] rounded-full pl-5 outline-none font-poppins"
+                  className="h-12 md:w-[40%] rounded-full pl-5 outline-none font-poppins"
                   placeholder="E-mail"
                   name="email"
                   id="email"
@@ -69,7 +69,7 @@ const LoginPage = () => {
                 <input
                   type="password"
                   required
-                  className="h-12 w-[40%] rounded-full pl-5 outline-none font-poppins"
+                  className="h-12 md:w-[40%] rounded-full pl-5 outline-none font-poppins"
                   placeholder="Password"
                   name="password"
                   id="password"
@@ -87,7 +87,7 @@ const LoginPage = () => {
                 <input
                   type="submit"
                   value="Login"
-                  className="h-12 w-[40%] rounded-full pl-5 outline-none font-poppins bg-primary text-white cursor-pointer font-semibold text-xl"
+                  className="h-12 w-full md:w-[40%] rounded-full pl-5 outline-none font-poppins bg-primary text-white cursor-pointer font-semibold text-xl"
                   onClick={forms.handleSubmit}
                 />
               </div>
