@@ -5,6 +5,7 @@ import {
   getUserByAuth,
   getGroup,
   getChathistories,
+  getSettingInfo,
 } from "../services/services";
 import { FaTelegramPlane, FaUser } from "react-icons/fa";
 import io from "socket.io-client";
@@ -12,7 +13,7 @@ import { v4 } from "uuid";
 import { TiTick } from "react-icons/ti";
 import { FaChevronRight } from "react-icons/fa6";
 
-const SOCKET_SERVER_URL = "wss://gfcapi.globalfc.app"
+const SOCKET_SERVER_URL = "wss://gfcapi.globalfc.app";
 
 const Chat = () => {
   const { id } = useParams();
@@ -22,12 +23,16 @@ const Chat = () => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [roomId, setRoomId] = useState("");
-  const [ pay, setPay ] = useState(false);
-  const [ minimumInternalTransaction, setMinimumInternalTransaction] = useState(10);
-  const [ internalTransactionFee, setInternalTransactionFee ] = useState(1);
-  const [ amount, setAmount ] = useState('');
-  const [ senderDetails, setSenderDetails ] = useState({});
-  const [ sendButton, setSendButton ] = useState(true)
+  const [pay, setPay] = useState(false);
+  const [minimumInternalTransaction, setMinimumInternalTransaction] =
+    useState(10);
+  const [internalTransactionFee, setInternalTransactionFee] = useState(1);
+  const [amount, setAmount] = useState("");
+  const [senderDetails, setSenderDetails] = useState({});
+  const [sendButton, setSendButton] = useState(true);
+  const [settings, setSetting] = useState({});
+  const [myWallet, setMyWallet] = useState(0);
+  const [disabledInput, setDisabledInput] = useState(true)
   // const roomId = "123";
 
   const getOldmessages = async () => {
@@ -36,8 +41,17 @@ const Chat = () => {
       setMessages(val.data);
     } catch (error) {}
   };
-  
-  
+
+  const getSettings = async () => {
+    try {
+      let val = await getSettingInfo();
+      console.log(val.data);
+      setMinimumInternalTransaction(val.data.minimuminternalTransaction);
+      setInternalTransactionFee(val.data.internalTransactionFee);
+      setSetting(val.data)
+    } catch (error) {}
+  };
+
   // console.log(message,"mess");
 
   const getRoom = async () => {
@@ -50,9 +64,11 @@ const Chat = () => {
   const getMyDetails = async () => {
     try {
       let apiResponse = await getUserByAuth();
-      setSenderDetails(apiResponse.data)
+      setSenderDetails(apiResponse.data);
       setSender(apiResponse.data._id);
-      // console.log(apiResponse.data, "asasas");
+      setMyWallet(apiResponse.data.myWallet ? apiResponse.data.myWallet : 0);
+      setDisabledInput(apiResponse.data.myWallet+internalTransactionFee< apiResponse.data.myWallet )
+      console.log(apiResponse.data, "asasas");
     } catch (error) {
       console.error("Error fetching user details:", error);
     }
@@ -61,7 +77,6 @@ const Chat = () => {
   const getUserById_Chat = async () => {
     try {
       let userData = await getUserById(id);
-      // console.log(userData)
       setUser(userData.data);
     } catch (error) {
       console.error("Error fetching user details:", error);
@@ -69,8 +84,8 @@ const Chat = () => {
   };
 
   const socket = io(SOCKET_SERVER_URL, {
-    path: '/ws',
-    transports:['websocket']
+    path: "/ws",
+    transports: ["websocket"],
   });
 
   const sendMessage = () => {
@@ -87,35 +102,33 @@ const Chat = () => {
     }
   };
   useEffect(() => {
-   
+    getSettings();
     getUserById_Chat();
     getMyDetails();
     getRoom();
     getOldmessages();
-  
+
     if (roomId) {
       socket.emit("joinRoom", roomId);
-  
+
       // Listen for new messages
       socket.on("message", (data) => {
         console.log(data, "new room message");
         setMessages((prevMessages) => [...prevMessages, data]);
       });
-  
+
       // Listen for new transaction messages
       socket.on("Trnsaction", (data) => {
         console.log(data, "new transaction message");
         setMessages((prevMessages) => [...prevMessages, data.data]);
       });
-  
+
       // Listen for private messages
       socket.on("newMessage", (data) => {
         console.log(data, "new private message");
         setMessages((prevMessages) => [...prevMessages, data.message]);
       });
 
-    
-  
       // Clean up on unmount
       return () => {
         socket.off("message");
@@ -126,56 +139,54 @@ const Chat = () => {
     }
   }, [roomId]);
 
-  const showPay = ()=> {
+  const showPay = () => {
     // console.log('show pay');
     setPay(!pay);
-  }
+  };
 
-  const handleClick = (e)=> {
+  const handleClick = (e) => {
     // console.log(e.target.closest("div").className.includes('div'));
-    if(!e.target.closest("div").className.includes('div')){
-      setPay(!pay)
+    if (!e.target.closest("div").className.includes("div")) {
+      setPay(!pay);
     }
-  }
+  };
 
-  const handleCancel = ()=> {
-    setPay(!pay)
-  }
+  const handleCancel = () => {
+    setPay(!pay);
+  };
 
-  const handleConfirm = ()=> {
-    if(amount >= minimumInternalTransaction){
-      console.log('done');
+  const handleConfirm = () => {
+    if (amount >= minimumInternalTransaction) {
+      console.log("done");
       if (amount.trim() !== "") {
         console.log(amount, "sending message");
         socket.emit("sendMoney", {
           roomId,
-          message:amount,
-          money:amount,
+          message: amount,
+          money: amount,
           senderId: sender,
           receiverId: receiver,
-          payment:true,
+          payment: true,
         });
         setPay("");
-        setMessage('')
+        setMessage("");
       }
-      setPay(!pay)
+      setPay(!pay);
+    } else {
+      console.log("not done");
     }
-    else{
-      console.log('not done');
-    }
-  }
+  };
 
-  const handlePhonePe = (e)=> {
+  const handlePhonePe = (e) => {
     // console.log(e.target.value)
-    if(!isNaN(e.target.value) && e.target.value!==''){
+    if (!isNaN(e.target.value) && e.target.value !== "") {
       setSendButton(false);
-      setAmount(e.target.value)
+      setAmount(e.target.value);
+    } else {
+      setSendButton(true);
+      setAmount("");
     }
-    else{
-      setSendButton(true)
-      setAmount('')
-    }
-  }
+  };
 
   return (
     <div className="flex flex-col justify-between overflow-hidden h-full relative font-poppins">
@@ -187,33 +198,55 @@ const Chat = () => {
               alt=""
               className="h-8 w-8 object-cover rounded-full"
             />
-          ) : <div className='bg-white rounded-full h-8 w-8 flex justify-center items-center'><span className='font-semibold text-2xl text-blue-700 -mt-2'>{user.userName?.split("")[0]}</span></div>}
+          ) : (
+            <div className="bg-white rounded-full h-8 w-8 flex justify-center items-center">
+              <span className="font-semibold text-2xl text-blue-700 -mt-2">
+                {user.userName?.split("")[0]}
+              </span>
+            </div>
+          )}
           <p>{user.userName}</p>
         </div>
-        <button onClick={showPay} className="bg-blue-600 px-5 py-1 rounded-lg text-white">Pay</button>
+        <button
+          onClick={showPay}
+          className="bg-blue-600 px-5 py-1 rounded-lg text-white"
+        >
+          Pay
+        </button>
       </div>
       <div className="flex flex-col gap-2 w-full h-full py-1 overflow-y-scroll">
         {messages.map((msg, index) => (
-          <div key={index} className={`flex flex-col ${msg.senderId===sender ? 'items-end' : 'items-start'}`}>
+          <div
+            key={index}
+            className={`flex flex-col ${
+              msg.senderId === sender ? "items-end" : "items-start"
+            }`}
+          >
             {/* {console.log(msg.message)} */}
-            {msg?.payment ? ( 
+            {msg?.payment ? (
               <div className="w-full flex flex-col mx-2 p-3 gap-2 bg-white max-w-60 rounded-xl">
-                <h1 className="text-xs">Payment to {msg.senderId===sender ? user.userName : 'You'}</h1>
+                <h1 className="text-xs">
+                  Payment to {msg.senderId === sender ? user.userName : "You"}
+                </h1>
                 <h1 className="text-xl">${msg.money}</h1>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2 text-sm">
-                    <TiTick className="rounded-full bg-green-600 text-white"/>
-                    <p>{msg.payment==true ? 'Paid' : 'Not Paid'}</p>
+                    <TiTick className="rounded-full bg-green-600 text-white" />
+                    <p>{msg.payment == true ? "Paid" : "Not Paid"}</p>
                   </div>
-                  <FaChevronRight className="text-sm"/>
+                  <FaChevronRight className="text-sm" />
                 </div>
               </div>
-            ) :
-             (
-              
-              <div className={`flex ${msg.senderId===sender ? 'justify-end' : 'justify-start'} w-full px-2`}>
+            ) : (
+              <div
+                className={`flex ${
+                  msg.senderId === sender ? "justify-end" : "justify-start"
+                } w-full px-2`}
+              >
                 {/* {console.log(msg.senderId, sender)} */}
-                <p className={`max-w-60 w-fit px-2 py-1 text-sm bg-white rounded-xl text-black`}>
+                <p
+                  className={`max-w-60 w-fit px-2 py-1 text-sm bg-white rounded-xl text-black`}
+                >
                   {msg.message}
                 </p>
               </div>
@@ -233,36 +266,70 @@ const Chat = () => {
           //   if (e.key === "Enter") sendMessage();
           // }}
         />
-        {sendButton ? 
+        {sendButton ? (
           <button onClick={sendMessage} className="outline-blue-400">
             <FaTelegramPlane
-            size={25}
-            className="text-blue-600 cursor-pointer"
+              size={25}
+              className="text-blue-600 cursor-pointer"
             />
-          </button> : 
-          <button onClick={showPay} className="bg-blue-500 text-white px-3 py-1 rounded-lg">Pay</button>
-          }
+          </button>
+        ) : (
+          <button
+            onClick={showPay}
+            className="bg-blue-500 text-white px-3 py-1 rounded-lg"
+          >
+            Pay
+          </button>
+        )}
       </div>
-      { pay ? 
-        <div className="absolute bg-transparent h-full w-full flex justify-center items-center" onClick={handleClick}>
+      {pay ? (
+        <div
+          className="absolute bg-transparent h-full w-full flex justify-center items-center"
+          onClick={handleClick}
+        >
           <div className="div relative w-80 bg-white rounded-lg text-black py-4 px-3 flex flex-col gap-2 border border-black">
             <div className="flex div justify-between text-sm font-medium">
               <p className="">Transfer to {user.userName}</p>
-              <p>MW: 1000.0000</p>
+              <p>MW: ${myWallet}</p>
             </div>
-            <input value={amount} onChange={(e)=>{setAmount(e.target.value)}} type="number" className="w-full px-2 py-1 rounded-lg"/>
+            <input
+              disabled={disabledInput}
+              value={amount}
+              onChange={(e) => {
+                setAmount(e.target.value);
+              }}
+              type="number"
+              className="w-full px-2 py-1 rounded-lg"
+            />
             <ul className="text-xss px-5">
-              {amount < minimumInternalTransaction ? 
-                <li className="list-disc">Minimum Internal Transaction is ${minimumInternalTransaction}</li> : null }
-              <li className="list-disc">Internal Transaction fee is ${internalTransactionFee}</li>
+              {amount < minimumInternalTransaction ? (
+                <li className="list-disc">
+                  Minimum Internal Transaction is ${minimumInternalTransaction}
+                </li>
+              ) : null}
+              <li className="list-disc">
+                Internal Transaction fee is ${internalTransactionFee}
+              </li>
             </ul>
             <div className="div flex justify-around">
-              <button type="button" onClick={handleCancel} className="bg-red-600 px-5 rounded-full text-sm py-1 text-white">Cancel</button>
-              <button type="button" onClick={handleConfirm} className="bg-green-600 px-5 rounded-full text-sm py-1 text-white">Confirm</button>
+              <button
+                type="button"
+                onClick={handleCancel}
+                className="bg-red-600 px-5 rounded-full text-sm py-1 text-white"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleConfirm}
+                className="bg-green-600 px-5 rounded-full text-sm py-1 text-white"
+              >
+                Confirm
+              </button>
             </div>
           </div>
-        </div> : null
-      }
+        </div>
+      ) : null}
     </div>
   );
 };

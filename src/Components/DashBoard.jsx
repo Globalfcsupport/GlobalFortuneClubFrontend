@@ -95,7 +95,7 @@ const DashBoard = () => {
             <span>My Wallet</span>
           </div>
           <div className="flex items-center space-x-2">
-            <span>{data.wallet?.toFixed(4)}</span>
+            <span>${data.wallet?.toFixed(4)}</span>
             <FaArrowRight className="text-gray-400" />
           </div>
         </div>
@@ -107,7 +107,7 @@ const DashBoard = () => {
             <span>Reserve - My Wallet</span>
           </div>
           <p className="bg-blue-500 text-white px-6 py-1 rounded">
-            0.00
+          ${data.reserveMywallet?data.reserveMywallet:0}
           </p>
         </div>
 
@@ -118,7 +118,7 @@ const DashBoard = () => {
             <span>Crowd Stacking</span>
           </div>
           <div className='flex items-center space-x-2'>
-            <span>{data?.crowd?.toFixed(4)}</span>
+            <span>${data?.crowdStock?.toFixed(4)}</span>
             <FaArrowRight className='text-gray-400' />
           </div>
         </div>

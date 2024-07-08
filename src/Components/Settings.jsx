@@ -3,6 +3,7 @@ import { HiOutlinePencil } from "react-icons/hi2";
 import { IoSaveOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { getUserByAuth, UpdateProfile, UploadProfileImg } from "../services/services";
+import { BaseURL } from "../utils/const";
 
 export const HandleImageUpload = async (e, setImageUrl, setBranchLogo) => {
   const uploadBranchLogo = e.target.files[0];
@@ -120,7 +121,7 @@ const Settings = () => {
       let datas = await getUserByAuth();
       setProfile(datas.data);
       if (datas.data.image) {
-        setImageUrl(`http://localhost:3333/${datas.data.image}`);
+        setImageUrl(`${BaseURL}/${datas.data.image}`);
       }
     } catch (error) {}
   };
