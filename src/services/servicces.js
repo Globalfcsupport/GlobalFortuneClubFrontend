@@ -18,3 +18,8 @@ export const getSetting = async () => {
   let ApiResponse = await useAxiosInterceptors.get("/admin/trnsaction/histories")
   return ApiResponse
  }
+
+ export const getWithdrawRequest = async ()=>{
+  let ApiResponse = await useAxiosInterceptors.get("/admin/getwidthdraw/requests")
+  return ApiResponse
+ }
