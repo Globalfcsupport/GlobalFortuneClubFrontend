@@ -23,3 +23,8 @@ export const getSetting = async () => {
   let ApiResponse = await useAxiosInterceptors.get("/admin/getwidthdraw/requests")
   return ApiResponse
  }
+
+ export const getFcSlotLog = async ()=>{
+  let ApiResponse = await useAxiosInterceptors.get("/admin/getfc/slots/log")
+  return ApiResponse
+ }

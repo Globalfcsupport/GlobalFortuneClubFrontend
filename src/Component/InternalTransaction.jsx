@@ -3,7 +3,7 @@ import { useTransactionSearch } from "../context/TransactionSearchContext";
 import { Pagination } from "antd";
 import { getTransaction } from "../services/servicces";
 
-const  InternalTransaction = () => {
+const InternalTransaction = () => {
   const { searchText } = useTransactionSearch();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -16,7 +16,7 @@ const  InternalTransaction = () => {
 
   useEffect(() => {
     setPage(1);
-  }, [searchText]); 
+  }, [searchText]);
 
   useEffect(() => {
     filterAndPaginateTransactions();
@@ -25,8 +25,7 @@ const  InternalTransaction = () => {
   const fetchTransactions = async () => {
     try {
       const response = await getTransaction();
-      setAllTransactions(response.data.internalTransaction
-      );
+      setAllTransactions(response.data.internalTransaction);
     } catch (error) {
       console.error("Error fetching transactions:", error);
     }
@@ -95,4 +94,4 @@ const  InternalTransaction = () => {
   );
 };
 
-export default  InternalTransaction;
+export default InternalTransaction;
