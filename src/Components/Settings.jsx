@@ -279,9 +279,8 @@ const Settings = () => {
             onChange={(e)=>{UsdNetwork(e.target.value)}}
           >
             <option value="">Select Your Network</option>
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
+            <option value="TRC20">TRC20</option>
+            <option value="BEP20">BEP20</option>
           </select>
         </div>
         <button
