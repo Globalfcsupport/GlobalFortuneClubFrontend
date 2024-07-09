@@ -73,6 +73,15 @@ const SupportAdminChart = () => {
     setSearchText(e.target.value);
   }
 
+const fetchUsers = async ()=>{
+  try {
+    // let val = await 
+  } catch (error) {
+    
+  }
+}
+
+
   useEffect(()=> {
     if(searchText){
       const filteredUsers = susers.filter(item=> (

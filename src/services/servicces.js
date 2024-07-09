@@ -18,3 +18,8 @@ export const getSetting = async () => {
   let ApiResponse = await useAxiosInterceptors.get("/admin/trnsaction/histories")
   return ApiResponse
  }
+
+export const getDashboardReport = async ()=>{
+  let ApiResponse = await useAxiosInterceptors.get("/admin/get/appreport/dashboard")
+  return ApiResponse
+}
