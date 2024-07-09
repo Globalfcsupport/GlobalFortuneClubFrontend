@@ -66,7 +66,7 @@ const AllTransaction = () => {
               {displayedTransactions.map((item, index) => (
                 <tr key={item._id}>
                   <td>{(page - 1) * pageSize + index + 1}</td>
-                  <td>{item.refId[index]}</td>
+                  <td>{item.refId}</td>
                   <td>{item.refId}</td>
                   <td>{item.createdAt}</td>
                   <td>{item.currentYield.toFixed(4)

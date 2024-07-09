@@ -25,10 +25,12 @@ const CompletedFCSlotLog = () => {
   const fetchTransactions = async () => {
     try {
       const response = await getFcSlotLog();
-      setAllTransactions(response.data.Completed
-
-      );
-      console.log(response.data,"values")
+      const transactionsWithRemaining = response.data.Completed.map((transaction) => ({
+        ...transaction,
+        remaining: transaction.totalYield - transaction.currentYield
+      }));
+      setAllTransactions(transactionsWithRemaining);
+      console.log(transactionsWithRemaining, "values");
     } catch (error) {
       console.error("Error fetching transactions:", error);
     }
@@ -66,11 +68,12 @@ const CompletedFCSlotLog = () => {
             <tbody className="bg-white">
               {displayedTransactions.map((item, index) => (
                 <tr key={item._id}>
-                  <td>{(page - 1) * pageSize + index + 1  }</td>
+                  <td>{(page - 1) * pageSize + index + 1}</td>
                   <td>{item.slotId}</td>
                   <td>{item.refId}</td>
                   <td>{item.createdAt}</td>
-                  <td>{item.totalYield}</td>                                 
+                  <td>{item.totalYield}</td>
+                  <td>{item.remaining}</td>
                 </tr>
               ))}
             </tbody>
