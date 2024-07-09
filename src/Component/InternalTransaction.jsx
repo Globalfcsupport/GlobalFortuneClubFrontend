@@ -1,33 +1,49 @@
-import React, { useEffect, useState } from "react";
-import { sdata } from "../utils/sdata";
-import { Pagination } from "antd";
+import { useEffect, useState } from "react";
 import { useTransactionSearch } from "../context/TransactionSearchContext";
+import { Pagination } from "antd";
+import { getTransaction } from "../services/servicces";
 
 const InternalTransaction = () => {
   const { searchText } = useTransactionSearch();
-
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+  const [allTransactions, setAllTransactions] = useState([]);
+  const [displayedTransactions, setDisplayedTransactions] = useState([]);
+
+  useEffect(() => {
+    fetchTransactions();
+  }, []);
 
   useEffect(() => {
     setPage(1);
   }, [searchText]);
 
   useEffect(() => {
-    if (!searchText) {
-      const startIndex = (page - 1) * pageSize;
-      const res = sdata.slice(startIndex, startIndex + pageSize);
-      setData(res);
-    } else {
-      const filteredData = sdata.filter((item) =>
-        item.name.toLowerCase().includes(searchText.toLowerCase())
-      );
-      const res = filteredData.slice((page - 1) * pageSize, pageSize);
-      setData(res);
-    }
-  }, [page, searchText, pageSize]);
+    filterAndPaginateTransactions();
+  }, [page, searchText, pageSize, allTransactions]);
 
-  const [data, setData] = useState(sdata);
+  const fetchTransactions = async () => {
+    try {
+      const response = await getTransaction();
+      setAllTransactions(response.data.internalTransaction);
+    } catch (error) {
+      console.error("Error fetching transactions:", error);
+    }
+  };
+
+  const filterAndPaginateTransactions = () => {
+    let filteredData = allTransactions;
+    if (searchText) {
+      filteredData = allTransactions.filter(
+        (item) =>
+          item.userName?.toLowerCase().includes(searchText.toLowerCase()) ||
+          item.email?.toLowerCase().includes(searchText.toLowerCase())
+      );
+    }
+    const startIndex = (page - 1) * pageSize;
+    const paginatedData = filteredData.slice(startIndex, startIndex + pageSize);
+    setDisplayedTransactions(paginatedData);
+  };
 
   return (
     <div className="bg-bg_primary h-full">
@@ -38,18 +54,19 @@ const InternalTransaction = () => {
               <tr>
                 <td>S. No</td>
                 <td>User Name</td>
-                <td>User ID</td>
-                <td>Date</td>
+                <td>User Id</td>
                 <td>Amount</td>
+                <td>Status</td>
               </tr>
             </thead>
             <tbody className="bg-white">
-              {data.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.id}</td>
-                  <td>{item.name}</td>
-                  <td>{item.mwbalance}</td>
-                  <td>{item.totalYield}</td>
+              {displayedTransactions.map((item, index) => (
+                <tr key={item._id}>
+                  <td>{(page - 1) * pageSize + index + 1}</td>
+                  <td>{item.userName}</td>
+                  <td>{item.userId}</td>
+                  <td>{`${item.amount} ${item.currency}`}</td>
+
                   <td
                     className={`${
                       item.status ? "text-green-500" : "text-red-500"
@@ -64,13 +81,13 @@ const InternalTransaction = () => {
         </div>
         <Pagination
           className="flex justify-end"
-          total={sdata.length}
+          total={allTransactions.length}
           pageSize={pageSize}
           showSizeChanger
-          onShowSizeChange={(current, value) => setPageSize(value)}
+          onShowSizeChange={(current, size) => setPageSize(size)}
           current={page}
           showQuickJumper={true}
-          onChange={(page) => setPage(page)}
+          onChange={(newPage) => setPage(newPage)}
         />
       </div>
     </div>

@@ -23,3 +23,12 @@ export const getDashboardReport = async ()=>{
   let ApiResponse = await useAxiosInterceptors.get("/admin/get/appreport/dashboard")
   return ApiResponse
 }
+ export const getWithdrawRequest = async ()=>{
+  let ApiResponse = await useAxiosInterceptors.get("/admin/getwidthdraw/requests")
+  return ApiResponse
+ }
+
+ export const getFcSlotLog = async ()=>{
+  let ApiResponse = await useAxiosInterceptors.get("/admin/getfc/slots/log")
+  return ApiResponse
+ }

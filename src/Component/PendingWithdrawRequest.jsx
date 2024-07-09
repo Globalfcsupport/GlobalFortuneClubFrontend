@@ -1,47 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaBars } from "react-icons/fa";
 import { useSideBar } from "../context/SideBarContext";
+import { getWithdrawRequest } from "../services/servicces";
 
 const PendingWithdrawRequest = () => {
   const { toggleSideBar } = useSideBar();
+  const [withdrawRequests, setWithdrawRequests] = useState([]);
 
-  const data = [
-    {
-      userID: "User1",
-      requestedDate: "2024-07-08",
-      requestedAmount: 100,
-      usdtWalletID: "Wallet1",
-      transactionRefNo: "Ref1",
-    },
-    {
-      userID: "User2",
-      requestedDate: "2024-07-07",
-      requestedAmount: 200,
-      usdtWalletID: "Wallet2",
-      transactionRefNo: "Ref2",
-    },
-    {
-      userID: "User3",
-      requestedDate: "2024-07-07",
-      requestedAmount: 300,
-      usdtWalletID: "Wallet3",
-      transactionRefNo: "Ref3",
-    },
-    {
-      userID: "User4",
-      requestedDate: "2024-07-07",
-      requestedAmount: 300,
-      usdtWalletID: "Wallet3",
-      transactionRefNo: "Ref3",
-    },
-    {
-      userID: "User5",
-      requestedDate: "2024-07-07",
-      requestedAmount: 300,
-      usdtWalletID: "Wallet3",
-      transactionRefNo: "Ref3",
-    },
-  ];
+  useEffect(() => {
+    const fetchWithdrawRequests = async () => {
+      try {
+        const response = await getWithdrawRequest();
+        setWithdrawRequests(response.data);
+        console.log(response.data, "data");
+      } catch (error) {
+        console.error("Error fetching withdraw requests:", error);
+      }
+    };
+
+    fetchWithdrawRequests();
+  }, []);
 
   return (
     <div className="bg-bg_primary h-full p-5">
@@ -61,24 +39,27 @@ const PendingWithdrawRequest = () => {
               <th className="">Requested Amount</th>
               <th className="">USDT Wallet ID</th>
               <th className="">Transaction Ref. No</th>
+              <th className="">Status</th>
               <th className="">Actions</th>
             </tr>
           </thead>
           <tbody className="bg-white">
-            {data.map((item, index) => (
-              <tr key={index}>
-                <td className="">{item.userID}</td>
-                <td className="">{item.requestedDate}</td>
-                <td className="">{item.requestedAmount}</td>
-                <td className="">{item.usdtWalletID}</td>
-                <td className="">{item.transactionRefNo}</td>
-                <td className="">
-                  <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
-                    Approve
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {Array.isArray(withdrawRequests) &&
+              withdrawRequests.map((item,index) => (
+                <tr key={index}>
+                  <td className="">{item.userId}</td>
+                  <td className="">{new Date(item._id.toString().substring(0, 8)).toLocaleDateString()}</td>
+                  <td className="">${item.requestAmt}</td>
+                  <td className="">{item.USDTAddress}</td>
+                  <td className="">{item.refId}</td>
+                  <td className="">{item.status}</td>
+                  <td className="">
+                    <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                      Approve
+                    </button>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
