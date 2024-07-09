@@ -14,7 +14,7 @@ const UserList = () => {
 
   const [data, setData] = useState([]);
 
-  const handleSearch = (e) => {
+  const handleSearch = (e) => { 
     setPage(1);
     setSearchText(e.target.value);
   };
