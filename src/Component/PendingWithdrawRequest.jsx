@@ -2,10 +2,14 @@ import React, { useEffect, useState } from "react";
 import { FaBars } from "react-icons/fa";
 import { useSideBar } from "../context/SideBarContext";
 import { getWithdrawRequest } from "../services/servicces";
+import { Pagination } from "antd";
 
 const PendingWithdrawRequest = () => {
   const { toggleSideBar } = useSideBar();
   const [withdrawRequests, setWithdrawRequests] = useState([]);
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [displayedRequests, setDisplayedRequests] = useState([]);
 
   useEffect(() => {
     const fetchWithdrawRequests = async () => {
@@ -21,13 +25,15 @@ const PendingWithdrawRequest = () => {
     fetchWithdrawRequests();
   }, []);
 
+  useEffect(() => {
+    const startIndex = (page - 1) * pageSize;
+    const paginatedRequests = withdrawRequests.slice(startIndex, startIndex + pageSize);
+    setDisplayedRequests(paginatedRequests);
+  }, [page, pageSize, withdrawRequests]);
+
   return (
     <div className="bg-bg_primary h-full p-5">
-      <div
-        className="md:hidden text-blue-500"
-        onClick={toggleSideBar}
-        id="bars"
-      >
+      <div className="md:hidden text-blue-500" onClick={toggleSideBar} id="bars">
         <FaBars />
       </div>
       <div className="rounded-md overflow-hidden">
@@ -43,11 +49,11 @@ const PendingWithdrawRequest = () => {
             </tr>
           </thead>
           <tbody className="bg-white">
-            {Array.isArray(withdrawRequests) &&
-              withdrawRequests.map((item,index) => (
+            {Array.isArray(displayedRequests) &&
+              displayedRequests.map((item, index) => (
                 <tr key={index}>
                   <td className="">{item.refId}</td>
-                  <td className="">{new Date(item._id.toString().substring(0, 8)).toLocaleDateString()}</td>
+                  <td className="">{new Date(item._id.toString().substring(0, 8) * 1000).toLocaleDateString()}</td>
                   <td className="">${item.requestAmt}</td>
                   <td className="">{item.USDTAddress}</td>
                   <td className="">{item.status}</td>
@@ -60,6 +66,16 @@ const PendingWithdrawRequest = () => {
               ))}
           </tbody>
         </table>
+        <Pagination
+          className="flex justify-end mt-4"
+          total={withdrawRequests.length}
+          pageSize={pageSize}
+          showSizeChanger
+          onShowSizeChange={(current, size) => setPageSize(size)}
+          current={page}
+          showQuickJumper={true}
+          onChange={(newPage) => setPage(newPage)}
+        />
       </div>
     </div>
   );
