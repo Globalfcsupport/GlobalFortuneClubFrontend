@@ -38,7 +38,6 @@ const PendingWithdrawRequest = () => {
               <th className="">Requested Date</th>
               <th className="">Requested Amount</th>
               <th className="">USDT Wallet ID</th>
-              <th className="">Transaction Ref. No</th>
               <th className="">Status</th>
               <th className="">Actions</th>
             </tr>
@@ -47,11 +46,10 @@ const PendingWithdrawRequest = () => {
             {Array.isArray(withdrawRequests) &&
               withdrawRequests.map((item,index) => (
                 <tr key={index}>
-                  <td className="">{item.userId}</td>
+                  <td className="">{item.refId}</td>
                   <td className="">{new Date(item._id.toString().substring(0, 8)).toLocaleDateString()}</td>
                   <td className="">${item.requestAmt}</td>
                   <td className="">{item.USDTAddress}</td>
-                  <td className="">{item.refId}</td>
                   <td className="">{item.status}</td>
                   <td className="">
                     <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
