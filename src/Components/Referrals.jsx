@@ -49,7 +49,7 @@ const Referrals = () => {
 
       </div>
       <div className='w-full h-full bg-white flex flex-col overflow-scroll'>
-        {users.map((item, index)=> (
+        {Array.isArray(users) && users.map((item, index)=> (
           <div key={index} className='px-5 flex gap-5 p-2 items-center rounded-xl'>
             <img src={item.image?`${BaseURL}${item.image}`:`${userIcon}`} className='h-10 w-10 rounded-full object-cover'/>
             <div className='text-xs'>
