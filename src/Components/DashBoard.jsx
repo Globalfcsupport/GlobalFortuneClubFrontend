@@ -75,7 +75,7 @@ const DashBoard = () => {
           className="bg-white text-primary px-5 font-medium py-1 rounded"
           onClick={ClubActivation}
         >
-          {data.started ? "Started" : "Start"}
+          {data.started ? "Running" : "Start"}
         </button>
       </div>
 
@@ -196,7 +196,7 @@ const DashBoard = () => {
               <span>Referral Income -Today</span>
             </div>
             <div className="flex items-center ">
-              <span>$0</span>
+              <span>${data.refIncomeToday}</span>
               <MdKeyboardArrowRight className="text-textColour text-2xl" />
             </div>
           </div>
@@ -209,7 +209,7 @@ const DashBoard = () => {
               <span>Referral Income -Overall</span>
             </div>
             <div className="flex items-center ">
-              <span>$0</span>
+              <span>${data.refIncomeAll}</span>
               <MdKeyboardArrowRight className="text-textColour text-2xl" />
             </div>
           </div>
