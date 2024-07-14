@@ -7,6 +7,7 @@ import { FcExpired } from "react-icons/fc";
 import { IoTimeOutline } from "react-icons/io5";
 import { FaCaretDown } from "react-icons/fa";
 
+
 const { Option } = Select;
 
 const TopUp = () => {
@@ -41,7 +42,7 @@ const TopUp = () => {
   };
 
   const handleChange = (value) => {
-    console.log(value)
+    // console.log(value)
     setAmount(value);
   };
 
@@ -85,8 +86,8 @@ const TopUp = () => {
         </div>
       </div>
       <div className="flex flex-col gap-4">
-        <div className="w-[95%] mx-auto rounded-md flex flex-col gap-3 mt-5 pb-2 px-1 bg-slate-100  shadow-md">
-          <div className="  px-2 py-3 bg-slate-50">
+        <div className="w-[97%] mx-auto rounded-lg flex flex-col gap-3 mt-5 pb-2 px-1 bg-purple-100 shadow-xl">
+          <div className="  px-2 py-3 bg-slate-100">
             <h1 className="font-semibold text-lg text-[#3d5898] px-2 ">
               Select Top Up
             </h1>
@@ -119,7 +120,7 @@ const TopUp = () => {
           </div>
           <div>
             <div className=" w-[80%] flex justify-evenly  items-center">
-              <p className=" capitalize text-[#3d5898] ">
+              <p className=" capitalize text-[#3d5898] font-semibold ">
                 pay with
               </p>
               <Radio defaultChecked className=" rounded-full font-bold text-lg">
@@ -140,7 +141,7 @@ const TopUp = () => {
           </div>
         </div>
 
-        <div className="px-5">
+        <div className="px-5 py-3">
           <h1 className="p-3 bg-blue-400 text-white">Recent Top Ups</h1>
           <div className="bg-white w-full max-h-56 overflow-y-scroll">
             {data.length == 0 ? (
