@@ -56,7 +56,7 @@ export const FileUploadForm = ({ props }) => {
             <img
               alt="uploaded"
               src={imageUrl}
-              className="w-36 h-36 rounded-full object-contain"
+              className="w-full h-full object-cover rounded-full"
             />
           ) : (
             <>
