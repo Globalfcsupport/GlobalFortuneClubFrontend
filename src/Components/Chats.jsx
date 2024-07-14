@@ -64,9 +64,9 @@ const getUsers_ForChats = async ()=>{
         {users.length == 0 ? 
           <p className='h-full justify-center flex items-center'>No Users</p> :
           users.map((item, index)=> (
-            <div key={index} className={`flex gap-5 px-5 py-3 border-b`} onClick={()=>handleChat(item)}>
+            <div key={index} className={`flex gap-5 px-5 py-3 border-b-[3px]  cursor-pointer`} onClick={()=>handleChat(item)}>
               {
-                item.image ? <img src={item.image} alt='user profile pic' className='h-10 w-10 object-cover rounded-full'/>:<div className='bg-secondary rounded-full h-10 w-10 flex justify-center items-center'><span className='font-semibold text-3xl h-full w-full text-primary flex justify-center items-center -mt-1'>{item.userName.split("")[0]}</span></div>
+                item.image ? <img src={item.image} alt='user profile pic' className='cursor-pointer h-10 w-10 object-cover rounded-full'/>:<div className='bg-secondary rounded-full h-10 w-10 flex justify-center items-center'><span className='font-semibold text-3xl h-full w-full text-primary flex justify-center items-center -mt-1'>{item.userName.split("")[0]}</span></div>
               }
               <div>
                 <p className='text-sm font-semibold'>{item.userName}</p>
