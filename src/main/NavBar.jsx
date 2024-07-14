@@ -47,9 +47,10 @@ const NavBar = () => {
   }, [location])
 
   return (
-    <div className="h-full w-full rounded-tr-xl rounded-tl-xl bg-[#5270b02d]">
+    <div className="h-full w-full rounded-tr-3xl rounded-tl-3xl bg-secondary">
       <div className="flex items-center justify-between p-3">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-6">
+          <div className='flex gap-2'>
           <div className='p-2 bg-white rounded-full'><IoGrid
             className="text-xl text-primary cursor-pointer"
             onClick={toggleSidebar}
@@ -59,8 +60,11 @@ const NavBar = () => {
           <IoIosArrowBack className="text-[20px] text-primary cursor-pointer" onClick={handleNavigate}/>
 
           </div>
+          </div>
+          
+          <h1 className="text-lg font-semibold text-textColour  ">{currentPage[2]}</h1>
+
         </div>
-        <h1 className="text-lg font-semibold text-textColour -ml-4 ">{currentPage[2]}</h1>
         <div className='p-2 bg-white rounded-full'>
         <BiSolidMessageRoundedDetail onClick={()=>navigate('/app/Chats')} className="text-[22px] text-primary cursor-pointer" />
 
