@@ -17,9 +17,11 @@ const Withdraw = () => {
   const [receivableAmount, setReceivableAmount] = useState("");
   const [data, setData] = useState({});
   const [myDetails, setMydetails] = useState({});
-  const [paymentInputDisabled, setPaymentInputDisabled] = useState(false);
   const [settting, setSetting] = useState({});
   const [usdtNetwork, setUsdtNetwork] = useState("");
+  const [activeTab, setActiveTab] = useState('active');
+
+
 
   const handleUSDTAddress = () => {
     setEditUSDTAddress(!editUSDTAddress);
@@ -31,6 +33,7 @@ const Withdraw = () => {
       [e.target.name]: e.target.value,
     }));
   };
+
 
   const GetMydetails = async () => {
     try {
@@ -61,9 +64,15 @@ const Withdraw = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!usdtNetwork) {
+      messageApi.error("Please select a USDT network.");
+      return;
+    }
+
     let paymentData = {
       requestAmt: data.amount,
       receivableAmt: receivableAmount,
+      usdtNetwork: usdtNetwork,
     };
 
     setLoading(true);
@@ -78,7 +87,10 @@ const Withdraw = () => {
         GetMydetails();
 
         messageApi.success("Requested Raised Successfully");
-      } catch (error) {}
+      } catch (error) {
+        setLoading(false);
+        messageApi.error("An error occurred. Please try again.");
+      }
     }
   };
 
@@ -90,16 +102,20 @@ const Withdraw = () => {
         <div className="flex relative justify-between px-6 items-center w-full">
           <NavLink
             to="/app/TopUp"
+           
             className="py-2 px-5 focus:outline-none text-white"
           >
             TopUp
           </NavLink>
           <NavLink
-            to="/app/withdraw"
+            // to="/app/Withdraw"
+            
             className="py-2 px-5 focus:outline-none bg-white text-primary rounded-tr-lg rounded-tl-lg"
           >
             Withdraw
           </NavLink>
+          <span className={`h-1 bg-primary absolute w-12 rounded-lg bottom-1 transition-all duration-75 ${activeTab==='withdraw'? 'left-[13%] w-20': 'right-10 w-20 '}`}></span>
+        
         </div>
       </div>
 
@@ -155,7 +171,6 @@ const Withdraw = () => {
                 <option value="" disabled>
                   Select Network
                 </option>
-                {/* <option value=""></option> */}
                 <option value="TRC20">TRC20</option>
                 <option value="BEP20">BEP20</option>
               </select>
