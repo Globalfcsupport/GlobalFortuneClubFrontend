@@ -39,10 +39,10 @@ input[type='number'] {
   -moz-appearance: textfield; /* Firefox */
 }
 
-.navs .active{
-  background-color: #3b82f6;
+/* .navs .active{
+  background-color: #3B5998;
   color: white;
-}
+} */
 
 ::-webkit-scrollbar {
   position: absolute;
@@ -60,5 +60,6 @@ input[type='number'] {
 ::-webkit-scrollbar-thumb {
   position: absolute;
   background: #3B5998; /* Adjust as needed */
+  display: none;
 }
 

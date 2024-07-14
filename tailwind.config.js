@@ -10,7 +10,8 @@ export default {
       },
       colors: {
         primary: "#3B5998",
-        secondary:"#e1dfdf",
+        
+        secondary:"#ededed",
         textColour:"#6a6868"
       },
       fontFamily: {

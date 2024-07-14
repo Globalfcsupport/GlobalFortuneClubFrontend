@@ -319,7 +319,7 @@ const DashBoard = () => {
 
       </div>
 
-      <div className="absolute bottom-0 left-0 w-full  p-3 gap-2  grid grid-cols-3 bg-secondary justify-between"
+      <div className="absolute bottom-0 left-0 w-full shadow-none  p-3 gap-2  grid grid-cols-3 bg-secondary rounded-b-3xl justify-between"
           style={{
             width: '350px',
             left: '50%',
