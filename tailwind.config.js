@@ -9,8 +9,10 @@ export default {
         xs:'500px'
       },
       colors: {
-        primary: "#526FB0",
-        bg_primary: "#5270b02d",
+        primary: "#3B5998",
+        
+        secondary:"#e1dfdf",
+        textColour:"#6a6868"
       },
       fontFamily: {
         poppins: ['"Poppins"', ...defaultTheme.fontFamily.sans],
