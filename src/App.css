@@ -52,3 +52,9 @@ td{
     padding-left: 30px;
   }
 }
+
+::-webkit-scrollbar{
+  position: absolute;
+  background: #3B5998; /* Adjust as needed */
+  display: none;
+}

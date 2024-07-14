@@ -34,8 +34,9 @@ const SupportAdminChart = () => {
   }, [searchText]);
 
   const switchChat = (e) => {
-    const activeIndex = e.target.closest("div").getAttribute("data-index");
+    const activeIndex = e
     setActiveChat(activeIndex);
+    console.log(activeChat)
   };
 
 
@@ -48,10 +49,18 @@ const SupportAdminChart = () => {
       message: text,
     };
     console.log(chat);
-    console.log(chats[activeChat]);
-    chats[activeChat].push(chat);
+    // console.log(chats[activeChat]);
+    // chats.push(chat);
     document.getElementById("text").value = "";
-    setchatstate((prev) => [...prev, chat]);
+    setchatstate((prev) => {
+      const arr=[...chats,chat]
+      
+      return arr
+    });
+
+    console.log(chats)
+
+    // alert(JSON.stringify(chats))
   };
 
   const handleEnter = (e) => {
@@ -61,8 +70,8 @@ const SupportAdminChart = () => {
   };
 
   return (
-    <div className="h-full w-full flex">
-      <div className="w-[30%] bg-[#5270b02d] flex flex-col gap-3">
+    <div className="w-full flex h-screen">
+      <div className="w-[30%] h-full bg-[#5270b02d] flex flex-col gap-3">
         <div className="p-2">
           <input
             type="text"
@@ -72,35 +81,43 @@ const SupportAdminChart = () => {
             className="w-[90%] mx-auto block rounded-lg px-4 py-2 outline-none text-sm"
           />
         </div>
-        <div className="flex flex-col">
+        <div className="flex h-full overflow-y-scroll flex-col ">
           {users.map((item, index) => (
             <div
               key={index}
               data-index={index}
-              className={`flex px-4 py-2 gap-2 ${
+              className={`flex items-center cursor-pointer px-4 py-2 gap-2 ${
                 activeChat == index && "bg-blue-200"
               }`}
-              onClick={switchChat}
+              onClick={()=>switchChat(index)}
             >
-              <img
-                src={item.image ? item.image : UserImage }
-                className="object-cover h-10 w-10 rounded-full"
-              />
+              <p className="bg-white font-bold w-10 h-10 flex justify-center items-center rounded-full"> {item.userName.charAt(0)}</p>
+            
               <div>
                 <p>{item.userName}</p>
-                <p>{}</p>
+            
               </div>
             </div>
           ))}
         </div>
       </div>
-      <div className="w-[70%] bg-blue-200 flex flex-col">
-        <div className="bg-blue-400 h-16 py-8 px-5 flex gap-3 items-center">
+      <div className="w-[70%] h-full justify-between bg-blue-200  flex flex-col">
+        <div className="bg-blue-400 h-[15vh] py-8 px-5 flex gap-3 items-center">
+        <p className="bg-white w-10 h-10 flex font-bold justify-center items-center rounded-full"> {users[activeChat]?.userName.charAt(0)}</p>
+
+          <p className="text-lg font-semibold">{users[activeChat]?.userName}</p>
           {/* <img
             className="h-10 w-10 object-cover rounded-full"
             src={users[activeChat].image}
           /> */}
           {/* <p className="text-white">{users[activeChat].name}</p> */}
+        </div>
+        <div className="w-full relative flex gap-5 overflow-y-scroll  items-end flex-col  h-[75vh] py-3 ">
+           {chats&&chats?.map((item)=>(
+            <div className=" flex flex-col gap-2 h-fit  bg-white w-fit px-5 py-1 rounded-full">
+              {item.message}
+            </div>
+           ))}
         </div>
         {/* <div className="w-full h-full flex flex-col gap-2 overflow-y-auto p-5">
           {chatstate.map((item, index) => (
@@ -121,7 +138,7 @@ const SupportAdminChart = () => {
             </div>
           ))}
         </div> */}
-        <div className="flex w-full pb-3 items-center justify-center gap-2 bottom-0">
+        <div className="flex h-[10vh] w-full pb-3 items-center justify-center gap-2 bottom-0">
           <input
             onKeyDown={handleEnter}
             id="text"
