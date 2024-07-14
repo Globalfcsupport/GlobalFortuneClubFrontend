@@ -120,15 +120,33 @@ const Wallet = () => {
           </div>
         )}
       </div>
-      <div className="fixed bottom-0 left-0 w-full mb-3 p-2 shadow-lg flex justify-around"
-          style={{
-            width: '350px',
-            left: '50%',
-            transform: 'translateX(-50%)'
-          }}>
-        <Link to='/app/TopUp' className="bg-primary text-white px-5 py-2 rounded-md">TopUp</Link>
-        <Link to='/app/WithDraw' className="bg-primary text-white px-5 py-2 rounded-md">Withdraw</Link>
-        <Link to='/app/Transfer' className="bg-primary text-white px-5 py-2 rounded-md">Transfer</Link>
+      <div
+        className="absolute bottom-0 left-0 w-full shadow-none  p-3 gap-2  grid grid-cols-3 bg-secondary rounded-b-full justify-between"
+        style={{
+          width: "350px",
+          left: "50%",
+          transform: "translateX(-50%)",
+        }}
+      >
+        <Link
+          to="/app/TopUp"
+          className="bg-primary text-center text-white py-3 px-3 text-sm rounded-md"
+        >
+          Top Up
+        </Link>
+        <Link
+          to="/app/chats"
+          className="bg-primary text-center text-white py-3 text-sm px-3  rounded-md"
+        >
+          Transfer
+        </Link>
+
+        <Link
+          to="/app/Withdraw"
+          className="bg-primary text-center text-white py-3 px-3 text-sm rounded-md"
+        >
+          Withdraw
+        </Link>
       </div>
     </div>
   );
