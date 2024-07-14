@@ -51,7 +51,7 @@ export const FileUploadForm = ({ props }) => {
         onChange={(e) => HandleImageUpload(e, setImageUrl, setBranchLogo)}
       />
       <label htmlFor="image-upload">
-        <div className="w-[80px] h-[80px] flex flex-col justify-center items-center border-2 border-primary rounded-full bg-white text-custom-green">
+        <div className="w-[80px] h-[80px] flex flex-col justify-center items-center rounded-full bg-gray-400 text-custom-green">
           {imageUrl ? (
             <img
               alt="uploaded"
@@ -68,13 +68,16 @@ export const FileUploadForm = ({ props }) => {
                 />
               ) : (
                 <>
-                  <span className="text-[15px] font-normal">{displayName}</span>
+                  <span className="text-xl font-semibold text-white">{displayName}</span>
                 </>
               )}
             </>
           )}
         </div>
       </label>
+      <div className="text-gray-500 font-medium mt-2">
+        Edit Profile
+      </div>
     </div>
   );
 };
@@ -107,6 +110,8 @@ const Settings = () => {
       [e.target.name]: e.target.value,
     }));
   };
+
+  console.log(profile,"profile");
 
   const HandleLogOut = () => {
     localStorage.removeItem("accessToken");
@@ -155,14 +160,16 @@ const Settings = () => {
   }, []);
 
   return (
-    <div className="font-poppins space-y-2 text-sm">
-      <div className="w-full h-12 bg-primary flex justify-between items-center px-5 ">
-        <p className="font-semibold text-white">My Wallet</p>
-        <p className="px-3 bg-white rounded-md font-semibold py-[0.125rem] font-pri">
+    <div className=" space-y-2 text-sm">
+      <div className="w-full h-16 bg-primary flex justify-end items-center px-5 ">
+        <div className=" flex flex-col gap-1 items-end">
+        <p className="font-semibold text-white text-xs">My Wallet</p>
+        <p className=" bg-white rounded-md font-semibold w-fit pl-14 px-3">
           {profile?profile.myWallet:0}
         </p>
+        </div>
       </div>
-      <div className="flex flex-col px-5  gap-3">
+      <div className="flex flex-col px-5 gap-3">
         <div className="flex justify-center items-center ">
           <FileUploadForm
             props={{
@@ -170,7 +177,7 @@ const Settings = () => {
               editMode: showImage,
               formData: data.image,
               inputName: "profileImage",
-              displayName: "Upload Image",
+              displayName:profile?.userName.split(' ')[0].charAt(0) ,
               setImageUrl,
               setBranchLogo,
             }}
@@ -185,7 +192,7 @@ const Settings = () => {
             <input
               type="text"
               // readOnly
-              className="px-2 py-1 w-32 rounded-lg"
+              className="px-2 py-1 w-32 rounded-lg "
               value={profile?.refId ? profile?.refId : "null"}
               id="userID"
               name="userID"
@@ -289,7 +296,7 @@ const Settings = () => {
               </select>
             </div>
         <button
-          className="bg-blue-800 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="bg-primary hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           onClick={HandleLogOut}
         >
           Logout

@@ -1,7 +1,7 @@
-input:focus, input:active, input:not(:placeholder-shown){
+/* input:focus, input:active, input:not(:placeholder-shown){
   border-color: #3b82f6;
   outline-color: #3b82f6;
-}
+} */
 input{
   /* outline: none; */
   border-width: 2px;
