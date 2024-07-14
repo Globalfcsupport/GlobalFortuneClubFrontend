@@ -32,3 +32,13 @@ export const getDashboardReport = async ()=>{
   let ApiResponse = await useAxiosInterceptors.get("/admin/getfc/slots/log")
   return ApiResponse
  }
+
+ export const getUserByAuth = async()=>{
+  let response = await useAxiosInterceptors.get("/user/auth/details")
+  return response
+}
+
+export const getChathistories = async (id)=>{
+  let response = await useAxiosInterceptors.get("/user/get/chat/history/"+id);
+  return response
+}

@@ -1,14 +1,28 @@
 import { useEffect, useState } from "react";
 import { FaTelegramPlane } from "react-icons/fa";
-import { GetUsersList } from "../services/servicces";
+import {
+  GetUsersList,
+  getUserByAuth,
+  getChathistories,
+} from "../services/servicces";
 import UserImage from "../assets/Images/user.png";
+// const SOCKET_SERVER_URL = "wss://gfcapi.globalfc.app";
+const SOCKET_SERVER_URL = "http://localhost:3333";
+
+
 const SupportAdminChart = () => {
-  const [sender, setSender] = useState("Suhail");
+  const [sender, setSender] = useState();
   const [users, setUsers] = useState([]);
   const [activeChat, setActiveChat] = useState(0);
   const [searchText, setSearchText] = useState("");
   const [chats, setchatstate] = useState([]);
   const [receiver, setReceiver] = useState();
+  const [messages, setMessages] = useState([]);
+  const [minimumInternalTransaction, setMinimumInternalTransaction] =
+    useState(10);
+  const [internalTransactionFee, setInternalTransactionFee] = useState(1);
+  const [amount, setAmount] = useState("");
+
   const handleSearch = (e) => {
     setSearchText(e.target.value);
   };
@@ -19,6 +33,28 @@ const SupportAdminChart = () => {
       setUsers(val.data);
     } catch (error) {}
   };
+
+  const getSenderByAuth = async () => {
+    try {
+      let data = await getUserByAuth();
+      console.log(data.data, "sender");
+      setSender(data.data);
+    } catch (error) {}
+  };
+
+  const getChatHistory = async () => {
+    try {
+      let res = await getChathistories(receiver._id);
+      setchatstate(res.data);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    getSenderByAuth();
+    setReceiver(users[0]);
+    getChatHistory();
+
+  }, [activeChat]);
 
   useEffect(() => {
     fetchUsers();
@@ -34,12 +70,11 @@ const SupportAdminChart = () => {
   }, [searchText]);
 
   const switchChat = (e) => {
-    const activeIndex = e
+    const activeIndex = e;
     setActiveChat(activeIndex);
-    console.log(activeChat)
+    setReceiver(users[activeIndex]);
+    console.log(activeChat);
   };
-
-
 
   const handleSend = () => {
     const text = document.getElementById("text").value;
@@ -53,12 +88,12 @@ const SupportAdminChart = () => {
     // chats.push(chat);
     document.getElementById("text").value = "";
     setchatstate((prev) => {
-      const arr=[...chats,chat]
-      
-      return arr
+      const arr = [...chats, chat];
+
+      return arr;
     });
 
-    console.log(chats)
+    console.log(chats);
 
     // alert(JSON.stringify(chats))
   };
@@ -89,13 +124,15 @@ const SupportAdminChart = () => {
               className={`flex items-center cursor-pointer px-4 py-2 gap-2 ${
                 activeChat == index && "bg-blue-200"
               }`}
-              onClick={()=>switchChat(index)}
+              onClick={() => switchChat(index)}
             >
-              <p className="bg-white font-bold w-10 h-10 flex justify-center items-center rounded-full"> {item.userName.charAt(0)}</p>
-            
+              <p className="bg-white font-bold w-10 h-10 flex justify-center items-center rounded-full">
+                {" "}
+                {item.userName.charAt(0)}
+              </p>
+
               <div>
                 <p>{item.userName}</p>
-            
               </div>
             </div>
           ))}
@@ -103,7 +140,10 @@ const SupportAdminChart = () => {
       </div>
       <div className="w-[70%] h-full justify-between bg-blue-200  flex flex-col">
         <div className="bg-blue-400 h-[15vh] py-8 px-5 flex gap-3 items-center">
-        <p className="bg-white w-10 h-10 flex font-bold justify-center items-center rounded-full"> {users[activeChat]?.userName.charAt(0)}</p>
+          <p className="bg-white w-10 h-10 flex font-bold justify-center items-center rounded-full">
+            {" "}
+            {users[activeChat]?.userName.charAt(0)}
+          </p>
 
           <p className="text-lg font-semibold">{users[activeChat]?.userName}</p>
           {/* <img
@@ -113,11 +153,12 @@ const SupportAdminChart = () => {
           {/* <p className="text-white">{users[activeChat].name}</p> */}
         </div>
         <div className="w-full relative flex gap-5 overflow-y-scroll  items-end flex-col  h-[75vh] py-3 ">
-           {chats&&chats?.map((item)=>(
-            <div className=" flex flex-col gap-2 h-fit  bg-white w-fit px-5 py-1 rounded-full">
-              {item.message}
-            </div>
-           ))}
+          {chats &&
+            chats?.map((item) => (
+              <div className=" flex flex-col gap-2 h-fit  bg-white w-fit px-5 py-1 rounded-full">
+                {item.message}
+              </div>
+            ))}
         </div>
         {/* <div className="w-full h-full flex flex-col gap-2 overflow-y-auto p-5">
           {chatstate.map((item, index) => (
