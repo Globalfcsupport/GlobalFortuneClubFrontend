@@ -206,7 +206,7 @@ const Chat = () => {
               </span>
             </div>
           )}
-          <p className="text-white font-medium">{user.userName}</p>
+          <p className="text-black text-md font-medium">{user.userName}</p>
         </div>
         <button
           onClick={showPay}
@@ -268,10 +268,11 @@ const Chat = () => {
           // }}
         />
         {sendButton ? (
-          <button onClick={sendMessage} className="outline-blue-400">
+
+          <button onClick={sendMessage} className="outline-blue-400 p-2 rounded-full bg-primary">
             <IoMdSend
               size={25}
-              className="text-primary cursor-pointer"
+              className="text-white cursor-pointer "
             />
           </button>
         ) : (
