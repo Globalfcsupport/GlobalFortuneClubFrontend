@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaTelegramPlane, FaUser } from "react-icons/fa";
 import { IoMdSend } from "react-icons/io";
+import logo from "../assets/Image/logo-remove.png"
 
 const Chat = () => {
   const [user, setUser] = useState({});
@@ -17,15 +18,9 @@ const Chat = () => {
 
   return (
     <div className="flex flex-col justify-between overflow-hidden h-full relative font-poppins">
-      <div className="bg-primary h-16 flex justify-between px-5 py-2 gap-5 items-center">
+      <div className="bg-primary h-16 flex justify-between px-5 py-2 gap-5  items-center">
         <div className="flex justify-between items-center gap-3">
-          {user.image ? (
-            <img
-              src={user.image}
-              alt=""
-              className="h-8 w-8 object-cover rounded-full"
-            />
-          ) : <div className='bg-white rounded-full h-8 w-8 flex justify-center items-center'><span className='font-semibold text-sm text-primary'>GFC</span></div>}
+          <div className='bg-white rounded-full h-8 w-8 flex justify-center items-center'><img src={logo} alt="logo" /></div>
           <p className="text-white text-sm">GFC Support</p>
         </div>
       </div>
@@ -59,12 +54,14 @@ const Chat = () => {
           //   if (e.key === "Enter") sendMessage();
           // }}
         />
+        <div className="bg-primary rounded-full  p-2">
         <IoMdSend
-          size={25}
-          className="text-primary cursor-pointer"
+          size={22}
+          className="text-white cursor-pointer "
           onClick={sendMessage}
           value={message}
         />
+        </div>
       </div>
       
     </div>
