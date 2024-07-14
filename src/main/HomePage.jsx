@@ -16,7 +16,7 @@ const Homepage = () => {
 
   return (
     <div className="relative h-full w-full overflow-hidden flex flex-col">
-      <div className='h-[8vh]'>
+      <div className=''>
         <NavBar toggleSidebar={toggleSidebar} />
       </div>
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />

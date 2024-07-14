@@ -44,37 +44,41 @@ const FCSlots = () => {
 
   return (
     <div className='w-full h-full font-poppins text-sm overflow-y-auto'>
-      <div className='bg-blue-800 pt-3 w-full'>
+      <div className='bg-primary pt-5 w-full'>
         <div className='flex relative justify-between px-6 items-center w-full'>
           {/* <div> */}
             <button onClick={() => handleTabClick('active')}
-              className={`py-2 px-5 focus:outline-none ${activeTab === 'active' ? 'bg-white text-blue-800 rounded-t-md' : 'text-white'}`}>
-              {/* <span className="border-blue-800 border-b-2 inline-block py-2" >Active</span> */}
+              className={`py-2 w-28 focus:outline-none ${activeTab === 'active' ? 'bg-white text-pribg-primary rounded-t-md' : 'text-white'}`}>
+              {/* <span className="border-pribg-primary border-b-2 inline-block py-2" >Active</span> */}
               Active
             </button>
           {/* </div> */}
           <button
             onClick={() => handleTabClick('completed')}
-            className={`py-2 px-5 focus:outline-none ${
-              activeTab === 'completed' ? 'bg-white text-blue-800 rounded-t-md ' : 'text-white'
+            className={`py-2 w-28 focus:outline-none ${
+              activeTab === 'completed' ? 'bg-white text-pribg-primary rounded-t-md ' : 'text-white'
             }`}
           >
             Completed
             {/* <span className="h-1 bg-black inline-block" >Completed</span> */}
           </button>
-            <span className={`h-1 bg-blue-800 absolute w-12 rounded-lg bottom-1 transition-all duration-75 ${activeTab==='active'? 'left-10': 'right-11 w-20'}`}></span>
+            <span className={`h-1 bg-primary absolute w-12 rounded-lg bottom-1 transition-all duration-75 ${activeTab==='active'? 'left-10 w-20': 'right-10 w-20 '}`}></span>
         </div>
       </div>
-      <div className=''>
+      <div className='bg-white'>
         {activeTab === 'active' && (
           <div>
             {activeSlots.map((item, index) => (
-              <div key={index} className='flex items-center gap-5'>
-                <Progress key={index} type='circle' size={70} percent={(item.currentYield?.toFixed(3)/item.totalYield)*100} className='h-28 w-28 flex justify-center items-center'/>
+              <div key={index} className='flex items-center gap-3'>
+                <Progress  strokeColor="#3B5998" key={index} type='circle' strokeWidth={15}  size={80} percent={(item.currentYield?.toFixed(3)/item.totalYield)*100} className='h-28 w-28  flex justify-center items-center'
+                format={(percent) => (
+                  <span className='text-xs text-primary font-semibold'>{`${percent}`}</span>
+                )}
+                />
                 <div>
-                  <p className='font-semibold text-sm'>{item.slotId.slice(0,5)}</p>
-                  <p className='text-xs'>{item.currentYield?.toFixed(3)}/{item.totalYield}</p>
-                  <p className='text-xs'>{item.date}</p>
+                  <p className='font-semibold text-sm text-primary'>{item.slotId.slice(0,5)}</p>
+                  <p className='text-xs text-slate-400'>Yield: {item.currentYield?.toFixed(3)}/{item.totalYield}</p>
+                  <p className='text-xs text-slate-400'>{item.date}</p>
                 </div>
               </div>
             ))}
@@ -83,12 +87,16 @@ const FCSlots = () => {
         {activeTab === 'completed' && (
           <div>
             {completedSlots.map((item, index) => (
-              <div key={index} className='flex items-center gap-5'>
-                <Progress key={index} type='circle' size={70} percent={item.percent} className='h-28 w-28 flex justify-center items-center'/>
+              <div key={index} className='flex items-center gap-3'>
+                <Progress strokeColor="#3B5998" key={index} type='circle' strokeWidth={15}  size={80} percent={item.percent} className='h-28 w-28 flex justify-center items-center'
+                format={(percent) => (
+                  <span className='text-xs text-primary font-semibold'>{`${percent}`}</span>
+                )}
+                />
                 <div>
-                  <p className='font-semibold text-sm'>{item.slotId}</p>
-                  <p className='text-xs'>{item.yield}/200</p>
-                  <p className='text-xs'>{item.date}</p>
+                  <p className='font-semibold text-sm text-primary'>{item.slotId}</p>
+                  <p className='text-xs text-slate-400'>Yield: {item.yield}/200</p>
+                  <p className='text-xs text-slate-400'>{item.date}</p>
                 </div>
               </div>
             ))}

@@ -19,6 +19,7 @@ const Withdraw = () => {
   const [myDetails, setMydetails] = useState({});
   const [paymentInputDisabled, setPaymentInputDisabled] = useState(false);
   const [settting, setSetting] = useState({});
+  const [usdtNetwork, setUsdtNetwork] = useState("");
 
   const handleUSDTAddress = () => {
     setEditUSDTAddress(!editUSDTAddress);
@@ -82,10 +83,10 @@ const Withdraw = () => {
   };
 
   return (
-    <div className="w-full flex flex-col h-full font-poppins text-sm overflow-hidden">
+    <div className="w-full flex flex-col h-full font-poppins text-sm overflow-y-auto" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
       {contextHolder}
 
-      <div className="bg-blue-800 pt-3 w-full">
+      <div className="bg-primary pt-3 w-full h-screen">
         <div className="flex relative justify-between px-6 items-center w-full">
           <NavLink
             to="/app/TopUp"
@@ -95,7 +96,7 @@ const Withdraw = () => {
           </NavLink>
           <NavLink
             to="/app/withdraw"
-            className="py-2 px-5 focus:outline-none bg-white text-blue-700 rounded-tr-lg rounded-tl-lg"
+            className="py-2 px-5 focus:outline-none bg-white text-primary rounded-tr-lg rounded-tl-lg"
           >
             Withdraw
           </NavLink>
@@ -103,18 +104,16 @@ const Withdraw = () => {
       </div>
 
       <div className="p-5 flex flex-col gap-5">
-        <div className="flex justify-end">
-          <p className="text-right w-fit bg-white px-5 py-1 rounded-lg">
+        <div className="flex justify-end flex-col">
+          <p className="text-primary font-semibold py-2">My Wallet</p>
+          <p className="text-center w-full bg-primary text-white px-5 py-1 rounded-lg">
             ${myDetails.myWallet ? myDetails.myWallet : 0}
           </p>
         </div>
         <div>
           <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
             <div className="flex flex-col gap-2 relative">
-              <label
-                htmlFor="USDTAddress"
-                className="text-blue-600 font-semibold"
-              >
+              <label htmlFor="USDTAddress" className="text-primary font-semibold">
                 Enter Your USDT Address (TRC - 20)
               </label>
               <input
@@ -142,46 +141,76 @@ const Withdraw = () => {
               )}
             </div>
             <div className="flex flex-col gap-2 relative">
-              <label htmlFor="amount" className="text-blue-600 font-semibold">
+              <label htmlFor="usdtNetwork" className="text-primary font-semibold">
+                USDT Network
+              </label>
+              <select
+                id="usdtNetwork"
+                name="usdtNetwork"
+                className="px-3 py-1 rounded-md"
+                style={{ color: usdtNetwork === "" ? "#999" : "#000" }}
+                value={usdtNetwork}
+                onChange={(e) => setUsdtNetwork(e.target.value)}
+              >
+                <option value="" disabled>
+                  Select Network
+                </option>
+                {/* <option value=""></option> */}
+                <option value="TRC20">TRC20</option>
+                <option value="BEP20">BEP20</option>
+              </select>
+            </div>
+            <div className="flex flex-col gap-2 relative">
+              <label htmlFor="amount" className="text-primary font-semibold">
                 Enter Amount
               </label>
-              <input
-                placeholder="Enter Amount"
-                required
-                id="amount"
-                name="amount"
-                type="number"
-                className="px-3 py-1 rounded-md"
-                onChange={handleChange}
-                value={data.amount}
-              />
+              <div className="relative">
+                <input
+                  placeholder="Enter Amount"
+                  required
+                  id="amount"
+                  name="amount"
+                  type="number"
+                  className="px-3 py-1 rounded-md w-full"
+                  onChange={handleChange}
+                  value={data.amount}
+                />
+                <span className="absolute right-3 top-1/2 transform -translate-y-1/2">USDT</span>
+              </div>
             </div>
             <div className="flex flex-col gap-2 relative">
-              <label className="text-blue-600 font-semibold">
+              <label className="text-primary font-semibold">
                 Admin & Network Fee
               </label>
-              <input
-                id="networkfee"
-                value={networkFee + "%"}
-                className="px-3 py-1 rounded-md bg-white"
-              />
+              <div className="relative">
+                <input
+                  id="networkfee"
+                  value={networkFee + "%"}
+                  className="px-3 py-1 rounded-md border-primary w-full bg-white"
+                />
+                <span className="absolute right-3 top-1/2 transform -translate-y-1/2">USDT</span>
+              </div>
             </div>
             <div className="flex flex-col gap-2 relative">
-              <label className="text-blue-600 font-semibold">
+              <label className="text-primary font-semibold">
                 Receivable Amount
               </label>
-              <input
-                id="ramount"
-                readOnly={true}
-                value={receivableAmount ? receivableAmount : 0}
-                type="text"
-                className="px-3 py-1 rounded-md"
-              />
+              <div className="relative">
+                <input
+                  id="ramount"
+                  readOnly={true}
+                  value={receivableAmount ? receivableAmount : 0}
+                  type="text"
+                  className="px-3 py-1 rounded-md w-full"
+                />
+                <span className="absolute right-3 top-1/2 transform -translate-y-1/2">USDT</span>
+              </div>
             </div>
+            
             <Button
               loading={loading}
               htmlType="submit"
-              className="bg-blue-700 px-4 h-10 font-semibold rounded-lg text-white"
+              className="bg-primary px-4 h-10 font-semibold rounded-lg text-white"
             >
               {loading ? "Loading" : "Withdraw"}
             </Button>
