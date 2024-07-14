@@ -99,3 +99,8 @@ export const Withdrawrequest = async (data)=>{
   let response = await useAxiosInterceptors.post("/user/withdraw/request", data)
   return response
 }
+
+export const getAdmin = async ()=>{
+  let response = await useAxiosInterceptors.get("/user/get/admin/details")
+  return response
+}
