@@ -284,6 +284,7 @@ const Chat = () => {
           </button>
         )}
       </div>
+      
       {pay ? (
         <div
           className="absolute bg-transparent h-full w-full flex justify-center items-center"
