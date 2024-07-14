@@ -40,6 +40,10 @@ export const FileUploadForm = ({ props }) => {
     setBranchLogo,
   } = props;
 
+  const triggerFileInput = () => {
+    document.getElementById('image-upload').click();
+  };
+
   return (
     <div className="text-center py-1">
       <input
@@ -76,7 +80,7 @@ export const FileUploadForm = ({ props }) => {
         </div>
       </label>
       <div className="text-gray-500 font-medium mt-2">
-        Edit Profile
+         <p onClick={triggerFileInput}>Edit Profile</p>
       </div>
     </div>
   );
