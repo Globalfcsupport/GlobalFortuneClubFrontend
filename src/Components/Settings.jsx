@@ -4,6 +4,7 @@ import { IoSaveOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { getUserByAuth, UpdateProfile, UploadProfileImg } from "../services/services";
 import { BaseURL } from "../utils/const";
+import { BsCurrencyDollar } from "react-icons/bs";
 
 export const HandleImageUpload = async (e, setImageUrl, setBranchLogo) => {
   const uploadBranchLogo = e.target.files[0];
@@ -39,6 +40,10 @@ export const FileUploadForm = ({ props }) => {
     setImageUrl,
     setBranchLogo,
   } = props;
+
+  const triggerFileInput = () => {
+    document.getElementById('image-upload').click();
+  };
 
   return (
     <div className="text-center py-1">
@@ -76,7 +81,7 @@ export const FileUploadForm = ({ props }) => {
         </div>
       </label>
       <div className="text-gray-500 font-medium mt-2">
-        Edit Profile
+         <p onClick={triggerFileInput}>Edit Profile</p>
       </div>
     </div>
   );
@@ -160,12 +165,12 @@ const Settings = () => {
   }, []);
 
   return (
-    <div className=" space-y-2 text-sm">
+    <div className=" space-y-2 text-sm overflow-y-scroll h-full pb-5">
       <div className="w-full h-16 bg-primary flex justify-end items-center px-5 ">
         <div className=" flex flex-col gap-1 items-end">
         <p className="font-semibold text-white text-xs">My Wallet</p>
-        <p className=" bg-white rounded-md font-semibold w-fit pl-14 px-3">
-          {profile?profile.myWallet:0}
+        <p className=" bg-white rounded-md font-semibold w-fit pl-14 px-3 flex items-center  ">
+        <BsCurrencyDollar className=" mb-1" /> {profile?profile.myWallet:0}
         </p>
         </div>
       </div>
@@ -252,7 +257,7 @@ const Settings = () => {
         </div>
         <div className="flex flex-col gap-1 relative">
           <label htmlFor="USDTAddress" className="font-semibold text-primary">
-            USDT Address
+            Enter your USDT Address
           </label>
           <input
             type="text"
@@ -296,7 +301,7 @@ const Settings = () => {
               </select>
             </div>
         <button
-          className="bg-primary hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="bg-primary hover:bg-red-700 mt-2 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           onClick={HandleLogOut}
         >
           Logout

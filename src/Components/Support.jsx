@@ -8,34 +8,50 @@ import {
   getGroup,
   getChathistories,
   getSettingInfo,
+  getAdmin,
 } from "../services/services";
 import io from "socket.io-client";
 import { TiTick } from "react-icons/ti";
-import logo from "../assets/Image/logo.jpg"
+import logo from "../assets/Image/logo.jpg";
 
-
-const SOCKET_SERVER_URL = "wss://gfcapi.globalfc.app";
+// const SOCKET_SERVER_URL = "wss://gfcapi.globalfc.app";
+const SOCKET_SERVER_URL = "http://localhost:5001";
 
 const Chat = () => {
-  const { id } = useParams();
+  const [id, setId] = useState();
   const [user, setUser] = useState({});
   const [sender, setSender] = useState();
-  const [receiver, setReceiver] = useState();
+  const [receiver, setReceiver] = useState(id);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [roomId, setRoomId] = useState("");
   const [minimumInternalTransaction, setMinimumInternalTransaction] =
     useState(10);
-    const [internalTransactionFee, setInternalTransactionFee] = useState(1);
-    const [amount, setAmount] = useState("");
-    const [pay, setPay] = useState(false);
-    const [myWallet, setMyWallet] = useState(0);
-    const [disabledInput, setDisabledInput] = useState(true)
-    const [senderDetails, setSenderDetails] = useState({});
+  const [internalTransactionFee, setInternalTransactionFee] = useState(1);
+  const [amount, setAmount] = useState("");
+  const [pay, setPay] = useState(false);
+  const [myWallet, setMyWallet] = useState(0);
+  const [disabledInput, setDisabledInput] = useState(true);
+  const [senderDetails, setSenderDetails] = useState({});
+  const [setting, setSetting] = useState();
   // const roomId = "123";
 
+  // useEffect(() => {
+  //   getUserById_Chat();
+  // }, []);
+
   const sendMessage = () => {
-    setMessage('')
+    if (message.trim() !== "") {
+      console.log(message, "sending message");
+      socket.emit("messageToRoom", {
+        roomId,
+        message,
+        senderId: sender,
+        receiverId: receiver,
+      });
+      // setMessages((prev) => [...prev, message]);
+      setMessage("");
+    }
   };
 
   const getOldmessages = async () => {
@@ -51,14 +67,7 @@ const Chat = () => {
       console.log(val.data);
       setMinimumInternalTransaction(val.data.minimuminternalTransaction);
       setInternalTransactionFee(val.data.internalTransactionFee);
-      setSetting(val.data)
-    } catch (error) {}
-  };
-
-  const getRoom = async () => {
-    try {
-      let value = await getGroup(id);
-      setRoomId(value.data._id);
+      setSetting(val.data);
     } catch (error) {}
   };
 
@@ -68,7 +77,10 @@ const Chat = () => {
       setSenderDetails(apiResponse.data);
       setSender(apiResponse.data._id);
       setMyWallet(apiResponse.data.myWallet ? apiResponse.data.myWallet : 0);
-      setDisabledInput(apiResponse.data.myWallet+internalTransactionFee< apiResponse.data.myWallet )
+      setDisabledInput(
+        apiResponse.data.myWallet + internalTransactionFee <
+          apiResponse.data.myWallet
+      );
       console.log(apiResponse.data, "asasas");
     } catch (error) {
       console.error("Error fetching user details:", error);
@@ -77,23 +89,30 @@ const Chat = () => {
 
   const getUserById_Chat = async () => {
     try {
-      let userData = await getUserById(id);
+      let userData = await getAdmin();
+      console.log(userData.data, "lplplp");
+      setId(userData.data._id);
+      setReceiver(userData.data._id);
       setUser(userData.data);
+      if (userData.data._id) {
+        try {
+          let value = await getGroup(id);
+          setRoomId(value.data._id);
+        } catch (error) {}
+      }
     } catch (error) {
       console.error("Error fetching user details:", error);
     }
   };
 
   useEffect(() => {
-    getSettings();
     getUserById_Chat();
+    getSettings();
     getMyDetails();
-    getRoom();
     getOldmessages();
-
     if (roomId) {
       socket.emit("joinRoom", roomId);
-
+      console.log("room", roomId);
       // Listen for new messages
       socket.on("message", (data) => {
         console.log(data, "new room message");
@@ -122,7 +141,6 @@ const Chat = () => {
     }
   }, [roomId]);
 
-  
   const socket = io(SOCKET_SERVER_URL, {
     path: "/ws",
     transports: ["websocket"],
@@ -164,13 +182,13 @@ const Chat = () => {
     }
   };
 
-  
-
   return (
     <div className="flex flex-col justify-between overflow-hidden h-full relative font-poppins">
       <div className="bg-primary h-16 flex justify-between px-5 py-2 gap-5  items-center">
         <div className="flex justify-between items-center gap-3">
-          <div className='bg-white rounded-full h-8 w-8 flex justify-center items-center'><img src={logo} alt="logo" className="rounded-full"/></div>
+          <div className="bg-white rounded-full h-8 w-8 flex justify-center items-center">
+            <img src={logo} alt="logo" className="rounded-full" />
+          </div>
           <p className="text-white text-sm">GFC Support</p>
         </div>
         <button
@@ -251,12 +269,12 @@ const Chat = () => {
           // }}
         />
         <div className="bg-primary rounded-full  p-2">
-        <IoMdSend
-          size={22}
-          className="text-white cursor-pointer "
-          onClick={sendMessage}
-          value={message}
-        />
+          <IoMdSend
+            size={22}
+            className="text-white cursor-pointer "
+            onClick={sendMessage}
+            value={message}
+          />
         </div>
       </div>
 
@@ -308,7 +326,6 @@ const Chat = () => {
           </div>
         </div>
       ) : null}
-      
     </div>
   );
 };
