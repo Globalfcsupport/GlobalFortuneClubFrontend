@@ -11,7 +11,8 @@ export default {
       colors: {
         primary: "#3B5998",
         
-        secondary:"#e1dfdf"
+        secondary:"#e1dfdf",
+        textColour:"#6a6868"
       },
       fontFamily: {
         poppins: ['"Poppins"', ...defaultTheme.fontFamily.sans],
