@@ -44,8 +44,8 @@ const FCSlots = () => {
 
   return (
     <div className='w-full h-full font-poppins text-sm overflow-y-auto'>
-      <div className='bg-primary pt-5 w-full'>
-        <div className='flex relative justify-between px-6 items-center w-full'>
+      <div className='bg-primary pt-5  w-full'>
+        <div className='flex relative justify-between  px-6 items-center w-full'>
           {/* <div> */}
             <button onClick={() => handleTabClick('active')}
               className={`py-2 w-28 focus:outline-none ${activeTab === 'active' ? 'bg-white text-pribg-primary rounded-t-md' : 'text-white'}`}>
