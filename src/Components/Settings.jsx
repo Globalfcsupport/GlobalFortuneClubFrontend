@@ -99,6 +99,7 @@ const Settings = () => {
   const [imageUrl, setImageUrl] = useState(null);
   const [branchLogo, setBranchLogo] = useState(null);
   const [profile, setProfile] = useState(null);
+    const [usdtNetwork, setUsdtNetwork] = useState("");
 
   const handleChange = (e) => {
     setProfile((prev) => ({
@@ -267,23 +268,26 @@ const Settings = () => {
             />
           )}
         </div>
-        <div className="flex flex-col gap-1">
-          <label htmlFor="USDTNetwork" className="font-semibold text-primary">
-            USDT Network
-          </label>
-          <select
-            className=" px-2 py-1 w-full rounded-lg"
-            value={profile?.USDTNetwork?profile.USDTNetwork:''}
-            id="USDTNetwork"
-            name="USDTNetwork"
-            onChange={(e)=>{UsdNetwork(e.target.value)}}
-          >
-            <option value="">Select Your Network</option>
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-          </select>
-        </div>
+        <div className="flex flex-col gap-2 relative">
+              <label htmlFor="usdtNetwork" className="text-primary font-semibold">
+                USDT Network
+              </label>
+              <select
+                id="usdtNetwork"
+                name="usdtNetwork"
+                className="px-3 py-1 rounded-md"
+                style={{ color: usdtNetwork === "" ? "#999" : "#000" }}
+                value={usdtNetwork}
+                onChange={(e) => setUsdtNetwork(e.target.value)}
+              >
+                <option value="" disabled>
+                  Select Network
+                </option>
+                {/* <option value=""></option> */}
+                <option value="TRC20">TRC20</option>
+                <option value="BEP20">BEP20</option>
+              </select>
+            </div>
         <button
           className="bg-blue-800 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           onClick={HandleLogOut}
