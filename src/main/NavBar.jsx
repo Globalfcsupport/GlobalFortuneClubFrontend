@@ -4,6 +4,9 @@ import { GiFlowerEmblem } from 'react-icons/gi';
 import Sidebar from '../main/SideBar'; // Adjust the import path if necessary
 import { useLocation, useNavigate } from 'react-router';
 import useCustomHistory from '../Components/useCustomHistory';
+import { IoGrid } from "react-icons/io5";
+import { IoIosArrowBack } from "react-icons/io";
+import { BiSolidMessageRoundedDetail } from "react-icons/bi";
 
 const NavBar = () => {
   const location = useLocation();
@@ -45,16 +48,23 @@ const NavBar = () => {
 
   return (
     <div className="h-full w-full rounded-tr-xl rounded-tl-xl bg-[#5270b02d]">
-      <div className="flex items-center justify-between p-4">
+      <div className="flex items-center justify-between p-3">
         <div className="flex items-center gap-2">
-          <GiFlowerEmblem
-            className="text-xl text-black cursor-pointer"
+          <div className='p-2 bg-white rounded-full'><IoGrid
+            className="text-xl text-primary cursor-pointer"
             onClick={toggleSidebar}
-          />
-          <FaArrowLeft className="text-xl text-black cursor-pointer" onClick={handleNavigate}/>
+          /></div>
+          
+          <div className='p-2 text-center bg-white rounded-full'>
+          <IoIosArrowBack className="text-[20px] text-primary cursor-pointer" onClick={handleNavigate}/>
+
+          </div>
         </div>
-        <h1 className="text-lg font-semibold text-black -ml-5">{currentPage[2]}</h1>
-        <FaEnvelope onClick={()=>navigate('/app/Chats')} className="text-xl text-black cursor-pointer" />
+        <h1 className="text-lg font-semibold text-textColour -ml-4 ">{currentPage[2]}</h1>
+        <div className='p-2 bg-white rounded-full'>
+        <BiSolidMessageRoundedDetail onClick={()=>navigate('/app/Chats')} className="text-[22px] text-primary cursor-pointer" />
+
+        </div>
       </div>
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
     

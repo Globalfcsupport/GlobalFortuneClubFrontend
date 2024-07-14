@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { ActivateClub } from '../services/services';
 import { getDashboardDetails } from '../services/services';
 import { message } from 'antd';
+import { MdKeyboardArrowRight } from "react-icons/md";
 
 const DashBoard = () => {
   
@@ -73,14 +74,14 @@ const DashBoard = () => {
           <p className='text-sm'>ID: {data.refId}</p>
         </div>
         <button disabled={data.started ? true : false}
-          className="bg-white text-blue-500 px-5 font-medium py-1 rounded"
+          className="bg-white text-primary px-5 font-medium py-1 rounded"
           onClick={ClubActivation}
         >
           {data.started ? "Started" : "Start"}
         </button>
       </div>
 
-      <div className="h-full overflow-auto space-y-1 mt-2 "
+      <div className="h-full overflow-auto space-y-2 mt-2 p-2 "
         style={{
           height: 'calc(97vh - 180px)',
           scrollbarWidth: "none", // For Firefox
@@ -90,173 +91,231 @@ const DashBoard = () => {
 
         {/* Wallet Section */}
         <div className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
-          <div className="flex items-center space-x-2">
-            <FiAlertCircle />
+          <div className="flex justify-between px-1 w-full ">
+            <div className='flex px-2 gap-6 items-center'>
+            <FiAlertCircle className='text-textColour' />
             <span>My Wallet</span>
-          </div>
-          <div className="flex items-center space-x-2">
+            </div>
+            
+         
+          <div className="flex items-center ">
             <span>${data.wallet?.toFixed(4)}</span>
-            <FaArrowRight className="text-gray-400" />
+            <MdKeyboardArrowRight className="text-textColour text-2xl" />
           </div>
+           </div>
         </div>
 
         {/* Reserve - My Wallet Section */}
-        <div onClick={handleReserveMyWallet} className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
-          <div className="flex items-center space-x-2">
-            <FiAlertCircle />
+        <div onClick={handleReserveMyWallet} className="bg-white p-1 flex justify-between items-center rounded-lg shadow text-sm">
+          <div className="flex justify-between w-full px-1  items-center ">
+            <div className='flex gap-6 px-[10px] items-center'>
+            <FiAlertCircle className='text-textColour' />
             <span>Reserve - My Wallet</span>
-          </div>
-          <p className="bg-blue-500 text-white px-6 py-1 rounded">
+            </div>
+          
+         
+          <p className="bg-primary text-white px-9 py-[6px] rounded">
           ${data.reserveMywallet?data.reserveMywallet:0}
           </p>
+          </div>
         </div>
 
         {/* Crowd - Stacking Section */}
         <div className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
-          <div className='flex items-center space-x-2'>
-            <FiAlertCircle />
+          <div className='flex w-full justify-between px-1 items-center '>
+            <div className='flex gap-6 px-2 items-center'>
+            <FiAlertCircle className='text-textColour' />
             <span>Crowd Stacking</span>
-          </div>
-          <div className='flex items-center space-x-2'>
+            </div>
+          
+         
+          <div className='flex items-center '>
             <span>${data?.crowdStock?.toFixed(4)}</span>
-            <FaArrowRight className='text-gray-400' />
+            <MdKeyboardArrowRight className="text-textColour text-2xl" />
+          </div>
           </div>
         </div>
 
         {/* Active Slots */}
         <div className='bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm'>
-          <div className='flex items-center space-x-2'>
-            <FiAlertCircle />
-            <span>Active Slots</span>
+          <div className='flex w-full justify-between px-1 items-center'>
+          <div className='flex gap-6 px-2 items-center '>
+          <FiAlertCircle className='text-textColour' />
+          <span>Active Slots</span>
           </div>
-          <div className='flex items-center space-x-2'>
+          <div className='flex items-center '>
             <span>{data.activatedTotal}</span>
-            <FaArrowRight className='text-gray-400' />
+            <MdKeyboardArrowRight className="text-textColour text-2xl" />
           </div>
+          </div>
+        
         </div>
 
         {/* Completed Slots */}
         <div className='bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm'>
-          <div className='flex items-center space-x-2'>
-            <FiAlertCircle />
-            <span>Completed Slots</span>
+          <div className='flex w-full justify-between px-1 items-center'>
+          <div className='flex gap-6 px-2 items-center '>
+          <FiAlertCircle className='text-textColour' />
+          <span>Completed Slots</span>
           </div>
-          <div className='flex items-center space-x-2'>
+          <div className='flex items-center '>
             <span>{data.completedTotal}</span>
-            <FaArrowRight className='text-gray-400' />
+            <MdKeyboardArrowRight className="text-textColour text-2xl" />
           </div>
+          </div>
+         
         </div>
         
         <div className='bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm'>
-          <div className='flex items-center space-x-2'>
-            <FiAlertCircle />
-            <span>Yield - Today</span>
+        <div className='flex w-full justify-between px-1 items-center'>
+        <div className='flex gap-6 px-2 items-center '>
+        <FiAlertCircle className='text-textColour' />
+        <span>Yield - Today</span>
           </div>
-          <div className='flex items-center space-x-2'>
+          <div className='flex items-center '>
             <span>{data.todayYeild?.toFixed(4)}</span>
 
-            <FaArrowRight className='text-gray-400' />
+            <MdKeyboardArrowRight className="text-textColour text-2xl" />
           </div>
+          </div>
+         
         </div>
 
         <div className='bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm'>
-          <div className='flex items-center space-x-2'>
-            <FiAlertCircle />
-            <span>Yield - Overall</span>
+        <div className='flex w-full justify-between px-1 items-center'>
+          <div className='flex gap-6 px-2 items-center'>
+          <FiAlertCircle className='text-textColour' />
+          <span>Yield - Overall</span>
           </div>
-          <div className='flex items-center space-x-2'>
+          <div className='flex items-center'>
             <span>{data.Yield?.toFixed(4)}</span>
-            <FaArrowRight className='text-gray-400' />
+            <MdKeyboardArrowRight className="text-textColour text-2xl" />
+          </div>
           </div>
         </div>
 
         <div className='bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm'>
-          <div className='flex items-center space-x-2'>
-            <FiAlertCircle />
+        <div className='flex w-full justify-between px-1 items-center'>
+          <div className='flex gap-6 px-2 items-center '>
+          <FiAlertCircle className='text-textColour' />
             <span>Referral Income -Today</span>
           </div>
-          <div className='flex items-center space-x-2'>
+          <div className='flex items-center '>
             <span>$0</span>
-            <FaArrowRight className='text-gray-400' />
+            <MdKeyboardArrowRight className="text-textColour text-2xl" />
           </div>
+          </div>
+          
         </div>
        
         <div className='bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm'>
-          <div className='flex items-center space-x-2'>
-            <FiAlertCircle />
+        <div className='flex w-full justify-between px-1 items-center'>
+          <div className='flex gap-6 px-2 items-center'>
+          <FiAlertCircle className='text-textColour' />
             <span>Referral Income -Overall</span>
           </div>
-          <div className='flex items-center space-x-2'>
+          <div className='flex items-center '>
             <span>$0</span>
-            <FaArrowRight className='text-gray-400' />
+            <MdKeyboardArrowRight className="text-textColour text-2xl" />
           </div>
+          </div>
+          
         </div>
         
         <div className='bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm'>
-          <div className='flex items-center space-x-2'>
-            <FiAlertCircle />
+        <div className='flex w-full justify-between px-1 items-center'>
+          <div className='flex gap-6 px-2 items-center'>
+          <FiAlertCircle className='text-textColour' />
             <span>Total Crypto Top-Up</span>
           </div>
-          <div className='flex items-center space-x-2'>
+          <div className='flex items-center'>
             <span>{data.totalCryptoTopup}</span>
-            <FaArrowRight className='text-gray-400' />
+            <MdKeyboardArrowRight className="text-textColour text-2xl" />
           </div>
+          </div>
+          
         </div>
         
         <div className='bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm'>
-          <div className='flex items-center space-x-2'>
-            <FiAlertCircle />
+        <div className='flex w-full justify-between px-1 items-center'>
+          <div className='flex gap-6 px-2 items-center'>
+          <FiAlertCircle className='text-textColour' />
             <span>Total Crypto Withdraw</span>
           </div>
-          <div className='flex items-center space-x-2'>
+          <div className='flex items-center'>
             <span>$0</span>
-            <FaArrowRight className='text-gray-400' />
+            <MdKeyboardArrowRight className="text-textColour text-2xl" />
           </div>
+          </div>
+        
         </div>
         
         <div className='bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm'>
-          <div className='flex items-center space-x-2'>
-            <FiAlertCircle />
+        <div className='flex w-full justify-between px-1 items-center'>
+             <div className='flex gap-6 px-2 items-center'>
+          <FiAlertCircle className='text-textColour' />
             <span>Total Internal Transfer IN</span>
           </div>
-          <div className='flex items-center space-x-2'>
+          <div className='flex items-center'>
             <span>$0</span>
-            <FaArrowRight className='text-gray-400' />
+            <MdKeyboardArrowRight className="text-textColour text-2xl" />
+          </div></div>
+         
+        </div>
+        <div className='bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm'>
+        <div className='flex w-full justify-between px-1 items-center'>
+             <div className='flex gap-6 px-2 items-center'>
+          <FiAlertCircle className='text-textColour' />
+            <span>Total Internal Transfer OUT</span>
           </div>
+          <div className='flex items-center'>
+            <span>$0</span>
+            <MdKeyboardArrowRight className="text-textColour text-2xl" />
+          </div></div>
+         
+        </div>
+        
+        {/* <div className='bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm'>
+        <div className='flex w-full justify-between px-1 items-center'>
+          <div className='flex gap-6 px-2 items-center'>
+          <FiAlertCircle className='text-textColour' />
+            <span>More Content</span>
+          </div>
+          <div className='flex items-center'>
+            <span>$0</span>
+            <MdKeyboardArrowRight className="text-textColour text-2xl" />
+          </div>
+          </div>
+         
         </div>
         
         <div className='bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm'>
-          <div className='flex items-center space-x-2'>
-            <FiAlertCircle />
+        <div className='flex w-full justify-between px-1 items-center'>
+          <div className='flex gap-6 px-2 items-center'>
+          <FiAlertCircle className='text-textColour' />
             <span>More Content</span>
           </div>
-          <div className='flex items-center space-x-2'>
+          <div className='flex items-center'>
             <span>$0</span>
-            <FaArrowRight className='text-gray-400' />
+            <MdKeyboardArrowRight className="text-textColour text-2xl" />
           </div>
+          </div>
+          
         </div>
         
         <div className='bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm'>
-          <div className='flex items-center space-x-2'>
-            <FiAlertCircle />
+        <div className='flex w-full justify-between px-1 items-center'>
+          <div className='flex gap-6 px-2 items-center'>
+          <FiAlertCircle className='text-textColour' />
             <span>More Content</span>
           </div>
-          <div className='flex items-center space-x-2'>
+          <div className='flex items-center '>
             <span>$0</span>
-            <FaArrowRight className='text-gray-400' />
+            <MdKeyboardArrowRight className="text-textColour text-2xl" />
           </div>
-        </div>
-        
-        <div className='bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm'>
-          <div className='flex items-center space-x-2'>
-            <FiAlertCircle />
-            <span>More Content</span>
           </div>
-          <div className='flex items-center space-x-2'>
-            <span>$0</span>
-            <FaArrowRight className='text-gray-400' />
-          </div>
-        </div>
+         
+        </div> */}
 
       </div>
 
@@ -266,9 +325,9 @@ const DashBoard = () => {
             left: '50%',
             transform: 'translateX(-50%)'
           }}>
-        <Link to='/app/TopUp' className="bg-blue-500 text-white px-5 py-1 rounded-md">TopUp</Link>
-        <Link to='/app/Withdraw' className="bg-blue-500 text-white px-5 py-1 rounded-md">Withdraw</Link>
-        <Link to='/app/chats' className="bg-blue-500 text-white px-5 py-1 rounded-md">Transfer</Link>
+        <Link to='/app/TopUp' className="bg-primary text-white px-5 py-2 rounded-md">TopUp</Link>
+        <Link to='/app/Withdraw' className="bg-primary text-white px-5 py-2 rounded-md">Withdraw</Link>
+        <Link to='/app/chats' className="bg-primary text-white px-5 py-2 rounded-md">Transfer</Link>
       </div>
       {editReserveMyWallet ? 
         <div className='absolute flex justify-center items-center h-full w-full bg-transparent top-0 left-0' onClick={handleClick}>
