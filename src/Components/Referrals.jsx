@@ -28,7 +28,7 @@ const Referrals = () => {
 
   return (
     <div className='h-full'>
-      <div className="flex flex-col bg-MainSection p-3 gap-2">
+      <div className="flex flex-col bg-primary p-3 gap-2">
         <div className="relative">
           <input name='name' type="text" id='name' placeholder="Search ID/Name" className="w-full px-3 py-2  text-sm pr-10 border rounded-md outline-none" />
           <button>
