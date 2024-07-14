@@ -65,15 +65,15 @@ const DashBoard = () => {
   }
 
   return (
-    <div className="h-full p-2 font-poppins">
+    <div className="h-full  font-poppins">
       {contextHolder}
-      <div className="bg-blue-500 p-3 flex justify-between items-center text-white rounded-lg">
+      <div className="bg-primary p-3 flex justify-between items-center text-white">
         <div>
           <p className="text-sm font-semibold">User Name: {data?.userName}</p>
           <p className='text-sm'>ID: {data.refId}</p>
         </div>
         <button disabled={data.started ? true : false}
-          className="bg-white text-blue-500 px-4 py-1 rounded"
+          className="bg-white text-blue-500 px-5 font-medium py-1 rounded"
           onClick={ClubActivation}
         >
           {data.started ? "Started" : "Start"}
