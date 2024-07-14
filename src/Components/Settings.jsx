@@ -164,7 +164,7 @@ const Settings = () => {
   }, []);
 
   return (
-    <div className=" space-y-2 text-sm">
+    <div className=" space-y-2 text-sm overflow-y-scroll h-full pb-5">
       <div className="w-full h-16 bg-primary flex justify-end items-center px-5 ">
         <div className=" flex flex-col gap-1 items-end">
         <p className="font-semibold text-white text-xs">My Wallet</p>
@@ -300,7 +300,7 @@ const Settings = () => {
               </select>
             </div>
         <button
-          className="bg-primary hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="bg-primary hover:bg-red-700 mt-2 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           onClick={HandleLogOut}
         >
           Logout
