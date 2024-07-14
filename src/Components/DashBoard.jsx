@@ -66,7 +66,7 @@ const DashBoard = () => {
   }
 
   return (
-    <div className="h-full  font-poppins">
+    <div className="h-full relative  font-poppins">
       {contextHolder}
       <div className="bg-primary p-3 flex justify-between items-center text-white">
         <div>
@@ -319,15 +319,16 @@ const DashBoard = () => {
 
       </div>
 
-      <div className="fixed bottom-0 left-0 w-full mb-3 p-2 shadow-lg flex justify-around"
+      <div className="absolute bottom-0 left-0 w-full  p-3 gap-2  grid grid-cols-3 bg-secondary justify-between"
           style={{
             width: '350px',
             left: '50%',
             transform: 'translateX(-50%)'
           }}>
-        <Link to='/app/TopUp' className="bg-primary text-white px-5 py-2 rounded-md">TopUp</Link>
-        <Link to='/app/Withdraw' className="bg-primary text-white px-5 py-2 rounded-md">Withdraw</Link>
-        <Link to='/app/chats' className="bg-primary text-white px-5 py-2 rounded-md">Transfer</Link>
+        <Link to='/app/TopUp' className="bg-primary text-center text-white py-3 px-3 text-sm rounded-md">Top Up</Link>
+        <Link to='/app/chats' className="bg-primary text-center text-white py-3 text-sm px-3  rounded-md">Transfer</Link>
+
+        <Link to='/app/Withdraw' className="bg-primary text-center text-white py-3 px-3 text-sm rounded-md">Withdraw</Link>
       </div>
       {editReserveMyWallet ? 
         <div className='absolute flex justify-center items-center h-full w-full bg-transparent top-0 left-0' onClick={handleClick}>

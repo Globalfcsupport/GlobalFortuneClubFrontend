@@ -42,7 +42,7 @@ function App() {
       <Route path="Chats" element={<Chats />}></Route>
       <Route path="Chats/:id" element={<Chat />}></Route>
       <Route path="FCSlots" element={<FCSlots />}></Route>
-      <Route path="Referrals" element={<Refferals />}></Route>
+      <Route path="MyReferrals" element={<Refferals />}></Route>
       <Route path="Settings" element={<Settings />}></Route>
       <Route path="Support" element={<Support />}></Route>
       <Route path="TopUp" element={<TopUp />}></Route>
