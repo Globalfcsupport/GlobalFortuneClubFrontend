@@ -54,9 +54,9 @@ const getUsers_ForChats = async ()=>{
 
   return (
     <div className='rounded-bl-3xl rounded-br-3xl flex flex-col relative h-full'>
-      <div className='px-5 py-3 sticky top-0 bg-primary'>
+      <div className='px-3 py-3 sticky top-0 bg-primary'>
         <div className='relative h-fit'>
-        <input type='text' onChange={handleSearch} className='px-5 py-1 text-sm w-full rounded-md' placeholder='Search User' />
+        <input type='text' onChange={handleSearch} className='px-4 py-1 text-sm w-full rounded-md' placeholder='Search User by UserId' />
         <FaSearch className='absolute top-2 right-2 text-primary'/>
         </div>
       </div>
