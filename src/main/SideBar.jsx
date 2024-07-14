@@ -48,7 +48,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             <FaDice className="mr-3" />
             <p>FC Slots</p>
           </NavLink>                  
-          <NavLink to="Referrals" className='px-4 py-3 flex items-center' onClick={toggleSidebar}>
+          <NavLink to="MyReferrals" className='px-4 py-3 flex items-center' onClick={toggleSidebar}>
             <FaUserFriends className="mr-3" />
             <p>Referrals</p>
           </NavLink>                  

@@ -19,6 +19,7 @@ const Withdraw = () => {
   const [myDetails, setMydetails] = useState({});
   const [paymentInputDisabled, setPaymentInputDisabled] = useState(false);
   const [settting, setSetting] = useState({});
+  const [usdtNetwork, setUsdtNetwork] = useState("TRC20");
 
   const handleUSDTAddress = () => {
     setEditUSDTAddress(!editUSDTAddress);
@@ -82,14 +83,14 @@ const Withdraw = () => {
   };
 
   return (
-    <div className="w-full flex flex-col h-full font-poppins text-sm overflow-hidden">
+    <div className="w-full flex flex-col h-full font-poppins text-sm overflow-y-auto " style={{scrollbarWidth: "none", msOverflowStyle: "none"}}>
       {contextHolder}
 
-      <div className="bg-blue-800 pt-3 w-full">
+      <div className="bg-blue-800 pt-3 w-full h-screen scroll-y-auto">
         <div className="flex relative justify-between px-6 items-center w-full">
           <NavLink
             to="/app/TopUp"
-            className="py-2 px-5 focus:outline-none text-white"
+            className="py-2 px-5 focus:outline-none  text-white"
           >
             TopUp
           </NavLink>
@@ -103,8 +104,9 @@ const Withdraw = () => {
       </div>
 
       <div className="p-5 flex flex-col gap-5">
-        <div className="flex justify-end">
-          <p className="text-right w-fit bg-white px-5 py-1 rounded-lg">
+        <div className="flex justify-end flex-col">
+          <p className="text-blue-600 font-semibold py-2">My Wallet</p>
+          <p className="text-center w-full bg-MainSection text-white px-5 py-1 rounded-lg">
             ${myDetails.myWallet ? myDetails.myWallet : 0}
           </p>
         </div>
@@ -142,42 +144,68 @@ const Withdraw = () => {
               )}
             </div>
             <div className="flex flex-col gap-2 relative">
+              <label htmlFor="usdtNetwork" className="text-blue-600 font-semibold">
+                USDT Network
+              </label>
+              <select
+                id="usdtNetwork"
+                name="usdtNetwork"
+                className="px-3 py-1 rounded-md"
+                value={usdtNetwork}
+                onChange={(e) => setUsdtNetwork(e.target.value)}
+              >
+                <option value="TRC20">TRC20</option>
+                <option value="BEP20">BEP20</option>
+              </select>
+            </div>
+            <div className="flex flex-col gap-2 relative">
               <label htmlFor="amount" className="text-blue-600 font-semibold">
                 Enter Amount
               </label>
-              <input
-                placeholder="Enter Amount"
-                required
-                id="amount"
-                name="amount"
-                type="number"
-                className="px-3 py-1 rounded-md"
-                onChange={handleChange}
-                value={data.amount}
-              />
+              <div className="relative">
+                <input
+                  placeholder="Enter Amount"
+                  required
+                  id="amount"
+                  name="amount"
+                  type="number"
+                  className="px-3 py-1 rounded-md w-full"
+                  onChange={handleChange}
+                  value={data.amount}
+                />
+                <span className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500">USDT</span>
+              </div>
             </div>
             <div className="flex flex-col gap-2 relative">
               <label className="text-blue-600 font-semibold">
                 Admin & Network Fee
               </label>
-              <input
-                id="networkfee"
-                value={networkFee + "%"}
-                className="px-3 py-1 rounded-md bg-white"
-              />
+              <div className="relative">
+                <input
+                  id="networkfee"
+                  value={networkFee + "%"}
+                  className="px-3 py-1 rounded-md bg-white w-full"
+                  readOnly
+                />
+                <span className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500">USDT</span>
+              </div>
             </div>
             <div className="flex flex-col gap-2 relative">
               <label className="text-blue-600 font-semibold">
                 Receivable Amount
               </label>
-              <input
-                id="ramount"
-                readOnly={true}
-                value={receivableAmount ? receivableAmount : 0}
-                type="text"
-                className="px-3 py-1 rounded-md"
-              />
+              <div className="relative">
+                <input
+                  id="ramount"
+                  readOnly={true}
+                  value={receivableAmount ? receivableAmount : 0}
+                  type="text"
+                  className="px-3 py-1 rounded-md w-full"
+                />
+                <span className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500">USDT</span>
+              </div>
             </div>
+            
             <Button
               loading={loading}
               htmlType="submit"
