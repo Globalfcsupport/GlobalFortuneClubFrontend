@@ -34,7 +34,7 @@ const Chat = () => {
   const [settings, setSetting] = useState({});
   const [myWallet, setMyWallet] = useState(0);
   const [disabledInput, setDisabledInput] = useState(true)
-  // const roomId = "123";
+  
 
   const getOldmessages = async () => {
     try {
@@ -53,7 +53,7 @@ const Chat = () => {
     } catch (error) {}
   };
 
-  // console.log(message,"mess");
+  
 
   const getRoom = async () => {
     try {
@@ -225,7 +225,7 @@ const Chat = () => {
           >
             {/* {console.log(msg.message)} */}
             {msg?.payment ? (
-              <div className="w-full flex flex-col mx-2 p-3 gap-2 bg-white max-w-60 rounded-xl">
+              <div className="w-full flex flex-col mx-2 p-3 gap-2 bg-slate-100 max-w-60 rounded-xl">
                 <h1 className="text-xs">
                   Payment to {msg.senderId === sender ? user.userName : "You"}
                 </h1>
@@ -284,7 +284,7 @@ const Chat = () => {
           </button>
         )}
       </div>
-      
+
       {pay ? (
         <div
           className="absolute bg-transparent h-full w-full flex justify-center items-center"

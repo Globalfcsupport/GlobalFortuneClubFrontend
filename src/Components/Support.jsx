@@ -1,6 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { FaChevronRight, FaTelegramPlane, FaUser } from "react-icons/fa";
 import { IoMdSend } from "react-icons/io";
+import { useParams } from "react-router";
+import {
+  getUserById,
+  getUserByAuth,
+  getGroup,
+  getChathistories,
+  getSettingInfo,
+} from "../services/services";
+import io from "socket.io-client";
+import { TiTick } from "react-icons/ti";
+import logo from "../assets/Image/logo.jpg"
+
+
+const SOCKET_SERVER_URL = "wss://gfcapi.globalfc.app";
 
 const Chat = () => {
   const { id } = useParams();
@@ -156,7 +170,7 @@ const Chat = () => {
     <div className="flex flex-col justify-between overflow-hidden h-full relative font-poppins">
       <div className="bg-primary h-16 flex justify-between px-5 py-2 gap-5  items-center">
         <div className="flex justify-between items-center gap-3">
-          <div className='bg-white rounded-full h-8 w-8 flex justify-center items-center'><img src={logo} alt="logo" /></div>
+          <div className='bg-white rounded-full h-8 w-8 flex justify-center items-center'><img src={logo} alt="logo" className="rounded-full"/></div>
           <p className="text-white text-sm">GFC Support</p>
         </div>
         <button
@@ -195,7 +209,7 @@ const Chat = () => {
           >
             {/* {console.log(msg.message)} */}
             {msg?.payment ? (
-              <div className="w-full flex flex-col mx-2 p-3 gap-2 bg-white max-w-60 rounded-xl">
+              <div className="w-full flex flex-col mx-2 p-3 gap-2 bg-slate-100 max-w-60 rounded-xl">
                 <h1 className="text-xs">
                   Payment to {msg.senderId === sender ? user.userName : "You"}
                 </h1>
