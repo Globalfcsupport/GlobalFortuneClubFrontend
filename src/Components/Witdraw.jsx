@@ -21,9 +21,7 @@ const Withdraw = () => {
   const [usdtNetwork, setUsdtNetwork] = useState("");
   const [activeTab, setActiveTab] = useState('active');
 
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
-  };
+
 
   const handleUSDTAddress = () => {
     setEditUSDTAddress(!editUSDTAddress);
@@ -104,19 +102,19 @@ const Withdraw = () => {
         <div className="flex relative justify-between px-6 items-center w-full">
           <NavLink
             to="/app/TopUp"
-            onClick={() => handleTabClick('TopUp')}
+           
             className="py-2 px-5 focus:outline-none text-white"
           >
             TopUp
           </NavLink>
           <NavLink
-            to="/app/withdraw"
-            onClick={() => handleTabClick('Withdraw')}
+            // to="/app/Withdraw"
+            
             className="py-2 px-5 focus:outline-none bg-white text-primary rounded-tr-lg rounded-tl-lg"
           >
             Withdraw
           </NavLink>
-          <span className={`h-1 bg-primary absolute w-12 rounded-lg bottom-1 transition-all duration-75 ${activeTab==='active'? 'left-[13%] w-20': 'right-10 w-20 '}`}></span>
+          <span className={`h-1 bg-primary absolute w-12 rounded-lg bottom-1 transition-all duration-75 ${activeTab==='withdraw'? 'left-[13%] w-20': 'right-10 w-20 '}`}></span>
         
         </div>
       </div>
