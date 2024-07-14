@@ -229,7 +229,7 @@ const DashBoard = () => {
             <span>Total Crypto Top-Up</span>
           </div>
           <div className='flex items-center'>
-            <span>{data.totalCryptoTopup}</span>
+            <span>${data.totalCryptoTopup}</span>
             <MdKeyboardArrowRight className="text-textColour text-2xl" />
           </div>
           </div>
