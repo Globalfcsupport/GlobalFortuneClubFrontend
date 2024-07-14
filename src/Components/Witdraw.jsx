@@ -17,7 +17,6 @@ const Withdraw = () => {
   const [receivableAmount, setReceivableAmount] = useState("");
   const [data, setData] = useState({});
   const [myDetails, setMydetails] = useState({});
-  const [paymentInputDisabled, setPaymentInputDisabled] = useState(false);
   const [settting, setSetting] = useState({});
   const [usdtNetwork, setUsdtNetwork] = useState("");
 
@@ -31,6 +30,7 @@ const Withdraw = () => {
       [e.target.name]: e.target.value,
     }));
   };
+
 
   const GetMydetails = async () => {
     try {
@@ -61,9 +61,15 @@ const Withdraw = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!usdtNetwork) {
+      messageApi.error("Please select a USDT network.");
+      return;
+    }
+
     let paymentData = {
       requestAmt: data.amount,
       receivableAmt: receivableAmount,
+      usdtNetwork: usdtNetwork,
     };
 
     setLoading(true);
@@ -78,7 +84,10 @@ const Withdraw = () => {
         GetMydetails();
 
         messageApi.success("Requested Raised Successfully");
-      } catch (error) {}
+      } catch (error) {
+        setLoading(false);
+        messageApi.error("An error occurred. Please try again.");
+      }
     }
   };
 
@@ -155,7 +164,6 @@ const Withdraw = () => {
                 <option value="" disabled>
                   Select Network
                 </option>
-                {/* <option value=""></option> */}
                 <option value="TRC20">TRC20</option>
                 <option value="BEP20">BEP20</option>
               </select>
