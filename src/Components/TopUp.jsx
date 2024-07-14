@@ -40,9 +40,9 @@ const TopUp = () => {
     setAmount(amount);
   };
 
-  const handleChange = (e) => {
-    console.log(e.target.value)
-    setAmount(e.target.value);
+  const handleChange = (value) => {
+    console.log(value)
+    setAmount(value);
   };
 
   const topUpDetails = async () => {
@@ -58,29 +58,30 @@ const TopUp = () => {
     <div className="w-full flex flex-col h-full font-poppins text-sm overflow-hidden bg-white">
       {contextHolder}
 
-      <div className="bg-blue-800 pt-3 w-full">
+      <div className="bg-[#3d5898] pt-3 w-full">
         <div className="flex relative justify-between px-6 items-center w-full">
           <NavLink
             to="/app/TopUp"
             className={`py-2 px-5 focus:outline-none ${
               activeTab === "topUp"
-                ? "bg-white text-blue-800 rounded-t-md   "
+                ? "bg-white text-pribg-primary rounded-t-md  "
                 : "text-white"
             }`}
           >
             TopUp
           </NavLink>
+          
           <NavLink
             to="/app/Withdraw"
             className={`py-2 px-5 focus:outline-none ${
               activeTab === "withdraw"
-                ? "bg-white text-blue-800 rounded-t-md "
+                ? "bg-white text-pribg-primary rounded-t-md "
                 : "text-white"
             }`}
           >
             Withdraw
           </NavLink>
-          {/* <span className={`h-1 bg-blue-800 absolute w-12 rounded-lg bottom-1 transition-all duration-75 ${activeTab==='topUp'? 'left-[13%]': 'right-[12%] w-20'}`}></span> */}
+          <span className={`h-1 bg-blue-800 absolute w-12 rounded-lg bottom-1 transition-all duration-75 ${activeTab==='topUp'? 'left-[13%]': 'right-[12%] w-20'}`}></span>
         </div>
       </div>
       <div className="flex flex-col gap-4">
@@ -104,7 +105,7 @@ const TopUp = () => {
 
             <Select
               className=" mt-3 rounded-md bg-white"
-              Value="50"
+              defaultValue="50"
               style={{ width: 280 }}
               bordered={false}
               suffixIcon={<FaCaretDown className=" text-black text-xl" />}
@@ -118,7 +119,7 @@ const TopUp = () => {
           </div>
           <div>
             <div className=" w-[80%] flex justify-evenly  items-center">
-              <p className=" capitalize text-[#3d5898] font-semibold">
+              <p className=" capitalize text-[#3d5898] ">
                 pay with
               </p>
               <Radio defaultChecked className=" rounded-full font-bold text-lg">
