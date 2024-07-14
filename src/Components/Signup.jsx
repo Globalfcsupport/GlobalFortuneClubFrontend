@@ -302,11 +302,11 @@ const Signup = () => {
             <Button
               loading={sendOTPLoading}
               type="button"
-              className="absolute bg-blue-800 text-white rounded-md bottom-1 right-1 px-3 py-1"
+              className="absolute bg-blue-800 text-white  rounded-md bottom-1 right-1 px-3 py-1"
               onClick={handleSendOTP}
               disabled={timer > 0}
             >
-              {timer > 0 ? ` (${timer})` : "Send OTP"}
+              {timer > 0 ? ` ${timer}` : "Send OTP"}
             </Button>
           </div>
           <div>

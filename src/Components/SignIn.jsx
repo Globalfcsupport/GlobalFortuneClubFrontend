@@ -150,8 +150,8 @@ const FormikSignIn = () => {
               <div className="flex flex-col gap-2 relative w-full">
                 <label htmlFor='email' className='font-semibold text-blue-800'>Email</label>
                 <input required type="email" name="email" placeholder='Enter Your Email' className='w-full py-3 rounded-md pl-4 pr-32 text-sm' onChange={(e) => setEmail(e.target.value)} />
-                <Button loading={sendOTPLoading} className='absolute bg-blue-700 text-white px-5 py-1 rounded-md bottom-[0.375rem] h-9 right-[0.325rem]' onClick={handleSendOTP} disabled={timer > 0}>
-                  {timer > 0 ? `(${timer})` : sendOTPLoading ? 'Sending' : 'Send OTP'}
+                <Button loading={sendOTPLoading} className='absolute bg-blue-700 text-white  px-5 py-1 rounded-md bottom-[0.375rem] h-9 right-[0.325rem]' onClick={handleSendOTP} disabled={timer > 0}>
+                  {timer > 0 ? `${timer}` : sendOTPLoading ? 'Sending' : 'Send OTP'}
                 </Button>
               </div>
               {showOTPInput && (
