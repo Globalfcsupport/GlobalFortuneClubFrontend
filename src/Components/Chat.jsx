@@ -33,8 +33,7 @@ const Chat = () => {
   const [sendButton, setSendButton] = useState(true);
   const [settings, setSetting] = useState({});
   const [myWallet, setMyWallet] = useState(0);
-  const [disabledInput, setDisabledInput] = useState(true)
-  
+  const [disabledInput, setDisabledInput] = useState(true);
 
   const getOldmessages = async () => {
     try {
@@ -49,11 +48,9 @@ const Chat = () => {
       console.log(val.data);
       setMinimumInternalTransaction(val.data.minimuminternalTransaction);
       setInternalTransactionFee(val.data.internalTransactionFee);
-      setSetting(val.data)
+      setSetting(val.data);
     } catch (error) {}
   };
-
-  
 
   const getRoom = async () => {
     try {
@@ -68,7 +65,10 @@ const Chat = () => {
       setSenderDetails(apiResponse.data);
       setSender(apiResponse.data._id);
       setMyWallet(apiResponse.data.myWallet ? apiResponse.data.myWallet : 0);
-      setDisabledInput(apiResponse.data.myWallet+internalTransactionFee< apiResponse.data.myWallet )
+      setDisabledInput(
+        apiResponse.data.myWallet + internalTransactionFee <
+          apiResponse.data.myWallet
+      );
       console.log(apiResponse.data, "asasas");
     } catch (error) {
       console.error("Error fetching user details:", error);
@@ -268,12 +268,11 @@ const Chat = () => {
           // }}
         />
         {sendButton ? (
-
-          <button onClick={sendMessage} className="outline-blue-400 p-2 rounded-full bg-primary">
-            <IoMdSend
-              size={25}
-              className="text-white cursor-pointer "
-            />
+          <button
+            onClick={sendMessage}
+            className="outline-blue-400 p-2 rounded-full bg-primary"
+          >
+            <IoMdSend size={25} className="text-white cursor-pointer " />
           </button>
         ) : (
           <button
