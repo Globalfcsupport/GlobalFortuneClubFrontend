@@ -6,6 +6,7 @@ import { IoReload } from "react-icons/io5";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const Signup = () => {
+  const [timer, setTimer] = useState(0);
   const [showOTPInput, setShowOTPInput] = useState(false);
   const [captchaText, setCaptchaText] = useState("");
   const [captcha, setCaptcha] = useState("");
@@ -43,6 +44,19 @@ const Signup = () => {
   };
 
   useEffect(() => {
+    let interval = null;
+    if (timer > 0) {
+      interval = setInterval(() => {
+        setTimer((prev) => prev - 1);
+      }, 1000);
+    } else if (timer === 0) {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [timer]);
+  
+
+  useEffect(() => {
     captchaGenerator();
   }, [changeCaptcha]);
 
@@ -72,6 +86,7 @@ const Signup = () => {
     await sendOTP({ email: data.email })
       .then((response) => {
         setShowOTPInput(true);
+        setTimer(60); 
         messageApi.success("OTP Sent Successfully!");
       })
       .catch((error) => {
@@ -287,10 +302,11 @@ const Signup = () => {
             <Button
               loading={sendOTPLoading}
               type="button"
-              className="absolute bg-blue-800 text-white rounded-md bottom-1 right-1 px-3 py-1"
+              className="absolute bg-blue-800 text-white  rounded-md bottom-1 right-1 px-3 py-1"
               onClick={handleSendOTP}
+              disabled={timer > 0}
             >
-              Send OTP
+              {timer > 0 ? ` ${timer}` : "Send OTP"}
             </Button>
           </div>
           <div>
