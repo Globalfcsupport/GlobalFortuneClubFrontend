@@ -12,6 +12,7 @@ import io from "socket.io-client";
 import { v4 } from "uuid";
 import { TiTick } from "react-icons/ti";
 import { FaChevronRight } from "react-icons/fa6";
+import { IoMdSend } from "react-icons/io";
 
 const SOCKET_SERVER_URL = "wss://gfcapi.globalfc.app";
 
@@ -33,7 +34,7 @@ const Chat = () => {
   const [settings, setSetting] = useState({});
   const [myWallet, setMyWallet] = useState(0);
   const [disabledInput, setDisabledInput] = useState(true)
-  // const roomId = "123";
+  
 
   const getOldmessages = async () => {
     try {
@@ -52,7 +53,7 @@ const Chat = () => {
     } catch (error) {}
   };
 
-  // console.log(message,"mess");
+  
 
   const getRoom = async () => {
     try {
@@ -190,7 +191,7 @@ const Chat = () => {
 
   return (
     <div className="flex flex-col justify-between overflow-hidden h-full relative font-poppins">
-      <div className="bg-blue-300 h-12 flex justify-between px-5 py-2 gap-5 items-center">
+      <div className="bg-primary h-16 flex justify-between px-5 py-2 gap-5 items-center">
         <div className="flex justify-between items-center gap-3">
           {user.image ? (
             <img
@@ -200,16 +201,16 @@ const Chat = () => {
             />
           ) : (
             <div className="bg-white rounded-full h-8 w-8 flex justify-center items-center">
-              <span className="font-semibold text-2xl text-blue-700 -mt-2">
+              <span className="font-semibold text-2xl flex justify-center items-center text-primary -mt-1">
                 {user.userName?.split("")[0]}
               </span>
             </div>
           )}
-          <p>{user.userName}</p>
+          <p className="text-black text-md font-medium">{user.userName}</p>
         </div>
         <button
           onClick={showPay}
-          className="bg-blue-600 px-5 py-1 rounded-lg text-white"
+          className="bg-white px-5 py-1 rounded-lg text-primary font-medium"
         >
           Pay
         </button>
@@ -224,7 +225,7 @@ const Chat = () => {
           >
             {/* {console.log(msg.message)} */}
             {msg?.payment ? (
-              <div className="w-full flex flex-col mx-2 p-3 gap-2 bg-white max-w-60 rounded-xl">
+              <div className="w-full flex flex-col mx-2 p-3 gap-2 bg-slate-100 max-w-60 rounded-xl">
                 <h1 className="text-xs">
                   Payment to {msg.senderId === sender ? user.userName : "You"}
                 </h1>
@@ -267,10 +268,11 @@ const Chat = () => {
           // }}
         />
         {sendButton ? (
-          <button onClick={sendMessage} className="outline-blue-400">
-            <FaTelegramPlane
+
+          <button onClick={sendMessage} className="outline-blue-400 p-2 rounded-full bg-primary">
+            <IoMdSend
               size={25}
-              className="text-blue-600 cursor-pointer"
+              className="text-white cursor-pointer "
             />
           </button>
         ) : (
@@ -282,6 +284,7 @@ const Chat = () => {
           </button>
         )}
       </div>
+
       {pay ? (
         <div
           className="absolute bg-transparent h-full w-full flex justify-center items-center"
