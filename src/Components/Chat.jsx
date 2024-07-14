@@ -12,6 +12,7 @@ import io from "socket.io-client";
 import { v4 } from "uuid";
 import { TiTick } from "react-icons/ti";
 import { FaChevronRight } from "react-icons/fa6";
+import { IoMdSend } from "react-icons/io";
 
 const SOCKET_SERVER_URL = "wss://gfcapi.globalfc.app";
 
@@ -190,7 +191,7 @@ const Chat = () => {
 
   return (
     <div className="flex flex-col justify-between overflow-hidden h-full relative font-poppins">
-      <div className="bg-blue-300 h-12 flex justify-between px-5 py-2 gap-5 items-center">
+      <div className="bg-primary h-16 flex justify-between px-5 py-2 gap-5 items-center">
         <div className="flex justify-between items-center gap-3">
           {user.image ? (
             <img
@@ -200,16 +201,16 @@ const Chat = () => {
             />
           ) : (
             <div className="bg-white rounded-full h-8 w-8 flex justify-center items-center">
-              <span className="font-semibold text-2xl text-blue-700 -mt-2">
+              <span className="font-semibold text-2xl flex justify-center items-center text-primary -mt-1">
                 {user.userName?.split("")[0]}
               </span>
             </div>
           )}
-          <p>{user.userName}</p>
+          <p className="text-white font-medium">{user.userName}</p>
         </div>
         <button
           onClick={showPay}
-          className="bg-blue-600 px-5 py-1 rounded-lg text-white"
+          className="bg-white px-5 py-1 rounded-lg text-primary font-medium"
         >
           Pay
         </button>
@@ -268,9 +269,9 @@ const Chat = () => {
         />
         {sendButton ? (
           <button onClick={sendMessage} className="outline-blue-400">
-            <FaTelegramPlane
+            <IoMdSend
               size={25}
-              className="text-blue-600 cursor-pointer"
+              className="text-primary cursor-pointer"
             />
           </button>
         ) : (

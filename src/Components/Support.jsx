@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FaTelegramPlane, FaUser } from "react-icons/fa";
+import { IoMdSend } from "react-icons/io";
 
 const Chat = () => {
   const [user, setUser] = useState({});
@@ -16,7 +17,7 @@ const Chat = () => {
 
   return (
     <div className="flex flex-col justify-between overflow-hidden h-full relative font-poppins">
-      <div className="bg-blue-300 h-12 flex justify-between px-5 py-2 gap-5 items-center">
+      <div className="bg-primary h-16 flex justify-between px-5 py-2 gap-5 items-center">
         <div className="flex justify-between items-center gap-3">
           {user.image ? (
             <img
@@ -24,8 +25,8 @@ const Chat = () => {
               alt=""
               className="h-8 w-8 object-cover rounded-full"
             />
-          ) : <div className='bg-white rounded-full h-8 w-8 flex justify-center items-center'><span className='font-semibold text-sm text-blue-700'>GFC</span></div>}
-          <p className="text-blue-600 text-sm">Global FC Support</p>
+          ) : <div className='bg-white rounded-full h-8 w-8 flex justify-center items-center'><span className='font-semibold text-sm text-primary'>GFC</span></div>}
+          <p className="text-white text-sm">GFC Support</p>
         </div>
       </div>
       <div className="flex flex-col gap-2 w-full h-full py-1 overflow-y-scroll">
@@ -49,18 +50,18 @@ const Chat = () => {
       </div>
       <div className="px-5 py-2 flex items-center gap-2 justify-center w-full">
         <input
-          className="w-[90%] block px-5 py-1 rounded-xl"
+          className="w-[90%] block px-5 py-2 rounded-xl"
           type="text"
-          placeholder="Type Text...."
+          placeholder="Send the message..."
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           // onKeyDown={(e) => {
           //   if (e.key === "Enter") sendMessage();
           // }}
         />
-        <FaTelegramPlane
+        <IoMdSend
           size={25}
-          className="text-blue-600 cursor-pointer"
+          className="text-primary cursor-pointer"
           onClick={sendMessage}
           value={message}
         />
