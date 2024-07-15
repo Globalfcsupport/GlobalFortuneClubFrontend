@@ -9,8 +9,8 @@ import {
 import UserImage from "../assets/Images/user.png";
 import io from "socket.io-client";
 
-// const SOCKET_SERVER_URL = "wss://gfcapi.globalfc.app";
-const SOCKET_SERVER_URL = "http://localhost:5001";
+const SOCKET_SERVER_URL = "wss://gfcapi.globalfc.app";
+// const SOCKET_SERVER_URL = "http://localhost:5001";
 
 const SupportAdminChart = () => {
   const [sender, setSender] = useState();
@@ -56,17 +56,27 @@ const SupportAdminChart = () => {
 
   useEffect(() => {
     if (users.length > 0) {
+      console.log("Loaded");
       setReceiver(users[0]);
-      getRoom();
+      console.log(users[0], "LPLPLPLPLP");
+      const fun = async ()=>{
+        try {
+          let value = await getGroup(users[0]._id);
+          setRoomId(value.data._id);
+          setMessages(value.data.messages);
+          console.log(value.data, "kiki");
+        } catch (error) {}
+      }
+      fun()
+      // getRoom();
       getChatHistory();
     }
-  }, [users, activeChat]);
-
+  }, [users]);
 
   const getChatHistory = async () => {
     try {
-      let res = await getChathistories(receiver._id);
-      setchatstate(res.data);
+      // let res = await getChathistories(receiver._id);
+      // setchatstate(res.data);
     } catch (error) {}
   };
 
@@ -79,7 +89,8 @@ const SupportAdminChart = () => {
     try {
       let value = await getGroup(receiver._id);
       setRoomId(value.data._id);
-      setMessages(value.data.messages)
+      setMessages(value.data.messages);
+      console.log(value.data, "kiki");
     } catch (error) {}
   };
 
@@ -114,7 +125,6 @@ const SupportAdminChart = () => {
   }, [searchText]);
 
   useEffect(() => {
-    getRoom();
     if (roomId) {
       socket.emit("joinRoom", roomId);
 
@@ -150,8 +160,16 @@ const SupportAdminChart = () => {
     const activeIndex = e;
     setActiveChat(activeIndex);
     setReceiver(users[activeIndex]);
-    console.log(users[activeChat]);
-    getRoom();
+    const fun = async ()=>{
+      try {
+        let value = await getGroup(users[activeIndex]._id);
+        setRoomId(value.data._id);
+        setMessages(value.data.messages);
+        console.log(value.data, "kiki");
+      } catch (error) {}
+    }
+    fun()
+    // getRoom();
   };
 
   const handleSend = () => {
