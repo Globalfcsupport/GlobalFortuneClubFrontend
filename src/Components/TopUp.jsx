@@ -28,6 +28,7 @@ const TopUp = () => {
       .then((response) => {
         setLoading(false);
         window.location.href = response.data.payLink;
+        // console.log(response.data);
       })
       .catch((error) => {
         messageApi.error("An Unknown Error Occured");
