@@ -9,7 +9,7 @@ import {
 import UserImage from "../assets/Images/user.png";
 import io from "socket.io-client";
 
-const SOCKET_SERVER_URL = "wss://gfcapi.globalfc.app";
+const SOCKET_SERVER_URL = "wss://nodeapi.globalfc.app";
 // const SOCKET_SERVER_URL = "http://localhost:5001";
 
 const SupportAdminChart = () => {
