@@ -42,3 +42,8 @@ export const getChathistories = async (id)=>{
   let response = await useAxiosInterceptors.get("/user/get/chat/history/"+id);
   return response
 }
+
+export const getGroup = async (id)=>{
+  let responsse = await useAxiosInterceptors.get("/user/create/room/"+id)
+  return responsse
+}

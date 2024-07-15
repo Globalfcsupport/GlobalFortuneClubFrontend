@@ -4,11 +4,13 @@ import {
   GetUsersList,
   getUserByAuth,
   getChathistories,
+  getGroup,
 } from "../services/servicces";
 import UserImage from "../assets/Images/user.png";
-// const SOCKET_SERVER_URL = "wss://gfcapi.globalfc.app";
-const SOCKET_SERVER_URL = "http://localhost:3333";
+import io from "socket.io-client";
 
+// const SOCKET_SERVER_URL = "wss://gfcapi.globalfc.app";
+const SOCKET_SERVER_URL = "http://localhost:5001";
 
 const SupportAdminChart = () => {
   const [sender, setSender] = useState();
@@ -18,10 +20,12 @@ const SupportAdminChart = () => {
   const [chats, setchatstate] = useState([]);
   const [receiver, setReceiver] = useState();
   const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState("");
   const [minimumInternalTransaction, setMinimumInternalTransaction] =
     useState(10);
   const [internalTransactionFee, setInternalTransactionFee] = useState(1);
   const [amount, setAmount] = useState("");
+  const [roomId, setRoomId] = useState("");
 
   const handleSearch = (e) => {
     setSearchText(e.target.value);
@@ -34,6 +38,10 @@ const SupportAdminChart = () => {
     } catch (error) {}
   };
 
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
   const getSenderByAuth = async () => {
     try {
       let data = await getUserByAuth();
@@ -42,6 +50,19 @@ const SupportAdminChart = () => {
     } catch (error) {}
   };
 
+  useEffect(() => {
+    getSenderByAuth();
+  }, []);
+
+  useEffect(() => {
+    if (users.length > 0) {
+      setReceiver(users[0]);
+      getRoom();
+      getChatHistory();
+    }
+  }, [users, activeChat]);
+
+
   const getChatHistory = async () => {
     try {
       let res = await getChathistories(receiver._id);
@@ -49,15 +70,38 @@ const SupportAdminChart = () => {
     } catch (error) {}
   };
 
-  useEffect(() => {
-    getSenderByAuth();
-    setReceiver(users[0]);
-    getChatHistory();
+  const socket = io(SOCKET_SERVER_URL, {
+    path: "/ws",
+    transports: ["websocket"],
+  });
 
-  }, [activeChat]);
+  const getRoom = async () => {
+    try {
+      let value = await getGroup(receiver._id);
+      setRoomId(value.data._id);
+      setMessages(value.data.messages)
+    } catch (error) {}
+  };
+
+  const sendMessage = () => {
+    if (message.trim() !== "") {
+      console.log(message, "sending message");
+      socket.emit("messageToRoom", {
+        roomId,
+        message,
+        senderId: sender._id,
+        receiverId: receiver._id,
+      });
+      // setMessages((prev) => [...prev, message]);
+      setMessage("");
+    }
+  };
+
+  // useEffect(() => {
+  //   getChatHistory();
+  // }, [activeChat]);
 
   useEffect(() => {
-    fetchUsers();
     if (searchText) {
       const filteredUsers = users.filter((item) =>
         item.name.toLowerCase().includes(searchText.toLowerCase())
@@ -69,11 +113,45 @@ const SupportAdminChart = () => {
     }
   }, [searchText]);
 
+  useEffect(() => {
+    getRoom();
+    if (roomId) {
+      socket.emit("joinRoom", roomId);
+
+      // Listen for new messages
+      socket.on("message", (data) => {
+        console.log(data, "new room message");
+        setMessages((prevMessages) => [...prevMessages, data]);
+      });
+
+      // Listen for new transaction messages
+      socket.on("Trnsaction", (data) => {
+        console.log(data, "new transaction message");
+        setMessages((prevMessages) => [...prevMessages, data.data]);
+      });
+
+      // Listen for private messages
+      socket.on("newMessage", (data) => {
+        console.log(data, "new private message");
+        setMessages((prevMessages) => [...prevMessages, data.message]);
+      });
+
+      // Clean up on unmount
+      return () => {
+        socket.off("message");
+        socket.off("Trnsaction");
+        socket.off("newMessage");
+        socket.disconnect();
+      };
+    }
+  }, [roomId]);
+
   const switchChat = (e) => {
     const activeIndex = e;
     setActiveChat(activeIndex);
     setReceiver(users[activeIndex]);
-    console.log(activeChat);
+    console.log(users[activeChat]);
+    getRoom();
   };
 
   const handleSend = () => {
@@ -153,15 +231,15 @@ const SupportAdminChart = () => {
           {/* <p className="text-white">{users[activeChat].name}</p> */}
         </div>
         <div className="w-full relative flex gap-5 overflow-y-scroll  items-end flex-col  h-[75vh] py-3 ">
-          {chats &&
-            chats?.map((item) => (
+          {messages &&
+            messages?.map((item) => (
               <div className=" flex flex-col gap-2 h-fit  bg-white w-fit px-5 py-1 rounded-full">
                 {item.message}
               </div>
             ))}
         </div>
         {/* <div className="w-full h-full flex flex-col gap-2 overflow-y-auto p-5">
-          {chatstate.map((item, index) => (
+          {messagesmessages.map((item, index) => (
             <div key={index} className="flex flex-col">
               {item.sender == sender && item.receiver === receiver ? (
                 <div className="w-full flex justify-end items-end">
@@ -182,15 +260,16 @@ const SupportAdminChart = () => {
         <div className="flex h-[10vh] w-full pb-3 items-center justify-center gap-2 bottom-0">
           <input
             onKeyDown={handleEnter}
-            id="text"
             className="w-[90%] block px-5 py-2 rounded-xl outline-none"
             type="text"
             placeholder="Type Text...."
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
           />
           <FaTelegramPlane
             size={30}
             className="text-blue-600"
-            onClick={handleSend}
+            onClick={sendMessage}
           />
         </div>
       </div>
