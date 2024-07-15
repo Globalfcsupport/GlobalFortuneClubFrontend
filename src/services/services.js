@@ -104,3 +104,8 @@ export const getAdmin = async ()=>{
   let response = await useAxiosInterceptors.get("/user/get/admin/details")
   return response
 }
+
+export const getMywallet = async (query)=>{
+  let response = await useAxiosInterceptors.get("/user/get/withdraw/details?type="+query)
+  return response
+}
