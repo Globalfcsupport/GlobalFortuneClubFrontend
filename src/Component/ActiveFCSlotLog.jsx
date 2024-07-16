@@ -63,7 +63,7 @@ const AllTransaction = () => {
               </tr>
             </thead>
             <tbody className="bg-white">
-              {displayedTransactions.map((item, index) => (
+              {displayedTransactions && displayedTransactions.map((item, index) => (
                 <tr key={item._id}>
                   <td>{(page - 1) * pageSize + index + 1}</td>
                   <td>{item.refId}</td>

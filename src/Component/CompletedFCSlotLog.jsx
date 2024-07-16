@@ -25,7 +25,7 @@ const CompletedFCSlotLog = () => {
   const fetchTransactions = async () => {
     try {
       const response = await getFcSlotLog();
-      const transactionsWithRemaining = response.data.Completed.map((transaction) => ({
+      const transactionsWithRemaining = response.data.Completed && response.data.Completed.map((transaction) => ({
         ...transaction,
         remaining: transaction.totalYield - transaction.currentYield
       }));
@@ -66,7 +66,7 @@ const CompletedFCSlotLog = () => {
               </tr>
             </thead>
             <tbody className="bg-white">
-              {displayedTransactions.map((item, index) => (
+              {displayedTransactions && displayedTransactions.map((item, index) => (
                 <tr key={item._id}>
                   <td>{(page - 1) * pageSize + index + 1}</td>
                   <td>{item.slotId}</td>
