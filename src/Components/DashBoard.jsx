@@ -3,7 +3,7 @@ import { FaArrowRight, FaWallet } from "react-icons/fa";
 import { FiAlertCircle } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { ActivateClub } from "../services/services";
-import { getDashboardDetails } from "../services/services";
+import { getDashboardDetails, UpdateProfile } from "../services/services";
 import { message } from "antd";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
@@ -11,7 +11,7 @@ const DashBoard = () => {
   const [data, setData] = useState({});
   const [messageApi, contextHolder] = message.useMessage();
   const [editReserveMyWallet, setEditReserveMyWallet] = useState(false);
-
+  const [reserveWallet, setReserveMyWallet] = useState(null);
   const ClubActivation = async () => {
     try {
       let datas = await ActivateClub();
@@ -47,12 +47,23 @@ const DashBoard = () => {
     setEditReserveMyWallet(!editReserveMyWallet);
   };
 
-  const handleConfirm = () => {
-    if (true) {
-      console.log("done");
-    } else {
-      console.log("not done");
+  const handleConfirm = async () => {
+    let data = { reserveMywallet: parseInt(reserveWallet ? reserveWallet : 0) };
+    try {
+      let values = await UpdateProfile(data);
+      if (values.data) {
+        dashboardDetails();
+      }
+    } catch (error) {
+    } finally {
+      setEditReserveMyWallet(!editReserveMyWallet);
     }
+
+    // try {
+
+    // } catch (error) {
+
+    // }
   };
 
   const handleClick = (e) => {
@@ -348,6 +359,8 @@ const DashBoard = () => {
               type="text"
               className="px-3 py-1 text-sm rounded-lg"
               placeholder="Enter Amount"
+              value={reserveWallet}
+              onChange={(e) => setReserveMyWallet(e.target.value)}
             />
             <div className="div flex justify-around">
               <button
