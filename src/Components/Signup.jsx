@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Register, verifyUplineId, sendOTP } from "../services/services";
+import { Register, verifyUplineId, sendOTP,signupOTP } from "../services/services";
 import { message, Button } from "antd";
 import { IoReload } from "react-icons/io5";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
@@ -83,15 +83,15 @@ const Signup = () => {
   const handleSendOTP = async () => {
     setSendOTPLoading(true);
     setShowOTPInput(false);
-    await sendOTP({ email: data.email })
+    await signupOTP({ email: data.email })
       .then((response) => {
         setShowOTPInput(true);
         setTimer(60); 
         messageApi.success("OTP Sent Successfully!");
       })
       .catch((error) => {
-        // console.log((error));
-        messageApi.warning("Please Enter Valid Email ID");
+        console.log(error,"{}{}{}");
+        messageApi.error(error.response.data.message);
       });
     setSendOTPLoading(false);
   };
