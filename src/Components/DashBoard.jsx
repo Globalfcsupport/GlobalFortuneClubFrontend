@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaArrowRight, FaWallet } from "react-icons/fa";
 import { FiAlertCircle } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ActivateClub } from "../services/services";
 import { getDashboardDetails, UpdateProfile } from "../services/services";
 import { message } from "antd";
@@ -73,6 +73,12 @@ const DashBoard = () => {
     }
   };
 
+  const navigate = useNavigate()
+  const Nav = async (path)=>{
+    navigate(path)
+  }
+
+
   return (
     <div className="h-full relative  font-poppins">
       {contextHolder}
@@ -108,7 +114,9 @@ const DashBoard = () => {
 
             <div className="flex items-center ">
               <span>${data.wallet?.toFixed(4)}</span>
+              <p onClick={()=>{Nav("/app/Wallet")}} className="cursor-pointer">
               <MdKeyboardArrowRight className="text-textColour text-2xl" />
+              </p>
             </div>
           </div>
         </div>
@@ -134,13 +142,16 @@ const DashBoard = () => {
         <div className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
           <div className="flex w-full justify-between px-1 items-center ">
             <div className="flex gap-6 px-2 items-center">
+           
               <FiAlertCircle className="text-textColour" />
               <span>Crowd Stacking</span>
             </div>
 
             <div className="flex items-center ">
               <span>${data?.crowdStock?.toFixed(4)}</span>
+              <p onClick={()=>{Nav("/app/Wallet")}} className="cursor-pointer">
               <MdKeyboardArrowRight className="text-textColour text-2xl" />
+              </p>
             </div>
           </div>
         </div>
@@ -154,7 +165,9 @@ const DashBoard = () => {
             </div>
             <div className="flex items-center ">
               <span>{data.activatedTotal}</span>
+              <p onClick={()=>{Nav("/app/FCSLots")}} className="cursor-pointer">
               <MdKeyboardArrowRight className="text-textColour text-2xl" />
+              </p>
             </div>
           </div>
         </div>
@@ -168,7 +181,9 @@ const DashBoard = () => {
             </div>
             <div className="flex items-center ">
               <span>{data.completedTotal}</span>
+              <p onClick={()=>{Nav("/app/FCSLots")}} className="cursor-pointer">
               <MdKeyboardArrowRight className="text-textColour text-2xl" />
+              </p>
             </div>
           </div>
         </div>
@@ -208,7 +223,9 @@ const DashBoard = () => {
             </div>
             <div className="flex items-center ">
               <span>${data.refIncomeToday}</span>
+              <p onClick={()=>{Nav("/app/Wallet")}} className="cursor-pointer">
               <MdKeyboardArrowRight className="text-textColour text-2xl" />
+              </p>
             </div>
           </div>
         </div>
@@ -221,7 +238,9 @@ const DashBoard = () => {
             </div>
             <div className="flex items-center ">
               <span>${data.refIncomeAll}</span>
+              <p onClick={()=>{Nav("/app/Wallet")}} className="cursor-pointer">
               <MdKeyboardArrowRight className="text-textColour text-2xl" />
+              </p>
             </div>
           </div>
         </div>
@@ -234,7 +253,9 @@ const DashBoard = () => {
             </div>
             <div className="flex items-center">
               <span>${data.totalCryptoTopup}</span>
+              <p onClick={()=>{Nav("/app/Wallet")}} className="cursor-pointer">
               <MdKeyboardArrowRight className="text-textColour text-2xl" />
+              </p>
             </div>
           </div>
         </div>
@@ -247,7 +268,9 @@ const DashBoard = () => {
             </div>
             <div className="flex items-center">
               <span>$0</span>
+              <p onClick={()=>{Nav("/app/Wallet")}} className="cursor-pointer">
               <MdKeyboardArrowRight className="text-textColour text-2xl" />
+              </p>
             </div>
           </div>
         </div>
@@ -260,7 +283,9 @@ const DashBoard = () => {
             </div>
             <div className="flex items-center">
               <span>${data.internalIn}</span>
+              <p onClick={()=>{Nav("/app/Wallet")}} className="cursor-pointer">
               <MdKeyboardArrowRight className="text-textColour text-2xl" />
+              </p>
             </div>
           </div>
         </div>
@@ -272,7 +297,9 @@ const DashBoard = () => {
             </div>
             <div className="flex items-center">
               <span>${data.internalOut}</span>
+              <p onClick={()=>{Nav("/app/Wallet")}} className="cursor-pointer">
               <MdKeyboardArrowRight className="text-textColour text-2xl" />
+              </p>
             </div>
           </div>
         </div>
