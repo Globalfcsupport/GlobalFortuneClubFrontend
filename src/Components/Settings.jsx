@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { HiOutlinePencil } from "react-icons/hi2";
 import { IoSaveOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import { getUserByAuth, UpdateProfile, UploadProfileImg } from "../services/services";
+import {
+  getUserByAuth,
+  UpdateProfile,
+  UploadProfileImg,
+} from "../services/services";
 import { BaseURL } from "../utils/const";
 import { BsCurrencyDollar } from "react-icons/bs";
 
@@ -42,7 +46,7 @@ export const FileUploadForm = ({ props }) => {
   } = props;
 
   const triggerFileInput = () => {
-    document.getElementById('image-upload').click();
+    document.getElementById("image-upload").click();
   };
 
   return (
@@ -73,7 +77,9 @@ export const FileUploadForm = ({ props }) => {
                 />
               ) : (
                 <>
-                  <span className="text-xl font-semibold text-white">{displayName}</span>
+                  <span className="text-xl font-semibold text-white">
+                    {displayName}
+                  </span>
                 </>
               )}
             </>
@@ -81,7 +87,7 @@ export const FileUploadForm = ({ props }) => {
         </div>
       </label>
       <div className="text-gray-500 font-medium mt-2">
-         <p onClick={triggerFileInput}>Edit Profile</p>
+        <p onClick={triggerFileInput}>Edit Profile</p>
       </div>
     </div>
   );
@@ -95,7 +101,7 @@ const Settings = () => {
     userID: "AA0011",
     uplineID: "AA0001",
     emailID: "abc@gmail.com",
-    name: "ABC",
+    userName: "ABC",
     USDTAddress: "wertfyguhijoasdmasd",
     USDTNetwork: "Default",
   };
@@ -107,7 +113,7 @@ const Settings = () => {
   const [imageUrl, setImageUrl] = useState(null);
   const [branchLogo, setBranchLogo] = useState(null);
   const [profile, setProfile] = useState(null);
-    const [usdtNetwork, setUsdtNetwork] = useState("");
+  const [usdtNetwork, setUsdtNetwork] = useState("");
 
   const handleChange = (e) => {
     setProfile((prev) => ({
@@ -116,7 +122,7 @@ const Settings = () => {
     }));
   };
 
-  console.log(profile,"profile");
+  console.log(profile, "profile");
 
   const HandleLogOut = () => {
     localStorage.removeItem("accessToken");
@@ -137,27 +143,31 @@ const Settings = () => {
     } catch (error) {}
   };
 
-  const UsdAddressSave = async ()=>{
-    console.log(profile.USDTAddress,"Add");
+  const UsdAddressSave = async () => {
+    console.log(profile.USDTAddress, "Add");
     try {
-      let data = {USDTAddress:profile.USDTAddress}
-      let values = await UpdateProfile(data)
+      let data = { USDTAddress: profile.USDTAddress };
+      let values = await UpdateProfile(data);
       console.log(values);
-    } catch (error) {
-      
-    }
-  }
+    } catch (error) {}
+  };
+  const userNameSave = async () => {
+    console.log(profile.userName, "name");
+    try {
+      let data = { userName: profile.userName };
+      let values = await UpdateProfile(data);
+      console.log(values);
+    } catch (error) {}
+  };
 
-  const UsdNetwork = async (value)=>{
-    console.log(profile.USDTAddress,"Add");
+  const UsdNetwork = async (value) => {
+    console.log(profile.USDTAddress, "Add");
     try {
-      let data = {USDTNetwork:value}
-      let values = await UpdateProfile(data)
+      let data = { USDTNetwork: value };
+      let values = await UpdateProfile(data);
       console.log(values);
-    } catch (error) {
-      
-    }
-  }
+    } catch (error) {}
+  };
 
   useEffect(() => {
     getProfile();
@@ -168,10 +178,11 @@ const Settings = () => {
     <div className=" space-y-2 text-sm overflow-y-scroll h-full pb-5">
       <div className="w-full h-16 bg-primary flex justify-end items-center px-5 ">
         <div className=" flex flex-col gap-1 items-end">
-        <p className="font-semibold text-white text-xs">My Wallet</p>
-        <p className=" bg-white rounded-md font-semibold w-fit pl-14 px-3 flex items-center  ">
-        <BsCurrencyDollar className=" mb-1" /> {profile?profile.myWallet:0}
-        </p>
+          <p className="font-semibold text-white text-xs">My Wallet</p>
+          <p className=" bg-white rounded-md font-semibold w-fit pl-14 px-3 flex items-center  ">
+            <BsCurrencyDollar className=" mb-1" />{" "}
+            {profile ? profile.myWallet : 0}
+          </p>
         </div>
       </div>
       <div className="flex flex-col px-5 gap-3">
@@ -182,7 +193,7 @@ const Settings = () => {
               editMode: showImage,
               formData: data.image,
               inputName: "profileImage",
-              displayName:profile?.userName.split(' ')[0].charAt(0) ,
+              displayName: profile?.userName.split(" ")[0].charAt(0),
               setImageUrl,
               setBranchLogo,
             }}
@@ -239,14 +250,16 @@ const Settings = () => {
             readOnly={!editName}
             className=" px-2 py-1 w-full rounded-lg"
             value={profile?.userName ? profile?.userName : ""}
-            id="name"
+            id="userName"
             name="userName"
             onChange={handleChange}
           />
           {editName ? (
             <IoSaveOutline
               className="absolute text-primary right-2 bottom-2 cursor-pointer"
-              onClick={() => setEditName(!editName)}
+              onClick={() => {
+                setEditName(!editName), userNameSave();
+              }}
             />
           ) : (
             <HiOutlinePencil
@@ -263,7 +276,7 @@ const Settings = () => {
             type="text"
             readOnly={!editUSDTAddress}
             className=" px-2 py-1 w-full rounded-lg"
-            value={profile?.USDTAddress?profile.USDTAddress:''}
+            value={profile?.USDTAddress ? profile.USDTAddress : ""}
             id="USDTAddress"
             name="USDTAddress"
             onChange={handleChange}
@@ -271,7 +284,9 @@ const Settings = () => {
           {editUSDTAddress ? (
             <IoSaveOutline
               className="absolute text-primary right-2 bottom-2 cursor-pointer"
-              onClick={() =>  {setEditUSDTAddress(!editUSDTAddress), UsdAddressSave()}}
+              onClick={() => {
+                setEditUSDTAddress(!editUSDTAddress), UsdAddressSave();
+              }}
             />
           ) : (
             <HiOutlinePencil
@@ -281,25 +296,25 @@ const Settings = () => {
           )}
         </div>
         <div className="flex flex-col gap-2 relative">
-              <label htmlFor="usdtNetwork" className="text-primary font-semibold">
-                USDT Network
-              </label>
-              <select
-                id="usdtNetwork"
-                name="usdtNetwork"
-                className="px-3 py-1 rounded-md"
-                style={{ color: usdtNetwork === "" ? "#999" : "#000" }}
-                value={usdtNetwork}
-                onChange={(e) => setUsdtNetwork(e.target.value)}
-              >
-                <option value="" disabled>
-                  Select Network
-                </option>
-                {/* <option value=""></option> */}
-                <option value="TRC20">TRC20</option>
-                <option value="BEP20">BEP20</option>
-              </select>
-            </div>
+          <label htmlFor="usdtNetwork" className="text-primary font-semibold">
+            USDT Network
+          </label>
+          <select
+            id="usdtNetwork"
+            name="usdtNetwork"
+            className="px-3 py-1 rounded-md"
+            style={{ color: usdtNetwork === "" ? "#999" : "#000" }}
+            value={usdtNetwork}
+            onChange={(e) => setUsdtNetwork(e.target.value)}
+          >
+            <option value="" disabled>
+              Select Network
+            </option>
+            {/* <option value=""></option> */}
+            <option value="TRC20">TRC20</option>
+            <option value="BEP20">BEP20</option>
+          </select>
+        </div>
         <button
           className="bg-primary hover:bg-red-700 mt-2 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           onClick={HandleLogOut}
