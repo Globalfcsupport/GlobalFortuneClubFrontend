@@ -75,7 +75,9 @@ const Wallet = () => {
           <input
             type="date"
             name="todayReferral"
+            
             className="mt-1 border rounded-md w-28 py-1 px-2 outline-none text-[0.6rem]"
+            
           />
         </div>
         <div className="flex flex-col justify-end items-end">
