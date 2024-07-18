@@ -28,16 +28,16 @@ const Referrals = () => {
 
   return (
     <div className='h-full'>
-      <div className="flex flex-col bg-primary p-3 gap-2">
-        <div className="relative">
-          <input name='name' type="text" id='name' placeholder="Search ID/Name" className="w-full px-3 py-2  text-sm pr-10 border rounded-md outline-none" />
+      <div className="flex flex-col bg-blue-500 p-5 gap-2">
+        <div className="relative ">
+          <input name='name' type="text" id='name' placeholder="Search ID/Name" className="w-full px-2 py-1 text-sm pr-10 border rounded-md outline-none" />
           <button>
-            <FaSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-MainSection pointer-events-none" />
+            <FaSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 pointer-events-none" />
           </button>
         </div>
 
-        <div className="flex justify-between text-sm px-4">
-          <div className="flex flex-col gap-2  justify-center items-center ">
+        <div className="flex justify-between">
+          <div className="flex flex-col gap-2 justify-center items-center ">
             <p className='text-white'>Referral - Today</p>
             <p className="bg-white rounded-md w-16 text-center">{todayReferral}</p>
           </div>
@@ -49,7 +49,7 @@ const Referrals = () => {
 
       </div>
       <div className='w-full h-full bg-white flex flex-col overflow-scroll'>
-        {Array.isArray(users) && users.map((item, index)=> (
+        { Array.isArray(users) && users.map((item, index)=> (
           <div key={index} className='px-5 flex gap-5 p-2 items-center rounded-xl'>
             <img src={item.image?`${BaseURL}${item.image}`:`${userIcon}`} className='h-10 w-10 rounded-full object-cover'/>
             <div className='text-xs'>
