@@ -81,7 +81,7 @@ const Wallet = () => {
         <div className="flex flex-col justify-end items-end">
           <p className="text-white">My Wallet</p>
           <p className="mt-1 bg-white border rounded-md w-28 text-right py-1 px-2 pl-5">
-            ${wallet}
+            {wallet}
           </p>
         </div>
       </div>
