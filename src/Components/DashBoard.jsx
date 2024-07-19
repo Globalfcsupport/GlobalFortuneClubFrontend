@@ -261,7 +261,6 @@ const DashBoard = () => {
             <div className=" md:mr-3 ">
               <span>{data.todayYeild?.toFixed(4)}</span>
 
-              {/* <MdKeyboardArrowRight className="text-textColour text-2xl" /> */}
             </div>
           </div>
         </div>
