@@ -84,7 +84,7 @@ const DashBoard = () => {
       <div className="bg-primary p-3 flex justify-between items-center text-white">
         <div>
           <p className="text-sm font-semibold"> {data?.userName}</p>
-          <p className="text-sm"> {data.refId}</p>
+          <p className="text-sm"> ID: {data.refId}</p>
         </div>
         <button
           disabled={data.started ? true : false}
@@ -115,7 +115,7 @@ const DashBoard = () => {
               >
                 <FiAlertCircle className="text-textColour cursor-pointer"></FiAlertCircle>
               </Tooltip>
-              <span>My Wallet</span>
+              <span className="text-textColour">My Wallet</span>
             </div>
 
             <div className="flex items-center ">
@@ -147,10 +147,10 @@ const DashBoard = () => {
               >
                 <FiAlertCircle className="text-textColour cursor-pointer" />
               </Tooltip>
-              <span>Reserve - My Wallet</span>
+              <span className="text-textColour text-sm">Reserve - My Wallet</span>
             </div>
 
-            <p className="bg-primary text-white px-9 py-[6px] rounded cursor-pointer">
+            <p className="bg-primary text-white px-4 py-[9px] rounded cursor-pointer">
               ${data.reserveMywallet ? data.reserveMywallet : 0}
             </p>
           </div>
@@ -168,7 +168,8 @@ const DashBoard = () => {
               >
                 <FiAlertCircle className="text-textColour cursor-pointer" />
               </Tooltip>
-              <span>Crowd Stacking</span>
+
+              <span className="text-textColour">Crowd Stacking</span>
             </div>
 
             <div className="flex items-center ">
@@ -199,7 +200,7 @@ const DashBoard = () => {
                 <FiAlertCircle className="text-textColour cursor-pointer" />
               </Tooltip>
 
-              <span>Active Slots</span>
+              <span className="text-textColour">Active Slots</span>
             </div>
             <div className="flex items-center ">
               <span>{data.activatedTotal}</span>
@@ -227,7 +228,7 @@ const DashBoard = () => {
               >
                 <FiAlertCircle className="text-textColour cursor-pointer" />
               </Tooltip>
-              <span>Completed Slots</span>
+              <span className="text-textColour">Completed Slots</span>
             </div>
             <div className="flex items-center ">
               <span>{data.completedTotal}</span>
@@ -256,7 +257,7 @@ const DashBoard = () => {
                 <FiAlertCircle className="text-textColour cursor-pointer" />
               </Tooltip>
 
-              <span>Yield - Today</span>
+              <span className="text-textColour">Yield - Today</span>
             </div>
             <div className=" md:mr-3 ">
               <span>{data.todayYeild?.toFixed(4)}</span>
@@ -276,7 +277,7 @@ const DashBoard = () => {
               >
                 <FiAlertCircle className="text-textColour cursor-pointer" />
               </Tooltip>
-              <span>Yield - Overall</span>
+              <span className="text-textColour">Yield - Overall</span>
             </div>
             <div className="md:mr-3">
               <span>{data.Yield?.toFixed(4)}</span>
@@ -287,9 +288,19 @@ const DashBoard = () => {
 
         <div className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
           <div className="flex w-full justify-between px-1 items-center">
-            <div className="flex gap-6 px-2 items-center ">
-              <FiAlertCircle className="text-textColour cursor-pointer" />
-              <span>Referral Income -Today</span>
+
+           
+            <div className="flex px-2 gap-6 items-center">
+              <Tooltip
+                title="The income generated from referrals' 
+                slot purchases within the current day."
+                placement="bottomRight"
+                getPopupContainer={(triggerNode) => triggerNode.parentNode}
+                color="rgba(128, 128, 128, 1)"
+              >
+                <FiAlertCircle className="text-textColour cursor-pointer" />
+              </Tooltip>
+              <span className="text-textColour">Refferal Income - Today</span>
             </div>
             <div className="flex items-center ">
               <span>${data.refIncomeToday}</span>
@@ -307,9 +318,17 @@ const DashBoard = () => {
 
         <div className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
           <div className="flex w-full justify-between px-1 items-center">
-            <div className="flex gap-6 px-2 items-center">
-              <FiAlertCircle className="text-textColour cursor-pointer" />
-              <span>Referral Income -Overall</span>
+            
+            <div className="flex px-2 gap-6 items-center">
+              <Tooltip
+                title="Total income earned from referrals' slot purchases since joining the platform."
+                placement="bottomRight"
+                getPopupContainer={(triggerNode) => triggerNode.parentNode}
+                color="rgba(128, 128, 128, 1)"
+              >
+                <FiAlertCircle className="text-textColour cursor-pointer" />
+              </Tooltip>
+              <span className="text-textColour">Refferal Income - Overall</span>
             </div>
             <div className="flex items-center ">
               <span>${data.refIncomeAll}</span>
@@ -327,9 +346,44 @@ const DashBoard = () => {
 
         <div className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
           <div className="flex w-full justify-between px-1 items-center">
-            <div className="flex gap-6 px-2 items-center">
-              <FiAlertCircle className="text-textColour" />
-              <span>Total Crypto Top-Up</span>
+           
+            <div className="flex px-2 gap-6 items-center">
+              <Tooltip
+                title="The total amount of cryptocurrency deposited into your account as top-ups"
+                placement="bottomRight"
+                getPopupContainer={(triggerNode) => triggerNode.parentNode}
+                color="rgba(128, 128, 128, 1)"
+              >
+                <FiAlertCircle className="text-textColour cursor-pointer" />
+              </Tooltip>
+              <span className="text-textColour">Total Crypto Top-Up</span>
+            </div>
+            <div className="flex items-center">
+              <span>$0</span>
+              <p
+                onClick={() => {
+                  Nav("/app/Wallet");
+                }}
+                className="cursor-pointer"
+              >
+                <MdKeyboardArrowRight className="text-textColour text-2xl" />
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
+          <div className="flex w-full justify-between px-1 items-center">
+           
+            <div className="flex px-2 gap-6 items-center">
+              <Tooltip
+                title="The total amount of cryptocurrency withdrawn from your account."
+                placement="bottomRight"
+                getPopupContainer={(triggerNode) => triggerNode.parentNode}
+                color="rgba(128, 128, 128, 1)"
+              >
+                <FiAlertCircle className="text-textColour cursor-pointer" />
+              </Tooltip>
+              <span className="text-textColour">Total Crypto Withdraw</span>
             </div>
             <div className="flex items-center">
               <span>${data.totalCryptoTopup}</span>
@@ -367,9 +421,18 @@ const DashBoard = () => {
 
         <div className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
           <div className="flex w-full justify-between px-1 items-center">
-            <div className="flex gap-6 px-2 items-center">
-              <FiAlertCircle className="text-textColour" />
-              <span>Total Internal Transfer IN</span>
+            
+            <div className="flex px-2 gap-6 items-center">
+              <Tooltip
+                title="The total amount of cryptocurrency received 
+                from internal transfers within the platform."
+                placement="topRight"
+                getPopupContainer={(triggerNode) => triggerNode.parentNode}
+                color="rgba(128, 128, 128, 1)"
+              >
+                <FiAlertCircle className="text-textColour cursor-pointer" />
+              </Tooltip>
+              <span className="text-textColour">Total Internal Transfer IN</span>
             </div>
             <div className="flex items-center">
               <span>${data.internalIn}</span>
@@ -386,9 +449,18 @@ const DashBoard = () => {
         </div>
         <div className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
           <div className="flex w-full justify-between px-1 items-center">
-            <div className="flex gap-6 px-2 items-center">
-              <FiAlertCircle className="text-textColour" />
-              <span>Total Internal Transfer OUT</span>
+            
+            <div className="flex px-2 gap-6 items-center">
+              <Tooltip
+                title="The total amount of cryptocurrency sent out through 
+                internal transfers within the platform."
+                placement="topRight"
+                getPopupContainer={(triggerNode) => triggerNode.parentNode}
+                color="rgba(128, 128, 128, 1)"
+              >
+                <FiAlertCircle className="text-textColour cursor-pointer" />
+              </Tooltip>
+              <span className="text-textColour">Total Internal Transfer OUT</span>
             </div>
             <div className="flex items-center">
               <span>${data.internalOut}</span>
@@ -448,29 +520,30 @@ const DashBoard = () => {
       </div>
 
       <div
-        className="absolute bottom-0 left-0 w-full shadow-none  p-3 gap-2  grid grid-cols-3 bg-secondary rounded-b-3xl justify-between"
+        className="absolute bottom-0 left-0 w-full shadow-none  p-2 px-8 gap-1  grid grid-cols-3 bg-secondary rounded-b-3xl justify-between"
         style={{
           width: "350px",
           left: "50%",
           transform: "translateX(-50%)",
         }}
       >
+        
         <Link
           to="/app/TopUp"
-          className="bg-primary text-center text-white py-3 px-3 text-sm rounded-md"
+          className="h-9 bg-primary text-center text-white py-2 px-3 text-sm rounded-md"
         >
           Top Up
         </Link>
         <Link
           to="/app/chats"
-          className="bg-primary text-center text-white py-3 text-sm px-3  rounded-md"
+          className="h-9 bg-primary text-center text-white py-2 text-sm px-3  rounded-md"
         >
           Transfer
         </Link>
 
         <Link
           to="/app/Withdraw"
-          className="bg-primary text-center text-white py-3 px-3 text-sm rounded-md"
+          className="h-9 bg-primary text-center text-white py-2 px-3 text-sm rounded-md"
         >
           Withdraw
         </Link>

@@ -252,8 +252,8 @@ const Signup = () => {
             type="text"
             name="uplineId"
             value={data.uplineId}
-            placeholder=""
-            className="w-full py-2 rounded-md px-5 hover:bg-transparent focus:bg-white"
+            placeholder="Enter Referral ID"
+            className="w-full py-2 rounded-md px-5 hover:bg-transparent focus:bg-white text-black"
             onChange={handleChange}
           />
           <Button
