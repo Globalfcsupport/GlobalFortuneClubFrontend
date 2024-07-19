@@ -78,7 +78,7 @@ const Wallet = () => {
             name="todayReferral"
             htmlFor="calendar"
             className="mt-1 border rounded-md w-28 py-1 px-2 outline-none text-[0.6rem]"
-            
+           
           />
         </div>
         <div className="flex flex-col justify-end items-end">
@@ -108,12 +108,12 @@ const Wallet = () => {
           }}
           className={`w-28 py-2 flex flex-col justify-center items-center duration-200 focus:outline-none ${
             activeTab === "Crypto"
-              ? "bg-white text-blue-800 rounded-t-md"
+              ? "bg-white text-blue-800 rounded-md"
               : "text-white"
           }`}
         >
           Crypto{" "}
-          <p className="w-14 h-1 bg-primary rounded-full flex justify-center items-center"></p>
+          <p className="w-14 h-1 bg-primary rounded-md flex justify-center items-center"></p>
         </button>
         <button
           onClick={() => {
@@ -132,7 +132,7 @@ const Wallet = () => {
         {/* <span className={`h-1 absolute bottom-0 transition-all duration-75 ${activeTab === 'All' ? 'left-0 w-12' : activeTab === 'Crypto' ? 'left-1/3 w-16' : 'right-0 w-20'}`}></span> */}
       </div>
 
-      <div className="p-2">
+      <div >
         {/* {activeTab === "All" && (
           <div>
             {allData.map((item, index) => (
@@ -207,6 +207,7 @@ const Wallet = () => {
       </div>
       <div
         className="ml-4 absolute bottom-0 left-0 w-full shadow-none  p-3 gap-2  grid grid-cols-3 bg-secondary rounded-b-full justify-between"
+        className="absolute bottom-0 left-0 w-full shadow-none  p-3 px-8 gap-1  grid grid-cols-3 bg-secondary rounded-b-full justify-between"
         style={{
           width: "350px",
           left: "50%",
@@ -215,20 +216,20 @@ const Wallet = () => {
       >
         <Link
           to="/app/TopUp"
-          className="bg-primary text-center text-white py-3 px-3 text-sm rounded-md"
+          className="h-9 bg-primary text-center text-white py-2 px-3 text-sm rounded-md"
         >
           Top Up
         </Link>
         <Link
           to="/app/chats"
-          className="bg-primary text-center text-white py-3 text-sm px-3  rounded-md"
+          className="h-9 bg-primary text-center text-white py-2 text-sm px-3  rounded-md"
         >
           Transfer
         </Link>
 
         <Link
           to="/app/Withdraw"
-          className="bg-primary text-center text-white py-3 px-3 text-sm rounded-md"
+          className="h-9 bg-primary text-center text-white py-2 px-3 text-sm rounded-md"
         >
           Withdraw
         </Link>

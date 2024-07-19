@@ -63,8 +63,13 @@ const NavBar = () => {
           </div>
           
 
+<<<<<<< HEAD
         </div >
         <h1 className="text-lg font-semibold text-textColour -ml-5">{currentPage[2]}</h1>
+=======
+        </div>
+        <h1 className="text-lg font-normal text-textColour -ml-5">{currentPage[2]}</h1>
+>>>>>>> 1892460baa8f08af1c10229c82611c1e64060c74
 
         <div className='p-2 bg-white rounded-full'>
         <BiSolidMessageRoundedDetail onClick={()=>navigate('/app/Chats')} className="text-[22px] text-primary cursor-pointer" />
