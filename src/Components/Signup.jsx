@@ -241,11 +241,11 @@ const Signup = () => {
 
       <div className="flex flex-col h-fit py-5 justify-center gap-4 flex-grow text-blue-800 text-sm px-5">
         <div className="flex flex-col justify-center items-center gap-2">
-          <h1 className="text-xl font-medium font-customArial text-blueColor">Sign Up</h1>
-          <span className="text-[16px] font-medium font-customRoborto text-blueColor">Create an Account</span>
+          <p className="text-xl font-semibold font-customArial text-blueColor">Sign Up</p>
+          <h5 className="text-lg font-semibold font-customRoborto text-blueColor">Create an Account</h5>
         </div>
         <div className="w-full flex flex-col relative">
-          <label htmlFor="refId" className="font-sans font-semibold text-blueColor">
+          <label htmlFor="refId" className="font-sans py-2 font-semibold text-blueColor">
             Referral ID
           </label>
           <input
@@ -253,7 +253,7 @@ const Signup = () => {
             name="uplineId"
             value={data.uplineId}
             placeholder="Enter Referral ID"
-            className="w-full py-2 rounded-md px-5 hover:bg-transparent focus:bg-white"
+            className="w-full py-2 rounded-md px-5 hover:bg-transparent text-black focus:bg-white"
             onChange={handleChange}
           />
           <Button
@@ -281,7 +281,7 @@ const Signup = () => {
               name="userName"
               placeholder="Enter Your Name"
               readOnly={readOnly}
-              className="w-full py-2 rounded-md px-5 hover:bg-transparent focus:bg-white"
+              className="w-full py-2 rounded-md px-5 hover:bg-transparent  text-black focus:bg-white"
               onChange={handleChange}
               required
             />
@@ -295,7 +295,7 @@ const Signup = () => {
               name="email"
               placeholder="Enter Your Email ID"
               readOnly={readOnly}
-              className="w-full py-2 rounded-md pl-5 pr-28 hover:bg-transparent focus:bg-white"
+              className="w-full py-2 rounded-md pl-5 pr-28 hover:bg-transparent  text-black focus:bg-white"
               onChange={handleChange}
               required
             />
@@ -325,7 +325,7 @@ const Signup = () => {
                     placeholder=""
                     maxLength={1}
                     type="text"
-                    className="w-10 h-10 rounded-md hover:bg-transparent focus:bg-white"
+                    className="w-10 h-10 rounded-md hover:bg-transparent  text-black focus:bg-white"
                   />
                   <input
                     onKeyUp={handleBackSpace}
@@ -333,7 +333,7 @@ const Signup = () => {
                     placeholder=""
                     maxLength={1}
                     type="text"
-                    className="w-10 h-10 rounded-md hover:bg-transparent focus:bg-white"
+                    className="w-10 h-10 rounded-md hover:bg-transparent  text-black focus:bg-white"
                   />
                   <input
                     onKeyUp={handleBackSpace}
@@ -341,7 +341,7 @@ const Signup = () => {
                     placeholder=""
                     maxLength={1}
                     type="text"
-                    className="w-10 h-10 rounded-md hover:bg-transparent focus:bg-white"
+                    className="w-10 h-10 rounded-md hover:bg-transparent  text-black focus:bg-white"
                   />
                   <input
                     onKeyUp={handleBackSpace}
@@ -349,7 +349,7 @@ const Signup = () => {
                     placeholder=""
                     maxLength={1}
                     type="text"
-                    className="w-10 h-10 rounded-md hover:bg-transparent focus:bg-white"
+                    className="w-10 h-10 rounded-md hover:bg-transparent  text-black focus:bg-white"
                   />
                 </div>
               </div>
@@ -357,7 +357,7 @@ const Signup = () => {
           </div>
           <div className="flex flex-col gap-2 justify-center items-start w-full">
             <h1 className="font-sans font-semibold text-blueColor">Enter Captcha</h1>
-            <p className="text-center w-full py-1 text-sm rounded-md mx-auto tracking-[1rem] bg-white select-none relative">
+            <p className="text-center w-full py-1 text-sm rounded-md mx-auto tracking-[1rem]  text-black bg-white select-none relative">
               {captchaText}
               <IoReload
                 onClick={() => setChangeCaptcha(!changeCaptcha)}
@@ -366,7 +366,7 @@ const Signup = () => {
             </p>
             <input
               placeholder="Enter Captcha"
-              className="py-2 w-full rounded-md pl-2 text-xs hover:bg-transparent focus:bg-white"
+              className="py-2 w-full rounded-md pl-2 text-xs hover:bg-transparent  text-black focus:bg-white"
               onChange={(e) => setCaptcha(e.target.value)}
               required
               type="text"
@@ -386,9 +386,9 @@ const Signup = () => {
             </button>
           </div>
           <div className="flex text-sm items-center justify-center w-full">
-            <p className="font-customArial font-light text-blueColor">
+            <p className="font-sans py-3 text-blueColor">
               Already have an account?
-              <Link to={`/`} className="font-customArial font-semibold text-blueColor">
+              <Link to={`/`} className="text-[16px] font-customArial font-semibold text-blueColor">
                 {" "}
                 Sign In
               </Link>
