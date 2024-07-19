@@ -75,7 +75,7 @@ const Referrals = () => {
               <div className='ml-2 flex flex-col'>
                 <div className='flex justify-between items-center'>
                   <p className='font-medium text-lg text-blueColor text-ellipsis line-clamp-1'>{item.userName}</p>
-                  <p className='text-blueColor text-xs font-bold'>ID: {item.refId}</p>
+                  <p className='text-blueColor text-xs font-bold '>ID: {item.refId}</p>
                 </div>
                 <p className='text-black-100 text-xs '>Email: {item.email}</p>
                 <p className='text-black-100 text-xs '>DOJ: {new Date(item.createdAt).toLocaleString()}</p>

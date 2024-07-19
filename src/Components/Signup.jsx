@@ -252,7 +252,7 @@ const Signup = () => {
             type="text"
             name="uplineId"
             value={data.uplineId}
-            placeholder="Enter Referral ID"
+            placeholder=""
             className="w-full py-2 rounded-md px-5 hover:bg-transparent focus:bg-white"
             onChange={handleChange}
           />
@@ -279,7 +279,7 @@ const Signup = () => {
             <input
               type="text"
               name="userName"
-              placeholder="Enter Your Name"
+              placeholder=""
               readOnly={readOnly}
               className="w-full py-2 rounded-md px-5 hover:bg-transparent focus:bg-white"
               onChange={handleChange}
@@ -293,7 +293,7 @@ const Signup = () => {
             <input
               type="text"
               name="email"
-              placeholder="Enter Your Email ID"
+              placeholder=""
               readOnly={readOnly}
               className="w-full py-2 rounded-md pl-5 pr-28 hover:bg-transparent focus:bg-white"
               onChange={handleChange}
@@ -365,7 +365,7 @@ const Signup = () => {
               />
             </p>
             <input
-              placeholder="Enter Captcha"
+              placeholder=""
               className="py-2 w-full rounded-md pl-2 text-xs hover:bg-transparent focus:bg-white"
               onChange={(e) => setCaptcha(e.target.value)}
               required

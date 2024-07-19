@@ -17,6 +17,7 @@ const FormikSignIn = () => {
   const navigate = useNavigate();
   const [changeCaptcha, setChangeCaptcha] = useState(false);
   const [timer, setTimer] = useState(0);
+  
 
   const AuthGuard = async () => {
     let token = localStorage.getItem("accessToken");
@@ -119,6 +120,7 @@ const FormikSignIn = () => {
             localStorage.setItem("userName", response.data.data.userName);
             localStorage.setItem("email", response.data.data.email);
             messageApi.success("Logged In Successfully!");
+            
             navigate("app/DashBoard");
           })
           .catch((error) => {
@@ -168,7 +170,7 @@ const FormikSignIn = () => {
                   required
                   type="email"
                   name="email"
-                  placeholder="Enter Your Email"
+                  placeholder=""
                   className="w-full py-3 rounded-md pl-4 pr-32 text-sm hover:bg-transparent focus:bg-white"
                   onChange={(e) => setEmail(e.target.value)}
                   
