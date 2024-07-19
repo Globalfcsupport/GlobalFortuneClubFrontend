@@ -18,10 +18,10 @@ html{
 }
 body{
   min-height: 97vh;
-  width: 350px;
+  width: 320px;
   background-color:#ededed;
   margin: auto;
-  border-width: 5px;
+  border-width: 7px;
   border-radius: 30px;
   border-color: black;
   /* overflow: hidden; */

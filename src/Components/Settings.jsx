@@ -152,7 +152,7 @@ const Settings = () => {
     } catch (error) {}
   };
   const userNameSave = async () => {
-    console.log(profile.userName, "name");
+   // console.log(profile.userName, "name");
     try {
       let data = { userName: profile.userName };
       let values = await UpdateProfile(data);
@@ -180,7 +180,7 @@ const Settings = () => {
         <div className=" flex flex-col gap-1 items-end">
           <p className="font-semibold text-white text-xs">My Wallet</p>
           <p className=" bg-white rounded-md font-semibold w-fit pl-14 px-3 flex items-center  ">
-            <BsCurrencyDollar className=" mb-1" />{" "}
+            {/* <BsCurrencyDollar className=" mb-1" />{" "} */}
             {profile ? profile.myWallet : 0}
           </p>
         </div>

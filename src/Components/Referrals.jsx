@@ -8,8 +8,6 @@ const Referrals = () => {
   const [todayReferral, setTodayReferral] = useState(0);
   const [overallReferral, setOverallReferral] = useState(0);
   const [ users, setUsers ] = useState([]);
-
-
   const getRefDetails = async ()=>{
     try {
       let values = await getUserByRefId()

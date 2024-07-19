@@ -75,6 +75,7 @@ const Wallet = () => {
           <input
             type="date"
             name="todayReferral"
+            
             className="mt-1 border rounded-md w-28 py-1 px-2 outline-none text-[0.6rem]"
            
           />
@@ -82,7 +83,7 @@ const Wallet = () => {
         <div className="flex flex-col justify-end items-end">
           <p className="text-white">My Wallet</p>
           <p className="mt-1 bg-white border rounded-md w-28 text-right py-1 px-2 pl-5">
-            ${wallet}
+            {wallet}
           </p>
         </div>
       </div>
