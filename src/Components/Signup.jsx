@@ -239,13 +239,13 @@ const Signup = () => {
     <>
       {contextHolder}
 
-      <div className="flex flex-col h-fit py-5 justify-center gap-2 flex-grow text-blue-800 text-sm px-5">
+      <div className="flex flex-col h-fit py-5 justify-center gap-4 flex-grow text-blue-800 text-sm px-5">
         <div className="flex flex-col justify-center items-center gap-2">
-          <h1 className="text-2xl font-bold">Sign Up</h1>
-          <span className="">Create an Account</span>
+          <h1 className="text-xl font-medium font-customArial text-blueColor">Sign Up</h1>
+          <span className="text-[16px] font-medium font-customRoborto text-blueColor">Create an Account</span>
         </div>
-        <div className="w-full flex flex-col relative ">
-          <label htmlFor="refId" className="font-semibold text-blue-800">
+        <div className="w-full flex flex-col relative">
+          <label htmlFor="refId" className="font-sans font-semibold text-blueColor">
             Referral ID
           </label>
           <input
@@ -253,13 +253,13 @@ const Signup = () => {
             name="uplineId"
             value={data.uplineId}
             placeholder="Enter Referral ID"
-            className="w-full py-2 rounded-md px-5"
+            className="w-full py-2 rounded-md px-5 hover:bg-transparent focus:bg-white"
             onChange={handleChange}
           />
           <Button
             loading={verifyLoading}
             type="button"
-            className="absolute bg-blue-800 text-white rounded-md bottom-[0.20rem] right-[0.25rem] px-6"
+            className="absolute font-customArial bg-buttonbg text-white rounded-md bottom-[0.20rem] right-[0.25rem] px-6"
             onClick={handleVerify}
           >
             Verify
@@ -273,7 +273,7 @@ const Signup = () => {
         ) : null}
         <form className="flex flex-col w-full gap-3" onSubmit={handleSubmit}>
           <div className="w-full flex flex-col gap-2 relative">
-            <label htmlFor="userName" className="font-semibold text-blue-800">
+            <label htmlFor="userName" className="font-sans font-semibold text-blueColor">
               Enter Your Name
             </label>
             <input
@@ -281,13 +281,13 @@ const Signup = () => {
               name="userName"
               placeholder="Enter Your Name"
               readOnly={readOnly}
-              className="w-full py-2 rounded-md px-5"
+              className="w-full py-2 rounded-md px-5 hover:bg-transparent focus:bg-white"
               onChange={handleChange}
               required
             />
           </div>
           <div className="w-full flex flex-col gap-2 relative">
-            <label htmlFor="email" className="font-semibold text-blue-800">
+            <label htmlFor="email" className="font-sans font-semibold text-blueColor">
               Email
             </label>
             <input
@@ -295,14 +295,14 @@ const Signup = () => {
               name="email"
               placeholder="Enter Your Email ID"
               readOnly={readOnly}
-              className="w-full py-2 rounded-md pl-5 pr-28"
+              className="w-full py-2 rounded-md pl-5 pr-28 hover:bg-transparent focus:bg-white"
               onChange={handleChange}
               required
             />
             <Button
               loading={sendOTPLoading}
               type="button"
-              className="absolute bg-blue-800 text-white  rounded-md bottom-1 right-1 px-3 py-1"
+              className="absolute font-customArial bg-buttonbg text-white  rounded-md bottom-1 right-1 px-3 py-1"
               onClick={handleSendOTP}
               disabled={timer > 0}
             >
@@ -314,7 +314,7 @@ const Signup = () => {
               <div className="flex flex-col gap-2 justify-center w-full">
                 <label
                   htmlFor="email"
-                  className="font-semibold text-blue-800 text-center"
+                  className="font-customArial font-semibold text-8px text-blueColor"
                 >
                   OTP
                 </label>
@@ -325,7 +325,7 @@ const Signup = () => {
                     placeholder=""
                     maxLength={1}
                     type="text"
-                    className="w-10 h-10 rounded-md"
+                    className="w-10 h-10 rounded-md hover:bg-transparent focus:bg-white"
                   />
                   <input
                     onKeyUp={handleBackSpace}
@@ -333,7 +333,7 @@ const Signup = () => {
                     placeholder=""
                     maxLength={1}
                     type="text"
-                    className="w-10 h-10 rounded-md"
+                    className="w-10 h-10 rounded-md hover:bg-transparent focus:bg-white"
                   />
                   <input
                     onKeyUp={handleBackSpace}
@@ -341,7 +341,7 @@ const Signup = () => {
                     placeholder=""
                     maxLength={1}
                     type="text"
-                    className="w-10 h-10 rounded-md"
+                    className="w-10 h-10 rounded-md hover:bg-transparent focus:bg-white"
                   />
                   <input
                     onKeyUp={handleBackSpace}
@@ -349,14 +349,14 @@ const Signup = () => {
                     placeholder=""
                     maxLength={1}
                     type="text"
-                    className="w-10 h-10 rounded-md"
+                    className="w-10 h-10 rounded-md hover:bg-transparent focus:bg-white"
                   />
                 </div>
               </div>
             )}
           </div>
           <div className="flex flex-col gap-2 justify-center items-start w-full">
-            <h1 className="font-semibold text-blue-800">Enter Captcha</h1>
+            <h1 className="font-sans font-semibold text-blueColor">Enter Captcha</h1>
             <p className="text-center w-full py-1 text-sm rounded-md mx-auto tracking-[1rem] bg-white select-none relative">
               {captchaText}
               <IoReload
@@ -366,15 +366,16 @@ const Signup = () => {
             </p>
             <input
               placeholder="Enter Captcha"
-              className="py-2 w-full rounded-md pl-2 text-xs"
+              className="py-2 w-full rounded-md pl-2 text-xs hover:bg-transparent focus:bg-white"
               onChange={(e) => setCaptcha(e.target.value)}
               required
               type="text"
+              
             />
           </div>
           <div className="flex w-full justify-center items-center mt-5 relative">
             <button
-              className="bg-blue-700 w-fit mx-auto text-white px-5 py-1 rounded-md flex items-center justify-center"
+              className="font-customArial bg-buttonbg w-fit mx-auto text-white px-5 py-1 rounded-md flex items-center justify-center"
               type="submit"
               disabled={submitLoading}
             >
@@ -385,9 +386,9 @@ const Signup = () => {
             </button>
           </div>
           <div className="flex text-sm items-center justify-center w-full">
-            <p className="text-blue-500">
+            <p className="font-customArial font-light text-blueColor">
               Already have an account?
-              <Link to={`/`} className="text-blue-800">
+              <Link to={`/`} className="font-customArial font-semibold text-blueColor">
                 {" "}
                 Sign In
               </Link>
