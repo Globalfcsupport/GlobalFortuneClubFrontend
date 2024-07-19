@@ -7,6 +7,7 @@ import { getMywallet } from "../services/services";
 import DateComponent from "./datePipeline";
 import TimeComponents from "./timePipeline";
 
+
 const Wallet = () => {
   const [activeTab, setActiveTab] = useState("All");
 
@@ -71,11 +72,11 @@ const Wallet = () => {
     <div className=" text-sm w-full flex flex-col">
       <div className="flex justify-between bg-primary p-5">
         <div className="flex flex-col justify-center items-center">
-          <p className="text-white">Transaction Date</p>
+          <label className="text-white" id="calendar">Transaction Date</label>
           <input
             type="date"
             name="todayReferral"
-            
+            htmlFor="calendar"
             className="mt-1 border rounded-md w-28 py-1 px-2 outline-none text-[0.6rem]"
            
           />
