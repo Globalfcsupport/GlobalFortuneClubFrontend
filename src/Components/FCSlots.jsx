@@ -37,7 +37,7 @@ const FCSlots = () => {
   };
 
   return (
-    <div className="w-full h-full font-poppins text-sm overflow-y-auto">
+    <div className="w-full h-full font-poppins text-sm overflow-y-auto bg-white">
       <div className="bg-primary pt-5  w-full">
         <div className="flex relative justify-between  px-6 items-center w-full">
           {/* <div> */}
@@ -65,7 +65,7 @@ const FCSlots = () => {
             {/* <span className="h-1 bg-black inline-block" >Completed</span> */}
           </button>
           <span
-            className={`h-1 bg-primary absolute w-12 rounded-lg bottom-1 transition-all duration-75 ${
+            className={`h-0.5 bg-primary absolute w-12 rounded-lg bottom-1 transition-all duration-75 ${
               activeTab === "active" ? "left-10 w-20" : "right-10 w-20 "
             }`}
           ></span>

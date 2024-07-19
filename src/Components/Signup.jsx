@@ -4,7 +4,7 @@ import { Register, verifyUplineId, sendOTP,signupOTP } from "../services/service
 import { message, Button } from "antd";
 import { IoReload } from "react-icons/io5";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-
+import { IoIosArrowBack } from "react-icons/io";
 const Signup = () => {
   const [timer, setTimer] = useState(0);
   const [showOTPInput, setShowOTPInput] = useState(false);
@@ -241,7 +241,9 @@ const Signup = () => {
 
       <div className="flex flex-col h-fit py-5 justify-center gap-4 flex-grow text-blue-800 text-sm px-5">
         <div className="flex flex-col justify-center items-center gap-2">
+          <Link to="/"><IoIosArrowBack  size={35} className="md:-ml-36"/></Link>
           <h1 className="text-xl font-medium font-customArial text-blueColor">Sign Up</h1>
+
           <span className="text-[16px] font-medium font-customRoborto text-blueColor">Create an Account</span>
         </div>
         <div className="w-full flex flex-col relative">
