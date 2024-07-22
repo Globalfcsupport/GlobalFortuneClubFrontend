@@ -28,6 +28,7 @@ const TopUp = () => {
       .then((response) => {
         setLoading(false);
         window.location.href = response.data.payLink;
+        // console.log(response.data);
       })
       .catch((error) => {
         messageApi.error("An Unknown Error Occured");
@@ -82,13 +83,13 @@ const TopUp = () => {
           >
             Withdraw
           </NavLink>
-          <span className={`h-1 bg-blue-800 absolute w-12 rounded-lg bottom-1 transition-all duration-75 ${activeTab==='topUp'? 'left-[13%]': 'right-[12%] w-20'}`}></span>
+          <span className={`h-0.5 bg-blue-800 absolute w-12 rounded-lg bottom-1 transition-all duration-75 ${activeTab==='topUp'? 'left-[13%]': 'right-[12%] w-20'}`}></span>
         </div>
       </div>
       <div className="flex flex-col gap-4">
-        <div className="w-[97%] mx-auto rounded-lg flex flex-col gap-3 mt-5 pb-2 px-1 bg-purple-100 shadow-xl">
-          <div className="  px-2 py-3 bg-slate-100">
-            <h1 className="font-semibold text-lg text-[#3d5898] px-2 ">
+        <div className="w-[97%] mx-auto rounded-lg flex flex-col gap-3 mt-5 pb-2 px-1 bg-[#e9e6f2] shadow-xl">
+          <div className="  px-2 py-3 bg-blue-50">
+            <h1 className="font-medium text-md text-[#3d5898] px-2 ">
               Select Top Up
             </h1>
             {/* <div className='flex justify-between'>
@@ -123,7 +124,7 @@ const TopUp = () => {
               <p className=" capitalize text-[#3d5898] font-semibold ">
                 pay with
               </p>
-              <Radio defaultChecked className=" rounded-full font-bold text-lg">
+              <Radio defaultChecked className=" rounded-full font-semibold text-lg">
                 Crypto
               </Radio>
             </div>
@@ -132,7 +133,7 @@ const TopUp = () => {
                 <button
                   oading={loading}
                   htmlType="submit"
-                  className=" capitalize text-lg font-semibold bg-[#3d5898] text-white py-2 px-6 rounded-full"
+                  className=" capitalize text-md font-light bg-[#3d5898] text-white py-2 px-6 rounded-full"
                 >
                   {loading ? "Loading" : "Proceed"}
                 </button>

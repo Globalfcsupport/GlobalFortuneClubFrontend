@@ -257,9 +257,9 @@ const Chat = () => {
           </div>
         ))}
       </div>
-      <div className="px-5 py-2 flex items-center gap-2 justify-center w-full">
+      <div className="px-2 py-3 flex items-center gap-1 justify-center w-full">
         <input
-          className="w-[90%] block px-5 py-2 rounded-xl"
+          className="w-[90%] block px-5 py-3 hover:bg-gray-100 focus:bg-white border-none rounded-md"
           type="text"
           placeholder="Send the message..."
           value={message}

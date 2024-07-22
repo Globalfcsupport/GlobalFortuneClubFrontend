@@ -65,10 +65,7 @@ const Chat = () => {
       setSenderDetails(apiResponse.data);
       setSender(apiResponse.data._id);
       setMyWallet(apiResponse.data.myWallet ? apiResponse.data.myWallet : 0);
-      setDisabledInput(
-        apiResponse.data.myWallet + internalTransactionFee <
-          apiResponse.data.myWallet
-      );
+      setDisabledInput(apiResponse.data.myWallet)
       console.log(apiResponse.data, "asasas");
     } catch (error) {
       console.error("Error fetching user details:", error);
@@ -295,7 +292,7 @@ const Chat = () => {
               <p>MW: ${myWallet}</p>
             </div>
             <input
-              disabled={disabledInput}
+              readOnly={disabledInput<12}
               value={amount}
               onChange={(e) => {
                 setAmount(e.target.value);

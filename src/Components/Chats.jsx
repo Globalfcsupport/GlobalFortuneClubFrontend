@@ -56,7 +56,7 @@ const getUsers_ForChats = async ()=>{
     <div className='rounded-bl-3xl rounded-br-3xl flex flex-col relative h-full'>
       <div className='px-3 py-3 sticky top-0 bg-primary'>
         <div className='relative h-fit'>
-        <input type='text' onChange={handleSearch} className='px-4 py-1 text-sm w-full rounded-md' placeholder='Search User by UserId' />
+        <input type='text' onChange={handleSearch} className='px-4 py-2 text-sm w-full hover:bg-gray-100 focus:bg-white border-none rounded-md' placeholder='Search User by UserId' />
         <FaSearch className='absolute top-2 right-2 text-primary'/>
         </div>
       </div>
@@ -64,9 +64,9 @@ const getUsers_ForChats = async ()=>{
         {users.length == 0 ? 
           <p className='h-full justify-center flex items-center'>No Users</p> :
           users.map((item, index)=> (
-            <div key={index} className={`flex gap-5 px-5 py-3 border-b`} onClick={()=>handleChat(item)}>
+            <div key={index} className={`flex gap-5 px-5 py-3 border-b-[3px]  cursor-pointer`} onClick={()=>handleChat(item)}>
               {
-                item.image ? <img src={item.image} alt='user profile pic' className='h-10 w-10 object-cover rounded-full'/>:<div className='bg-secondary rounded-full h-10 w-10 flex justify-center items-center'><span className='font-semibold text-3xl h-full w-full text-primary flex justify-center items-center -mt-1'>{item.userName.split("")[0]}</span></div>
+                item.image ? <img src={item.image} alt='user profile pic' className='cursor-pointer h-10 w-10 object-cover rounded-full'/>:<div className='bg-secondary rounded-full h-10 w-10 flex justify-center items-center'><span className='font-semibold text-3xl h-full w-full text-primary flex justify-center items-center -mt-1'>{item.userName.split("")[0]}</span></div>
               }
               <div>
                 <p className='text-sm font-semibold'>{item.userName}</p>

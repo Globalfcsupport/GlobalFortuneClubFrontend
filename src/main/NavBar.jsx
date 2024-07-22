@@ -47,7 +47,7 @@ const NavBar = () => {
   }, [location])
 
   return (
-    <div className="h-full w-full rounded-tr-3xl rounded-tl-3xl bg-secondary">
+    <div className="h-full w-full rounded-tr-3xl rounded-tl-3xl bg-customLightGray">
       <div className="flex items-center justify-between p-3">
         <div className="flex items-center justify-center gap-6">
           <div className='flex gap-2'>
@@ -64,7 +64,7 @@ const NavBar = () => {
           
 
         </div>
-        <h1 className="text-lg font-semibold text-textColour -ml-5">{currentPage[2]}</h1>
+        <h1 className="text-lg font-normal text-textColour -ml-5">{currentPage[2]}</h1>
 
         <div className='p-2 bg-white rounded-full'>
         <BiSolidMessageRoundedDetail onClick={()=>navigate('/app/Chats')} className="text-[22px] text-primary cursor-pointer" />

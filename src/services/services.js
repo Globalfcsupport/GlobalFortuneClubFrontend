@@ -60,8 +60,8 @@ export const getChathistories = async (id)=>{
   return response
 }
 
-export const getFCSlots = async ()=>{
-  let response = await useAxiosInterceptors.get("/user/get/fc/slots");
+export const getFCSlots = async (status)=>{
+  let response = await useAxiosInterceptors.get("/user/get/fc/slots?status="+status);
   return response
 }
 
@@ -102,5 +102,15 @@ export const Withdrawrequest = async (data)=>{
 
 export const getAdmin = async ()=>{
   let response = await useAxiosInterceptors.get("/user/get/admin/details")
+  return response
+}
+
+export const getMywallet = async (query)=>{
+  let response = await useAxiosInterceptors.get("/user/get/withdraw/details?type="+query)
+  return response
+}
+
+export const signupOTP = async (data)=>{
+  let response = await useAxiosInterceptors.post("/auth/user/signup/otp", data)
   return response
 }
