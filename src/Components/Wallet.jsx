@@ -108,7 +108,7 @@ const Wallet = () => {
           }}
           className={`w-28 py-2 flex flex-col justify-center items-center duration-200 focus:outline-none ${
             activeTab === "Crypto"
-              ? "bg-white text-blue-800 rounded-md"
+              ? "bg-white text-blue-800 rounded-t-md"
               : "text-white"
           }`}
         >

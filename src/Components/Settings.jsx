@@ -208,7 +208,7 @@ const Settings = () => {
             <input
               type="text"
               // readOnly
-              className="px-2 py-1 w-32 rounded-lg "
+              className="px-2 py-1.5 w-24 rounded-lg text-textColour"
               value={profile?.refId ? profile?.refId : "null"}
               id="userID"
               name="userID"
@@ -216,12 +216,12 @@ const Settings = () => {
           </div>
           <div className="flex flex-col gap-1 text-right">
             <label htmlFor="uplineID" className="font-semibold text-primary">
-              Upline ID
+             My Upline ID
             </label>
             <input
               type="text"
               // readOnly
-              className="px-2 py-1 w-32 rounded-lg text-right"
+              className="px-2 py-1.5 w-24 rounded-lg text-textColour text-right"
               value={profile?.uplineId ? profile?.uplineId : "null"}
               id="uplineID"
               name="uplineID"
@@ -235,7 +235,7 @@ const Settings = () => {
           <input
             type="email"
             readOnly
-            className=" px-2 py-1 w-full rounded-lg"
+            className=" px-2 py-1.5 w-full rounded-lg text-textColour"
             value={profile?.email ? profile?.email : "null"}
             id="emailID"
             name="emailID"
@@ -248,7 +248,7 @@ const Settings = () => {
           <input
             type="text"
             readOnly={!editName}
-            className=" px-2 py-1 w-full rounded-lg"
+            className=" px-2 py-1.5 w-full rounded-lg text-textColour  hover:bg-gray-100 focus:bg-white"
             value={profile?.userName ? profile?.userName : ""}
             id="userName"
             name="userName"
@@ -270,12 +270,13 @@ const Settings = () => {
         </div>
         <div className="flex flex-col gap-1 relative">
           <label htmlFor="USDTAddress" className="font-semibold text-primary">
-            Enter your USDT Address
+            Enter your USDT Address (TRC-20)
           </label>
           <input
             type="text"
             readOnly={!editUSDTAddress}
-            className=" px-2 py-1 w-full rounded-lg"
+            placeholder="Enter USDT Address"
+            className=" px-2 py-1.5 w-full rounded-lg text-textColour  hover:bg-gray-100 focus:bg-white border-none"
             value={profile?.USDTAddress ? profile.USDTAddress : ""}
             id="USDTAddress"
             name="USDTAddress"
@@ -302,7 +303,7 @@ const Settings = () => {
           <select
             id="usdtNetwork"
             name="usdtNetwork"
-            className="px-3 py-1 rounded-md"
+            className="px-3 py-1.5 rounded-md text-textColour"
             style={{ color: usdtNetwork === "" ? "#999" : "#000" }}
             value={usdtNetwork}
             onChange={(e) => setUsdtNetwork(e.target.value)}
@@ -316,7 +317,8 @@ const Settings = () => {
           </select>
         </div>
         <button
-          className="bg-primary hover:bg-red-700 mt-2 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="bg-primary m-2 mx-20 w-28 text-white font-semibold text-lg 
+          py-2 px-7 rounded-md focus:outline-none focus:shadow-outline"
           onClick={HandleLogOut}
         >
           Logout

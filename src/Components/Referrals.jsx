@@ -34,7 +34,7 @@ const Referrals = () => {
             type="text"
             id='name'
             placeholder="Search ID/Name"
-            className="w-full px-3 py-2 text-sm pr-10 border rounded-md outline-none"
+            className="w-full px-3 py-2 text-sm pr-10 border hover:bg-gray-100 focus:bg-white rounded-md outline-none"
           />
           <button>
             <FaSearch className="text-blueColor absolute right-3 top-1/2 transform -translate-y-1/2 text-MainSection pointer-events-none" />

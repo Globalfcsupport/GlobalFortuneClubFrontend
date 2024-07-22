@@ -366,7 +366,7 @@ const Signup = () => {
             </p>
             <input
               placeholder=""
-              className="py-2 w-full rounded-md pl-2 text-xs hover:bg-transparent focus:bg-white"
+              className="py-2 w-full rounded-md pl-2 text-xs hover:bg-transparent focus:bg-white text-black"
               onChange={(e) => setCaptcha(e.target.value)}
               required
               type="text"

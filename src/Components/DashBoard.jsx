@@ -168,7 +168,6 @@ const DashBoard = () => {
               >
                 <FiAlertCircle className="text-textColour cursor-pointer" />
               </Tooltip>
-
               <span className="text-textColour">Crowd Stacking</span>
             </div>
 
@@ -399,7 +398,7 @@ const DashBoard = () => {
           </div>
         </div>
 
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
+        {/* <div className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
           <div className="flex w-full justify-between px-1 items-center">
             <div className="flex gap-6 px-2 items-center">
               <FiAlertCircle className="text-textColour" />
@@ -417,7 +416,7 @@ const DashBoard = () => {
               </p>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
           <div className="flex w-full justify-between px-1 items-center">
