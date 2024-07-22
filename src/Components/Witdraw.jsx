@@ -95,7 +95,7 @@ const Withdraw = () => {
   };
 
   return (
-    <div className="w-full flex flex-col h-full font-poppins text-sm overflow-y-auto" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+    <div className="w-full  bg-white flex flex-col h-full font-poppins text-sm overflow-y-auto" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
       {contextHolder}
 
       <div className="bg-primary pt-3 w-full h-screen">
@@ -114,7 +114,7 @@ const Withdraw = () => {
           >
             Withdraw
           </NavLink>
-          <span className={`h-1 bg-primary absolute w-12 rounded-lg bottom-1 transition-all duration-75 ${activeTab==='withdraw'? 'left-[13%] w-20': 'right-10 w-20 '}`}></span>
+          <span className={`h-0.5 bg-primary absolute w-12 rounded-lg bottom-1 transition-all duration-75 ${activeTab==='withdraw'? 'left-[13%] w-20': 'right-10 w-20 '}`}></span>
         
         </div>
       </div>
@@ -138,7 +138,7 @@ const Withdraw = () => {
                 id="USDTAddress"
                 name="USDTAddress"
                 type="text"
-                className="px-3 py-1 rounded-md"
+                className="px-3 py-1 rounded-md hover:bg-gray-50 focus:bg-white border-none"
                 onChange={handleChange}
                 value={myDetails.USDTAddress ? myDetails.USDTAddress : ""}
               />
@@ -186,7 +186,7 @@ const Withdraw = () => {
                   id="amount"
                   name="amount"
                   type="number"
-                  className="px-3 py-1 rounded-md w-full"
+                  className="px-3 py-1 rounded-md w-full hover:bg-gray-50"
                   onChange={handleChange}
                   value={data.amount}
                 />
@@ -201,7 +201,7 @@ const Withdraw = () => {
                 <input
                   id="networkfee"
                   value={networkFee + "%"}
-                  className="px-3 py-1 rounded-md border-primary w-full bg-white"
+                  className="px-3 py-1 rounded-md border-primary w-full border-none hover:bg-gray-50 bg-customLightGray"
                 />
                 <span className="absolute right-3 top-1/2 transform -translate-y-1/2">USDT</span>
               </div>
@@ -216,7 +216,7 @@ const Withdraw = () => {
                   readOnly={true}
                   value={receivableAmount ? receivableAmount : 0}
                   type="text"
-                  className="px-3 py-1 rounded-md w-full"
+                  className="px-3 py-1 rounded-md w-full border-none hover:bg-gray-50 bg-customLightGray"
                 />
                 <span className="absolute right-3 top-1/2 transform -translate-y-1/2">USDT</span>
               </div>

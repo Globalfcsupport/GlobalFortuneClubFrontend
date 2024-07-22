@@ -16,7 +16,9 @@ export default {
         blueColor:"#3b5998",
         buttonbg:"#415799",
         customgey:"#9a9a9a",
-         customGray: 'rgb(158, 158, 158)'
+        customGray: 'rgb(158, 158, 158)',
+        customLightGray :"#ededed"
+
       },
       fontFamily: {
         poppins: ['"Poppins"', ...defaultTheme.fontFamily.sans],

@@ -75,7 +75,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         </ul>
         {/* Invite Section */}
         <div className="p-3">
-        <div className="mt-4  bg-primary text-white text-center py-2 px-3  rounded-xl  text-sm">
+        <div className="mt-1.5  bg-primary text-white text-center py-2 px-3  rounded-xl  text-sm">
           Invite your friends and earn $1 for every slot they create!
           <button className="mt-2 bg-white  px-5 py-1 text-black rounded-full flex items-center mx-auto">
             <FaShareAlt className="mr-2 text text-black" /> Share

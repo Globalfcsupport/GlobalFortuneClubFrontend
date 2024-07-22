@@ -238,18 +238,16 @@ const Signup = () => {
   return (
     <>
       {contextHolder}
+      <div className="flex justify-start pt-5 pl-5 text-blue-800  items-center gap-2">
+          <Link to="/"><IoIosArrowBack  size={30} className="md:-ml-36 lg:-ml-0" /></Link>
+      
+        </div>
+      
 
       <div className="flex flex-col h-fit py-5 justify-center gap-4 flex-grow text-blue-800 text-sm px-5">
         <div className="flex flex-col justify-center items-center gap-2">
-<<<<<<< HEAD
-          <Link to="/"><IoIosArrowBack  size={35} className="md:-ml-36"/></Link>
-          <h1 className="text-xl font-medium font-customArial text-blueColor">Sign Up</h1>
-
-          <span className="text-[16px] font-medium font-customRoborto text-blueColor">Create an Account</span>
-=======
           <p className="text-xl font-semibold font-customArial text-blueColor">Sign Up</p>
           <h5 className="text-lg font-semibold font-customRoborto text-blueColor">Create an Account</h5>
->>>>>>> 1892460baa8f08af1c10229c82611c1e64060c74
         </div>
         <div className="w-full flex flex-col relative">
           <label htmlFor="refId" className="font-sans py-2 font-semibold text-blueColor">

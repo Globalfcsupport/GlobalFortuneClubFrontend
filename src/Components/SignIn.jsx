@@ -119,12 +119,8 @@ const FormikSignIn = () => {
             localStorage.setItem("refId", response.data.data.refId);
             localStorage.setItem("userName", response.data.data.userName);
             localStorage.setItem("email", response.data.data.email);
-<<<<<<< HEAD
-            messageApi.success("Logged In Successfully!");           
-=======
             messageApi.success("Logged In Successfully!");
             
->>>>>>> 1892460baa8f08af1c10229c82611c1e64060c74
             navigate("app/DashBoard");
           })
           .catch((error) => {

@@ -93,40 +93,40 @@ const Wallet = () => {
           onClick={() => {
             handleTabClick("All"), setQuery("all");
           }}
-          className={`w-28 py-2 flex flex-col justify-center items-center duration-200 focus:outline-none ${
+          className={`w-28 py-2.5 flex flex-col justify-center items-center duration-200 focus:outline-none ${
             activeTab === "All"
-              ? "bg-white text-blue-800 rounded-t-md"
+              ? "bg-white text-blue-800  rounded-t-md"
               : "text-white"
           }`}
         >
           All{" "}
-          <p className="w-14 h-1 bg-primary rounded-full flex justify-center items-center"></p>
+          <p className="w-14 h-0.5 bg-primary rounded-full flex justify-center items-center"></p>
         </button>
         <button
           onClick={() => {
             handleTabClick("Crypto"), setQuery("Crypto");
           }}
-          className={`w-28 py-2 flex flex-col justify-center items-center duration-200 focus:outline-none ${
+          className={`w-28 py-2.5 flex flex-col justify-center items-center duration-200 focus:outline-none ${
             activeTab === "Crypto"
               ? "bg-white text-blue-800 rounded-t-md"
               : "text-white"
           }`}
         >
           Crypto{" "}
-          <p className="w-14 h-1 bg-primary rounded-md flex justify-center items-center"></p>
+          <p className="w-14 h-0.5 bg-primary rounded-md flex justify-center items-center"></p>
         </button>
         <button
           onClick={() => {
             handleTabClick("Internal"), setQuery("Internal");
           }}
-          className={`w-28 py-2 flex flex-col justify-center items-center duration-200 focus:outline-none ${
+          className={`w-28 py-2.5 flex flex-col justify-center items-center duration-200 focus:outline-none ${
             activeTab === "Internal"
               ? "bg-white text-blue-800 rounded-t-md"
               : "text-white"
           }`}
         >
           Internal{" "}
-          <p className="w-14 h-1 bg-primary rounded-full flex justify-center items-center"></p>
+          <p className="w-14 h-0.5 bg-primary rounded-full flex justify-center items-center"></p>
         </button>
 
         {/* <span className={`h-1 absolute bottom-0 transition-all duration-75 ${activeTab === 'All' ? 'left-0 w-12' : activeTab === 'Crypto' ? 'left-1/3 w-16' : 'right-0 w-20'}`}></span> */}
