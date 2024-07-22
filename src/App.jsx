@@ -26,6 +26,7 @@ function App() {
       if(!token){
         navigate('/');
       }
+      
       // else{
       //   navigate('app/Dashboard')
       // }

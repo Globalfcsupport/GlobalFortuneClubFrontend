@@ -206,6 +206,7 @@ const Wallet = () => {
         </div>
       </div>
       <div
+      
         className="absolute bottom-0 left-0 w-full shadow-none  p-3 px-8 gap-1  grid grid-cols-3 bg-secondary rounded-b-full justify-between"
         style={{
           width: "350px",

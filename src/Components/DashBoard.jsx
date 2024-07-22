@@ -10,7 +10,7 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 const DashBoard = () => {
   const [data, setData] = useState({});
   const [messageApi, contextHolder] = message.useMessage();
-  const [editReserveMyWallet, setEditReserveMyWallet] = useState(false);
+  const [editReserveMyWallet, setEditReserveMyWallet] = useState(false);  
   const [reserveWallet, setReserveMyWallet] = useState(null);
   const ClubActivation = async () => {
     try {
@@ -99,8 +99,8 @@ const DashBoard = () => {
         className="h-full overflow-auto space-y-2 mt-2 p-2 "
         style={{
           height: "calc(97vh - 180px)",
-          scrollbarWidth: "none", // For Firefox
-          msOverflowStyle: "none", // For Internet Explorer and Edge
+          scrollbarWidth: "none", 
+          msOverflowStyle: "none", 
         }}
       >
         {/* Wallet Section */}
@@ -190,7 +190,7 @@ const DashBoard = () => {
           <div className="flex w-full justify-between px-1 items-center">
             <div className="flex gap-6 px-2 items-center ">
               <Tooltip
-                title="Displays the number of slots currently active and generating dividends for you."
+                title="Displays the number of slots currently active and generating dividends foryou."
                 placement="bottomRight"
                 getPopupContainer={(triggerNode) => triggerNode.parentNode}
                 color="rgba(128, 128, 128, 1)"
@@ -260,7 +260,6 @@ const DashBoard = () => {
             </div>
             <div className=" md:mr-3 ">
               <span>{data.todayYeild?.toFixed(4)}</span>
-
             </div>
           </div>
         </div>
@@ -345,6 +344,11 @@ const DashBoard = () => {
 
         <div className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
           <div className="flex w-full justify-between px-1 items-center">
+<<<<<<< HEAD
+            {/* <div className="flex gap-6 px-2 items-center">
+              <FiAlertCircle className="text-textColour" />
+              <span>Total Crypto Top-Up</span>
+=======
            
             <div className="flex px-2 gap-6 items-center">
               <Tooltip
@@ -383,6 +387,7 @@ const DashBoard = () => {
                 <FiAlertCircle className="text-textColour cursor-pointer" />
               </Tooltip>
               <span className="text-textColour">Total Crypto Withdraw</span>
+>>>>>>> 1892460baa8f08af1c10229c82611c1e64060c74
             </div>
             <div className="flex items-center">
               <span>${data.totalCryptoTopup}</span>
@@ -420,18 +425,64 @@ const DashBoard = () => {
 
         <div className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
           <div className="flex w-full justify-between px-1 items-center">
-            
+<<<<<<< HEAD
+            {/* <div className="flex gap-6 px-2 items-center">
+              <FiAlertCircle className="text-textColour" />
+              <span>Total Crypto Withdraw</span>
+            </div> */}
             <div className="flex px-2 gap-6 items-center">
               <Tooltip
-                title="The total amount of cryptocurrency received 
-                from internal transfers within the platform."
-                placement="topRight"
+                title="The total amount of cryptocurrency deposited into your account as top-ups"
+                placement="bottomRight"
                 getPopupContainer={(triggerNode) => triggerNode.parentNode}
                 color="rgba(128, 128, 128, 1)"
               >
                 <FiAlertCircle className="text-textColour cursor-pointer" />
               </Tooltip>
+              <span>Total Crypto Top-Up</span>
+            </div>
+            <div className="flex items-center">
+              <span>$0</span>
+              <p
+                onClick={() => {
+                  Nav("/app/Wallet");
+                }}
+                className="cursor-pointer"
+              >
+                <MdKeyboardArrowRight className="text-textColour text-2xl" />
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
+          <div className="flex w-full justify-between px-1 items-center">
+            {/* <div className="flex gap-6 px-2 items-center">
+              <FiAlertCircle className="text-textColour" />
+              <span>Total Internal Transfer IN</span>
+            </div> */}
+=======
+            
+>>>>>>> 1892460baa8f08af1c10229c82611c1e64060c74
+            <div className="flex px-2 gap-6 items-center">
+              <Tooltip
+                title="The total amount of cryptocurrency received 
+                from internal transfers within the platform."
+<<<<<<< HEAD
+                placement="bottomRight"
+=======
+                placement="topRight"
+>>>>>>> 1892460baa8f08af1c10229c82611c1e64060c74
+                getPopupContainer={(triggerNode) => triggerNode.parentNode}
+                color="rgba(128, 128, 128, 1)"
+              >
+                <FiAlertCircle className="text-textColour cursor-pointer" />
+              </Tooltip>
+<<<<<<< HEAD
+              <span>Total Internal Transfer IN</span>
+=======
               <span className="text-textColour">Total Internal Transfer IN</span>
+>>>>>>> 1892460baa8f08af1c10229c82611c1e64060c74
             </div>
             <div className="flex items-center">
               <span>${data.internalIn}</span>
@@ -448,18 +499,33 @@ const DashBoard = () => {
         </div>
         <div className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
           <div className="flex w-full justify-between px-1 items-center">
+<<<<<<< HEAD
+            {/* <div className="flex gap-6 px-2 items-center">
+              <FiAlertCircle className="text-textColour" />
+              <span>Total Internal Transfer OUT</span>
+            </div> */}
+=======
             
+>>>>>>> 1892460baa8f08af1c10229c82611c1e64060c74
             <div className="flex px-2 gap-6 items-center">
               <Tooltip
                 title="The total amount of cryptocurrency sent out through 
                 internal transfers within the platform."
+<<<<<<< HEAD
+                placement="bottomRight"
+=======
                 placement="topRight"
+>>>>>>> 1892460baa8f08af1c10229c82611c1e64060c74
                 getPopupContainer={(triggerNode) => triggerNode.parentNode}
                 color="rgba(128, 128, 128, 1)"
               >
                 <FiAlertCircle className="text-textColour cursor-pointer" />
               </Tooltip>
+<<<<<<< HEAD
+              <span>Total Internal Transfer OUT</span>
+=======
               <span className="text-textColour">Total Internal Transfer OUT</span>
+>>>>>>> 1892460baa8f08af1c10229c82611c1e64060c74
             </div>
             <div className="flex items-center">
               <span>${data.internalOut}</span>
@@ -549,32 +615,28 @@ const DashBoard = () => {
       </div>
       {editReserveMyWallet ? (
         <div
-          className="absolute flex justify-center items-center h-full w-full bg-transparent top-0 left-0"
+          className="absolute flex justify-center items-center h-full w-full bg-gray-400 bg-opacity-40 top-0 left-0"
           onClick={handleClick}
         >
-          <div className="div bg-white p-5 border border-black rounded-xl h-fit flex flex-col gap-5">
-            <p>Reserve - My Wallet</p>
+          <div
+            className="bg-white p-5 border border-black rounded-xl h-fit flex flex-col gap-5"
+            onClick={(e) => e.stopPropagation()} 
+          >
+            <p className="text-lg font-semibold">Reserve - My Wallet</p>
             <input
               type="text"
-              className="px-3 py-1 text-sm rounded-lg"
+              className="px-3 py-1 text-sm rounded-lg border"
               placeholder="Enter Amount"
               value={reserveWallet}
               onChange={(e) => setReserveMyWallet(e.target.value)}
             />
-            <div className="div flex justify-around">
-              <button
-                type="button"
-                onClick={handleCancel}
-                className="bg-red-600 px-5 rounded-full text-sm py-1 text-white"
-              >
-                Cancel
-              </button>
+            <div className="flex justify-around">
               <button
                 type="button"
                 onClick={handleConfirm}
-                className="bg-green-600 px-5 rounded-full text-sm py-1 text-white"
+                className="bg-primary px-5 rounded-full text-sm py-1 text-white"
               >
-                Confirm
+                Update
               </button>
             </div>
           </div>
