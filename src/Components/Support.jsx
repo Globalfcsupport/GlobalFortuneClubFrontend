@@ -15,7 +15,7 @@ import { TiTick } from "react-icons/ti";
 import logo from "../assets/Image/logo.jpg";
 
 const SOCKET_SERVER_URL = "wss://gfcapi.globalfc.app";
-// const SOCKET_SERVER_URL = "http://localhost:5001";m
+// const SOCKET_SERVER_URL = "http://localhost:5001";
 
 const Chat = () => {
   const [id, setId] = useState();
