@@ -65,10 +65,14 @@ const Signup = () => {
     setReadOnly(true);
     verifyUplineId({ refId: data.uplineId })
       .then((response) => {
-        setReadOnly(false);
-        setRefDetails(response.data);
-        setShowRefDetails(true);
-        messageApi.success("Referral ID Verified");
+        if (response.data.activeSlot) {
+          setReadOnly(false);
+          setRefDetails(response.data);
+          setShowRefDetails(true);
+          messageApi.success("Referral ID Verified");
+        } else {
+          messageApi.warning("Invalid Referral ID");
+        }
       })
       .catch((error) => {
         // console.log(error.response.data.message);
@@ -118,7 +122,7 @@ const Signup = () => {
       .then((response) => {
         console.log(response);
         setSubmitLoading(false);
-        navigate("/");
+        navigate("/app/DashBoard");
       })
       .catch((error) => {
         messageApi.error(error.response.data.message);
@@ -238,19 +242,19 @@ const Signup = () => {
   return (
     <>
       {contextHolder}
-      <div className="flex justify-start pt-5 pl-5 text-blue-800  items-center gap-2">
+      <div className="flex justify-start pt-5 pl-5 text-customBlue  items-center gap-2">
           <Link to="/"><IoIosArrowBack  size={30} className="md:-ml-36 lg:-ml-0" /></Link>
       
         </div>
       
 
-      <div className="flex flex-col h-fit py-5 justify-center gap-4 flex-grow text-blue-800 text-sm px-5">
+      <div className="flex flex-col h-fit py-5 justify-center gap-4 flex-grow text-customBlue text-sm px-5">
         <div className="flex flex-col justify-center items-center gap-2">
-          <p className="text-xl font-semibold  text-blueColor">Sign Up</p>
-          <h5 className="text-lg font-semibold  text-blueColor">Create an Account</h5>
+          <p className="text-xl font-semibold  text-customBlue ">Sign Up</p>
+          <h5 className="text-[16px] font-semibold  text-customBlue ">Create an Account</h5>
         </div>
         <div className="w-full flex flex-col relative">
-          <label htmlFor="refId" className="font-sans py-2 font-semibold text-blueColor">
+          <label htmlFor="refId" className="py-2 text-[12.5px]  font-semibold text-customBlue ">
             Referral ID
           </label>
           <input
@@ -258,27 +262,27 @@ const Signup = () => {
             name="uplineId"
             value={data.uplineId}
             placeholder="Enter Referral ID"
-            className="w-full py-2 rounded-md px-5 hover:bg-transparent focus:bg-white text-black"
+            className="w-full py-2  rounded-md px-5 border-[1.5px] border-gray-400 hover:bg-transparent focus:bg-white text-black"
             onChange={handleChange}
           />
           <Button
             loading={verifyLoading}
             type="button"
-            className="absolute font-customArial bg-buttonbg text-white rounded-md bottom-[0.20rem] right-[0.25rem] px-6"
+            className="absolute text-[13px] font-semibold bg-buttonbg text-white rounded-sm bottom-[0.1rem] right-[0rem] h-9 px-6"
             onClick={handleVerify}
           >
             Verify
           </Button>
         </div>
         {showRefDetails ? (
-          <div className="flex flex-col justify-center items-center">
+          <div className="flex flex-col text-[13px] justify-center  text-customBlue items-center">
             <p>User Name: {refDetails.userName}</p>
             <p>Ref ID: {refDetails.refId}</p>
           </div>
         ) : null}
         <form className="flex flex-col w-full gap-3" onSubmit={handleSubmit}>
           <div className="w-full flex flex-col gap-2 relative">
-            <label htmlFor="userName" className="font-sans font-semibold text-blueColor">
+            <label htmlFor="userName" className=" text-[12.5px] font-semibold  text-customBlue">
               Enter Your Name
             </label>
             <input
@@ -286,13 +290,13 @@ const Signup = () => {
               name="userName"
               placeholder=""
               readOnly={readOnly}
-              className="w-full py-2 rounded-md px-5 hover:bg-transparent  text-black focus:bg-white"
+              className="w-full py-2 rounded-md px-5 hover:bg-transparent border-[1.5px]   border-gray-400 bg-white text-black focus:bg-white"
               onChange={handleChange}
               required
             />
           </div>
           <div className="w-full flex flex-col gap-2 relative">
-            <label htmlFor="email" className="font-sans font-semibold text-blueColor">
+            <label htmlFor="email" className="font-sans font-semibold  text-customBlue">
               Email
             </label>
             <input
@@ -300,14 +304,14 @@ const Signup = () => {
               name="email"
               placeholder=""
               readOnly={readOnly}
-              className="w-full py-2 rounded-md pl-5 pr-28 hover:bg-transparent  text-black focus:bg-white"
+              className="w-full py-2 rounded-md pl-5 pr-28 hover:bg-transparent  border-[1.5px] border-gray-300 text-black focus:bg-white"
               onChange={handleChange}
               required
             />
             <Button
               loading={sendOTPLoading}
               type="button"
-              className="absolute font-customArial bg-buttonbg text-white  rounded-md bottom-1 right-1 px-3 py-1"
+              className="absolute text-[13px] font-semibold hover:background-none bg-buttonbg text-white rounded-sm bottom-[0.1rem] right-[0rem] h-9 px-3 py-1"
               onClick={handleSendOTP}
               disabled={timer > 0}
             >
@@ -319,7 +323,7 @@ const Signup = () => {
               <div className="flex flex-col gap-2 justify-center w-full">
                 <label
                   htmlFor="email"
-                  className="font-customArial font-semibold text-8px text-blueColor"
+                  className="text-[12.5px] font-semibold   text-customBlue"
                 >
                   OTP
                 </label>
@@ -361,7 +365,7 @@ const Signup = () => {
             )}
           </div>
           <div className="flex flex-col gap-2 justify-center items-start w-full">
-            <h1 className="font-sans font-semibold text-blueColor">Enter Captcha</h1>
+            <h1 className="font-sans font-semibold  text-customBlue">Enter Captcha</h1>
             <p className="text-center w-full py-1 text-sm rounded-md mx-auto tracking-[1rem]  text-black bg-white select-none relative">
               {captchaText}
               <IoReload
@@ -380,7 +384,7 @@ const Signup = () => {
           </div>
           <div className="flex w-full justify-center items-center mt-5 relative">
             <button
-              className="font-customArial bg-buttonbg w-fit mx-auto text-white px-5 py-1 rounded-md flex items-center justify-center"
+              className="bg-customBlue text-[13px] font-medium w-fit mx-auto text-white px-6 py-2 rounded-md flex items-center justify-center"
               type="submit"
               disabled={submitLoading}
             >
@@ -391,11 +395,11 @@ const Signup = () => {
             </button>
           </div>
           <div className="flex text-sm items-center justify-center w-full">
-            <p className="font-sans py-3 text-blueColor">
+            <p className="py-3  text-customBlue">
               Already have an account?
-              <Link to={`/`} className="text-[16px] font-customArial font-semibold text-blueColor">
+              <Link to={`/`} className="text-[16px] font-semibold  text-customBlue">
                 {" "}
-                Sign In
+                Login
               </Link>
             </p>
           </div>

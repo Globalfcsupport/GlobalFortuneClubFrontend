@@ -129,9 +129,10 @@ const FormikSignIn = () => {
       } else {
         message.error("Please Enter Valid Captcha");
       }
-    } else {
-      message.error("Please Enter OTP");
-    }
+    } 
+    // else {
+    //   message.error("Please Enter OTP");
+    // }
     setSubmitLoading(false);
   };
 
@@ -152,18 +153,19 @@ const FormikSignIn = () => {
       {contextHolder}
       <div className="h-full py-5 overflow-y-scroll w-full flex justify-center items-center">
         <div className="gap-5 flex flex-col justify-center items-center">
-          <div className="flex justify-center items-center flex-col gap-6">
-            <img src={Logo} className="w-[32%]" alt="Logo" />
-            <h2 className="text-xl font-sans font-medium text-blueColor">Welcome Back!</h2>
-            <p className="text-xs">Please Enter Your Email and OTP</p>
+          <div className="flex justify-center items-center flex-col gap-1">
+            <img src={Logo} className="w-[28%]" alt="Logo" />
+            <p className="text-blueColor mt-5 text-xl font-semibold">Login</p>
+            <h2 className="text-md mt-2.5 font-semibold text-blueColor">Welcome Back !</h2>
+            
           </div>
-          <div className="p-7 flex justify-center items-center w-full">
+          <div className="px-5 flex justify-center items-center w-full">
             <form
               className="flex flex-col justify-center items-start w-full gap-5"
               onSubmit={handleSubmit}
             >
-              <div className="flex flex-col gap-2 relative w-full">
-                <label htmlFor="email" className="font-sans font-medium text-blueColor">
+              <div className="flex flex-col gap-1 relative w-full">
+                <label htmlFor="email" className="font-medium text-[12px] text-blueColor">
                   Email
                 </label>
                 <input
@@ -171,13 +173,14 @@ const FormikSignIn = () => {
                   type="email"
                   name="email"
                   placeholder=""
-                  className="w-full py-3 rounded-md pl-4 pr-32 text-sm hover:bg-transparent focus:bg-white"
+                  className="w-full py-2.5 rounded-md pl-4 pr-32 text-sm border-[1.5px] border-black hover:bg-transparent"
+                  focus:bg-white focus:outline-none focus:border-none 
                   onChange={(e) => setEmail(e.target.value)}
                   
                 />
-                <Button
+                <button
                   loading={sendOTPLoading}
-                  className="font-customArial absolute bg-buttonbg text-white px-5 py-1 rounded-md bottom-[0.375rem] h-9 right-[0.325rem]"
+                  className="absolute text-[10px] font-medium bg-customBlue mt-2 text-white rounded-md top-[0.95rem] bottom-[0.375rem] h-10 right-[0.100rem] w-20  hover:shadow-sm"
                   onClick={handleSendOTP}
                   disabled={timer > 0}
                 >
@@ -186,13 +189,14 @@ const FormikSignIn = () => {
                     : sendOTPLoading
                     ? "Sending"
                     : "Send OTP"}
-                </Button>
+                </button>
+                
               </div>
-              {showOTPInput && (
-                <div className="flex flex-col gap-2 justify-center w-full">
+              {/* {showOTPInput && ( */}
+                <div className="flex mt-2 flex-col gap-1 justify-center w-full">
                   <label
                     htmlFor="email"
-                    className="font-sans font-semibold text-blueColor text-center"
+                    className="font-medium text-[12px] text-blueColor "
                   >
                     OTP
                   </label>
@@ -231,9 +235,9 @@ const FormikSignIn = () => {
                     />
                   </div>
                 </div>
-              )}
-              <div className="flex flex-col gap-2 items-start w-full">
-                <h1 className="font-sans font-semibold text-blueColor">Enter Captcha</h1>
+               {/* )} */}
+              <div className="flex mt-2 flex-col gap-1 items-start w-full">
+                <h1 className="font-medium text-[12px] text-blueColor">Enter Captcha</h1>
                 <p className="text-center w-full py-1 text-sm rounded-md mx-auto tracking-[1rem] bg-white relative select-none">
                   {captchaText}
                   <IoReload
@@ -243,24 +247,24 @@ const FormikSignIn = () => {
                 </p>
                 <input
                   placeholder="Enter Captcha"
-                  className="py-2 w-full rounded-md pl-2 text-xs hover:bg-transparent focus:bg-white"
+                  className="py-2 mt-1 w-full rounded-md pl-2 text-xs hover:bg-transparent focus:bg-white"
                   onChange={(e) => setCaptcha(e.target.value)}
                 />
               </div>
 
-              <div className="flex w-full justify-center items-center mt-5">
-                <Button
+              <div className="flex w-full justify-center items-center mt-4">
+                <button
                   loading={submitLoading}
-                  className="font-customArial bg-buttonbg w-fit mx-auto text-white px-5 py-1 rounded-md"
+                  className=" bg-buttonbg w-fit mx-auto text-white text-[12px] font-semibold px-6 py-2 rounded-md"
                   onClick={handleSubmit}
                 >
                   Submit
-                </Button>
+                </button>
               </div>
-              <div className="flex text-sm items-center justify-center w-full">
-                <p className="font-sans text-blueColor">
+              <div className="flex items-center justify-center w-full">
+                <p className="text-blueColor text-[14px]">
                   Don't you have an account?{" "}
-                  <Link to={`/Signup`} className="text-[16px] font-medium text-blueColor">
+                  <Link to={`/Signup`} className="text-[15px] font-semibold text-customBlue">
                     Sign Up
                   </Link>
                 </p>

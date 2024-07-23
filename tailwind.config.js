@@ -17,16 +17,17 @@ export default {
         buttonbg:"#415799",
         customgey:"#9a9a9a",
         customGray: 'rgb(158, 158, 158)',
-        customLightGray :"#ededed"
+        customLightGray :"#ededed",
+        customBlue : "#3D5898"
 
       },
-      fontFamily: {
-        poppins: ['"Poppins"', ...defaultTheme.fontFamily.sans],
-        customArial: ['CustomArial', 'Arial', 'sans-serif'],
-        customRoborto:['CustomRoberto', 'Roboto'],
-        inter:['inter']
+      // fontFamily: {
+      //   poppins: ['"Poppins"', ...defaultTheme.fontFamily.sans],
+      //   customArial: ['CustomArial', 'Arial', 'sans-serif'],
+      //   customRoborto:['CustomRoberto', 'Roboto'],
+      //   inter:['inter']
         
-      },
+      // },
       fontSize: {
         xss: '10px'
       },

@@ -11,11 +11,26 @@ import { MdKeyboardArrowLeft } from "react-icons/md";
 const Sidebar = ({ isOpen, toggleSidebar }) => {
   const [ data, setData ] = useState({});
 
-  useEffect(()=> {
-    data['userName'] = localStorage.getItem('userName');
-    data['email'] = localStorage.getItem('email');
-    data['refId'] = localStorage.getItem('refId');
-  }, [])
+
+//old code 
+  // useEffect(()=> {
+  //   data['userName'] = localStorage.getItem('userName');
+  //   data['email'] = localStorage.getItem('email');
+  //   data['refId'] = localStorage.getItem('refId');
+  // }, [])
+//updated
+  useEffect(() => {
+    const capitalizeFirstLetter = (string) => {
+      if (!string) return '';
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    };
+
+    setData({
+      userName: capitalizeFirstLetter(localStorage.getItem('userName')),
+      email: localStorage.getItem('email'),
+      refId: localStorage.getItem('refId'),
+    });
+  }, []);
   
   return (
     <div
@@ -32,14 +47,16 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             </button>
       <div className="pt-8 overflow-y-scroll  h-screen">
         {/* User Info */}
-        <div className="flex items-center mt-6 bg-primary w-full p-2  text-sm">
-          <div className="w-12 h-12 bg-white p-1 rounded-full mr-4">
+        <div className="flex items-center mt-6 gap-1 bg-primary w-full p-3 text-sm">
+          <div className="w-12 h-12 bg-white p-0.5 rounded-full mr-4">
             <img src={Logo} alt="" />
           </div>
-          <div>
-            <div className="font-bold text-white">{data.userName}</div>
-            <div className="text-gray-300 text-[10px]">{data.email}</div>
-            <div className="text-gray-300 text-[10px]">{data.refId}</div>
+          <div className=' text-white'>
+          
+          
+            <div className="font-bold text-[14px] pl-1.5 m-[-0.40rem] mb-1  ">{data.userName}</div>
+            <div className=" text-[10.5px] pl-1.5 m-[-0.40rem] font-medium">{data.email}</div>
+            <div className=" text-[10.5px] m-[-0.40rem] font-medium pl-1.5">ID: {data.refId}</div>
           </div>
         </div>
         {/* Sidebar Links */}
