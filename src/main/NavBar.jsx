@@ -1,78 +1,84 @@
 import React, { useEffect, useState } from 'react';
-import { FaArrowLeft, FaEnvelope } from 'react-icons/fa';
-import { GiFlowerEmblem } from 'react-icons/gi';
-import Sidebar from '../main/SideBar'; // Adjust the import path if necessary
 import { useLocation, useNavigate } from 'react-router';
-import useCustomHistory from '../Components/useCustomHistory';
 import { IoGrid } from "react-icons/io5";
 import { IoIosArrowBack } from "react-icons/io";
 import { BiSolidMessageRoundedDetail } from "react-icons/bi";
+import Sidebar from '../main/SideBar'; // Adjust the import path if necessary
 
 const NavBar = () => {
   const location = useLocation();
   const currentPage = location.pathname.split('/');
   const navigate = useNavigate();
-  const [ customHistory, setCustomHistory ] = useState(new Set());
-  // const { navigateBack } = useCustomHistory();
-
+  const [customHistory, setCustomHistory] = useState(new Set());
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
   };
-  
-  const handleNavigate = ()=> {
-    
+
+  const handleNavigate = () => {
     const uniquePaths = Array.from(customHistory);
-    // console.log(uniquePaths);
-    if(uniquePaths[uniquePaths.length-1]===location.pathname){
-      navigate(uniquePaths[uniquePaths.length-2])
+    const currentPathIndex = uniquePaths.indexOf(location.pathname);
+
+    if (currentPathIndex > 0) {
+      const previousPath = uniquePaths[currentPathIndex - 1];
+      uniquePaths.splice(currentPathIndex, 1);
+      setCustomHistory(new Set(uniquePaths));
+      navigate(previousPath);
+    } else if (uniquePaths.length > 1) {
+      const previousPath = uniquePaths[uniquePaths.length - 2];
       uniquePaths.pop();
       setCustomHistory(new Set(uniquePaths));
+      navigate(previousPath);
     }
-    else{
-      navigate(uniquePaths[uniquePaths.length-1])
-      uniquePaths.pop()
-      setCustomHistory(new Set(uniquePaths));
-    }
-  }
+  };
+
+  useEffect(() => {
+    setCustomHistory(prevHistory => {
+      const newHistory = new Set(prevHistory);
+      if (newHistory.has(location.pathname)) {
+        newHistory.delete(location.pathname);
+      }
+      newHistory.add(location.pathname);
+      return newHistory;
+    });
+  }, [location]);
+
+  const toTitleCase = (str) => {
+    const customMappings = {
+      "FCSlots": "FC Slots",
+      "MyReferrals": "My Referrals",
+      
+    };
   
-  useEffect(()=> {
-    if(customHistory.has(location.pathname)){
-      customHistory.delete(location.pathname);
+    if (customMappings.hasOwnProperty(str)) {
+      return customMappings[str];
     }
-    customHistory.add(location.pathname);
-    customHistory.delete()
-    // console.log("set", customHistory);  
-  }, [location])
+  
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  };
+  
+  const pageTitle = toTitleCase(currentPage[2] || ''); // Safeguard if currentPage[2] is undefined
 
   return (
     <div className="h-full w-full rounded-tr-3xl rounded-tl-3xl bg-customLightGray">
       <div className="flex items-center justify-between p-3">
         <div className="flex items-center justify-center gap-6">
           <div className='flex gap-2'>
-          <div className='p-2 bg-white rounded-full'><IoGrid
-            className="text-xl text-primary cursor-pointer"
-            onClick={toggleSidebar}
-          /></div>
-          
-          <div className='p-2 text-center bg-white rounded-full'>
-          <IoIosArrowBack className="text-[20px] text-primary cursor-pointer" onClick={handleNavigate}/>
-
+            <div className='p-2 bg-white rounded-full'>
+              <IoGrid className="text-xl text-primary cursor-pointer" onClick={toggleSidebar} />
+            </div>
+            <div className='p-2 text-center bg-white rounded-full'>
+              <IoIosArrowBack className="text-[20px] text-primary cursor-pointer" onClick={handleNavigate} />
+            </div>
           </div>
-          </div>
-          
-
         </div>
-        <h1 className="text-lg font-normal text-textColour -ml-5">{currentPage[2]}</h1>
-
+        <h1 className="text-[17px] font-normal text-textColour -ml-5">{pageTitle}</h1>
         <div className='p-2 bg-white rounded-full'>
-        <BiSolidMessageRoundedDetail onClick={()=>navigate('/app/Chats')} className="text-[22px] text-primary cursor-pointer" />
-
+          <BiSolidMessageRoundedDetail onClick={() => navigate('/app/Chats')} className="text-[22px] text-primary cursor-pointer" />
         </div>
       </div>
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-    
     </div>
   );
 };

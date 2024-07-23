@@ -79,16 +79,16 @@ const DashBoard = () => {
   };
 
   return (
-    <div className="h-full relative font-customRoborto ">
+    <div className="h-full relative ">
       {contextHolder}
-      <div className="bg-primary p-3 flex justify-between items-center text-white">
+      <div className="bg-primary px-4 py-3 flex justify-between items-center text-white">
         <div>
-          <p className="text-sm font-semibold"> {data?.userName}</p>
-          <p className="text-sm"> ID: {data.refId}</p>
+          <p className="text-[12.5px] font-semibold"> {data?.userName}</p>
+          <p className="text-[10px]"> ID: {data.refId}</p>
         </div>
         <button
           disabled={data.started ? true : false}
-          className="bg-white text-primary px-5 font-medium py-1 rounded"
+          className="bg-white text-primary text-[15px] px-5 font-medium py-1 rounded"
           onClick={ClubActivation}
         >
           {data.started ? "Running" : "Start"}
@@ -111,9 +111,11 @@ const DashBoard = () => {
                 title="Your primary wallet for all transactions within the platform. You can top up funds, buy slots, and make internal transfers using the balance in your My Wallet."
                 placement="bottomRight"
                 getPopupContainer={(triggerNode) => triggerNode.parentNode}
+                overlayClassName="custom-tooltip" 
                 color="rgba(128, 128, 128, 1)"
+                
               >
-                <FiAlertCircle className="text-textColour cursor-pointer"></FiAlertCircle>
+                <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer justify-center"></FiAlertCircle>
               </Tooltip>
               <span className="text-textColour">My Wallet</span>
             </div>
@@ -126,7 +128,7 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-textColour text-2xl" />
+                <MdKeyboardArrowRight className="text-[#e5e5e5] size-6" />
               </p>
             </div>
           </div>
@@ -143,9 +145,10 @@ const DashBoard = () => {
                 title="Set a reserve amount to safeguard a portion of your funds. If your My Wallet balance falls below this reserve amount, automatic slot purchases will be paused to prevent overspending."
                 placement="bottomRight"
                 getPopupContainer={(triggerNode) => triggerNode.parentNode}
+                overlayClassName="custom-tooltip"
                 color="rgba(128, 128, 128, 1)"
               >
-                <FiAlertCircle className="text-textColour cursor-pointer" />
+                <FiAlertCircle className="text-[#9da4af] size-[11px]  cursor-pointer" />
               </Tooltip>
               <span className="text-textColour text-sm">Reserve - My Wallet</span>
             </div>
@@ -164,9 +167,10 @@ const DashBoard = () => {
                 title="A dedicated wallet where 50% of the split amounts from slot purchases are deposited. Funds in Crowd Stack cannot be withdrawn but can only be used to buy slots.."
                 placement="bottomRight"
                 getPopupContainer={(triggerNode) => triggerNode.parentNode}
+                overlayClassName="custom-tooltip"
                 color="rgba(128, 128, 128, 1)"
               >
-                <FiAlertCircle className="text-textColour cursor-pointer" />
+                <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
               </Tooltip>
               <span className="text-textColour">Crowd Stacking</span>
             </div>
@@ -179,7 +183,7 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-textColour text-2xl" />
+                <MdKeyboardArrowRight className="text-[#e5e5e5] size-6" />
               </p>
             </div>
           </div>
@@ -193,10 +197,11 @@ const DashBoard = () => {
                 title="Displays the number of slots currently active and generating dividends foryou."
                 placement="bottomRight"
                 getPopupContainer={(triggerNode) => triggerNode.parentNode}
+                overlayClassName="custom-tooltip"
                 color="rgba(128, 128, 128, 1)"
               >
                 {" "}
-                <FiAlertCircle className="text-textColour cursor-pointer" />
+                <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
               </Tooltip>
 
               <span className="text-textColour">Active Slots</span>
@@ -209,7 +214,7 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-textColour text-2xl" />
+                <MdKeyboardArrowRight className="text-[#e5e5e5] size-6" />
               </p>
             </div>
           </div>
@@ -223,9 +228,10 @@ const DashBoard = () => {
                 title="Shows the number of slots you have successfully exited, earning you dividends and platform fees."
                 placement="bottomRight"
                 getPopupContainer={(triggerNode) => triggerNode.parentNode}
+                overlayClassName="custom-tooltip"
                 color="rgba(128, 128, 128, 1)"
               >
-                <FiAlertCircle className="text-textColour cursor-pointer" />
+                <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
               </Tooltip>
               <span className="text-textColour">Completed Slots</span>
             </div>
@@ -237,7 +243,7 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-textColour text-2xl cursor-pointer" />
+                <MdKeyboardArrowRight className="text-[#e5e5e5] size-6cursor-pointer" />
               </p>
             </div>
           </div>
@@ -250,10 +256,11 @@ const DashBoard = () => {
                 title="The amount of dividend income earned from slot purchases within the current day."
                 placement="bottomRight"
                 getPopupContainer={(triggerNode) => triggerNode.parentNode}
+                overlayClassName="custom-tooltip"
                 color="rgba(128, 128, 128, 1)"
               >
                 {" "}
-                <FiAlertCircle className="text-textColour cursor-pointer" />
+                <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
               </Tooltip>
 
               <span className="text-textColour">Yield - Today</span>
@@ -271,9 +278,10 @@ const DashBoard = () => {
                 title="    Total dividend income earned from slot purchases since joining the platform"
                 placement="bottomRight"
                 getPopupContainer={(triggerNode) => triggerNode.parentNode}
+                overlayClassName="custom-tooltip"
                 color="rgba(128, 128, 128, 1)"
               >
-                <FiAlertCircle className="text-textColour cursor-pointer" />
+                <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
               </Tooltip>
               <span className="text-textColour">Yield - Overall</span>
             </div>
@@ -294,9 +302,10 @@ const DashBoard = () => {
                 slot purchases within the current day."
                 placement="bottomRight"
                 getPopupContainer={(triggerNode) => triggerNode.parentNode}
+                overlayClassName="custom-tooltip"
                 color="rgba(128, 128, 128, 1)"
               >
-                <FiAlertCircle className="text-textColour cursor-pointer" />
+                <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
               </Tooltip>
               <span className="text-textColour">Refferal Income - Today</span>
             </div>
@@ -308,7 +317,7 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-textColour text-2xl" />
+                <MdKeyboardArrowRight className="text-[#e5e5e5] size-6" />
               </p>
             </div>
           </div>
@@ -324,7 +333,7 @@ const DashBoard = () => {
                 getPopupContainer={(triggerNode) => triggerNode.parentNode}
                 color="rgba(128, 128, 128, 1)"
               >
-                <FiAlertCircle className="text-textColour cursor-pointer" />
+                <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
               </Tooltip>
               <span className="text-textColour">Refferal Income - Overall</span>
             </div>
@@ -336,7 +345,7 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-textColour text-2xl" />
+                <MdKeyboardArrowRight className="text-[#e5e5e5] size-6" />
               </p>
             </div>
           </div>
@@ -350,9 +359,10 @@ const DashBoard = () => {
                 title="The total amount of cryptocurrency deposited into your account as top-ups"
                 placement="bottomRight"
                 getPopupContainer={(triggerNode) => triggerNode.parentNode}
+                overlayClassName="custom-tooltip"
                 color="rgba(128, 128, 128, 1)"
               >
-                <FiAlertCircle className="text-textColour cursor-pointer" />
+                <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
               </Tooltip>
               <span className="text-textColour">Total Crypto Top-Up</span>
             </div>
@@ -364,7 +374,7 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-textColour text-2xl" />
+                <MdKeyboardArrowRight className="text-[#e5e5e5] size-6" />
               </p>
             </div>
           </div>
@@ -377,9 +387,10 @@ const DashBoard = () => {
                 title="The total amount of cryptocurrency withdrawn from your account."
                 placement="bottomRight"
                 getPopupContainer={(triggerNode) => triggerNode.parentNode}
+                overlayClassName="custom-tooltip"
                 color="rgba(128, 128, 128, 1)"
               >
-                <FiAlertCircle className="text-textColour cursor-pointer" />
+                <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
               </Tooltip>
               <span className="text-textColour">Total Crypto Withdraw</span>
             </div>
@@ -391,7 +402,7 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-textColour text-2xl" />
+                <MdKeyboardArrowRight className="text-[#e5e5e5] size-6" />
               </p>
             </div>
           </div>
@@ -426,9 +437,10 @@ const DashBoard = () => {
                 from internal transfers within the platform."
                 placement="topRight"
                 getPopupContainer={(triggerNode) => triggerNode.parentNode}
+                overlayClassName="custom-tooltip"
                 color="rgba(128, 128, 128, 1)"
               >
-                <FiAlertCircle className="text-textColour cursor-pointer" />
+                <FiAlertCircle className="text-gray-400 size-3 cursor-pointer" />
               </Tooltip>
               <span className="text-textColour">Total Internal Transfer IN</span>
             </div>
@@ -440,7 +452,7 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-textColour text-2xl" />
+                <MdKeyboardArrowRight className="text-[#e5e5e5] size-6" />
               </p>
             </div>
           </div>
@@ -454,9 +466,10 @@ const DashBoard = () => {
                 internal transfers within the platform."
                 placement="topRight"
                 getPopupContainer={(triggerNode) => triggerNode.parentNode}
+                overlayClassName="custom-tooltip"
                 color="rgba(128, 128, 128, 1)"
               >
-                <FiAlertCircle className="text-textColour cursor-pointer" />
+                <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
               </Tooltip>
               <span className="text-textColour">Total Internal Transfer OUT</span>
             </div>
@@ -468,7 +481,7 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-textColour text-2xl" />
+                <MdKeyboardArrowRight className="text-[#e5e5e5] size-6" />
               </p>
             </div>
           </div>
@@ -552,10 +565,10 @@ const DashBoard = () => {
           onClick={handleClick}
         >
           <div
-            className="bg-purple-50 p-5 border border-black rounded-xl h-[200px] flex flex-col gap-5"
+            className="bg-purple-50 w-max p-8 rounded-xl h-[210px] opacity-100 flex flex-col gap-5"
             onClick={(e) => e.stopPropagation()} 
           >
-            <p className="text-lg font-semibold">Reserve - My Wallet</p>
+            <p className="text-lg  font-semibold">Reserve - My Wallet</p>
             <input
               type="text"
               className="px-4 py-3 text-sm rounded-lg border"
@@ -567,7 +580,7 @@ const DashBoard = () => {
               <button
                 type="button"
                 onClick={handleConfirm}
-                className="bg-primary  px-5 rounded-full text-sm py-1 text-white"
+                className="bg-primary w-25 px-5 rounded-lg text-sm py-1.5 text-white"
               >
                 Update
               </button>

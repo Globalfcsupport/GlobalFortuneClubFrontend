@@ -71,3 +71,13 @@ input[type='number'] {
   display: none;
 }
 
+.custom-tooltip .ant-tooltip-inner {
+  text-align: center;
+  font-size: small;
+  height: fit-content;
+  padding: 8px;
+  
+}
+
+
+
