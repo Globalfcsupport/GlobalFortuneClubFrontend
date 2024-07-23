@@ -6,7 +6,7 @@ import { CiCircleMinus } from "react-icons/ci";
 import { getMywallet } from "../services/services";
 import DateComponent from "./datePipeline";
 import TimeComponents from "./timePipeline";
-
+import { getDateFilterByMywallet } from "../services/services";
 
 const Wallet = () => {
   const [activeTab, setActiveTab] = useState("All");
@@ -68,65 +68,84 @@ const Wallet = () => {
   useEffect(() => {
     getWalletDatas();
   }, [query]);
+
+  const getWalletDataByDateFilter = async (date) => {
+    await getDateFilterByMywallet(query, date)
+      .then((res) => {
+        console.log(res.data)
+        if (res.data) {
+          setWallet(res.data.myWallet);
+          SetData(res.data.allTransactions);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleDateFilter = (e) => {
+    const getDate = e.target.value;
+    getWalletDataByDateFilter(getDate);
+  };
   return (
-    <div className=" text-sm w-full flex flex-col">
-      <div className="flex justify-between bg-primary p-5">
-        <div className="flex flex-col justify-center items-center">
-          <label className="text-white" id="calendar">Transaction Date</label>
+    <div className="  w-full flex flex-col  ">
+      <div className="flex justify-between  h-25 bg-primary py-3 px-3 ">
+        <div className="flex flex-col justify-center items-bot">
+          <label className="text-white" id="calendar">
+            Transaction Date
+          </label>
           <input
             type="date"
             name="todayReferral"
             htmlFor="calendar"
             className="mt-1 border rounded-md w-28 py-1 px-2 outline-none text-[0.6rem]"
-           
-          />
+            onChange={handleDateFilter}
+          />
         </div>
-        <div className="flex flex-col justify-end items-end">
-          <p className="text-white">My Wallet</p>
-          <p className="mt-1 bg-white border rounded-md w-28 text-right py-1 px-2 pl-5">
+        <div className="flex flex-col justify-end items-end py-1">
+          <p className="text-white text-[12px] ">My Wallet</p>
+          <p className=" h-5 mt-1 bg-white border rounded-md w-20 text-right   px-1 ">
             {wallet}
           </p>
         </div>
       </div>
-      <div className="flex duration-200 relative justify-between px-3 bg-primary items-center w-full">
+      <div className="flex duration-200 relative justify-between px-0 bg-primary h-7  items-center w-full  ">
         <button
           onClick={() => {
             handleTabClick("All"), setQuery("all");
           }}
-          className={`w-28 py-2.5 flex flex-col justify-center items-center duration-200 focus:outline-none ${
+          className={`w-28 py-1 flex flex-col gap-2 justify-center items-center focus:outline-bg-none text-xs transition duration-1000 ease-in-out ${
             activeTab === "All"
-              ? "bg-white text-blue-800  rounded-t-md"
+              ? "bg-white text-black  rounded-t-md"
               : "text-white"
           }`}
         >
           All{" "}
-          <p className="w-14 h-0.5 bg-primary rounded-full flex justify-center items-center"></p>
+          <p className="w-7 h-0.5 bg-primary rounded-full flex justify-center items-center "></p>
         </button>
         <button
           onClick={() => {
             handleTabClick("Crypto"), setQuery("Crypto");
           }}
-          className={`w-28 py-2.5 flex flex-col justify-center items-center duration-200 focus:outline-none ${
+          className={`w-28 py-1 flex flex-col gap-2 justify-center items-center  focus:outline-none text-[12px] transition duration-1000 ease-in-out ${
             activeTab === "Crypto"
-              ? "bg-white text-blue-800 rounded-t-md"
+              ? "bg-white text-black rounded-t-md"
               : "text-white"
           }`}
         >
           Crypto{" "}
-          <p className="w-14 h-0.5 bg-primary rounded-md flex justify-center items-center"></p>
+          <p className="w-10 h-0.5 bg-primary rounded-md flex justify-center items-center"></p>
         </button>
         <button
           onClick={() => {
             handleTabClick("Internal"), setQuery("Internal");
           }}
-          className={`w-28 py-2.5 flex flex-col justify-center items-center duration-200 focus:outline-none ${
+          className={`w-28 py-1 flex flex-col gap-2 justify-center items-center  focus:outline-none text-[12px] transition duration-1000 ease-in-out  ${
             activeTab === "Internal"
-              ? "bg-white text-blue-800 rounded-t-md"
+              ? "bg-white text-black rounded-t-md"
               : "text-white"
           }`}
         >
           Internal{" "}
-          <p className="w-14 h-0.5 bg-primary rounded-full flex justify-center items-center"></p>
+          <p className="w-12 h-0.5 bg-primary rounded-full flex justify-center items-center"></p>
         </button>
 
         {/* <span className={`h-1 absolute bottom-0 transition-all duration-75 ${activeTab === 'All' ? 'left-0 w-12' : activeTab === 'Crypto' ? 'left-1/3 w-16' : 'right-0 w-20'}`}></span> */}
@@ -193,43 +212,43 @@ const Wallet = () => {
                   <CiCircleMinus size={30} className="text-red-600" />
                 )}
                 <div>
-                  <p>{item.type}</p>
-                  <p>
-                    <DateComponent date={item.createdAt} />
+                  <p className="text-sm">{item.type}</p>
+                  <p className="text-sm">
+                    <DateComponent date={item.date} />
                     &nbsp;&nbsp;
-                    <TimeComponents date={item.createdAt} />
+                    <TimeComponents date={item.date} />
                   </p>
                 </div>
-                <p>${item.amount}</p>
+                <p>{`$${parseInt(item.amount).toFixed(4)}`}</p>
               </div>
             ))}
         </div>
       </div>
       <div
       
-        className="absolute bottom-0 left-0 w-full shadow-none  p-3 px-8 gap-1  grid grid-cols-3 bg-secondary rounded-b-full justify-between"
+        className="absolute bottom-0 left-2 w-full shadow-none  pt-1 pb-4  gap-1 selection:  grid grid-cols-3 bg-[#eeeeee] rounded-b-2xl justify-between"
         style={{
-          width: "350px",
+          width: "300px",
           left: "50%",
           transform: "translateX(-50%)",
         }}
       >
         <Link
           to="/app/TopUp"
-          className="h-9 bg-primary text-center text-white py-2 px-3 text-sm rounded-md"
+          className="h-7 bg-primary text-center text-white text-[15px] rounded   p-1 text-nowrap  "
         >
           Top Up
         </Link>
         <Link
           to="/app/chats"
-          className="h-9 bg-primary text-center text-white py-2 text-sm px-3  rounded-md"
+          className="h-7 bg-primary text-center text-white text-[12px]   rounded   p-1 text-nowrap  "
         >
           Transfer
         </Link>
 
         <Link
           to="/app/Withdraw"
-          className="h-9 bg-primary text-center text-white py-2 px-3 text-sm rounded-md"
+          className="h-7 bg-primary text-center text-white text-[12px] rounded   p-1 text-nowrap  "
         >
           Withdraw
         </Link>

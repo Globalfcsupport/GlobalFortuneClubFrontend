@@ -114,3 +114,10 @@ export const signupOTP = async (data)=>{
   let response = await useAxiosInterceptors.post("/auth/user/signup/otp", data)
   return response
 }
+
+export const getDateFilterByMywallet = async (query, date) => {
+  let response = await useAxiosInterceptors.get(
+    `/user/get/withdraw/details?type=${query}&date=${date}`
+  );
+  return response;
+};
