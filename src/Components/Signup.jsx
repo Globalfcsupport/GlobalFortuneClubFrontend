@@ -246,8 +246,8 @@ const Signup = () => {
 
       <div className="flex flex-col h-fit py-5 justify-center gap-4 flex-grow text-blue-800 text-sm px-5">
         <div className="flex flex-col justify-center items-center gap-2">
-          <p className="text-xl font-semibold font-customArial text-blueColor">Sign Up</p>
-          <h5 className="text-lg font-semibold font-customRoborto text-blueColor">Create an Account</h5>
+          <p className="text-xl font-semibold  text-blueColor">Sign Up</p>
+          <h5 className="text-lg font-semibold  text-blueColor">Create an Account</h5>
         </div>
         <div className="w-full flex flex-col relative">
           <label htmlFor="refId" className="font-sans py-2 font-semibold text-blueColor">

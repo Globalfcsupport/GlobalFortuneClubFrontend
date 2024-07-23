@@ -79,7 +79,7 @@ const DashBoard = () => {
   };
 
   return (
-    <div className="h-full relative  font-poppins">
+    <div className="h-full relative font-customRoborto ">
       {contextHolder}
       <div className="bg-primary p-3 flex justify-between items-center text-white">
         <div>

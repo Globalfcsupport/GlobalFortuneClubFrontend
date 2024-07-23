@@ -151,7 +151,7 @@ const FormikSignIn = () => {
     <>
       {contextHolder}
       <div className="h-full py-5 overflow-y-scroll w-full flex justify-center items-center">
-        <div className="gap-5 font-poppins flex flex-col justify-center items-center">
+        <div className="gap-5 flex flex-col justify-center items-center">
           <div className="flex justify-center items-center flex-col gap-6">
             <img src={Logo} className="w-[32%]" alt="Logo" />
             <h2 className="text-xl font-sans font-medium text-blueColor">Welcome Back!</h2>
@@ -163,7 +163,7 @@ const FormikSignIn = () => {
               onSubmit={handleSubmit}
             >
               <div className="flex flex-col gap-2 relative w-full">
-                <label htmlFor="email" className="font-sans font-semibold text-blueColor">
+                <label htmlFor="email" className="font-sans font-medium text-blueColor">
                   Email
                 </label>
                 <input
@@ -260,7 +260,7 @@ const FormikSignIn = () => {
               <div className="flex text-sm items-center justify-center w-full">
                 <p className="font-sans text-blueColor">
                   Don't you have an account?{" "}
-                  <Link to={`/Signup`} className="text-[16px] font-customRoborto font-semibold  text-blueColor">
+                  <Link to={`/Signup`} className="text-[16px] font-medium text-blueColor">
                     Sign Up
                   </Link>
                 </p>

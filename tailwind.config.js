@@ -23,7 +23,8 @@ export default {
       fontFamily: {
         poppins: ['"Poppins"', ...defaultTheme.fontFamily.sans],
         customArial: ['CustomArial', 'Arial', 'sans-serif'],
-        customRoborto:['CustomRoberto', 'Roboto']
+        customRoborto:['CustomRoberto', 'Roboto'],
+        inter:['inter']
         
       },
       fontSize: {

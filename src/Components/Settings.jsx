@@ -332,10 +332,10 @@ const Settings = () => {
             <option value="BEP20">BEP20</option>
           </select>
         </div>
-        <div>
+        <div className="flex items-center justify-center">
           <button
-           className="bg-primary m-2 mx-20 w-28 text-white font-semibold text-lg 
-          py-2 px-7 rounded-md focus:outline-none focus:shadow-outline"
+           className="bg-primary m-3 w-24 text-white font-semibold text-[16px]
+          px-3 py-2.5 rounded-md focus:outline-none focus:shadow-outline"
             onClick={showModal}
           >
             Logout
