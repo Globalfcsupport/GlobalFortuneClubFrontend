@@ -180,7 +180,7 @@ const TopUp = () => {
                   </div>
                   <p className="text-xs text-blue-600">
                     {item.status == "Paid"
-                      ? item.price
+                      ? parseInt(item.price).toFixed(4)
                       : item.status == "Expired"
                       ? "-"
                       : item.status == "Waiting"

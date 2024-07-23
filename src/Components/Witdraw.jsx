@@ -19,21 +19,26 @@ const Withdraw = () => {
   const [myDetails, setMydetails] = useState({});
   const [settting, setSetting] = useState({});
   const [usdtNetwork, setUsdtNetwork] = useState("");
-  const [activeTab, setActiveTab] = useState('active');
-
-
+  const [activeTab, setActiveTab] = useState("active");
 
   const handleUSDTAddress = () => {
     setEditUSDTAddress(!editUSDTAddress);
   };
 
   const handleChange = (e) => {
-    setData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
+    const { name, value } = e.target;
+    // Ensure the value is a number and doesn't exceed myDetails.myWallet
+    if (name === "amount") {
+      if (Number(value) > myDetails.myWallet) {
+        messageApi.warning(`Insufficient balance`);
+        return;
+      }
+    }
+    setData((prevState) => ({
+      ...prevState,
+      [name]: value,
     }));
   };
-
 
   const GetMydetails = async () => {
     try {
@@ -56,11 +61,14 @@ const Withdraw = () => {
   };
 
   useEffect(() => {
-    GetMydetails();
-    getSettings();
     const rmount = data.amount - (data.amount / 100) * networkFee;
     setReceivableAmount(rmount);
   }, [data.amount]);
+
+  useEffect(() => {
+    GetMydetails();
+    getSettings();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -95,27 +103,32 @@ const Withdraw = () => {
   };
 
   return (
-    <div className="w-full  bg-white flex flex-col h-full font-poppins text-sm overflow-y-auto" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+    <div
+      className="w-full  bg-white flex flex-col h-full font-poppins text-sm overflow-y-auto"
+      style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+    >
       {contextHolder}
 
       <div className="bg-primary pt-3 w-full h-screen">
         <div className="flex relative justify-between px-6 items-center w-full">
           <NavLink
             to="/app/TopUp"
-           
             className="py-2 px-5 focus:outline-none text-white"
           >
             TopUp
           </NavLink>
           <NavLink
             // to="/app/Withdraw"
-            
+
             className="py-2 px-5 focus:outline-none bg-white text-primary rounded-tr-lg rounded-tl-lg"
           >
             Withdraw
           </NavLink>
-          <span className={`h-0.5 bg-primary absolute w-12 rounded-lg bottom-1 transition-all duration-75 ${activeTab==='withdraw'? 'left-[13%] w-20': 'right-10 w-20 '}`}></span>
-        
+          <span
+            className={`h-0.5 bg-primary absolute w-12 rounded-lg bottom-1 transition-all duration-75 ${
+              activeTab === "withdraw" ? "left-[13%] w-20" : "right-10 w-20 "
+            }`}
+          ></span>
         </div>
       </div>
 
@@ -129,7 +142,10 @@ const Withdraw = () => {
         <div>
           <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
             <div className="flex flex-col gap-2 relative">
-              <label htmlFor="USDTAddress" className="text-primary font-semibold">
+              <label
+                htmlFor="USDTAddress"
+                className="text-primary font-semibold"
+              >
                 Enter Your USDT Address (TRC - 20)
               </label>
               <input
@@ -157,7 +173,10 @@ const Withdraw = () => {
               )}
             </div>
             <div className="flex flex-col gap-2 relative">
-              <label htmlFor="usdtNetwork" className="text-primary font-semibold">
+              <label
+                htmlFor="usdtNetwork"
+                className="text-primary font-semibold"
+              >
                 USDT Network
               </label>
               <select
@@ -190,7 +209,9 @@ const Withdraw = () => {
                   onChange={handleChange}
                   value={data.amount}
                 />
-                <span className="absolute right-3 top-1/2 transform -translate-y-1/2">USDT</span>
+                <span className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                  USDT
+                </span>
               </div>
             </div>
             <div className="flex flex-col gap-2 relative">
@@ -203,7 +224,9 @@ const Withdraw = () => {
                   value={networkFee + "%"}
                   className="px-3 py-1 rounded-md border-primary w-full border-none hover:bg-gray-50 bg-customLightGray"
                 />
-                <span className="absolute right-3 top-1/2 transform -translate-y-1/2">USDT</span>
+                <span className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                  USDT
+                </span>
               </div>
             </div>
             <div className="flex flex-col gap-2 relative">
@@ -218,10 +241,12 @@ const Withdraw = () => {
                   type="text"
                   className="px-3 py-1 rounded-md w-full border-none hover:bg-gray-50 bg-customLightGray"
                 />
-                <span className="absolute right-3 top-1/2 transform -translate-y-1/2">USDT</span>
+                <span className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                  USDT
+                </span>
               </div>
             </div>
-            
+
             <Button
               loading={loading}
               htmlType="submit"
