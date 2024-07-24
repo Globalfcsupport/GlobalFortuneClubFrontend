@@ -86,7 +86,7 @@ const Wallet = () => {
     getWalletDataByDateFilter(getDate);
   };
   return (
-    <div className="  w-full flex flex-col  ">
+    <div className="  w-full flex flex-col   ">
       <div className="flex justify-between  h-25 bg-primary py-3 px-3 ">
         <div className="flex flex-col justify-center items-bot">
           <label className="text-white" id="calendar">
@@ -199,7 +199,7 @@ const Wallet = () => {
           </div>
         )} */}
 
-        <div>
+        <div className=" h-full w-full overflow-y-scroll">
           {data &&
             data.map((item, index) => (
               <div

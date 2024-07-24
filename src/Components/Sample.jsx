@@ -93,14 +93,11 @@ const Signup = () => {
   const [changeCaptcha, setChangeCaptcha] = useState(false);
 
   const handleChange = (e) => {
-     // console.log(e.target.name,e.target.value);
-
     if (e.target.name === "uplineId") {
       setData((prev) => ({
         ...prev,
         [e.target.name]: e.target.value.toUpperCase(),
       }));
-       // console.log('inside if');
     } else {
       setData((prev) => ({
         ...prev,
@@ -130,9 +127,8 @@ const Signup = () => {
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const refId = params.get('refId');
-    console.log(refId, "ref")
     if (refId) {
-      setData((prev) => ({ ...prev, uplineId: refId }));
+      setData((prev) => ({ ...prev, uplineId: refId.toUpperCase() }));
       handleVerify(refId);
     }
   }, [location.search]);
@@ -152,13 +148,9 @@ const Signup = () => {
         }
       })
       .catch((error) => {
-          // console.log(error.response.data.message);
-
         messageApi.error(error.response.data.message);
         setRefDetails({});
         setShowRefDetails(false);
-         // setReadOnly(!readOnly);
-
       })
       .finally(() => {
         setVerifyLoading(false);
@@ -196,7 +188,7 @@ const Signup = () => {
       setSubmitLoading(false);
       return;
     }
-    console.log(data);
+
     Register(data)
       .then((response) => {
         navigate("/app/DashBoard");
@@ -251,7 +243,6 @@ const Signup = () => {
       handleOTP();
       const next = target.nextElementSibling;
       if (next) {
-          // e.target.setAttribute('readOnly', true);
         next.focus();
       }
     }
@@ -264,7 +255,6 @@ const Signup = () => {
       text = text + item.value;
     });
     setOTP(text);
-     // console.log(text);
   };
 
   return (

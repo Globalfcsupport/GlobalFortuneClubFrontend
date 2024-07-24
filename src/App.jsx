@@ -15,6 +15,7 @@ import Withdraw from "./Components/Witdraw";
 import NavBar from "./main/NavBar";
 import Homepage from "./main/HomePage";
 import Chats from "./Components/Chats";
+import Sample from "./Components/Sample";
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
   useEffect(()=> {
     // const authGuard = ()=> {
       let token = localStorage.getItem('accessToken');
+      
       // console.log(token);
       if(!token){
         navigate('/');
@@ -37,7 +39,9 @@ function App() {
   return(
   <Routes>
     <Route path="/" element={<SignIn />}></Route>
+
     <Route path="/Signup" element={<Signup />}></Route>
+    <Route path="/Sample" element={<Sample/>}></Route>
     <Route path="/app" element={<Homepage />}>
       <Route path="DashBoard" index element={<DashBoard/>}></Route>
       <Route path="Chats" element={<Chats />}></Route>
