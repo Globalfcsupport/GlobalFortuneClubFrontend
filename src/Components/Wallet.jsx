@@ -86,9 +86,9 @@ const Wallet = () => {
     getWalletDataByDateFilter(getDate);
   };
   return (
-    <div className="  w-full flex flex-col   ">
-      <div className="flex justify-between  h-25 bg-primary py-3 px-3 ">
-        <div className="flex flex-col justify-center items-bot">
+    <div className="  w-full flex flex-col  bg-white ">
+      <div className="flex justify-between   h-25 bg-primary pb-3 pt-1 px-3 text-[12px]  ">
+        <div className="flex flex-col justify-center ">
           <label className="text-white" id="calendar">
             Transaction Date
           </label>
@@ -96,15 +96,20 @@ const Wallet = () => {
             type="date"
             name="todayReferral"
             htmlFor="calendar"
-            className="mt-1 border rounded-md w-28 py-1 px-2 outline-none text-[0.6rem]"
+            className="h-5 mt-1 bg-white border rounded-md w-24 text-right px-1"
             onChange={handleDateFilter}
           />
         </div>
         <div className="flex flex-col justify-end items-end py-1">
           <p className="text-white text-[12px] ">My Wallet</p>
-          <p className=" h-5 mt-1 bg-white border rounded-md w-20 text-right   px-1 ">
+          {/* <p className=" h-5 mt-1 bg-white border rounded-md w-20 text-right   px-1 ">
             {wallet}
-          </p>
+          </p> */}
+          <input 
+          className="h-5 mt-1 bg-white border rounded-md w-20 text-right   px-1"
+         placeholder={wallet}
+          >
+          </input>
         </div>
       </div>
       <div className="flex duration-200 relative justify-between px-0 bg-primary h-7  items-center w-full  ">
@@ -112,7 +117,7 @@ const Wallet = () => {
           onClick={() => {
             handleTabClick("All"), setQuery("all");
           }}
-          className={`w-28 py-1 flex flex-col gap-2 justify-center items-center focus:outline-bg-none text-xs transition duration-1000 ease-in-out ${
+          className={`w-28 py-1 flex flex-col gap-2 justify-center items-center focus:outline-bg-none text-xs transition duration-700 ease-in-out ${
             activeTab === "All"
               ? "bg-white text-black  rounded-t-md"
               : "text-white"
@@ -125,7 +130,7 @@ const Wallet = () => {
           onClick={() => {
             handleTabClick("Crypto"), setQuery("Crypto");
           }}
-          className={`w-28 py-1 flex flex-col gap-2 justify-center items-center  focus:outline-none text-[12px] transition duration-1000 ease-in-out ${
+          className={`w-28 py-1 flex flex-col gap-2 justify-center items-center  focus:outline-none text-[12px] transition duration-700 ease-in-out ${
             activeTab === "Crypto"
               ? "bg-white text-black rounded-t-md"
               : "text-white"
@@ -138,7 +143,7 @@ const Wallet = () => {
           onClick={() => {
             handleTabClick("Internal"), setQuery("Internal");
           }}
-          className={`w-28 py-1 flex flex-col gap-2 justify-center items-center  focus:outline-none text-[12px] transition duration-1000 ease-in-out  ${
+          className={`w-28 py-1 flex flex-col gap-2 justify-center items-center  focus:outline-none text-[12px] transition duration-700 ease-in-out  ${
             activeTab === "Internal"
               ? "bg-white text-black rounded-t-md"
               : "text-white"
@@ -148,10 +153,10 @@ const Wallet = () => {
           <p className="w-12 h-0.5 bg-primary rounded-full flex justify-center items-center"></p>
         </button>
 
-        {/* <span className={`h-1 absolute bottom-0 transition-all duration-75 ${activeTab === 'All' ? 'left-0 w-12' : activeTab === 'Crypto' ? 'left-1/3 w-16' : 'right-0 w-20'}`}></span> */}
+        {/* <span className={h-1 absolute bottom-0 transition-all duration-75 ${activeTab === 'All' ? 'left-0 w-12' : activeTab === 'Crypto' ? 'left-1/3 w-16' : 'right-0 w-20'}}></span> */}
       </div>
 
-      <div >
+      <div>
         {/* {activeTab === "All" && (
           <div>
             {allData.map((item, index) => (
@@ -199,30 +204,36 @@ const Wallet = () => {
           </div>
         )} */}
 
-        <div className=" h-full w-full overflow-y-scroll">
-          {data &&
-            data.map((item, index) => (
-              <div
-                key={index}
-                className="p-2 flex justify-between items-center"
-              >
-                {item.received ? (
-                  <CiCirclePlus size={30} className="text-green-600" />
-                ) : (
-                  <CiCircleMinus size={30} className="text-red-600" />
-                )}
-                <div>
-                  <p className="text-sm">{item.type}</p>
-                  <p className="text-sm">
-                    <DateComponent date={item.date} />
-                    &nbsp;&nbsp;
-                    <TimeComponents date={item.date} />
-                  </p>
-                </div>
-                <p>{`$${parseInt(item.amount).toFixed(4)}`}</p>
-              </div>
-            ))}
+<div className="w-full h-[410px] overflow-y-scroll flex flex-col p-3">
+  {data &&
+    data.map((item, index) => (
+      <div
+        key={index}
+        className="p-3 flex justify-between items-center text-[10px] "
+      >
+        {item.received ? (
+          <CiCirclePlus size={35} className="text-green-600 " />
+        ) : (
+          <CiCircleMinus size={35} className="text-red-600 " />
+        )}
+        <div>
+          <p className="text-[10px] font-semibold text-primary ">{item.type}</p>
+          <p className="text-[9px]">
+            <DateComponent date={item.date} />
+            &nbsp;&nbsp;
+            <TimeComponents date={item.date} />
+          </p>
         </div>
+        {item.received ? (
+          <p className="text-green-600 ">{`+${parseInt(item.amount).toFixed(4)}`}</p>
+        ) : (
+          <p className="text-red-600 ">{`-${parseInt(item.amount).toFixed(4)}`}</p>
+        )}
+      </div>
+    ))}
+</div>
+
+
       </div>
       <div
       
@@ -235,7 +246,7 @@ const Wallet = () => {
       >
         <Link
           to="/app/TopUp"
-          className="h-7 bg-primary text-center text-white text-[15px] rounded   p-1 text-nowrap  "
+          className="h-7 bg-primary text-center text-white text-[12px] rounded   p-1 text-nowrap  "
         >
           Top Up
         </Link>
@@ -257,4 +268,4 @@ const Wallet = () => {
   );
 };
 
-export default Wallet;
+export default Wallet;

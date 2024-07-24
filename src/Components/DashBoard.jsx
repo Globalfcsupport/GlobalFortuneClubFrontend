@@ -78,17 +78,22 @@ const DashBoard = () => {
     navigate(path);
   };
 
+  const capitalizeFirstLetter = (string) => {
+    if (!string) return '';
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  };
+
   return (
     <div className="h-full relative ">
       {contextHolder}
       <div className="bg-primary px-4 py-3 flex justify-between items-center text-white">
         <div>
-          <p className="text-[12.5px] font-semibold"> {data?.userName}</p>
+          <p className="text-[12.5px] font-semibold"> {capitalizeFirstLetter(data?.userName)}</p>
           <p className="text-[10px]"> ID: {data.refId}</p>
         </div>
         <button
           disabled={data.started ? true : false}
-          className="bg-white text-primary text-[15px] px-5 font-medium py-1 rounded"
+          className={data.started?"bg-white text-[#9da4af] text-[10px] px-6 py-2.5 font-medium rounded ":"bg-white text-primary text-[15px] px-5 font-medium py-1 rounded "}
           onClick={ClubActivation}
         >
           {data.started ? "Running" : "Start"}
@@ -96,7 +101,7 @@ const DashBoard = () => {
       </div>
 
       <div
-        className="h-full overflow-auto space-y-2 mt-2 p-2 "
+        className="h-full bg-customLightGray overflow-auto space-y-1.5 mt-1 pt-1 px-2"
         style={{
           height: "calc(97vh - 180px)",
           scrollbarWidth: "none", 
@@ -104,9 +109,9 @@ const DashBoard = () => {
         }}
       >
         {/* Wallet Section */}
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm ">
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm ">
           <div className="flex justify-between px-1 w-full ">
-            <div className="flex px-2 gap-6 items-center">
+            <div className="flex px-2 gap-4 items-center">
               <Tooltip
                 title="Your primary wallet for all transactions within the platform. You can top up funds, buy slots, and make internal transfers using the balance in your My Wallet."
                 placement="bottomRight"
@@ -117,7 +122,7 @@ const DashBoard = () => {
               >
                 <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer justify-center"></FiAlertCircle>
               </Tooltip>
-              <span className="text-textColour">My Wallet</span>
+              <span className=" text-[12.5px] text-textColour">My Wallet</span>
             </div>
 
             <div className="flex items-center ">
@@ -137,10 +142,10 @@ const DashBoard = () => {
         {/* Reserve - My Wallet Section */}
         <div
           onClick={handleReserveMyWallet}
-          className="bg-white p-1 flex justify-between items-center rounded-lg shadow text-sm"
+          className="bg-white p-1 flex justify-between items-center rounded-lg  text-sm"
         >
-          <div className="flex justify-between w-full px-1  ">
-            <div className="flex px-3 gap-6 items-center">
+          <div className="flex  justify-between w-full  ">
+            <div className="flex px-4 gap-[16px] items-center">
               <Tooltip
                 title="Set a reserve amount to safeguard a portion of your funds. If your My Wallet balance falls below this reserve amount, automatic slot purchases will be paused to prevent overspending."
                 placement="bottomRight"
@@ -150,19 +155,19 @@ const DashBoard = () => {
               >
                 <FiAlertCircle className="text-[#9da4af] size-[11px]  cursor-pointer" />
               </Tooltip>
-              <span className="text-textColour text-sm">Reserve - My Wallet</span>
+              <span className="text-textColour text-[12.5px]">Reserve - My Wallet</span>
             </div>
 
-            <p className="bg-primary text-white px-4 py-[9px] rounded cursor-pointer">
+            <p className="bg-primary text-[12.5px] w-23  text-white px-[33px] py-[5px] rounded-md cursor-pointer">
               ${data.reserveMywallet ? data.reserveMywallet : 0}
             </p>
           </div>
         </div>
 
         {/* Crowd - Stacking Section */}
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg  text-sm">
           <div className="flex w-full justify-between px-1 items-center ">
-            <div className="flex gap-6 px-2 items-center">
+            <div className="flex px-2 gap-4 items-center">
               <Tooltip
                 title="A dedicated wallet where 50% of the split amounts from slot purchases are deposited. Funds in Crowd Stack cannot be withdrawn but can only be used to buy slots.."
                 placement="bottomRight"
@@ -190,9 +195,9 @@ const DashBoard = () => {
         </div>
 
         {/* Active Slots */}
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
           <div className="flex w-full justify-between px-1 items-center">
-            <div className="flex gap-6 px-2 items-center ">
+            <div className="flex px-2 gap-4 items-center ">
               <Tooltip
                 title="Displays the number of slots currently active and generating dividends foryou."
                 placement="bottomRight"
@@ -204,7 +209,7 @@ const DashBoard = () => {
                 <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
               </Tooltip>
 
-              <span className="text-textColour">Active Slots</span>
+              <span className="text-textColour text-[12.5px]">Active Slots</span>
             </div>
             <div className="flex items-center ">
               <span>{data.activatedTotal}</span>
@@ -221,9 +226,9 @@ const DashBoard = () => {
         </div>
 
         {/* Completed Slots */}
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
           <div className="flex w-full justify-between px-1 items-center">
-            <div className="flex gap-6 px-2 items-center ">
+            <div className="flex px-2 gap-4 items-center ">
               <Tooltip
                 title="Shows the number of slots you have successfully exited, earning you dividends and platform fees."
                 placement="bottomRight"
@@ -233,7 +238,7 @@ const DashBoard = () => {
               >
                 <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
               </Tooltip>
-              <span className="text-textColour">Completed Slots</span>
+              <span className="text-textColour text-[12.5px]">Completed Slots</span>
             </div>
             <div className="flex items-center ">
               <span>{data.completedTotal}</span>
@@ -243,15 +248,16 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-[#e5e5e5] size-6cursor-pointer" />
+                <MdKeyboardArrowRight className="text-[#e5e5e5] size-6 cursor-pointer" />
               </p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
+        {/* yield today */}
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
           <div className="flex w-full justify-between px-1 items-center">
-            <div className="flex gap-6 px-2 items-center ">
+            <div className="flex px-2 gap-4 items-center ">
               <Tooltip
                 title="The amount of dividend income earned from slot purchases within the current day."
                 placement="bottomRight"
@@ -262,18 +268,18 @@ const DashBoard = () => {
                 {" "}
                 <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
               </Tooltip>
-
+                
               <span className="text-textColour">Yield - Today</span>
             </div>
-            <div className=" md:mr-3 ">
+            <div className=" md:mr-[24px] ">
               <span>{data.todayYeild?.toFixed(4)}</span>
             </div>
           </div>
         </div>
-
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
+          {/* yield overall */}
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
           <div className="flex w-full justify-between px-1 items-center">
-            <div className="flex gap-6 px-2 items-center">
+            <div className="flex px-2 gap-4 items-center">
               <Tooltip
                 title="    Total dividend income earned from slot purchases since joining the platform"
                 placement="bottomRight"
@@ -283,20 +289,20 @@ const DashBoard = () => {
               >
                 <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
               </Tooltip>
-              <span className="text-textColour">Yield - Overall</span>
+              <span className="text-textColour text-[12.5px]">Yield - Overall</span>
             </div>
-            <div className="md:mr-3">
+            <div className=" md:mr-[24px]">
               <span>{data.Yield?.toFixed(4)}</span>
               {/* <MdKeyboardArrowRight className="text-textColour text-2xl" /> */}
             </div>
           </div>
         </div>
-
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
+          {/* Refferal incomne today */}
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
           <div className="flex w-full justify-between px-1 items-center">
 
            
-            <div className="flex px-2 gap-6 items-center">
+            <div className="flex px-2 gap-4 items-center">
               <Tooltip
                 title="The income generated from referrals' 
                 slot purchases within the current day."
@@ -322,11 +328,11 @@ const DashBoard = () => {
             </div>
           </div>
         </div>
-
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
+          {/* Referral income overall */}
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
           <div className="flex w-full justify-between px-1 items-center">
             
-            <div className="flex px-2 gap-6 items-center">
+            <div className="flex px-2 gap-4 items-center">
               <Tooltip
                 title="Total income earned from referrals' slot purchases since joining the platform."
                 placement="bottomRight"
@@ -335,7 +341,7 @@ const DashBoard = () => {
               >
                 <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
               </Tooltip>
-              <span className="text-textColour">Refferal Income - Overall</span>
+              <span className="text-textColour text-[12.5px]">Refferal Income - Overall</span>
             </div>
             <div className="flex items-center ">
               <span>${data.refIncomeAll}</span>
@@ -350,11 +356,11 @@ const DashBoard = () => {
             </div>
           </div>
         </div>
-
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
+          {/* Toatal crypto top-up*/}
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
           <div className="flex w-full justify-between px-1 items-center">
            
-            <div className="flex px-2 gap-6 items-center">
+            <div className="flex px-2 gap-4 items-center">
               <Tooltip
                 title="The total amount of cryptocurrency deposited into your account as top-ups"
                 placement="bottomRight"
@@ -379,10 +385,12 @@ const DashBoard = () => {
             </div>
           </div>
         </div>
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
+
+        {/* Toatal crypto withdraw*/}
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
           <div className="flex w-full justify-between px-1 items-center">
            
-            <div className="flex px-2 gap-6 items-center">
+            <div className="flex px-2 gap-4 items-center">
               <Tooltip
                 title="The total amount of cryptocurrency withdrawn from your account."
                 placement="bottomRight"
@@ -392,7 +400,7 @@ const DashBoard = () => {
               >
                 <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
               </Tooltip>
-              <span className="text-textColour">Total Crypto Withdraw</span>
+              <span className="text-textColour text-[12.5px]">Total Crypto Withdraw</span>
             </div>
             <div className="flex items-center">
               <span>${data.totalCryptoTopup}</span>
@@ -428,10 +436,11 @@ const DashBoard = () => {
           </div>
         </div> */}
 
+        {/* Toatal internal transfer in*/}
         <div className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
           <div className="flex w-full justify-between px-1 items-center">
             
-            <div className="flex px-2 gap-6 items-center">
+            <div className="flex px-2 gap-4 items-center">
               <Tooltip
                 title="The total amount of cryptocurrency received 
                 from internal transfers within the platform."
@@ -442,7 +451,7 @@ const DashBoard = () => {
               >
                 <FiAlertCircle className="text-gray-400 size-3 cursor-pointer" />
               </Tooltip>
-              <span className="text-textColour">Total Internal Transfer IN</span>
+              <span className="text-textColour text-[12.5px]">Total Internal Transfer IN</span>
             </div>
             <div className="flex items-center">
               <span>${data.internalIn}</span>
@@ -457,10 +466,12 @@ const DashBoard = () => {
             </div>
           </div>
         </div>
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
+
+        {/* Toatal internal transfer out*/}
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
           <div className="flex w-full justify-between px-1 items-center">
             
-            <div className="flex px-2 gap-6 items-center">
+            <div className="flex px-2 gap-4 items-center">
               <Tooltip
                 title="The total amount of cryptocurrency sent out through 
                 internal transfers within the platform."
@@ -471,7 +482,7 @@ const DashBoard = () => {
               >
                 <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
               </Tooltip>
-              <span className="text-textColour">Total Internal Transfer OUT</span>
+              <span className="text-textColour text-[12.5px]">Total Internal Transfer OUT</span>
             </div>
             <div className="flex items-center">
               <span>${data.internalOut}</span>
@@ -530,8 +541,16 @@ const DashBoard = () => {
         </div> */}
       </div>
 
+          
+        {/* className="absolute bottom-0 left-2 w-full shadow-none  pt-1 pb-4  gap-1 selection:  grid grid-cols-3 bg-[#eeeeee] rounded-b-2xl justify-between"
+        style={{
+          width: "300px",
+          left: "50%",
+          transform: "translateX(-50%)",
+        }}
+      > */}
       <div
-        className="absolute bottom-0 left-0 w-full shadow-none  p-2 px-8 gap-1  grid grid-cols-3 bg-secondary rounded-b-3xl justify-between"
+        className="absolute bottom-0 left-0 w-full shadow-none pb-4 p-2 px-9 gap-1  grid grid-cols-3 bg-secondary rounded-b-3xl justify-between"
         style={{
           width: "350px",
           left: "50%",
@@ -541,20 +560,20 @@ const DashBoard = () => {
         
         <Link
           to="/app/TopUp"
-          className="h-9 bg-primary text-center text-white py-2 px-3 text-sm rounded-md"
+          className="h-9 bg-primary text-center  text-white py-2 px-3 text-sm rounded-md"
         >
           Top Up
         </Link>
         <Link
           to="/app/chats"
-          className="h-9 bg-primary text-center text-white py-2 text-sm px-3  rounded-md"
+          className="h-9 bg-primary text-center text-[12px] text-white py-2 text-sm px-3  rounded-md"
         >
           Transfer
         </Link>
 
         <Link
           to="/app/Withdraw"
-          className="h-9 bg-primary text-center text-white py-2 px-3 text-sm rounded-md"
+          className="h-9 bg-primary text-center text-[12px] text-white py-2 px-3 text-sm rounded-md"
         >
           Withdraw
         </Link>
@@ -592,4 +611,4 @@ const DashBoard = () => {
   );
 };
 
-export default DashBoard;
+export default DashBoard;

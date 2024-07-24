@@ -5,7 +5,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import { BiSolidMessageRoundedDetail } from "react-icons/bi";
 import Sidebar from '../main/SideBar'; // Adjust the import path if necessary
 
-const NavBar = () => {
+const NavBar = ({}) => {
   const location = useLocation();
   const currentPage = location.pathname.split('/');
   const navigate = useNavigate();
@@ -46,7 +46,7 @@ const NavBar = () => {
 
   const toTitleCase = (str) => {
     const customMappings = {
-      "FCSlots": "FC Slots",
+      "FCSLots": "FC Slots",
       "MyReferrals": "My Referrals",
       
     };

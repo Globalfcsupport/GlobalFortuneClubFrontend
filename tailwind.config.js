@@ -18,7 +18,8 @@ export default {
         customgey:"#9a9a9a",
         customGray: 'rgb(158, 158, 158)',
         customLightGray :"#ededed",
-        customBlue : "#3D5898"
+        customBlue : "#3D5898",
+        lightgrey: '#eeeeee'
 
       },
       // fontFamily: {

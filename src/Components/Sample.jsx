@@ -1,66 +1,3 @@
-// import React, { useEffect, useState } from 'react';
-// import { useLocation } from 'react-router-dom';
-
-
-// const Sample = () => {
-//   const location = useLocation();
-//   const [referralCode, setReferralCode] = useState('');
-//   const [isReferralValid, setIsReferralValid] = useState(false);
-//   const [loading, setLoading] = useState(true);
-
-//   useEffect(() => {
-//     const params = new URLSearchParams(location.search);
-//     const referral = params.get('refId');
-//     if (referral) {
-//       // Verify the referral code
-//       verifyReferralCode(referral);
-//     } else {
-//       setLoading(false);
-//     }
-//   }, [location.search]);
-
-//   const verifyReferralCode = async (code) => {
-//     try {
-//       const response = "AA0006"
-//       if (response) {
-//         setReferralCode(code);
-//         setIsReferralValid(true);
-//       } else {
-//         setIsReferralValid(false);
-//       }
-//     } catch (error) {
-//       console.error('Error verifying referral code', error);
-//       setIsReferralValid(false);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   if (loading) {
-//     return <div>Loading...</div>;
-//   }
-
-//   return (
-//     <div className="signup">
-//       <h1>Sign Up</h1>
-//       <form>
-//         {isReferralValid ? (
-//           <div>
-//             <label>Referral Code</label>
-//             <input type="text" value={referralCode} readOnly />
-//           </div>
-//         ) : (
-//           <div>Invalid Referral Code</div>
-//         )}
-
-//         <button type="submit" disabled={!isReferralValid}>Sign Up</button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default Sample;
-
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Register, verifyUplineId, sendOTP, signupOTP } from "../services/services";
@@ -69,7 +6,7 @@ import { IoReload } from "react-icons/io5";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { IoIosArrowBack } from "react-icons/io";
 
-const Signup = () => {
+const Sample = () => {
   const [timer, setTimer] = useState(0);
   const [showOTPInput, setShowOTPInput] = useState(false);
   const [captchaText, setCaptchaText] = useState("");
@@ -122,13 +59,11 @@ const Signup = () => {
     captchaGenerator();
   }, [changeCaptcha]);
 
-
-  // for referal code
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const refId = params.get('refId');
     if (refId) {
-      setData((prev) => ({ ...prev, uplineId: refId.toUpperCase() }));
+      setData((prev) => ({ ...prev, uplineId: refId }));
       handleVerify(refId);
     }
   }, [location.search]);
@@ -249,179 +184,140 @@ const Signup = () => {
   };
 
   const handleOTP = () => {
-    let text = "";
-    const tags = document.querySelectorAll(".inputs input");
-    tags.forEach((item) => {
-      text = text + item.value;
+    const inputs = document.querySelectorAll("#otp > *[id]");
+    let otp = "";
+    inputs.forEach((input) => {
+      otp += input.value;
     });
-    setOTP(text);
+    setOTP(otp);
   };
 
   return (
-    <>
+    <div className="auth-container">
       {contextHolder}
-      <div className="flex justify-start pt-5 pl-5 text-customBlue  items-center gap-2">
-        <Link to="/"><IoIosArrowBack size={30} className="md:-ml-36 lg:-ml-0" /></Link>
+      <div className="header">
+        <Link to="/" className="back-icon">
+          <IoIosArrowBack />
+        </Link>
+        <h3>Signup</h3>
       </div>
-
-      <div className="flex flex-col h-fit py-5 justify-center gap-4 flex-grow text-customBlue text-sm px-5">
-        <div className="flex flex-col justify-center items-center gap-2">
-          <p className="text-xl font-semibold  text-customBlue ">Sign Up</p>
-          <h5 className="text-[16px] font-semibold  text-customBlue ">Create an Account</h5>
-        </div>
-        <div className="w-full flex flex-col relative">
-          <label htmlFor="refId" className="py-2 text-[12.5px]  font-semibold text-customBlue ">
-            Referral ID
-          </label>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Username</label>
           <input
             type="text"
-            name="uplineId"
-            value={data.uplineId}
-            placeholder="Enter Referral ID"
-            className="w-full py-2  rounded-md px-5 border-[1.5px] border-gray-400 hover:bg-transparent focus:bg-white text-black"
+            name="userName"
+            value={data.userName}
             onChange={handleChange}
           />
-          <Button
-            loading={verifyLoading}
-            type="button"
-            className="absolute text-[13px] font-semibold bg-buttonbg text-white rounded-sm bottom-[0.1rem] right-[0rem] h-9 px-6"
-            onClick={() => handleVerify(data.uplineId)}
-          >
-            Verify
-          </Button>
         </div>
-        {showRefDetails && (
-          <div className="flex flex-col text-[13px] justify-center  text-customBlue items-center">
-            <p>User Name: {refDetails.userName}</p>
-            <p>Ref ID: {refDetails.refId}</p>
-          </div>
-        )}
-        <form className="flex flex-col w-full gap-3" onSubmit={handleSubmit}>
-          <div className="w-full flex flex-col gap-2 relative">
-            <label htmlFor="userName" className=" text-[12.5px] font-semibold  text-customBlue">
-              Enter Your Name
-            </label>
+        <div className="form-group">
+          <label>Email</label>
+          <input
+            type="email"
+            name="email"
+            value={data.email}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label>Referral ID</label>
+          <div className="ref-input">
             <input
               type="text"
-              name="userName"
-              placeholder=""
-              readOnly={readOnly}
-              className="w-full py-2 rounded-md px-5 hover:bg-transparent border-[1.5px]   border-gray-400 bg-white text-black focus:bg-white"
+              name="uplineId"
+              value={data.uplineId}
               onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="w-full flex flex-col gap-2 relative">
-            <label htmlFor="email" className="font-sans font-semibold  text-customBlue">
-              Email
-            </label>
-            <input
-              type="text"
-              name="email"
-              placeholder=""
               readOnly={readOnly}
-              className="w-full py-2 rounded-md pl-5 pr-28 hover:bg-transparent  border-[1.5px] border-gray-300 text-black focus:bg-white"
-              onChange={handleChange}
-              required
             />
             <Button
-              loading={sendOTPLoading}
-              type="button"
-              className="absolute text-[13px] font-semibold hover:background-none bg-buttonbg text-white rounded-sm bottom-[0.1rem] right-[0rem] h-9 px-3 py-1"
-              onClick={handleSendOTP}
-              disabled={timer > 0}
+              onClick={() => handleVerify(data.uplineId)}
+              disabled={!data.uplineId}
+              loading={verifyLoading}
             >
-              {timer > 0 ? ` ${timer}` : "Send OTP"}
+              Verify
             </Button>
           </div>
-          <div>
-            {showOTPInput && (
-              <div className="flex flex-col gap-2 justify-center w-full">
-                <label
-                  htmlFor="email"
-                  className="text-[12.5px] font-semibold   text-customBlue"
-                >
-                  OTP
-                </label>
-                <div className="inputs flex justify-center gap-3">
-                  <input
-                    onKeyUp={handleBackSpace}
-                    onInput={handleInput}
-                    placeholder=""
-                    maxLength={1}
-                    type="text"
-                    className="w-10 h-10 rounded-md hover:bg-transparent  text-black focus:bg-white"
-                  />
-                  <input
-                    onKeyUp={handleBackSpace}
-                    onInput={handleInput}
-                    placeholder=""
-                    maxLength={1}
-                    type="text"
-                    className="w-10 h-10 rounded-md hover:bg-transparent  text-black focus:bg-white"
-                  />
-                  <input
-                    onKeyUp={handleBackSpace}
-                    onInput={handleInput}
-                    placeholder=""
-                    maxLength={1}
-                    type="text"
-                    className="w-10 h-10 rounded-md hover:bg-transparent  text-black focus:bg-white"
-                  />
-                  <input
-                    onKeyUp={handleBackSpace}
-                    onInput={handleInput}
-                    placeholder=""
-                    maxLength={1}
-                    type="text"
-                    className="w-10 h-10 rounded-md hover:bg-transparent  text-black focus:bg-white"
-                  />
-                </div>
-              </div>
-            )}
+        </div>
+        {showRefDetails && (
+          <div className="ref-details">
+            <p>{refDetails.userName}</p>
+            <p>{refDetails.email}</p>
           </div>
-          <div className="flex flex-col gap-2 justify-center items-start w-full">
-            <h1 className="font-sans font-semibold  text-customBlue">Enter Captcha</h1>
-            <p className="text-center w-full py-1 text-sm rounded-md mx-auto tracking-[1rem]  text-black bg-white select-none relative">
-              {captchaText}
-              <IoReload
-                onClick={() => setChangeCaptcha(!changeCaptcha)}
-                className="absolute top-0 right-1 translate-y-1/2"
+        )}
+        <div className="form-group">
+          <label>Captcha</label>
+          <div className="captcha-container">
+            <div className="captcha">{captchaText}</div>
+            <IoReload onClick={() => setChangeCaptcha((prev) => !prev)} />
+          </div>
+          <input
+            type="text"
+            name="captcha"
+            value={captcha}
+            onChange={(e) => setCaptcha(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label>OTP</label>
+          <div className="otp-container">
+            <div id="otp">
+              <input
+                type="text"
+                maxLength="1"
+                onInput={handleInput}
+                onKeyUp={handleBackSpace}
               />
-            </p>
-            <input
-              placeholder=""
-              className="py-2 w-full rounded-md pl-2 text-xs hover:bg-transparent focus:bg-white text-black"
-              onChange={(e) => setCaptcha(e.target.value)}
-              required
-              type="text"
-            />
-          </div>
-          <div className="flex w-full justify-center items-center mt-5 relative">
-            <button
-              className="bg-customBlue text-[13px] font-medium w-fit mx-auto text-white px-6 py-2 rounded-md flex items-center justify-center"
-              type="submit"
-              disabled={submitLoading}
+              <input
+                type="text"
+                maxLength="1"
+                onInput={handleInput}
+                onKeyUp={handleBackSpace}
+              />
+              <input
+                type="text"
+                maxLength="1"
+                onInput={handleInput}
+                onKeyUp={handleBackSpace}
+              />
+              <input
+                type="text"
+                maxLength="1"
+                onInput={handleInput}
+                onKeyUp={handleBackSpace}
+              />
+              <input
+                type="text"
+                maxLength="1"
+                onInput={handleInput}
+                onKeyUp={handleBackSpace}
+              />
+              <input
+                type="text"
+                maxLength="1"
+                onInput={handleInput}
+                onKeyUp={handleBackSpace}
+              />
+            </div>
+            <Button
+              onClick={handleSendOTP}
+              loading={sendOTPLoading}
+              disabled={!data.email}
             >
-              {submitLoading && (
-                <AiOutlineLoading3Quarters className="animate-spin mr-2" />
-              )}
-              {submitLoading ? "Submit" : "Submit"}
-            </button>
+              Send OTP
+            </Button>
           </div>
-          <div className="flex text-sm items-center justify-center w-full">
-            <p className="py-3  text-customBlue">
-              Already have an account?
-              <Link to={`/`} className="text-[16px] font-semibold  text-customBlue">
-                {" "}
-                Login
-              </Link>
-            </p>
-          </div>
-        </form>
-      </div>
-    </>
+        </div>
+        <Button
+          type="submit"
+          loading={submitLoading}
+          disabled={submitLoading}
+        >
+          Signup
+        </Button>
+      </form>
+    </div>
   );
 };
 
-export default Signup;
+export default Sample;

@@ -17,23 +17,29 @@ const TopUp = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const [data, setData] = useState([]);
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(!loading);
+
     const data = {
       refId: localStorage.getItem("refId"),
       amount: amount,
     };
-    topUp(data)
-      .then((response) => {
-        setLoading(false);
-        window.location.href = response.data.payLink;
-        // console.log(response.data);
-      })
-      .catch((error) => {
-        messageApi.error("An Unknown Error Occured");
-        setLoading(false);
-      });
+    if (amount !== "") {
+      setLoading(!loading);
+      topUp(data)
+        .then((response) => {
+          setLoading(false);
+          window.location.href = response.data.payLink;
+          // console.log(response.data);
+        })
+        .catch((error) => {
+          messageApi.error("An Unknown Error Occured");
+          setLoading(false);
+        });
+    } else {
+      messageApi.warning("select the top up");
+    }
   };
 
   const handleAmount = (e) => {
@@ -57,10 +63,10 @@ const TopUp = () => {
   }, []);
 
   return (
-    <div className="w-full flex flex-col h-full font-poppins text-sm overflow-hidden bg-white">
+    <div className="w-full flex flex-col h-full font-poppins text-[12px] overflow-hidden bg-white">
       {contextHolder}
 
-      <div className="bg-[#3d5898] pt-3 w-full">
+      <div className="bg-[#3d5898] pt-4 h-10 w-full">
         <div className="flex relative justify-between px-6 items-center w-full">
           <NavLink
             to="/app/TopUp"
@@ -83,15 +89,20 @@ const TopUp = () => {
           >
             Withdraw
           </NavLink>
-          <span className={`h-0.5 bg-blue-800 absolute w-12 rounded-lg bottom-1 transition-all duration-75 ${activeTab==='topUp'? 'left-[13%]': 'right-[12%] w-20'}`}></span>
-        </div>
+          <span
+            className={`h-0.5 bg-primary absolute w-12 rounded-lg bottom-1 transition-all duration-75 ${
+              activeTab === "topUp" ? "left-[13%]" : "right-[12%] w-20"
+            }`}
+          ></span>  
+                </div>
       </div>
-      <div className="flex flex-col gap-4">
-        <div className="w-[97%] mx-auto rounded-lg flex flex-col gap-3 mt-5 pb-2 px-1 bg-[#e9e6f2] shadow-xl">
-          <div className="  px-2 py-3 bg-blue-50">
-            <h1 className="font-medium text-md text-[#3d5898] px-2 ">
+      <div className="flex flex-col  gap-1">
+        <div className="w-[97%] mx-auto rounded-lg flex flex-col gap-3 mt-[10px] pb-2  bg-[#e9e6f2] shadow-xl ">
+          <div className="  px-3 py-4 bg-blue-50">
+            <h1 className=" text-[14px] text-[#3d5898] px-2 font-semibold ">
               Select Top Up
             </h1>
+            
             {/* <div className='flex justify-between'>
               <button className='px-4 py-1 bg-blue-600 rounded-lg text-white font-semibold' onClick={handleAmount} id='50'>50</button>
               <button className='px-4 py-1 bg-blue-600 rounded-lg text-white font-semibold' onClick={handleAmount} id='100'>100</button>
@@ -106,12 +117,12 @@ const TopUp = () => {
             </div> */}
 
             <Select
-              className=" mt-3 rounded-md bg-white"
-              defaultValue="50"
+              className=" mt-3 rounded-md pt-3 pb-5 bg-white"
               style={{ width: 280 }}
               bordered={false}
-              suffixIcon={<FaCaretDown className=" text-black text-xl" />}
+              suffixIcon={<FaCaretDown className=" text-black text-xl " />}
               onChange={handleChange}
+              placeholder="select"
             >
               <Option value="50">50</Option>
               <Option value="100">100</Option>
@@ -120,11 +131,14 @@ const TopUp = () => {
             </Select>
           </div>
           <div>
-            <div className=" w-[80%] flex justify-evenly  items-center">
-              <p className=" capitalize text-[#3d5898] font-semibold ">
+            <div className=" w-[80%] flex justify-evenly  items-center h-1">
+              <p className=" capitalize text-[#3d5898] text-[12px]  font-bold">
                 pay with
               </p>
-              <Radio defaultChecked className=" rounded-full font-semibold text-lg">
+              <Radio
+                defaultChecked
+                className=" rounded-full font-semibold text-md"
+              >
                 Crypto
               </Radio>
             </div>
@@ -133,7 +147,7 @@ const TopUp = () => {
                 <button
                   oading={loading}
                   htmlType="submit"
-                  className=" capitalize text-md font-light bg-[#3d5898] text-white py-2 px-6 rounded-full"
+                  className=" capitalize text-md font-light bg-[#3d5898] text-white py-2 px-5 rounded-full"
                 >
                   {loading ? "Loading" : "Proceed"}
                 </button>
@@ -142,9 +156,9 @@ const TopUp = () => {
           </div>
         </div>
 
-        <div className="px-5 py-3">
-          <h1 className="p-3 bg-blue-400 text-white">Recent Top Ups</h1>
-          <div className="bg-white w-full max-h-56 overflow-y-scroll">
+        <div className="px-2  py-3 ">
+        <h1 className="text-primary w-fit p-1 shadow-2xl rounded-t-md font-semibold text-sm shadow-top border-b-2  border-primary ">Recent Topups</h1>
+        <div className="px-2   bg-white w-full max-h-56 overflow-y-scroll shadow-xl rounded-b-xl ">
             {data.length == 0 ? (
               <div>
                 <p className="text-center p-5">No TopUp History</p>
@@ -153,17 +167,17 @@ const TopUp = () => {
               data.map((item, index) => (
                 <div
                   key={index}
-                  className="flex justify-between h-14 px-3 items-center"
+                  className="flex justify-between h-14 text-[12px]  items-center "
                 >
                   {item.status == "Paid" ? (
-                    <CiCirclePlus size={25} className="text-green-600" />
+                    <CiCirclePlus size={25} className="text-green-600 " />
                   ) : item.status == "Expired" ? (
                     <FcExpired size={20} className="text-red-600" />
                   ) : item.status == "Waiting" ? (
                     <IoTimeOutline className="text-yellow-400" />
                   ) : null}
                   <div>
-                    <p className="text-xs text-blue-600">
+                    <p className="text-[12px] text-primary">
                       C -{" "}
                       {item.status == "Paid"
                         ? "Paid"
@@ -172,13 +186,14 @@ const TopUp = () => {
                         : item.status == "Waiting"
                         ? "Waiting"
                         : null}
-                      , track Id: {item.trackId}
+                      {/* , track Id: {item.trackId} */}
                     </p>
-                    <p className="text-xs">
-                      Completed {new Date(item.updatedAt).toLocaleString()}
+                    <p className="text-[10px]">
+                     {new Date(item.updatedAt).toLocaleString()}
                     </p>
                   </div>
-                  <p className="text-xs text-blue-600">
+                  <p className= "text-s text-green-600">
+                  +{""}
                     {item.status == "Paid"
                       ? parseInt(item.price).toFixed(4)
                       : item.status == "Expired"
@@ -197,4 +212,4 @@ const TopUp = () => {
   );
 };
 
-export default TopUp;
+export default TopUp;

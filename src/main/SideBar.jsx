@@ -40,7 +40,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 
   const handleShareClick = () => {
     const refId = data.refId;
-    const url = `${window.location.origin}/signup?refId=${refId}`;
+    const url = `${window.location.origin}/Signup?refId=${refId}`;
     navigator.clipboard.writeText(url).then(() => {
       setShowPopup(true);
       setTimeout(() => {
@@ -75,8 +75,9 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
   }, []);
   
   return (
+    <div className='bg-black'>
     <div
-      className={` absolute top-0 left-0 h-screen rounded-[30px] z-50 bg-white overflow-hidden  transform transition-transform duration-300  ${
+      className={` absolute top-0 left-0 h-[624px] md:h-[624px] rounded-[25px] z-50 bg-white overflow-hidden  transform transition-transform duration-300  ${
         isOpen ? 'translate-x-0' : '-translate-x-full'
       }`}
       style={{ width: '80%' }}
@@ -87,7 +88,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
       >
             <MdKeyboardArrowLeft className="text-textColour text-3xl" />
             </button>
-      <div className="pt-8 overflow-y-scroll  h-screen">
+      <div className=" pt-8  h-auto">
         {/* User Info */}
         <div className="flex items-center mt-6 gap-1 bg-primary w-full p-3 text-sm">
           <div className="w-12 h-12 bg-white p-1.5 rounded-full mr-4">
@@ -133,18 +134,16 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           </NavLink>                  
         </ul>
         {/* Invite Section */}
-        <div className="p-3 mt-2">
-        <div className="mt-1.5 bg-primary text-white text-center py-2 px-3 rounded-xl text-[13px] font-medium relative">
-      Invite your friends and earn $1 for every slot they create!
-      <button
-        className="mt-2 bg-white px-5 py-1 text-black rounded-lg flex items-center mx-auto"
-        onClick={handleShareClick}
-      >
+        <div className="p-4 mt-[-1rem] " >
+        <div className=" bg-primary text-white text-center py-2 px-3 rounded-xl text-[12px] font-medium">
+          Invite your friends and earn $1 for every slot they create!
+        <button className="mt-2 bg-white px-5 py-1 text-black rounded-lg flex items-center mx-auto"
+        onClick={handleShareClick} >
         <FaShareAlt className="mr-2 text-black" /> Share
-      </button>
-      {showPopup && (
-        <div id='showPopup' className="absolute text-[13px] z-40 font-medium top-20 w-[180%] transform -translate-x-1/2 left-1/2 bg-primary p-2 text-white rounded-md shadow-lg">
-          Link to be copied message
+        </button>
+        {showPopup && (
+        <div id='showPopup' className="absolute text-[13px] font-semibold bottom-[30px]  w-[84%] transform -translate-x-1/2 left-1/2 bg-primary p-2 text-white rounded-lg shadow-md">
+          Link copied to the clipboard
         </div>
       )}
     </div>
@@ -153,6 +152,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         </div>
         
       </div>
+    </div>
     </div>
   );
 };
