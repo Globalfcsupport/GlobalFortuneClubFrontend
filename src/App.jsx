@@ -16,47 +16,49 @@ import NavBar from "./main/NavBar";
 import Homepage from "./main/HomePage";
 import Chats from "./Components/Chats";
 import Sample from "./Components/Sample";
+import PrivateRoute from "./Components/PrivateRoute";
 
 function App() {
+  // const navigate = useNavigate();
+  // useEffect(()=> {
+  //   // const authGuard = ()=> {
+  //     let token = localStorage.getItem('accessToken');
 
-  const navigate = useNavigate();
-  useEffect(()=> {
-    // const authGuard = ()=> {
-      let token = localStorage.getItem('accessToken');
-      
-      // console.log(token);
-      if(!token){
-        navigate('/');
-      }
-      
-      // else{
-      //   navigate('app/Dashboard')
-      // }
-    // }
-    // authGuard()
-  }, [])
+  //     // console.log(token);
+  //     if(!token){
+  //       navigate('/');
+  //     }
 
-  return(
-  <Routes>
-    <Route path="/" element={<SignIn />}></Route>
+  //     // else{
+  //     //   navigate('app/Dashboard')
+  //     // }
+  //   // }
+  //   // authGuard()
+  // }, [])
 
-    <Route path="/Signup" element={<Signup />}></Route>
-    <Route path="/Sample" element={<Sample/>}></Route>
-    <Route path="/app" element={<Homepage />}>
-      <Route path="DashBoard" index element={<DashBoard/>}></Route>
-      <Route path="Chats" element={<Chats />}></Route>
-      <Route path="Chats/:id" element={<Chat />}></Route>
-      <Route path="FCSlots" element={<FCSlots />}></Route>
-      <Route path="MyReferrals" element={<Refferals />}></Route>
-      <Route path="Settings" element={<Settings />}></Route>
-      <Route path="Support" element={<Support />}></Route>
-      <Route path="TopUp" element={<TopUp />}></Route>
-      <Route path="Wallet" element={<Wallet />}></Route>
-      <Route path="Withdraw" element={<Withdraw />}></Route>
-      <Route path="Navbar" element={<NavBar />}></Route>
-    </Route>
-  </Routes>
-  )
+  return (
+    <Routes>
+      <Route path="/" element={<SignIn />}></Route>
+
+      <Route path="/Signup" element={<Signup />}></Route>
+      <Route path="/Sample" element={<Sample />}></Route>
+      <Route element={<PrivateRoute />}>
+        <Route path="/app" element={<Homepage />}>
+          <Route path="DashBoard" index element={<DashBoard />}></Route>
+          <Route path="Chats" element={<Chats />}></Route>
+          <Route path="Chats/:id" element={<Chat />}></Route>
+          <Route path="FCSlots" element={<FCSlots />}></Route>
+          <Route path="MyReferrals" element={<Refferals />}></Route>
+          <Route path="Settings" element={<Settings />}></Route>
+          <Route path="Support" element={<Support />}></Route>
+          <Route path="TopUp" element={<TopUp />}></Route>
+          <Route path="Wallet" element={<Wallet />}></Route>
+          <Route path="Withdraw" element={<Withdraw />}></Route>
+          <Route path="Navbar" element={<NavBar />}></Route>
+        </Route>
+      </Route>
+    </Routes>
+  );
 }
 
 export default App;

@@ -13,6 +13,7 @@ import { v4 } from "uuid";
 import { TiTick } from "react-icons/ti";
 import { FaChevronRight } from "react-icons/fa6";
 import { IoMdSend } from "react-icons/io";
+import { BaseURL } from "../utils/const";
 
 const SOCKET_SERVER_URL = "wss://gfcapi.globalfc.app";
 
@@ -192,18 +193,18 @@ const Chat = () => {
         <div className="flex justify-between items-center gap-3">
           {user.image ? (
             <img
-              src={user.image}
+              src={`${BaseURL}/${user.image}`}
               alt=""
               className="h-8 w-8 object-cover rounded-full"
             />
           ) : (
-            <div className="bg-white rounded-full h-8 w-8 flex justify-center items-center">
-              <span className="font-semibold text-2xl flex justify-center items-center text-primary -mt-1">
+            <div className="bg-white rounded-full h-10 w-10 grid justify-center items-center">
+              <span className="font-semibold text-2xl flex justify-center items-center text-primary ">
                 {user.userName?.split("")[0]}
               </span>
             </div>
           )}
-          <p className="text-black text-md font-medium">{user.userName}</p>
+          <p className="text-white text-md font-medium">{user.userName}</p>
         </div>
         <button
           onClick={showPay}
@@ -212,7 +213,7 @@ const Chat = () => {
           Pay
         </button>
       </div>
-      <div className="flex flex-col gap-2 w-full h-full py-1 overflow-y-scroll">
+      <div className="flex flex-col gap-2 w-full h-full py-2 pl-2 pr-1 overflow-y-scroll">
         {messages.map((msg, index) => (
           <div
             key={index}
@@ -222,7 +223,7 @@ const Chat = () => {
           >
             {/* {console.log(msg.message)} */}
             {msg?.payment ? (
-              <div className="w-full flex flex-col mx-2 p-3 gap-2 bg-slate-100 max-w-60 rounded-xl">
+              <div className="w-full flex flex-col p-3 gap-2 bg-slate-100 max-w-[50%] rounded-xl">
                 <h1 className="text-xs">
                   Payment to {msg.senderId === sender ? user.userName : "You"}
                 </h1>
@@ -239,11 +240,11 @@ const Chat = () => {
               <div
                 className={`flex ${
                   msg.senderId === sender ? "justify-end" : "justify-start"
-                } w-full px-2`}
+                } w-full `}
               >
                 {/* {console.log(msg.senderId, sender)} */}
                 <p
-                  className={`max-w-60 w-fit px-2 py-1 text-sm bg-white rounded-xl text-black`}
+                  className={`max-w-60 w-fit py-2 px-3 text-sm bg-white rounded-b-xl rounded-tl-xl text-black`}
                 >
                   {msg.message}
                 </p>
@@ -269,12 +270,12 @@ const Chat = () => {
             onClick={sendMessage}
             className="outline-blue-400 p-2 rounded-full bg-primary"
           >
-            <IoMdSend size={25} className="text-white cursor-pointer " />
+            <IoMdSend className="text-white cursor-pointer w-5 h-5" />
           </button>
         ) : (
           <button
             onClick={showPay}
-            className="bg-blue-500 text-white px-3 py-1 rounded-lg"
+            className="bg-primary text-white px-3 py-1 rounded-lg"
           >
             Pay
           </button>
