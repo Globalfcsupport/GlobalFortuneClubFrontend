@@ -3,6 +3,7 @@ import { Button, message } from "antd";
 import { HiOutlinePencil } from "react-icons/hi2";
 import { IoSaveOutline } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
+import { RiPencilFill } from "react-icons/ri";
 import {
   getSettingInfo,
   getUserByAuth,
@@ -30,7 +31,7 @@ const Withdraw = () => {
     // Ensure the value is a number and doesn't exceed myDetails.myWallet
     if (name === "amount") {
       if (Number(value) > myDetails.myWallet) {
-        messageApi.warning(`Insufficient balance`);
+        messageApi.warning('Insufficient balance');
         return;
       }
     }
@@ -104,20 +105,16 @@ const Withdraw = () => {
 
   return (
     
-    
-    <div
-      className="w-full pt-1 pb-5  bg-white flex flex-col h-full font-poppins text-[12px] overflow-y-auto "
-      style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-    >
+    <div className="w-full  pb-6  bg-white flex flex-col h-[550px]  font-poppins text-[12px] overflow-y-auto "style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
       {contextHolder}
 
-      <div className="bg-primary pt-4 w-full h-screen">
+      <div className="bg-[#3d5898]  pt-4 h-12 w-full ">
         <div className="flex relative justify-between px-6 items-center w-full">
           <NavLink
             to="/app/TopUp"
             className="py-2 px-5 focus:outline-none text-white"
           >
-            TopUp
+            Top Up
           </NavLink>
           <NavLink
             // to="/app/Withdraw"
@@ -131,16 +128,17 @@ const Withdraw = () => {
         </div>
       </div>
 
-      <div className="px-5 flex flex-col gap-5">
+      
+      < div>
+        <div className="px-5 flex flex-col gap-3">
         <div className="flex justify-end flex-col ">
           <p className="text-primary font-semibold py-2 text-[14px]">My Wallet</p>
-          <p className="text-center w-full bg-primary  text-white px-5 py-2 rounded-md">
+          <p className="text-center w-full bg-primary  text-[15px] text-white px-5 py-1 rounded-md">
             ${myDetails.myWallet ? myDetails.myWallet : 0 }
           </p>
         </div>
-        <div>
-          <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
-            <div className="flex flex-col gap-2 relative">
+          <form className="flex flex-col gap-3.5" onSubmit={handleSubmit}>
+            <div className="flex flex-col gap-3 relative">
               <label
                 htmlFor="USDTAddress"
                 className="text-primary font-semibold text-[14px]"
@@ -158,11 +156,8 @@ const Withdraw = () => {
                 value={myDetails.USDTAddress ? myDetails.USDTAddress : ""}
               />
               {editUSDTAddress ? (
-                <HiOutlinePencil
-                  size={15}
-                  className="absolute bottom-2 right-2"
-                  onClick={handleUSDTAddress}
-                />
+               <RiPencilFill
+               className="absolute text-gray-500 text-lg right-2 bottom-2 cursor-pointer"/>
               ) : (
                 <IoSaveOutline
                   size={15}
@@ -181,16 +176,15 @@ const Withdraw = () => {
               <select
                 id="usdtNetwork"
                 name="usdtNetwork"
-                className="px-3 py-1 rounded-md"
+                className="px-3 py-1  rounded-md"
                 style={{ color: usdtNetwork === "" ? "#999" : "#000" }}
                 value={usdtNetwork}
                 onChange={(e) => setUsdtNetwork(e.target.value)}
               >
-                <option value="" disabled>
-                  Select Network
-                </option>
-                <option value="TRC20">TRC20</option>
-                <option value="BEP20">BEP20</option>
+                {/* <option value=""  disabled>
+                </option> */}
+                <option value="TRC20" className='text-[15px] '>TRC20</option>
+                <option value="BEP20" className='text-[15px] '>BEP20</option>
               </select>
             </div>
             <div className="flex flex-col gap-2 relative">
@@ -204,7 +198,7 @@ const Withdraw = () => {
                   id="amount"
                   name="amount"
                   type="number"
-                  className="px-3 py-1 rounded-md w-full hover:bg-gray-50"
+                  className="px-3 py-1 font-semibold rounded-md w-full hover:bg-gray-50"
                   onChange={handleChange}
                   value={data.amount}
                 />
@@ -221,46 +215,45 @@ const Withdraw = () => {
                 <input
                   id="networkfee"
                   value={networkFee + "%"}
-                  className="px-3 py-1 rounded-md border-primary w-full border-none hover:bg-gray-50 bg-customLightGray"
+                  className="px-3 py-1 rounded-md border-primary w-full border-none bg-[#d8d6d6] hover:bg-[#d3d1d1]"
                 />
                 <span className="absolute right-3 top-1/2 transform -translate-y-1/2">
                   USDT
                 </span>
               </div>
               </div>
-            <div className="flex flex-col gap-2 relative">
-              <label className="text-primary text-[14px] font-semibold">
-                Receivable Amount
-              </label>
-              <div className="relative">
-                <input
-                  id="ramount"
-                  readOnly={true}
-                  value={receivableAmount ? receivableAmount : 0}
-                  type="text"
-                  className="px-3 py-1 rounded-md w-full border-none hover:bg-gray-50 bg-customLightGray"
-                />
+              <div className="flex flex-col gap-2 relative">
+  <label className="text-primary text-[14px] font-semibold">
+    Receivable Amount
+  </label>
+  <div className="relative">
+    <input
+      id="ramount"
+      readOnly={true}
+      value={receivableAmount ? receivableAmount : 0}
+      type="text"
+      className="px-3 py-1 rounded-md w-full font-semibold border-none bg-[#d8d6d6] hover:bg-[#d3d1d1] pr-12"
+    />
+    <span className="absolute right-3 top-1/2 transform -translate-y-1/2 ">
+      USDT
+    </span>
+  </div>
+</div>
 
-                  <span className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                  USDT
-                </span>
-              </div>
-            </div>
 
-            <Button
+            <button
               loading={loading}
               htmlType="submit"
-              className="bg-gray-400 px-4 h-10  rounded-lg text-white text-xl font-semibold hover:bg-gray-300">
+              className="bg-[#95919f] px-3 h-8  rounded-lg text-white text-sm font-semibold hover:bg-[#95919f]">
               {loading ? "Loading" : "Withdraw"}
-            </Button>
+            </button>
+            <div className="p-2 h-8 text-[8px] bg-[#d8d6d6] rounded-md">
+            <p > Minimum Withdraw is 12 Withdraw allowed only once in 24 hours Withdraw processing time is 24 hours</p>
+          </div>
           </form>
         </div>
-        <div className="px-2  py-2 text-[9px]   bg-customLightGray rounded-xl">
-            <p > Minimum Withdraw is 12 Withdraw allowed only once in 24 hours Withdraw processing time is 24 hours</p>
-        </div>
-      </div>
+     </div>
     </div>
-   
   );
 };
 

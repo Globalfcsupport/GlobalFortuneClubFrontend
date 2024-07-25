@@ -66,7 +66,7 @@ const TopUp = () => {
     <div className="w-full flex flex-col h-full font-poppins text-[12px] overflow-hidden bg-white">
       {contextHolder}
 
-      <div className="bg-[#3d5898] pt-4 h-10 w-full">
+      <div className="bg-[#3d5898] pt-4 h-12 w-full">
         <div className="flex relative justify-between px-6 items-center w-full">
           <NavLink
             to="/app/TopUp"
