@@ -34,6 +34,10 @@ body{
   
 }
 
+#showPopup{
+  position: absolute;
+}
+
 @media (max-width: 500px) {
   html{
     padding: 0px;

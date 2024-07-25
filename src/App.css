@@ -79,5 +79,23 @@ input[type='number'] {
   
 }
 
+/* In your CSS file (e.g., styles.css) */
+.shadow-top {
+ box-shadow: 1px -1px 3px #dddd,
+            -1px 1px 3px #dddd
+}
+
+.custom-image {
+  width: 200px;
+  height: 200px;
+  border: 5px solid #333;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  filter: grayscale(50%);
+  transition: transform 0.3s ease;
+}
+
+/*  */
+
 
 

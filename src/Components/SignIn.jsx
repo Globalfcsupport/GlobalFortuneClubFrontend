@@ -4,6 +4,8 @@ import { IoReload } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assets/Image/logo-remove.png";
 import { Login, sendOTP } from "../services/services";
+import { ImSpinner8 } from "react-icons/im";
+import classNames from 'classnames';
 
 const FormikSignIn = () => {
   const [sendOTPLoading, setSendOTPLoading] = useState(false);
@@ -17,13 +19,9 @@ const FormikSignIn = () => {
   const navigate = useNavigate();
   const [changeCaptcha, setChangeCaptcha] = useState(false);
   const [timer, setTimer] = useState(0);
-  
 
-  const AuthGuard = async () => {
-    let token = localStorage.getItem("accessToken");
-    if (token) {
-      navigate("/app/dashboard");
-    }
+  const AuthGuard = () => {
+    localStorage.clear();
   };
 
   useEffect(() => {
@@ -43,12 +41,22 @@ const FormikSignIn = () => {
     AuthGuard();
   }, []);
 
+
+  
+
   const handleSendOTP = async () => {
     if (timer > 0) return;
 
     setSendOTPLoading(true);
+    //for
+   
     if (email) {
-      setOTPShowInput(false);
+      
+      // setOTPShowInput(false);
+      setTimeout(() => {
+        setSendOTPLoading(false);
+       
+      }, 3000);
       await sendOTP({ email })
         .then((response) => {
           setSendOTPLoading(false);
@@ -120,7 +128,7 @@ const FormikSignIn = () => {
             localStorage.setItem("userName", response.data.data.userName);
             localStorage.setItem("email", response.data.data.email);
             messageApi.success("Logged In Successfully!");
-            
+
             navigate("app/DashBoard");
           })
           .catch((error) => {
@@ -129,7 +137,7 @@ const FormikSignIn = () => {
       } else {
         message.error("Please Enter Valid Captcha");
       }
-    } 
+    }
     // else {
     //   message.error("Please Enter OTP");
     // }
@@ -156,8 +164,9 @@ const FormikSignIn = () => {
           <div className="flex justify-center items-center flex-col gap-1">
             <img src={Logo} className="w-[28%]" alt="Logo" />
             <p className="text-blueColor mt-5 text-xl font-semibold">Login</p>
-            <h2 className="text-md mt-2.5 font-semibold text-blueColor">Welcome Back !</h2>
-            
+            <h2 className="text-md mt-2.5 font-semibold text-blueColor">
+              Welcome Back !
+            </h2>
           </div>
           <div className="px-5 flex justify-center items-center w-full">
             <form
@@ -165,7 +174,10 @@ const FormikSignIn = () => {
               onSubmit={handleSubmit}
             >
               <div className="flex flex-col gap-1 relative w-full">
-                <label htmlFor="email" className="font-medium text-[12px] text-blueColor">
+                <label
+                  htmlFor="email"
+                  className="font-semibold text-[12px] text-blueColor"
+                >
                   Email
                 </label>
                 <input
@@ -173,12 +185,13 @@ const FormikSignIn = () => {
                   type="email"
                   name="email"
                   placeholder=""
-                  className="w-full py-2.5 rounded-md pl-4 pr-32 text-sm border-[1.5px] border-black hover:bg-transparent"
-                  focus:bg-white focus:outline-none focus:border-none 
+                  className="w-full py-2.5 rounded-md pl-[8px] pr-[85px] text-sm border-[1.5px] border-black hover:bg-transparent"
+                  focus:bg-white
+                  focus:outline-none
+                  focus:border-none
                   onChange={(e) => setEmail(e.target.value)}
-                  
                 />
-                <button
+                {/* <button
                   loading={sendOTPLoading}
                   className="absolute text-[10px] font-medium bg-customBlue mt-2 text-white rounded-md top-[0.95rem] bottom-[0.375rem] h-10 right-[0.100rem] w-20  hover:shadow-sm"
                   onClick={handleSendOTP}
@@ -189,55 +202,72 @@ const FormikSignIn = () => {
                     : sendOTPLoading
                     ? "Sending"
                     : "Send OTP"}
-                </button>
-                
+                </button> */}
+                <button
+                 loading={sendOTPLoading}
+                 className={classNames(
+                   "absolute text-[10px] font-semibold bg-customBlue mt-2 text-white rounded-md top-[0.95rem] bottom-[0.375rem] h-10 right-[0.100rem] w-20 hover:shadow-sm",
+                   {   'bg-gray-400': timer > 0,
+          'bg-customBlue': timer === 0, 'opacity-50 cursor-not-allowed': timer > 0 }
+                 )}
+                 onClick={handleSendOTP}
+                 disabled={timer > 0}
+               >
+                 {sendOTPLoading ? (
+                   < ImSpinner8 className="animate-spin text-2xl text-white mx-auto" />
+                 ) : (
+                              timer > 0 ? `${timer}` : "Send OTP"
+                 )}
+               </button>
               </div>
               {/* {showOTPInput && ( */}
-                <div className="flex mt-2 flex-col gap-1 justify-center w-full">
-                  <label
-                    htmlFor="email"
-                    className="font-medium text-[12px] text-blueColor "
-                  >
-                    OTP
-                  </label>
-                  <div className="inputs flex justify-center gap-8">
-                    <input
-                      onKeyUp={handleBackSpace}
-                      onInput={handleInput}
-                      maxLength={1}
-                      placeholder=""
-                      type="text"
-                      className="w-10 h-10 rounded-md hover:bg-transparent focus:bg-white"
-                    />
-                    <input
-                      onKeyUp={handleBackSpace}
-                      onInput={handleInput}
-                      maxLength={1}
-                      placeholder=""
-                      type="text"
-                      className="w-10 h-10 rounded-md hover:bg-transparent focus:bg-white"
-                    />
-                    <input
-                      onKeyUp={handleBackSpace}
-                      onInput={handleInput}
-                      maxLength={1}
-                      placeholder=""
-                      type="text"
-                      className="w-10 h-10 rounded-md hover:bg-transparent focus:bg-white"
-                    />
-                    <input
-                      onKeyUp={handleBackSpace}
-                      onInput={handleInput}
-                      maxLength={1}
-                      placeholder=""
-                      type="text"
-                      className="w-10 h-10 rounded-md hover:bg-transparent focus:bg-white"
-                    />
-                  </div>
+              <div className="flex mt-2 flex-col gap-1 justify-center w-full">
+                <label
+                  htmlFor="email"
+                  className="font-semibold text-[12px] text-blueColor "
+                >
+                  OTP
+                </label>
+                <div className="inputs flex justify-center gap-8">
+                  <input
+                    onKeyUp={handleBackSpace}
+                    onInput={handleInput}
+                    maxLength={1}
+                    placeholder=""
+                    type="text"
+                    className="w-10 h-10 rounded-md hover:bg-transparent  text-black  focus:bg-white"
+                  />
+                  <input
+                    onKeyUp={handleBackSpace}
+                    onInput={handleInput}
+                    maxLength={1}
+                    placeholder=""
+                    type="text"
+                    className="w-10 h-10 rounded-md hover:bg-transparent  text-black  focus:bg-white"
+                  />
+                  <input
+                    onKeyUp={handleBackSpace}
+                    onInput={handleInput}
+                    maxLength={1}
+                    placeholder=""
+                    type="text"
+                    className="w-10 h-10 rounded-md hover:bg-transparent  text-black  focus:bg-white"
+                  />
+                  <input
+                    onKeyUp={handleBackSpace}
+                    onInput={handleInput}
+                    maxLength={1}
+                    placeholder=""
+                    type="text"
+                    className="w-10 h-10 rounded-md hover:bg-transparent  text-black  focus:bg-white"
+                  />
                 </div>
-               {/* )} */}
+              </div>
+              {/* )} */}
               <div className="flex mt-2 flex-col gap-1 items-start w-full">
-                <h1 className="font-medium text-[12px] text-blueColor">Enter Captcha</h1>
+                <h1 className="font-semibold text-[12px] text-blueColor">
+                  Enter Captcha
+                </h1>
                 <p className="text-center w-full py-1 text-sm rounded-md mx-auto tracking-[1rem] bg-white relative select-none">
                   {captchaText}
                   <IoReload
@@ -262,9 +292,12 @@ const FormikSignIn = () => {
                 </button>
               </div>
               <div className="flex items-center justify-center w-full">
-                <p className="text-blueColor text-[14px]">
+                <p className="text-blueColor text-[13px]">
                   Don't you have an account?{" "}
-                  <Link to={`/Signup`} className="text-[15px] font-semibold text-customBlue">
+                  <Link
+                    to={`/Signup`}
+                    className="text-[14.5px] font-semibold text-blueColor"
+                  >
                     Sign Up
                   </Link>
                 </p>

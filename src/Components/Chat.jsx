@@ -13,6 +13,7 @@ import { v4 } from "uuid";
 import { TiTick } from "react-icons/ti";
 import { FaChevronRight } from "react-icons/fa6";
 import { IoMdSend } from "react-icons/io";
+import { BaseURL } from "../utils/const";
 
 const SOCKET_SERVER_URL = "wss://gfcapi.globalfc.app";
 
@@ -187,63 +188,63 @@ const Chat = () => {
   };
 
   return (
-    <div className="flex flex-col justify-between overflow-hidden h-full relative font-poppins">
-      <div className="bg-primary h-16 flex justify-between px-5 py-2 gap-5 items-center">
+    <div className="flex flex-col justify-between overflow-hidden h-full relative">
+      <div className="bg-primary h-16 flex justify-between px-5 py-1 gap-5 items-center">
         <div className="flex justify-between items-center gap-3">
           {user.image ? (
             <img
-              src={user.image}
+              src={`${BaseURL}/${user.image}`}
               alt=""
               className="h-8 w-8 object-cover rounded-full"
             />
           ) : (
-            <div className="bg-white rounded-full h-8 w-8 flex justify-center items-center">
-              <span className="font-semibold text-2xl flex justify-center items-center text-primary -mt-1">
+            <div className="bg-white rounded-full h-9 w-9 grid justify-center items-center">
+              <span className="font-semibold text-xl flex justify-center items-center text-primary ">
                 {user.userName?.split("")[0]}
               </span>
             </div>
           )}
-          <p className="text-black text-md font-medium">{user.userName}</p>
+          <p className="text-white text-md font-semibold">{user.userName}</p>
         </div>
         <button
           onClick={showPay}
-          className="bg-white px-5 py-1 rounded-lg text-primary font-medium"
+          className="bg-white px-5 py-1.5 rounded-md text-primary text-[14px] font-medium"
         >
           Pay
         </button>
       </div>
-      <div className="flex flex-col gap-2 w-full h-full py-1 overflow-y-scroll">
+      <div className="flex flex-col gap-2 w-full h-full py-1 pl-2 pr-1 overflow-y-scroll">
         {messages.map((msg, index) => (
           <div
             key={index}
             className={`flex flex-col ${
-              msg.senderId === sender ? "items-end" : "items-start"
+              msg.senderId === sender ? "items-end " : "items-start"
             }`}
           >
             {/* {console.log(msg.message)} */}
             {msg?.payment ? (
-              <div className="w-full flex flex-col mx-2 p-3 gap-2 bg-slate-100 max-w-60 rounded-xl">
-                <h1 className="text-xs">
+              <div className="w-full flex flex-col px-2 pt-1 bg-white max-w-[45%] h-[100%] rounded-xl  rounded-tr-sm  border-[6px] border-customBlue">
+                <h1 className="text-[10px] text-gray-600 font-medium ">
                   Payment to {msg.senderId === sender ? user.userName : "You"}
                 </h1>
-                <h1 className="text-xl">${msg.money}</h1>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-sm">
-                    <TiTick className="rounded-full bg-green-600 text-white" />
-                    <p>{msg.payment == true ? "Paid" : "Not Paid"}</p>
+                <h1 className="text-md text-primary font-medium">${msg.money}</h1>
+                <div className="flex items-center justify-between mb-1">
+                  <div className="flex items-center gap-2 text-xs">
+                    <TiTick className="rounded-full bg-green-500 text-white" />
+                    <p className="text-xs text-gray-400 font-medium ">{msg.payment == true ? "Paid" : "Not Paid"}</p>
                   </div>
-                  <FaChevronRight className="text-sm" />
+                  {/* <FaChevronRight className="text-xs text-gray-400"  /> */}
                 </div>
               </div>
             ) : (
               <div
-                className={`flex ${
+                className={`flex  ${
                   msg.senderId === sender ? "justify-end" : "justify-start"
-                } w-full px-2`}
+                } w-full `}
               >
                 {/* {console.log(msg.senderId, sender)} */}
                 <p
-                  className={`max-w-60 w-fit px-2 py-1 text-sm bg-white rounded-xl text-black`}
+                  className={`max-w-60 w-fit py-1 px-6 pl-3 text-[13px] font-medium bg-white rounded-lg rounded-tr-sm text-customBlue`}
                 >
                   {msg.message}
                 </p>
@@ -252,11 +253,11 @@ const Chat = () => {
           </div>
         ))}
       </div>
-      <div className="px-5 py-2 flex items-center gap-2 justify-center w-full">
+      <div className="px-2 py-2 flex items-center gap-2 justify-center w-full mb-3">
         <input
-          className="w-[90%] block px-5 py-2 rounded-xl text-sm "
+          className="w-[80%] px-2 py-3.5 rounded-md text-sm  border-none hover:bg-gray-100 focus:bg-white"
           type="text"
-          placeholder="Type Text or Amount..."
+          placeholder="Send a message or amount..."
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onInput={handlePhonePe}
@@ -264,17 +265,23 @@ const Chat = () => {
           //   if (e.key === "Enter") sendMessage();
           // }}
         />
+         <style jsx>{`
+        input::placeholder {
+          font-size: 11px;
+          
+        }
+      `}</style>
         {sendButton ? (
           <button
             onClick={sendMessage}
             className="outline-blue-400 p-2 rounded-full bg-primary"
           >
-            <IoMdSend size={25} className="text-white cursor-pointer " />
+            <IoMdSend className="text-white cursor-pointer size-6 p-1" />
           </button>
         ) : (
           <button
             onClick={showPay}
-            className="bg-blue-500 text-white px-3 py-1 rounded-lg"
+            className="bg-primary text-[15px] font-medium text-white px-4 py-[12.5px] rounded-md"
           >
             Pay
           </button>
@@ -283,24 +290,32 @@ const Chat = () => {
 
       {pay ? (
         <div
-          className="absolute bg-transparent h-full w-full flex justify-center items-center"
+          className="absolute bg-transparent left-8 h-full w-[80%] flex justify-center items-center"
           onClick={handleClick}
         >
-          <div className="div relative w-80 bg-white rounded-lg text-black py-4 px-3 flex flex-col gap-2 border border-black">
-            <div className="flex div justify-between text-sm font-medium">
+          <div className="div relative w-80 bg-white rounded-xl text-black py-2 px-3 flex flex-col min-h-[20%]">
+            <div className="flex px-2 m-[-0.20rem] mb-1 text-customGray justify-between text-[0.6rem] ">
               <p className="">Transfer to {user.userName}</p>
               <p>MW: ${myWallet}</p>
             </div>
-            <input
+            <div>
+              <p 
+              className="w-full text-[12px] text-center font-medium px-2 py-2 border-none text-gray-500 bg-gray-100 rounded-md"
+              value={amount}
+              onChange={(e) => {
+                setAmount(e.target.value);
+              }}>Enter Amount: <span className="text-customBlue">{amount}</span></p>
+            </div>
+            {/* <input
               readOnly={disabledInput<12}
               value={amount}
               onChange={(e) => {
                 setAmount(e.target.value);
               }}
               type="number"
-              className="w-full px-2 py-1 rounded-lg"
-            />
-            <ul className="text-xss px-5">
+              className="w-full px-2 py-1 border-none bg-gray-100 rounded-lg"
+            /> */}
+            <ul className="text-xss mt-1 mb-1  text-customGray px-5">
               {amount < minimumInternalTransaction ? (
                 <li className="list-disc">
                   Minimum Internal Transaction is ${minimumInternalTransaction}
@@ -310,18 +325,18 @@ const Chat = () => {
                 Internal Transaction fee is ${internalTransactionFee}
               </li>
             </ul>
-            <div className="div flex justify-around">
+            <div className="   flex justify-around ">
               <button
                 type="button"
                 onClick={handleCancel}
-                className="bg-red-600 px-5 rounded-full text-sm py-1 text-white"
+                className="bg-red-500  px-4 rounded-md text-[10px] font-semibold py-1 text-white"
               >
                 Cancel
               </button>
               <button
                 type="button"
                 onClick={handleConfirm}
-                className="bg-green-600 px-5 rounded-full text-sm py-1 text-white"
+                className="bg-green-500 px-4 rounded-md text-[10px] font-semibold py-1 text-white"
               >
                 Confirm
               </button>
