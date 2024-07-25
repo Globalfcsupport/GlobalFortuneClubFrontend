@@ -137,7 +137,7 @@ const TopUp = () => {
               </p>
               <Radio
                 defaultChecked
-                className=" rounded-full font-semibold text-md"
+                className=" rounded-full font-semibold text-[15px]"
               >
                 Crypto
               </Radio>

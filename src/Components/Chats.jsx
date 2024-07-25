@@ -4,6 +4,7 @@ import { susers } from "../utils/Users";
 import { getUsersForChats } from "../services/services";
 import { FaSearch, FaUser } from "react-icons/fa";
 import { BaseURL } from "../utils/const";
+import { IoMdSearch } from "react-icons/io";
 
 const Chats = () => {
   const navigate = useNavigate();
@@ -54,15 +55,21 @@ const Chats = () => {
 
   return (
     <div className="rounded-bl-3xl rounded-br-3xl flex flex-col relative h-full">
-      <div className="px-3 py-3 sticky top-0 bg-primary">
+      <div className="px-2.5 py-2.5 sticky top-0 bg-primary">
         <div className="relative h-fit">
           <input
             type="text"
             onChange={handleSearch}
-            className="px-4 py-2 text-sm w-full hover:bg-gray-100 focus:bg-white border-none rounded-md"
+            className="px-3 py-[6px] text-[15px] w-full hover:bg-gray-100 focus:bg-white border-none rounded-md"
             placeholder="Search User by UserId"
           />
-          <FaSearch className="absolute top-2 right-2 text-primary" />
+          <IoMdSearch className="absolute size-6 top-1.5 right-2 text-primary cursor-pointer" />
+          <style jsx>{`
+        input::placeholder {
+          font-size: 13px;
+          
+        }
+      `}</style>
         </div>
       </div>
       <div className="w-full h-full overflow-scroll flex flex-col gap-[6px] py-2 pl-2 pr-1">
@@ -89,7 +96,7 @@ const Chats = () => {
                 </div>
               )}
               <div>
-                <p className="text-sm font-semibold">{item.userName}</p>
+                <p className="text-sm font-medium">{item.userName}</p>
                 {/* <p className="text-xs">Last Message</p> */}
               </div>
             </div>

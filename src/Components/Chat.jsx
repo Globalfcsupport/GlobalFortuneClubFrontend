@@ -189,7 +189,7 @@ const Chat = () => {
 
   return (
     <div className="flex flex-col justify-between overflow-hidden h-full relative font-poppins">
-      <div className="bg-primary h-16 flex justify-between px-5 py-2 gap-5 items-center">
+      <div className="bg-primary h-16 flex justify-between px-5 py-1 gap-5 items-center">
         <div className="flex justify-between items-center gap-3">
           {user.image ? (
             <img
@@ -198,17 +198,17 @@ const Chat = () => {
               className="h-8 w-8 object-cover rounded-full"
             />
           ) : (
-            <div className="bg-white rounded-full h-10 w-10 grid justify-center items-center">
-              <span className="font-semibold text-2xl flex justify-center items-center text-primary ">
+            <div className="bg-white rounded-full h-9 w-9 grid justify-center items-center">
+              <span className="font-semibold text-xl flex justify-center items-center text-primary ">
                 {user.userName?.split("")[0]}
               </span>
             </div>
           )}
-          <p className="text-white text-md font-medium">{user.userName}</p>
+          <p className="text-white text-md font-semibold">{user.userName}</p>
         </div>
         <button
           onClick={showPay}
-          className="bg-white px-5 py-1 rounded-lg text-primary font-medium"
+          className="bg-white px-5 py-1.5 rounded-md text-primary text-[14px] font-medium"
         >
           Pay
         </button>
@@ -244,7 +244,7 @@ const Chat = () => {
               >
                 {/* {console.log(msg.senderId, sender)} */}
                 <p
-                  className={`max-w-60 w-fit py-2 px-3 text-sm bg-white rounded-b-xl rounded-tl-xl text-black`}
+                  className={`max-w-60 w-fit py-1 px-6 pl-3 text-[13px] font-medium bg-white rounded-lg rounded-tr-sm text-customBlue`}
                 >
                   {msg.message}
                 </p>
@@ -255,9 +255,9 @@ const Chat = () => {
       </div>
       <div className="px-5 py-2 flex items-center gap-2 justify-center w-full">
         <input
-          className="w-[90%] block px-5 py-2 rounded-xl text-sm "
+          className="w-[90%] px-2 py-2 rounded-md text-sm  border-none"
           type="text"
-          placeholder="Type Text or Amount..."
+          placeholder="Send a message or amount"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onInput={handlePhonePe}
@@ -265,6 +265,12 @@ const Chat = () => {
           //   if (e.key === "Enter") sendMessage();
           // }}
         />
+         <style jsx>{`
+        input::placeholder {
+          font-size: 12px;
+          
+        }
+      `}</style>
         {sendButton ? (
           <button
             onClick={sendMessage}
@@ -275,7 +281,7 @@ const Chat = () => {
         ) : (
           <button
             onClick={showPay}
-            className="bg-primary text-white px-3 py-1 rounded-lg"
+            className="bg-primary text-[12px] font-semibold text-white px-3 py-[8.5px] rounded-md"
           >
             Pay
           </button>
@@ -284,24 +290,32 @@ const Chat = () => {
 
       {pay ? (
         <div
-          className="absolute bg-transparent h-full w-full flex justify-center items-center"
+          className="absolute bg-transparent left-8 h-full w-[80%] flex justify-center items-center"
           onClick={handleClick}
         >
-          <div className="div relative w-80 bg-white rounded-lg text-black py-4 px-3 flex flex-col gap-2 border border-black">
-            <div className="flex div justify-between text-sm font-medium">
+          <div className="div relative w-80 bg-white rounded-xl text-black py-2 px-3 flex flex-col min-h-[20%]">
+            <div className="flex px-2 m-[-0.20rem] mb-1 text-customGray justify-between text-[0.6rem] ">
               <p className="">Transfer to {user.userName}</p>
               <p>MW: ${myWallet}</p>
             </div>
-            <input
+            <div>
+              <p 
+              className="w-full text-[12px] text-center font-medium px-2 py-2 border-none text-gray-500 bg-gray-100 rounded-md"
+              value={amount}
+              onChange={(e) => {
+                setAmount(e.target.value);
+              }}>Enter Amount: <span className="text-customBlue">{amount}</span></p>
+            </div>
+            {/* <input
               readOnly={disabledInput<12}
               value={amount}
               onChange={(e) => {
                 setAmount(e.target.value);
               }}
               type="number"
-              className="w-full px-2 py-1 rounded-lg"
-            />
-            <ul className="text-xss px-5">
+              className="w-full px-2 py-1 border-none bg-gray-100 rounded-lg"
+            /> */}
+            <ul className="text-xss mt-1 mb-1  text-customGray px-5">
               {amount < minimumInternalTransaction ? (
                 <li className="list-disc">
                   Minimum Internal Transaction is ${minimumInternalTransaction}
@@ -311,18 +325,18 @@ const Chat = () => {
                 Internal Transaction fee is ${internalTransactionFee}
               </li>
             </ul>
-            <div className="div flex justify-around">
+            <div className="   flex justify-around ">
               <button
                 type="button"
                 onClick={handleCancel}
-                className="bg-red-600 px-5 rounded-full text-sm py-1 text-white"
+                className="bg-red-500  px-4 rounded-md text-[10px] font-semibold py-1 text-white"
               >
                 Cancel
               </button>
               <button
                 type="button"
                 onClick={handleConfirm}
-                className="bg-green-600 px-5 rounded-full text-sm py-1 text-white"
+                className="bg-green-500 px-4 rounded-md text-[10px] font-semibold py-1 text-white"
               >
                 Confirm
               </button>

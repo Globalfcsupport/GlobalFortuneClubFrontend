@@ -75,7 +75,6 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
   }, []);
   
   return (
-    <div className='bg-black'>
     <div
       className={` absolute top-0 left-0 h-[624px] md:h-[624px] rounded-[25px] z-50 bg-white overflow-hidden  transform transition-transform duration-300  ${
         isOpen ? 'translate-x-0' : '-translate-x-full'
@@ -86,7 +85,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         className="absolute right-5 top-4 text-xl flex justify-center items-center"
         onClick={toggleSidebar}
       >
-            <MdKeyboardArrowLeft className="text-textColour text-3xl" />
+            <MdKeyboardArrowLeft className="text-customGray text-3xl hover:bg-gray-200 hover:rounded-full " />
             </button>
       <div className=" pt-8  h-auto">
         {/* User Info */}
@@ -97,9 +96,9 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           <div className=' text-white'>
           
           
-            <div className="font-bold text-[14px] pl-1 m-[-0.40rem] mb-1  ">{data.userName}</div>
-            <div className=" text-[10.5px] pl-1 m-[-0.40rem] font-medium">{data.email}</div>
-            <div className=" text-[10.5px] m-[-0.40rem] font-medium pl-1">ID: {data.refId}</div>
+            <div className="font-bold text-[15px] pl-1 mt-[0.20rem] mb-1  ">{data.userName}</div>
+            <div className=" text-[10px] pl-1 mt-[-0.20rem] font-medium">{data.email}</div>
+            <div className=" text-[10px] mt-[-0.30rem] font-medium pl-1">ID: {data.refId}</div>
           </div>
         </div>
         {/* Sidebar Links */}
@@ -153,7 +152,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         
       </div>
     </div>
-    </div>
+   
   );
 };
 
