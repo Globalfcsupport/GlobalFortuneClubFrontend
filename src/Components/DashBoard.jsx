@@ -395,7 +395,7 @@ const DashBoard = () => {
               <span className="text-textColour">Total Crypto Withdraw</span>
             </div>
             <div className="flex items-center">
-              <span>${data.totalCryptoTopup}</span>
+              <span>${data.withdraw}</span>
               <p
                 onClick={() => {
                   Nav("/app/Wallet");
