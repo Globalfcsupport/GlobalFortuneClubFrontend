@@ -27,7 +27,7 @@ const Referrals = () => {
 
   return (
     <div className='h-full'>
-      <div className="flex flex-col bg-primary p-3 gap-2">
+      <div className="flex flex-col bg-primary p-3 gap-3.5">
         <div className="relative">
           <input
             name='name'
@@ -35,18 +35,27 @@ const Referrals = () => {
             id='name'
             placeholder="Search ID/Name"
             className="w-full px-3 py-2 text-sm pr-10 border hover:bg-gray-100 focus:bg-white rounded-md outline-none"
+            
           />
+          <style jsx>{`
+        input::placeholder {
+          font-size: 14px;
+          color: #4d5561
+
+          
+        }
+      `}</style>
           <button>
             <FaSearch className="text-blueColor absolute right-3 top-1/2 transform -translate-y-1/2 text-MainSection pointer-events-none" />
           </button>
         </div>
 
-        <div className="flex justify-between text-sm px-4">
-          <div className="flex flex-col gap-2 justify-center items-center">
+        <div className="flex justify-between text-[12px] px-4 gap-2">
+          <div className="flex flex-col gap-1 justify-center items-center">
             <p className='text-white'>Referral - Today</p>
             <p className="bg-white rounded-md w-16 text-center">{todayReferral}</p>
           </div>
-          <div className="flex flex-col gap-2 justify-center items-center">
+          <div className="flex flex-col gap-1 justify-center items-center">
             <p className='text-white'>Referral - Overall</p>
             <p className="bg-white rounded-md w-16 text-center">{overallReferral}</p>
           </div>
@@ -57,11 +66,11 @@ const Referrals = () => {
         {Array.isArray(users) && users.map((item, index) => {
           const firstLetter = item.userName ? item.userName.charAt(0).toUpperCase() : '';
           return (
-            <div key={index} className='p-4 m-2 border rounded-xl shadow-md flex items-center bg-white'>
+            <div key={index} className='px-4 mt-2 rounded-md shadow-top flex items-center bg-white'>
               {item.image ? (
                 <img
                   src={`${BaseURL}${item.image}`}
-                  className='h-12 w-12 rounded-full object-cover'
+                  className='size-10 h-12 w-12 rounded-full object-cover'
                   alt="User"
                 />
               ) : (
@@ -72,13 +81,13 @@ const Referrals = () => {
                   {firstLetter}
                 </div>
               )}
-              <div className='ml-2 flex flex-col'>
-                <div className='flex justify-between items-center'>
-                  <p className='font-medium text-lg text-blueColor text-ellipsis line-clamp-1'>{item.userName}</p>
-                  <p className='text-blueColor text-xs font-bold '>ID: {item.refId}</p>
+              <div className='p-3 w-full flex flex-col gap-1'>
+                <div className='flex justify-between '>
+                  <p className='font-semibold text-[13px] text-blueColor'>{item.userName}</p>
+                  <p className='text-blueColor text-[13px] font-semibold  '>ID: {item.refId}</p>
                 </div>
-                <p className='text-black-100 text-xs '>Email: {item.email}</p>
-                <p className='text-black-100 text-xs '>DOJ: {new Date(item.createdAt).toLocaleString()}</p>
+                <p className='text-gray-800 text-[10.5px] '>Email: {item.email}</p>
+                <p className='text-gray-800 text-[10px] '>DOJ: {new Date(item.createdAt).toLocaleString()}</p>
               </div>
             </div>
           );
