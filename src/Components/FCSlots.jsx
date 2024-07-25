@@ -165,29 +165,46 @@ const FCSlots = () => {
     setActiveTab(tab);
   };
 
+  // (
+  //   <div className="w-full h-full font-poppins text-sm overflow-y-auto bg-white">
+  //     <div className="bg-primary pt-5 w-full">
+  //       <div className="flex relative justify-between px-6 items-center w-full">
+  //         <button
+  //           onClick={() => { handleTabClick("active"); setTabs("Activated"); }}
+  //           className={`py-2 px-5 focus:outline-none transition-all duration-300 ${
+  //             activeTab === "active"
+  //               ? "bg-white text-black rounded-t-md transform scale-105"
+  //               : "text-white hover:bg-gray-700 hover:text-white"
+  //           }`}
+  //         >
+
   return (
     <div className="w-full h-full font-poppins text-sm overflow-y-auto bg-white">
       <div className="bg-primary pt-5 w-full">
         <div className="flex relative justify-between px-6 items-center w-full">
           <button
             onClick={() => { handleTabClick("active"); setTabs("Activated"); }}
-            className={`py-2 w-28 focus:outline-none ${
-              activeTab === "active" ? "bg-white text-primary rounded-t-md" : "text-white"
+            className={`py-3 px-5 focus:outline-none ${
+              activeTab === "active"
+                ? "bg-white text-black rounded-t-[2.5px] "
+                : "text-white"
             }`}
           >
             Active
           </button>
           <button
             onClick={() => { handleTabClick("completed"); setTabs("Completed"); }}
-            className={`py-2 w-28 focus:outline-none ${
-              activeTab === "completed" ? "bg-white text-primary rounded-t-md" : "text-white"
+            className={`py-3 px-3 focus:outline-none ${
+              activeTab === "completed"
+                ? "bg-white text-black rounded-t-[2.5px] "
+                : "text-white"
             }`}
           >
             Completed
           </button>
           <span
-            className={`h-0.5 bg-primary absolute w-12 rounded-lg bottom-1 transition-all duration-75 ${
-              activeTab === "active" ? "left-10 w-20" : "right-10 w-20"
+            className={`h-0.5 bg-primary absolute w-12 rounded-lg bottom-2 transition-all duration-75 ${
+              activeTab === "active" ? "left-10 w-12" : "right-8 w-20"
             }`}
           ></span>
         </div>

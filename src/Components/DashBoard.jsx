@@ -122,16 +122,16 @@ const DashBoard = () => {
               >
                 <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer justify-center"></FiAlertCircle>
               </Tooltip>
-              <span className=" text-[12.5px] text-textColour">My Wallet</span>
+              <span className=" text-[12.5px] text-textColour ">My Wallet</span>
             </div>
 
-            <div className="flex items-center ">
+            <div className="flex items-center font-semibold">
               <span>{data.wallet?.toFixed(4)}</span>
-              <p
+              <p 
                 onClick={() => {
                   Nav("/app/Wallet");
                 }}
-                className="cursor-pointer"
+                className="cursor-pointer "
               >
                 <MdKeyboardArrowRight className="text-[#e5e5e5] size-6" />
               </p>
@@ -158,7 +158,7 @@ const DashBoard = () => {
               <span className="text-textColour text-[12.5px]">Reserve - My Wallet</span>
             </div>
 
-            <p className="bg-primary text-[12.5px] w-23  text-white px-[33px] py-[5px] rounded-md cursor-pointer">
+            <p className="bg-primary text-[12.5px] w-[90px]  text-white font-semibold  px-[33px] py-[5px] rounded-md cursor-pointer">
               ${data.reserveMywallet ? data.reserveMywallet : 0}
             </p>
           </div>
@@ -177,10 +177,10 @@ const DashBoard = () => {
               >
                 <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
               </Tooltip>
-              <span className="text-textColour">Crowd Stacking</span>
+              <span className="text-textColour text-[12.5px]">Crowd Stacking</span>
             </div>
 
-            <div className="flex items-center ">
+            <div className="flex items-center font-semibold">
               <span>${data?.crowdStock?.toFixed(4)}</span>
               <p
                 onClick={() => {
@@ -211,7 +211,7 @@ const DashBoard = () => {
 
               <span className="text-textColour text-[12.5px]">Active Slots</span>
             </div>
-            <div className="flex items-center ">
+            <div className="flex items-center font-semibold">
               <span>{data.activatedTotal}</span>
               <p
                 onClick={() => {
@@ -240,7 +240,7 @@ const DashBoard = () => {
               </Tooltip>
               <span className="text-textColour text-[12.5px]">Completed Slots</span>
             </div>
-            <div className="flex items-center ">
+            <div className="flex items-center font-semibold">
               <span>{data.completedTotal}</span>
               <p
                 onClick={() => {
@@ -269,9 +269,9 @@ const DashBoard = () => {
                 <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
               </Tooltip>
                 
-              <span className="text-textColour">Yield - Today</span>
+              <span className="text-textColour text-[12.5px]">Yield - Today</span>
             </div>
-            <div className=" md:mr-[24px] ">
+            <div className=" mr-6 md:mr-6 font-semibold">
               <span>{data.todayYeild?.toFixed(4)}</span>
             </div>
           </div>
@@ -291,10 +291,11 @@ const DashBoard = () => {
               </Tooltip>
               <span className="text-textColour text-[12.5px]">Yield - Overall</span>
             </div>
-            <div className=" md:mr-[24px]">
-              <span>{data.Yield?.toFixed(4)}</span>
-              {/* <MdKeyboardArrowRight className="text-textColour text-2xl" /> */}
-            </div>
+            {/* lg:mr-8 */}
+            <div className="mr-6 md:mr-6 font-semibold">
+  <span>{data.Yield?.toFixed(4)}</span>
+  {/* <MdKeyboardArrowRight className="text-textColour text-2xl" /> */}
+</div>
           </div>
         </div>
           {/* Refferal incomne today */}
@@ -313,9 +314,9 @@ const DashBoard = () => {
               >
                 <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
               </Tooltip>
-              <span className="text-textColour">Refferal Income - Today</span>
+              <span className="text-textColour text-[12.5px]">Refferal Income - Today</span>
             </div>
-            <div className="flex items-center ">
+            <div className="flex items-center font-semibold">
               <span>${data.refIncomeToday}</span>
               <p
                 onClick={() => {
@@ -343,7 +344,7 @@ const DashBoard = () => {
               </Tooltip>
               <span className="text-textColour text-[12.5px]">Refferal Income - Overall</span>
             </div>
-            <div className="flex items-center ">
+            <div className="flex items-center font-semibold">
               <span>${data.refIncomeAll}</span>
               <p
                 onClick={() => {
@@ -370,9 +371,9 @@ const DashBoard = () => {
               >
                 <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
               </Tooltip>
-              <span className="text-textColour">Total Crypto Top-Up</span>
+              <span className="text-textColour text-[12.5px]">Total Crypto Top-Up</span>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center font-semibold">
               <span>$0</span>
               <p
                 onClick={() => {
@@ -402,7 +403,7 @@ const DashBoard = () => {
               </Tooltip>
               <span className="text-textColour text-[12.5px]">Total Crypto Withdraw</span>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center font-semibold">
               <span>${data.totalCryptoTopup}</span>
               <p
                 onClick={() => {
@@ -453,7 +454,7 @@ const DashBoard = () => {
               </Tooltip>
               <span className="text-textColour text-[12.5px]">Total Internal Transfer IN</span>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center font-semibold">
               <span>${data.internalIn}</span>
               <p
                 onClick={() => {
@@ -484,7 +485,7 @@ const DashBoard = () => {
               </Tooltip>
               <span className="text-textColour text-[12.5px]">Total Internal Transfer OUT</span>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center font-semibold">
               <span>${data.internalOut}</span>
               <p
                 onClick={() => {
