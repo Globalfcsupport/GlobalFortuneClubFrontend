@@ -21,10 +21,10 @@ html{
 }
 body{
   min-height: 97vh;
-  width: 320px;
+  width: 310px;
   background-color:#ededed;
   margin: auto;
-  border-width: 7px;
+  border-width: 9px;
   border-radius: 30px;
   border-color: black;
   /* overflow: hidden; */

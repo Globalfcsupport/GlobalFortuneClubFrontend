@@ -250,13 +250,13 @@ const Signup = () => {
           name="uplineId"
           value={data.uplineId}
           placeholder="Enter Referral ID"
-          className="w-full py-2  rounded-md px-5 border-[1.5px] border-gray-400 hover:bg-transparent focus:bg-white text-black"
+          className="w-full py-2  rounded-md px-5 mt-[-0.41rem]  h-[2.5rem] border-[1.5px] border-gray-400 hover:bg-transparent focus:bg-white text-black"
           onChange={handleChange}
         />
         <button
           loading={verifyLoading}
           type="button"
-          className="absolute text-[13px] font-semibold bg-buttonbg text-white rounded-sm bottom-[0.1rem] right-[0rem] h-9 px-6"
+          className="absolute text-[13px] font-semibold bg-buttonbg text-white rounded-sm bottom-[0.15rem] right-[0.11rem] h-[2.25rem] px-6"
           onClick={() => handleVerify(data.uplineId)}
         >
           Verify
@@ -278,7 +278,7 @@ const Signup = () => {
             name="userName"
             placeholder=""
             readOnly={readOnly}
-            className="w-full py-2 rounded-md px-5 hover:bg-transparent border-[1.5px]   border-gray-400 bg-white text-black focus:bg-white"
+            className="w-full py-2 mt-[-0.41rem]  h-[2.5rem] rounded-md px-5 hover:bg-transparent border-[1.5px]   border-gray-400 bg-white text-black focus:bg-white"
             onChange={handleChange}
             required
           />
@@ -292,7 +292,7 @@ const Signup = () => {
             name="email"
             placeholder=""
             readOnly={readOnly}
-            className="w-full py-2 rounded-md pl-[8px] pr-[85px] hover:bg-transparent  border-[1.5px] border-gray-300 text-black focus:bg-white"
+            className="w-full py-2 rounded-md mt-[-0.41rem] h-[2.5rem] pl-[8px] pr-[85px] hover:bg-transparent  border-[1.5px] border-gray-300 text-black focus:bg-white"
             onChange={handleChange}
             required
           />
@@ -301,7 +301,7 @@ const Signup = () => {
           <button
     loading={sendOTPLoading}
     type="button"
-    className={classNames("absolute text-[11px] font-bold text-white rounded-sm bottom-[0.1rem] right-[0rem] h-9 px-3 py-1 w-20", {
+    className={classNames("absolute text-[11px] font-bold text-white rounded-sm bottom-[0.1rem] right-[0.11rem] h-[2.25rem] px-[17px] py-1 ", {
       'bg-gray-400': timer > 0,
       'bg-buttonbg': timer === 0,
       'opacity-50 cursor-not-allowed': timer > 0
@@ -374,7 +374,7 @@ const Signup = () => {
           </p>
           <input
             placeholder=""
-            className="py-2 w-full rounded-md pl-2 text-xs hover:bg-transparent focus:bg-white text-black"
+            className="py-2 w-full rounded-md pl-2 text-xs hover:bg-transparent h-[2.5rem] focus:bg-white text-black"
             onChange={(e) => setCaptcha(e.target.value)}
             required
             type="text"

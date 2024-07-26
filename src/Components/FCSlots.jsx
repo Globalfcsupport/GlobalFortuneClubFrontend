@@ -130,6 +130,7 @@ import React, { useEffect, useState } from "react";
 import { getFCSlots } from "../services/services";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import moment from "moment/moment";
 
 const FCSlots = () => {
   const [activeTab, setActiveTab] = useState("active");
@@ -170,17 +171,27 @@ const FCSlots = () => {
       <div className="bg-primary pt-5 w-full">
         <div className="flex relative justify-between px-6 items-center w-full">
           <button
-            onClick={() => { handleTabClick("active"); setTabs("Activated"); }}
+            onClick={() => {
+              handleTabClick("active");
+              setTabs("Activated");
+            }}
             className={`py-2 w-28 focus:outline-none ${
-              activeTab === "active" ? "bg-white text-primary rounded-t-md" : "text-white"
+              activeTab === "active"
+                ? "bg-white text-primary rounded-t-md"
+                : "text-white"
             }`}
           >
             Active
           </button>
           <button
-            onClick={() => { handleTabClick("completed"); setTabs("Completed"); }}
+            onClick={() => {
+              handleTabClick("completed");
+              setTabs("Completed");
+            }}
             className={`py-2 w-28 focus:outline-none ${
-              activeTab === "completed" ? "bg-white text-primary rounded-t-md" : "text-white"
+              activeTab === "completed"
+                ? "bg-white text-primary rounded-t-md"
+                : "text-white"
             }`}
           >
             Completed
@@ -194,40 +205,43 @@ const FCSlots = () => {
       </div>
       <div className="bg-white">
         <div>
-          {data && data.map((item, index) => {
-            const percent = (item.currentYield / item.totalYield) * 100;
-            return (
-              <div key={index} className="flex items-center gap-5 pl-4 pt-5">
-                <div style={{ width: 56, height: 56 }}>
-                  <CircularProgressbar
-                    value={percent}
-                    text={`${percent.toFixed(2)}%`}
-                    strokeWidth={16.5}
-                    styles={buildStyles({
-                      pathColor: "#3b5998",
-                      textSize: "18px",
-                      textColor: "#3b5998",
-                      trailColor: "#d6d6d6",
-                      backgroundColor: "#f6f6f6",
-                    })}
-                  />
+          {data &&
+            data.map((item, index) => {
+              const percent = (item.currentYield / item.totalYield) * 100;
+              return (
+                <div key={index} className="flex items-center gap-5 pl-4 pt-5">
+                  <div style={{ width: 56, height: 56 }}>
+                    <CircularProgressbar
+                      value={percent}
+                      text={`${Math.round(percent)}%`}
+                      strokeWidth={16.5}
+                      styles={buildStyles({
+                        pathColor: "#3b5998",
+                        textSize: "18px",
+                        textColor: "#3b5998",
+                        trailColor: "#d6d6d6",
+                        backgroundColor: "#f6f6f6",
+                      })}
+                    />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-sm text-primary">
+                      {item.slotId.slice(0, 5)}
+                    </p>
+                    <p className="text-xs text-slate-400">
+                      Yield: {item.currentYield?.toFixed(4)}/{item.totalYield}
+                    </p>
+                    <p className="text-xs text-slate-400">
+                      {moment(item.date, "DD-MM-YYYY").format("DD/MM/YYYY")}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p className="font-semibold text-sm text-primary">
-                    {item.slotId.slice(0, 5)}
-                  </p>
-                  <p className="text-xs text-slate-400">
-                    Yield: {item.currentYield?.toFixed(4)}/{item.totalYield}
-                  </p>
-                  <p className="text-xs text-slate-400">{item.date}</p>
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
       </div>
     </div>
   );
 };
 
-export default FCSlots;
+export default FCSlots;

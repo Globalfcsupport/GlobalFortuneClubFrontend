@@ -137,10 +137,13 @@ const Settings = () => {
   };
 
   const handleChange = (e) => {
-    setProfile((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+    const { name, value } = event.target;
+    const capitalizedValue = value.charAt(0).toUpperCase() + value.slice(1);
+    // setProfile((prev) => ({
+    //   ...prev,
+    //   [e.target.name]: e.target.value,
+    // }));
+    setProfile(prevProfile => ({ ...prevProfile, [name]: capitalizedValue }));
   };
 
   console.log(profile, "profile");
@@ -194,7 +197,7 @@ const Settings = () => {
     }
   };
 
-  const UsdNetwork = async (value) => {
+    const UsdNetwork = async (value) => {
     console.log(profile.USDTAddress, "Add");
     try {
       let data = { USDTNetwork: value };
@@ -209,13 +212,14 @@ const Settings = () => {
   }, []);
 
   return (
-    <div className=" space-y-2 text-sm overflow-y-scroll h-[550px] w-[102%] mt-1.5">
-      <div className="w-full h-14 bg-primary flex justify-end items-center px-6 ">
+    <div className=" space-y-2 text-sm overflow-y-scroll h-[540px] w-[102%] mt-1.5">
+      <div className="w-full h-14 bg-primary flex justify-end items-center px-5 ">
         <div className=" flex mt-[-0.30rem] flex-col items-end">
           <p className="font-medium text-white text-[10px]">My Wallet</p>
-          <p className=" bg-white text-xs text-gray-700 rounded-md font-normal w-[85px] px-2 py-[0.14rem] flex items-center ">
+          <p className="bg-white text-right text-xs text-gray-700 rounded-md font-normal h-[1.45rem] w-[85px] pl-2 pr-1 py-1 ">
             {/* <BsCurrencyDollar className=" mb-1" />{" "} */}
             {profile && profile.myWallet ? profile.myWallet.toFixed(4) : 0}
+            
           </p>
         </div>
       </div>
@@ -307,7 +311,7 @@ const Settings = () => {
         </div>
         <div className="flex flex-col gap-1 relative">
           <label htmlFor="USDTAddress" className="font-semibold text-[12px] text-primary">
-            Enter your USDT Address (TRC-20)
+            Enter your USDT Address
           </label>
           <input
             type="text"
@@ -335,7 +339,7 @@ const Settings = () => {
             />
           )}
         </div>
-        <div className="flex flex-col gap-2 relative">
+        {/* <div className="flex flex-col gap-2 relative">
           <label htmlFor="usdtNetwork" className="text-primary text-[12px] font-semibold">
             USDT Network
           </label>
@@ -349,14 +353,40 @@ const Settings = () => {
 
             value={usdtNetwork}
             onChange={(e) => setUsdtNetwork(e.target.value)}
+            placeholder="Select"
           >
+           
             <option value="TRC20">TRC20</option>
             <option value="BEP20">BEP20</option>
           </select>
-        </div>
+        </div> */}
+
+<div className="flex flex-col gap-2 relative">
+  <label htmlFor="usdtNetwork" className="text-primary text-[12px] font-semibold">
+    USDT Network
+  </label>
+  <select
+    id="usdtNetwork"
+    name="usdtNetwork"
+    className={`custom-select px-2 py-1.5 w-full rounded-md text-[12px] text-textColour focus:outline-none  ${
+      usdtNetwork === "" ? "text-gray-500" : "text-textColour"
+    }`}
+    value={usdtNetwork}
+    onChange={(e) => setUsdtNetwork(e.target.value)}
+    placeholder="Select"
+  >
+   
+    <option value="TRC20">TRC20</option>
+    <option value="BEP20">BEP20</option>
+  </select>
+</div>
+
+  
+
+
         <div className="flex items-center justify-center">
           <button
-           className="bg-primary m-3 w-24 text-white font-semibold text-[16.5px]
+           className="bg-primary m-3 w-24 text-white font-semibold text-[15px]
           px-3 py-2.5 rounded-md focus:outline-none focus:shadow-outline"
             onClick={showModal}
           >

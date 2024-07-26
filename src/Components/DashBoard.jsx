@@ -12,6 +12,8 @@ const DashBoard = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const [editReserveMyWallet, setEditReserveMyWallet] = useState(false);  
   const [reserveWallet, setReserveMyWallet] = useState(null);
+  const [error, setError] = useState("");
+
   const ClubActivation = async () => {
     try {
       let datas = await ActivateClub();
@@ -40,6 +42,7 @@ const DashBoard = () => {
   }, []);
 
   const handleReserveMyWallet = () => {
+
     setEditReserveMyWallet(!editReserveMyWallet);
   };
 
@@ -48,9 +51,13 @@ const DashBoard = () => {
   };
 
   const handleConfirm = async () => {
-    let data = { reserveMywallet: parseInt(reserveWallet ? reserveWallet : 0) };
+    if (parseInt(reserveWallet) > data.wallet) {
+      setError("Reserve amount exceeds than wallet balance.");
+      return;
+    }
+    let datas = { reserveMywallet: parseInt(reserveWallet ? reserveWallet : 0) };
     try {
-      let values = await UpdateProfile(data);
+      let values = await UpdateProfile(datas);
       if (values.data) {
         dashboardDetails();
       }
@@ -73,6 +80,8 @@ const DashBoard = () => {
     }
   };
 
+
+
   const navigate = useNavigate();
   const Nav = async (path) => {
     navigate(path);
@@ -88,12 +97,12 @@ const DashBoard = () => {
       {contextHolder}
       <div className="bg-primary px-4 py-3 flex justify-between items-center text-white">
         <div>
-          <p className="text-[12.5px] font-semibold"> {capitalizeFirstLetter(data?.userName)}</p>
+          <p className="text-[11px] font-semibold"> {capitalizeFirstLetter(data?.userName)}</p>
           <p className="text-[10px]"> ID: {data.refId}</p>
         </div>
         <button
           disabled={data.started ? true : false}
-          className={data.started?"bg-white text-[#9da4af] text-[10px] px-6 py-2.5 font-medium rounded ":"bg-white text-primary text-[15px] px-5 font-medium py-1 rounded "}
+          className={data.started?"bg-white text-green-500 text-[10px] px-6 py-2.5 font-medium rounded ":"bg-white text-primary text-[15px] px-5 font-medium py-1 rounded "}
           onClick={ClubActivation}
         >
           {data.started ? "Running" : "Start"}
@@ -111,7 +120,7 @@ const DashBoard = () => {
         {/* Wallet Section */}
         <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm ">
           <div className="flex justify-between px-1 w-full ">
-            <div className="flex px-2 gap-4 items-center">
+            <div className="flex px-2 gap-3 items-center">
               <Tooltip
                 title="Your primary wallet for all transactions within the platform. You can top up funds, buy slots, and make internal transfers using the balance in your My Wallet."
                 placement="bottomRight"
@@ -125,15 +134,15 @@ const DashBoard = () => {
               <span className=" text-[12.5px] text-textColour">My Wallet</span>
             </div>
 
-            <div className="flex items-center ">
-              <span>{data.wallet?.toFixed(4)}</span>
+            <div className="flex items-center">
+              <span className="font-semibold">{data.wallet?.toFixed(4)}</span>
               <p
                 onClick={() => {
                   Nav("/app/Wallet");
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-[#e5e5e5] size-6" />
+                   <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" />
               </p>
             </div>
           </div>
@@ -145,7 +154,7 @@ const DashBoard = () => {
           className="bg-white p-1 flex justify-between items-center rounded-lg  text-sm"
         >
           <div className="flex  justify-between w-full  ">
-            <div className="flex px-4 gap-[16px] items-center">
+            <div className="flex px-4 gap-3 items-center">
               <Tooltip
                 title="Set a reserve amount to safeguard a portion of your funds. If your My Wallet balance falls below this reserve amount, automatic slot purchases will be paused to prevent overspending."
                 placement="bottomRight"
@@ -158,16 +167,16 @@ const DashBoard = () => {
               <span className="text-textColour text-[12.5px]">Reserve - My Wallet</span>
             </div>
 
-            <p className="bg-primary text-[12.5px] w-23  text-white px-[33px] py-[5px] rounded-md cursor-pointer">
+            <p className="bg-primary  font-semibold text-[11px] text-white px-7 py-1.5 items-center rounded-md cursor-pointer mr-[3px]">
               ${data.reserveMywallet ? data.reserveMywallet : 0}
             </p>
           </div>
         </div>
 
         {/* Crowd - Stacking Section */}
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg  text-sm">
+        <div className="bg-white p-2 pl-1 flex justify-between items-center rounded-lg  text-sm">
           <div className="flex w-full justify-between px-1 items-center ">
-            <div className="flex px-2 gap-4 items-center">
+            <div className="flex px-2 gap-3 items-center">
               <Tooltip
                 title="A dedicated wallet where 50% of the split amounts from slot purchases are deposited. Funds in Crowd Stack cannot be withdrawn but can only be used to buy slots.."
                 placement="bottomRight"
@@ -175,29 +184,29 @@ const DashBoard = () => {
                 overlayClassName="custom-tooltip"
                 color="rgba(128, 128, 128, 1)"
               >
-                <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
+                <FiAlertCircle className="text-[#9da4af] size-[11px]  cursor-pointer" />
               </Tooltip>
-              <span className="text-textColour">Crowd Stacking</span>
+              <span className="text-textColour text-[12.5px]">Crowd Stacking</span>
             </div>
 
             <div className="flex items-center ">
-              <span>${data?.crowdStock?.toFixed(4)}</span>
+              <span className="font-semibold">${data?.crowdStock?.toFixed(4)}</span>
               <p
                 onClick={() => {
                   Nav("/app/Wallet");
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-[#e5e5e5] size-6" />
+                 <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" />
               </p>
             </div>
           </div>
         </div>
 
         {/* Active Slots */}
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
+        <div className="bg-white p-2 pl-1 flex justify-between items-center rounded-lg text-sm">
           <div className="flex w-full justify-between px-1 items-center">
-            <div className="flex px-2 gap-4 items-center ">
+            <div className="flex px-2 gap-3 items-center ">
               <Tooltip
                 title="Displays the number of slots currently active and generating dividends foryou."
                 placement="bottomRight"
@@ -212,23 +221,23 @@ const DashBoard = () => {
               <span className="text-textColour text-[12.5px]">Active Slots</span>
             </div>
             <div className="flex items-center ">
-              <span>{data.activatedTotal}</span>
+              <span className="font-semibold">{data.activatedTotal}</span>
               <p
                 onClick={() => {
                   Nav("/app/FCSLots");
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-[#e5e5e5] size-6" />
+                  <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" />
               </p>
             </div>
           </div>
         </div>
 
         {/* Completed Slots */}
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
+        <div className="bg-white p-2 pl-1 flex justify-between items-center rounded-lg text-sm">
           <div className="flex w-full justify-between px-1 items-center">
-            <div className="flex px-2 gap-4 items-center ">
+            <div className="flex px-2 gap-3 items-center ">
               <Tooltip
                 title="Shows the number of slots you have successfully exited, earning you dividends and platform fees."
                 placement="bottomRight"
@@ -241,23 +250,23 @@ const DashBoard = () => {
               <span className="text-textColour text-[12.5px]">Completed Slots</span>
             </div>
             <div className="flex items-center ">
-              <span>{data.completedTotal}</span>
+              <span className="font-semibold">{data.completedTotal}</span>
               <p
                 onClick={() => {
                   Nav("/app/FCSLots");
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-[#e5e5e5] size-6 cursor-pointer" />
+                   <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" />
               </p>
             </div>
           </div>
         </div>
 
         {/* yield today */}
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
+        <div className="bg-white p-2 pl-1 flex justify-between items-center rounded-lg text-sm">
           <div className="flex w-full justify-between px-1 items-center">
-            <div className="flex px-2 gap-4 items-center ">
+            <div className="flex px-2 gap-3 items-center ">
               <Tooltip
                 title="The amount of dividend income earned from slot purchases within the current day."
                 placement="bottomRight"
@@ -269,17 +278,17 @@ const DashBoard = () => {
                 <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
               </Tooltip>
                 
-              <span className="text-textColour">Yield - Today</span>
+              <span className="text-textColour text-[12.5px]">Yield - Today</span>
             </div>
-            <div className=" md:mr-[24px] ">
-              <span>{data.todayYeild?.toFixed(4)}</span>
+            <div className=" md:mr-[24px] pr-8 ">
+              <span className="font-semibold ">{data.todayYeild?.toFixed(4)}</span>
             </div>
           </div>
         </div>
           {/* yield overall */}
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
+        <div className="bg-white p-2 pl-1 flex justify-between items-center rounded-lg text-sm">
           <div className="flex w-full justify-between px-1 items-center">
-            <div className="flex px-2 gap-4 items-center">
+            <div className="flex px-2 gap-3 items-center">
               <Tooltip
                 title="    Total dividend income earned from slot purchases since joining the platform"
                 placement="bottomRight"
@@ -291,18 +300,18 @@ const DashBoard = () => {
               </Tooltip>
               <span className="text-textColour text-[12.5px]">Yield - Overall</span>
             </div>
-            <div className=" md:mr-[24px]">
-              <span>{data.Yield?.toFixed(4)}</span>
+            <div className=" md:mr-[24px] pr-8">
+              <span className="font-semibold">{data.Yield?.toFixed(4)}</span>
               {/* <MdKeyboardArrowRight className="text-textColour text-2xl" /> */}
             </div>
           </div>
         </div>
           {/* Refferal incomne today */}
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
+        <div className="bg-white p-2 pl-1 flex justify-between items-center rounded-lg text-sm">
           <div className="flex w-full justify-between px-1 items-center">
 
            
-            <div className="flex px-2 gap-4 items-center">
+            <div className="flex px-2 gap-3 items-center">
               <Tooltip
                 title="The income generated from referrals' 
                 slot purchases within the current day."
@@ -313,26 +322,26 @@ const DashBoard = () => {
               >
                 <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
               </Tooltip>
-              <span className="text-textColour">Refferal Income - Today</span>
+              <span className="text-textColour text-[12.5px]">Refferal Income - Today</span>
             </div>
             <div className="flex items-center ">
-              <span>${data.refIncomeToday}</span>
+              <span className="font-semibold">${data.refIncomeToday}</span>
               <p
                 onClick={() => {
                   Nav("/app/Wallet");
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-[#e5e5e5] size-6" />
+                  <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" />
               </p>
             </div>
           </div>
         </div>
           {/* Referral income overall */}
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
+        <div className="bg-white p-2 pl-1 flex justify-between items-center rounded-lg text-sm">
           <div className="flex w-full justify-between px-1 items-center">
             
-            <div className="flex px-2 gap-4 items-center">
+            <div className="flex px-2 gap-3 items-center">
               <Tooltip
                 title="Total income earned from referrals' slot purchases since joining the platform."
                 placement="bottomRight"
@@ -344,23 +353,23 @@ const DashBoard = () => {
               <span className="text-textColour text-[12.5px]">Refferal Income - Overall</span>
             </div>
             <div className="flex items-center ">
-              <span>${data.refIncomeAll}</span>
+              <span className="font-semibold">${data.refIncomeAll}</span>
               <p
                 onClick={() => {
                   Nav("/app/Wallet");
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-[#e5e5e5] size-6" />
+                   <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" />
               </p>
             </div>
           </div>
         </div>
           {/* Toatal crypto top-up*/}
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
+        <div className="bg-white p-2 pl-1 flex justify-between items-center rounded-lg text-sm">
           <div className="flex w-full justify-between px-1 items-center">
            
-            <div className="flex px-2 gap-4 items-center">
+            <div className="flex px-2 gap-3 items-center">
               <Tooltip
                 title="The total amount of cryptocurrency deposited into your account as top-ups"
                 placement="bottomRight"
@@ -370,27 +379,27 @@ const DashBoard = () => {
               >
                 <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
               </Tooltip>
-              <span className="text-textColour">Total Crypto Top-Up</span>
+              <span className="text-textColour text-[12.5px]">Total Crypto Top-Up</span>
             </div>
             <div className="flex items-center">
-              <span>$0</span>
+              <span className="font-semibold">$0</span>
               <p
                 onClick={() => {
                   Nav("/app/Wallet");
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-[#e5e5e5] size-6" />
+                  <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" />
               </p>
             </div>
           </div>
         </div>
 
         {/* Toatal crypto withdraw*/}
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
+        <div className="bg-white p-2 pl-1 flex justify-between items-center rounded-lg text-sm">
           <div className="flex w-full justify-between px-1 items-center">
            
-            <div className="flex px-2 gap-4 items-center">
+            <div className="flex px-2 gap-3 items-center">
               <Tooltip
                 title="The total amount of cryptocurrency withdrawn from your account."
                 placement="bottomRight"
@@ -403,14 +412,14 @@ const DashBoard = () => {
               <span className="text-textColour text-[12.5px]">Total Crypto Withdraw</span>
             </div>
             <div className="flex items-center">
-              <span>${data.withdraw}</span>
+              <span className="font-semibold">${data.totalCryptoTopup}</span>
               <p
                 onClick={() => {
                   Nav("/app/Wallet");
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-[#e5e5e5] size-6" />
+                  <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" />
               </p>
             </div>
           </div>
@@ -437,10 +446,10 @@ const DashBoard = () => {
         </div> */}
 
         {/* Toatal internal transfer in*/}
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg shadow text-sm">
+        <div className="bg-white p-2 pl-1 flex justify-between items-center rounded-lg shadow text-sm">
           <div className="flex w-full justify-between px-1 items-center">
             
-            <div className="flex px-2 gap-4 items-center">
+            <div className="flex px-2 gap-3 items-center">
               <Tooltip
                 title="The total amount of cryptocurrency received 
                 from internal transfers within the platform."
@@ -449,29 +458,29 @@ const DashBoard = () => {
                 overlayClassName="custom-tooltip"
                 color="rgba(128, 128, 128, 1)"
               >
-                <FiAlertCircle className="text-gray-400 size-3 cursor-pointer" />
+                <FiAlertCircle className="text-gray-400 size-[11px] cursor-pointer" />
               </Tooltip>
               <span className="text-textColour text-[12.5px]">Total Internal Transfer IN</span>
             </div>
             <div className="flex items-center">
-              <span>${data.internalIn}</span>
+              <span className="font-semibold">${data.internalIn}</span>
               <p
                 onClick={() => {
                   Nav("/app/Wallet");
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-[#e5e5e5] size-6" />
+                   <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" />
               </p>
             </div>
           </div>
         </div>
 
         {/* Toatal internal transfer out*/}
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
-          <div className="flex w-full justify-between px-1 items-center">
+        <div className="bg-white p-2 pl-1 flex justify-between items-center rounded-lg text-sm">
+          <div className="flex w-full justify-between items-center">
             
-            <div className="flex px-2 gap-4 items-center">
+            <div className="flex px-2 gap-3 items-center">
               <Tooltip
                 title="The total amount of cryptocurrency sent out through 
                 internal transfers within the platform."
@@ -485,14 +494,14 @@ const DashBoard = () => {
               <span className="text-textColour text-[12.5px]">Total Internal Transfer OUT</span>
             </div>
             <div className="flex items-center">
-              <span>${data.internalOut}</span>
+              <span className="font-semibold">${data.internalOut}</span>
               <p
                 onClick={() => {
                   Nav("/app/Wallet");
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-[#e5e5e5] size-6" />
+                  <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" />
               </p>
             </div>
           </div>
@@ -584,7 +593,7 @@ const DashBoard = () => {
           onClick={handleClick}
         >
           <div
-            className="bg-purple-50 w-max p-8 rounded-xl h-[210px] opacity-100 flex flex-col gap-5"
+            className="bg-purple-50 w-[250px] p-8 rounded-xl h-fit opacity-100 flex flex-col gap-5"
             onClick={(e) => e.stopPropagation()} 
           >
             <p className="text-lg  font-semibold">Reserve - My Wallet</p>
@@ -595,6 +604,9 @@ const DashBoard = () => {
               value={reserveWallet}
               onChange={(e) => setReserveMyWallet(e.target.value)}
             />
+             {error && (
+                <p className="text-red-500 text-sm mb-4">{error}</p>
+              )}
             <div className="flex justify-around">
               <button
                 type="button"
