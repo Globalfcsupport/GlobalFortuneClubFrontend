@@ -10,7 +10,7 @@ const Referrals = () => {
   const [overallReferral, setOverallReferral] = useState(0);
   const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [isSearch, setIsSearch] = useState(false);
+  const [filteredData, setFilteredData] = useState([]);
 
   const getRefDetails = async () => {
     try {
@@ -28,17 +28,10 @@ const Referrals = () => {
     getRefDetails();
   }, []);
 
-  const handleSearch = () => {
-    const result = SearchFilter(users, searchTerm);
-    setUsers(result);
-    setIsSearch(true);
-  };
-
   useEffect(() => {
-    if (searchTerm !== "") {
-      setIsSearch(false);
-    }
-  }, [searchTerm]);
+    const result = SearchFilter(users, searchTerm);
+    setFilteredData(result);
+  }, [users, searchTerm]);
 
   return (
     <div className="h-full">
@@ -59,11 +52,9 @@ const Referrals = () => {
               color: #4d5561;
             }
           `}</style>
-
-          <FaSearch
-            className="text-blueColor absolute right-3 top-1/2 transform -translate-y-1/2 text-MainSection cursor-pointer"
-            onClick={handleSearch}
-          />
+          <button>
+            <FaSearch className="text-blueColor absolute right-3 top-1/2 transform -translate-y-1/2 text-MainSection pointer-events-none" />
+          </button>
         </div>
 
         <div className="flex justify-between text-[12px] px-4 gap-2">
@@ -83,61 +74,57 @@ const Referrals = () => {
       </div>
 
       <div className="w-full h-full bg-white flex flex-col overflow-scroll py-2 pl-2 pr-1 gap-2">
-        {isSearch && searchTerm && (
-          <>
-            {Array.isArray(users) &&
-              users.map((item, index) => {
-                const firstLetter = item.userName
-                  ? item.userName.charAt(0).toUpperCase()
-                  : "";
-                return (
-                  <div
-                    key={index}
-                    className="px-3 rounded-md shadow-top flex items-center bg-white"
-                  >
-                    <div>
-                      {item.image ? (
-                        <img
-                          src={`${BaseURL}${item.image}`}
-                          className="size-10 h-12 w-12 rounded-full object-cover"
-                          alt="User"
-                        />
-                      ) : (
-                        <div
-                          className="h-12 w-12 rounded-full flex items-center justify-center text-white"
-                          style={{ backgroundColor: "rgb(158, 158, 158)" }}
-                        >
-                          <p> {firstLetter}</p>
-                        </div>
-                      )}
+        {Array.isArray(filteredData) &&
+          filteredData.map((item, index) => {
+            const firstLetter = item.userName
+              ? item.userName.charAt(0).toUpperCase()
+              : "";
+            return (
+              <div
+                key={index}
+                className="px-3 rounded-md shadow-top flex items-center bg-white"
+              >
+                <div>
+                  {item.image ? (
+                    <img
+                      src={`${BaseURL}${item.image}`}
+                      className="size-10 h-12 w-12 rounded-full object-cover"
+                      alt="User"
+                    />
+                  ) : (
+                    <div
+                      className="h-12 w-12 rounded-full flex items-center justify-center text-white"
+                      style={{ backgroundColor: "rgb(158, 158, 158)" }}
+                    >
+                      <p> {firstLetter}</p>
                     </div>
-                    <div className="p-3 w-full flex flex-col gap-1">
-                      <p className="font-semibold text-[13px] text-blueColor">
-                        {item.userName}
-                      </p>
-                      <p className="text-blueColor text-[13px] font-semibold  ">
-                        ID: {item.refId}
-                      </p>
-                      <div className="flex justify-between items-center">
-                      <p className="text-gray-800 text-[10.5px] ">
-                        Active slot: 2
-                      </p>
-                      <p className="text-gray-800 text-[10.5px] ">
-                        Completed slot: 1
-                      </p>
-                      </div>
-                      <p className="text-gray-800 text-[10.5px] ">
-                        Email: {item.email}
-                      </p>
-                      <p className="text-gray-800 text-[10px] ">
-                        DOJ: {new Date(item.createdAt).toLocaleString()}
-                      </p>
-                    </div>
+                  )}
+                </div>
+                <div className="p-3 w-full flex flex-col gap-1">
+                  <p className="font-semibold text-[13px] text-blueColor">
+                    {item.userName}
+                  </p>
+                  <p className="text-blueColor text-[13px] font-semibold  ">
+                    ID: {item.refId}
+                  </p>
+                  <div className="flex justify-between items-center">
+                    <p className="text-gray-800 text-[10.5px] ">
+                      Active slot: 2
+                    </p>
+                    <p className="text-gray-800 text-[10.5px] ">
+                      Completed slot: 1
+                    </p>
                   </div>
-                );
-              })}
-          </>
-        )}
+                  <p className="text-gray-800 text-[10.5px] ">
+                    Email: {item.email}
+                  </p>
+                  <p className="text-gray-800 text-[10px] ">
+                    DOJ: {new Date(item.createdAt).toLocaleString()}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
       </div>
     </div>
   );
