@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FaChevronRight, FaTelegramPlane, FaUser } from "react-icons/fa";
 import { IoMdSend } from "react-icons/io";
 import { useParams } from "react-router";
@@ -13,7 +13,7 @@ import {
 import io from "socket.io-client";
 import { TiTick } from "react-icons/ti";
 import logo from "../assets/Image/logo.jpg";
-import logo1 from '../assets/Image/logo-remove.png'
+import logo1 from "../assets/Image/logo-remove.png";
 
 const SOCKET_SERVER_URL = "wss://gfcapi.globalfc.app";
 // const SOCKET_SERVER_URL = "http://localhost:5001";
@@ -41,6 +41,26 @@ const Chat = () => {
   // useEffect(() => {
   //   getUserById_Chat();
   // }, []);
+
+  const popupRef = useRef(null);
+
+  const handleClickOutside = (event) => {
+    if (popupRef.current && !popupRef.current.contains(event.target)) {
+      setPay(false);
+    }
+  };
+
+  useEffect(() => {
+    if (pay) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [pay]);
 
   const sendMessage = () => {
     if (message.trim() !== "") {
@@ -200,8 +220,12 @@ const Chat = () => {
     <div className="flex flex-col justify-between overflow-hidden h-full relative">
       <div className="bg-primary h-16 flex justify-between px-3 py-1.5 gap-5  items-center">
         <div className="flex justify-between items-center gap-3">
-          <div className="bg-white rounded-full flex justify-center items-center">
-            <img src={logo} alt="logo" className=" size-11 rounded-full border-blue-900 border-2"  />
+          <div className="bg-white w-[40px] h-[40px] p-1 rounded-full flex justify-center items-center">
+            <img
+              src={logo}
+              alt="logo"
+              className="object-contain rounded-full"
+            />
           </div>
           <p className="text-white text-sm font-semibold">GFC Support</p>
         </div>
@@ -231,7 +255,7 @@ const Chat = () => {
           </div>
         ))}
       </div> */}
-      <div className="flex flex-col gap-2 w-full h-full py-1 overflow-y-scroll">
+      <div className="flex flex-col gap-2 w-full h-full py-2 px-1 overflow-y-scroll">
         {messages.map((msg, index) => (
           <div
             key={index}
@@ -242,23 +266,27 @@ const Chat = () => {
             {/* {console.log(msg.message)} */}
             {msg?.payment ? (
               <div className="w-full flex flex-col px-2 pt-1 bg-white max-w-[45%] h-[100%] rounded-xl  rounded-tr-sm  border-[6px] border-customBlue">
-                <h1 className="text-xs">
+                <h1 className="text-[10px] text-gray-600 font-medium ">
                   Payment to {msg.senderId === sender ? user.userName : "You"}
                 </h1>
-                <h1 className="text-xl">${msg.money}</h1>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-sm">
-                    <TiTick className="rounded-full bg-green-600 text-white" />
-                    <p>{msg.payment == true ? "Paid" : "Not Paid"}</p>
+                <h1 className="text-md text-primary font-medium">
+                  ${msg.money}
+                </h1>
+                <div className="flex items-center justify-between mb-1">
+                  <div className="flex items-center gap-2 text-xs">
+                    <TiTick className="rounded-full bg-green-500 text-white" />
+                    <p className="text-xs text-gray-400 font-medium ">
+                      {msg.payment == true ? "Paid" : "Not Paid"}
+                    </p>
                   </div>
-                  <FaChevronRight className="text-sm" />
+                  {/* <FaChevronRight className="text-xs text-gray-400"  /> */}
                 </div>
               </div>
             ) : (
               <div
                 className={`flex ${
                   msg.senderId === sender ? "justify-end" : "justify-start"
-                } w-full px-2`}
+                } w-full`}
               >
                 {/* {console.log(msg.senderId, sender)} */}
                 <p
@@ -284,11 +312,10 @@ const Chat = () => {
           // }}
         />
         <style jsx>{`
-        input::placeholder {
-          font-size: 11px;
-          
-        }
-      `}</style>
+          input::placeholder {
+            font-size: 11px;
+          }
+        `}</style>
         {sendButton ? (
           <button
             onClick={sendMessage}
@@ -307,16 +334,13 @@ const Chat = () => {
       </div>
 
       {pay ? (
-       <div
-       className="absolute bg-transparent left-8 h-full w-[80%] flex justify-center items-center"
-       onClick={handleClick}
-     >
-       <div className="div relative w-80 bg-white rounded-xl text-black py-2 px-3 flex flex-col min-h-[20%]">
-         <div className="flex px-2 m-[-0.20rem] mb-1 text-customGray justify-between text-[0.6rem] ">
-           <p className="">Transfer to {user.userName}</p>
-           <p>MW: ${myWallet}</p>
-         </div>
-         <div className="flex bg-gray-100 rounded-md">
+        <div className="absolute bg-transparent left-8 h-full w-[80%] flex justify-center items-center">
+          <div className="div relative w-80 bg-white rounded-xl text-black py-2 px-3 flex flex-col min-h-[20%]">
+            <div className="flex px-2 m-[-0.20rem] mb-1 text-customGray justify-between text-[0.6rem] ">
+              <p className="">Transfer to {user.userName}</p>
+              <p>MW: ${myWallet}</p>
+            </div>
+            <div className="flex bg-gray-100 rounded-md">
               <p className="w-full text-[12px] text-right font-medium px-2 py-2 border-none text-gray-500">
                 Enter Amount:
               </p>
@@ -330,7 +354,7 @@ const Chat = () => {
                 />
               </div>
             </div>
-         {/* <input
+            {/* <input
            readOnly={disabledInput<12}
            value={amount}
            onChange={(e) => {
@@ -339,35 +363,35 @@ const Chat = () => {
            type="number"
            className="w-full px-2 py-1 border-none bg-gray-100 rounded-lg"
          /> */}
-         <ul className="text-xss mt-1 mb-1  text-customGray px-5">
-           {amount < minimumInternalTransaction ? (
-             <li className="list-disc">
-               Minimum Internal Transaction is ${minimumInternalTransaction}
-             </li>
-           ) : null}
-           <li className="list-disc">
-             Internal Transaction fee is ${internalTransactionFee}
-           </li>
-         </ul>
-         
-         <div className="   flex justify-around ">
-           <button
-             type="button"
-             onClick={handleCancel}
-             className="bg-red-500  px-4 rounded-md text-[10px] font-semibold py-1 text-white"
-           >
-             Cancel
-           </button>
-           <button
-             type="button"
-             onClick={handleConfirm}
-             className="bg-green-500 px-4 rounded-md text-[10px] font-semibold py-1 text-white"
-           >
-             Confirm
-           </button>
-         </div>
-       </div>
-     </div>
+            <ul className="text-xss mt-1 mb-1  text-customGray px-5">
+              {amount < minimumInternalTransaction ? (
+                <li className="list-disc">
+                  Minimum Internal Transaction is ${minimumInternalTransaction}
+                </li>
+              ) : null}
+              <li className="list-disc">
+                Internal Transaction fee is ${internalTransactionFee}
+              </li>
+            </ul>
+
+            <div className="   flex justify-around ">
+              <button
+                type="button"
+                onClick={handleCancel}
+                className="bg-red-500  px-4 rounded-md text-[10px] font-semibold py-1 text-white"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleConfirm}
+                className="bg-green-500 px-4 rounded-md text-[10px] font-semibold py-1 text-white"
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
       ) : null}
     </div>
   );

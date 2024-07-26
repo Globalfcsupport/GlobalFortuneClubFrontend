@@ -8,11 +8,9 @@ import DateComponent from "./datePipeline";
 import TimeComponents from "./timePipeline";
 import { getDateFilterByMywallet } from "../services/services";
 
-
 const Wallet = () => {
   const [activeTab, setActiveTab] = useState("All");
   const [showDatePicker, setShowDatePicker] = useState(false);
-
 
   const allDataStatic = [
     {
@@ -58,6 +56,7 @@ const Wallet = () => {
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
+    setShowDatePicker(false);
   };
 
   const getWalletDatas = async () => {
@@ -75,7 +74,7 @@ const Wallet = () => {
   const getWalletDataByDateFilter = async (date) => {
     await getDateFilterByMywallet(query, date)
       .then((res) => {
-        console.log(res.data)
+        console.log(res.data);
         if (res.data) {
           setWallet(res.data.myWallet);
           SetData(res.data.allTransactions);
@@ -87,7 +86,7 @@ const Wallet = () => {
   const handleDateFilter = (e) => {
     const getDate = e.target.value;
     getWalletDataByDateFilter(getDate);
-  };
+  };
   return (
     <div className="  w-full flex flex-col  bg-white ">
       <div className="flex justify-between   h-25 bg-primary pb-3 pt-1 px-3 text-[12px]  ">
@@ -96,29 +95,29 @@ const Wallet = () => {
             Transaction Date
           </label>
           {showDatePicker ? (
-          <input
-            type="date"
-            name="todayReferral"
-            id="calendar"
-            className="h-5 mt-1 bg-white border rounded-md w-24 text-center px-1"
-            onChange={handleDateFilter}
-            onBlur={() => setShowDatePicker(false)} 
-          />
-        ) : (
-          <button
-            type="button"
-            className="h-5 mt-1 bg-white border rounded-md w-24 text-center px-1"
-            onClick={() => setShowDatePicker(true)}
-          >
-          All Day
-          </button>
-        )}
+            <input
+              type="date"
+              name="todayReferral"
+              id="calendar"
+              className="px-2 py-1 mt-1 bg-white border rounded-md text-center"
+              onChange={handleDateFilter}
+              onBlur={() => setShowDatePicker(false)}
+            />
+          ) : (
+            <button
+              type="button"
+              className="px-4 py-1 mt-1 bg-white border rounded-md text-center "
+              onClick={() => setShowDatePicker(true)}
+            >
+              All Day
+            </button>
+          )}
         </div>
-        <div className="flex flex-col justify-end items-end py-1">
+        <div className="flex flex-col justify-between items-end">
           <p className="text-white text-[12px] ">My Wallet</p>
-          <p className="bg-white text-right text-xs text-gray-700 rounded-md font-normal h-[1.45rem] w-[85px] px-2 py-1">
-          {wallet ? wallet.toFixed(4) : "0.0000"}        
-            </p>
+          <p className="bg-white text-right text-xs text-gray-700 rounded-md font-normal w-fit pl-3 pr-1  py-1 mb-1">
+            {wallet ? wallet.toFixed(4) : "0.0000"}
+          </p>
         </div>
       </div>
       <div className="flex duration-200 relative justify-between px-0 bg-primary h-7  items-center w-full  ">
@@ -213,42 +212,42 @@ const Wallet = () => {
           </div>
         )} */}
 
-<div className="w-full h-[410px] bg-[#eeeeee] overflow-y-scroll flex flex-col p-3">
-  {data &&
-    data.map((item, index) => (
-      <div
-        key={index}
-        className="p-3 flex justify-between items-center text-[10px] "
-      >
-        {item.received ? (
-          <CiCirclePlus size={35} className="text-green-600 " />
-        ) : (
-          <CiCircleMinus size={35} className="text-red-600 " />
-        )}
-        <div>
-          <p className="text-[12px] text-primary ">
-            {item.received ? `${item.type} - IN` : `${item.type} - OUT`}
-          </p>
-          <p className="text-[9px]">
-            <DateComponent date={item.date} />
-            &nbsp;&nbsp;
-            <TimeComponents date={item.date} />
-          </p>
+        <div className="w-full h-[410px] bg-[#eeeeee] overflow-y-scroll flex flex-col p-3">
+          {data &&
+            data.map((item, index) => (
+              <div
+                key={index}
+                className="p-3 flex justify-between items-center text-[10px] "
+              >
+                {item.received ? (
+                  <CiCirclePlus size={35} className="text-green-600 " />
+                ) : (
+                  <CiCircleMinus size={35} className="text-red-600 " />
+                )}
+                <div>
+                  <p className="text-[12px] text-primary ">
+                    {item.received ? `${item.type} - IN` : `${item.type} - OUT`}
+                  </p>
+                  <p className="text-[9px]">
+                    <DateComponent date={item.date} />
+                    &nbsp;&nbsp;
+                    <TimeComponents date={item.date} />
+                  </p>
+                </div>
+                {item.received ? (
+                  <p className="text-green-600 ">{`+${parseFloat(
+                    item.amount
+                  ).toFixed(4)}`}</p>
+                ) : (
+                  <p className="text-red-600 ">{`-${parseFloat(
+                    item.amount
+                  ).toFixed(4)}`}</p>
+                )}
+              </div>
+            ))}
         </div>
-        {item.received ? (
-          <p className="text-green-600 ">{`+${parseFloat(item.amount).toFixed(4)}`}</p>
-        ) : (
-          <p className="text-red-600 ">{`-${parseFloat(item.amount).toFixed(4)}`}</p>
-        )}
-      </div>
-    ))}
-</div>
-
-
-
       </div>
       <div
-      
         className="absolute bottom-0 left-2 w-full shadow-none  pt-1 pb-4  gap-1 selection:  grid grid-cols-3 bg-[#eeeeee] rounded-b-2xl justify-between"
         style={{
           width: "300px",
@@ -280,4 +279,4 @@ const Wallet = () => {
   );
 };
 
-export default Wallet;
+export default Wallet;

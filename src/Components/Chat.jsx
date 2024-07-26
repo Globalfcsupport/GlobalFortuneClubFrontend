@@ -35,6 +35,25 @@ const Chat = () => {
   const [settings, setSetting] = useState({});
   const [myWallet, setMyWallet] = useState(0);
   const [disabledInput, setDisabledInput] = useState(true);
+  const popupRef = useRef(null);
+
+  const handleClickOutside = (event) => {
+    if (popupRef.current && !popupRef.current.contains(event.target)) {
+      setPay(false);
+    }
+  };
+
+  useEffect(() => {
+    if (pay) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [pay]);
 
   const getOldmessages = async () => {
     try {
@@ -213,7 +232,7 @@ const Chat = () => {
           Pay
         </button>
       </div>
-      <div className="flex flex-col gap-2 w-full h-full py-1 pl-2 pr-1 overflow-y-scroll">
+      <div className="flex flex-col gap-2 w-full h-full py-2 pl-2 pr-1 overflow-y-scroll">
         {messages.map((msg, index) => (
           <div
             key={index}
@@ -288,48 +307,42 @@ const Chat = () => {
         )}
       </div>
 
-      {pay ? (
-        <div
-          className="absolute bg-transparent left-8 h-full w-[80%] flex justify-center items-center"
-          onClick={handleClick}
-        >
-          <div className="div relative w-80 bg-white rounded-xl text-black py-2 px-3 flex flex-col min-h-[20%]">
+      {pay && (
+        <div className="absolute bg-transparent left-8 h-full w-[80%] flex justify-center items-center">
+          <div
+            ref={popupRef}
+            className="relative w-80 bg-white rounded-xl text-black py-2 px-3 flex flex-col min-h-[20%]"
+          >
             <div className="flex px-2 m-[-0.20rem] mb-1 text-customGray justify-between text-[0.6rem] ">
-              <p className="">Transfer to {user.userName}</p>
+              <p>Transfer to {user.userName}</p>
               <p>MW: ${myWallet}</p>
             </div>
             <div>
-              <p 
-              className="w-full text-[12px] text-center font-medium px-2 py-2 border-none text-gray-500 bg-gray-100 rounded-md"
-              value={amount}
-              onChange={(e) => {
-                setAmount(e.target.value);
-              }}>Enter Amount: <span className="text-customBlue">{amount}</span></p>
+              <p
+                className="w-full text-[12px] text-center font-medium px-2 py-2 border-none text-gray-500 bg-gray-100 rounded-md"
+                value={amount}
+                onChange={(e) => {
+                  setAmount(e.target.value);
+                }}
+              >
+                Enter Amount: <span className="text-customBlue">{amount}</span>
+              </p>
             </div>
-            {/* <input
-              readOnly={disabledInput<12}
-              value={amount}
-              onChange={(e) => {
-                setAmount(e.target.value);
-              }}
-              type="number"
-              className="w-full px-2 py-1 border-none bg-gray-100 rounded-lg"
-            /> */}
-            <ul className="text-xss mt-1 mb-1  text-customGray px-5">
-              {amount < minimumInternalTransaction ? (
+            <ul className="text-xss mt-1 mb-1 text-customGray px-5">
+              {amount < minimumInternalTransaction && (
                 <li className="list-disc">
                   Minimum Internal Transaction is ${minimumInternalTransaction}
                 </li>
-              ) : null}
+              )}
               <li className="list-disc">
                 Internal Transaction fee is ${internalTransactionFee}
               </li>
             </ul>
-            <div className="   flex justify-around ">
+            <div className="flex justify-around">
               <button
                 type="button"
                 onClick={handleCancel}
-                className="bg-red-500  px-4 rounded-md text-[10px] font-semibold py-1 text-white"
+                className="bg-red-500 px-4 rounded-md text-[10px] font-semibold py-1 text-white"
               >
                 Cancel
               </button>
@@ -343,7 +356,7 @@ const Chat = () => {
             </div>
           </div>
         </div>
-      ) : null}
+      )}
     </div>
   );
 };

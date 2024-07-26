@@ -131,7 +131,7 @@ const DashBoard = () => {
               >
                 <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer justify-center"></FiAlertCircle>
               </Tooltip>
-              <span className=" text-[11px] text-textColour">My Wallet</span>
+              <span className=" text-[12.5px] text-textColour">My Wallet</span>
             </div>
 
             <div className="flex items-center">
@@ -142,7 +142,7 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-gray-400 size-6" />
+                   <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" />
               </p>
             </div>
           </div>
@@ -164,10 +164,10 @@ const DashBoard = () => {
               >
                 <FiAlertCircle className="text-[#9da4af] size-[11px]  cursor-pointer" />
               </Tooltip>
-              <span className="text-textColour text-[11px]">Reserve - My Wallet</span>
+              <span className="text-textColour text-[12.5px]">Reserve - My Wallet</span>
             </div>
 
-            <p className="bg-primary  font-semibold text-[11px] w-[96px]  text-white px-[33px] py-[6px] items-center rounded-md cursor-pointer ">
+            <p className="bg-primary  font-semibold text-[11px] text-white px-7 py-1.5 items-center rounded-md cursor-pointer mr-[3px]">
               ${data.reserveMywallet ? data.reserveMywallet : 0}
             </p>
           </div>
@@ -197,7 +197,7 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-               <MdKeyboardArrowRight className="text-gray-400 size-6" />
+                 <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" />
               </p>
             </div>
           </div>
@@ -218,7 +218,7 @@ const DashBoard = () => {
                 <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
               </Tooltip>
 
-              <span className="text-textColour text-[11px]">Active Slots</span>
+              <span className="text-textColour text-[12.5px]">Active Slots</span>
             </div>
             <div className="flex items-center ">
               <span className="font-semibold">{data.activatedTotal}</span>
@@ -228,7 +228,7 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-               <MdKeyboardArrowRight className="text-gray-400 size-6" />
+                  <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" />
               </p>
             </div>
           </div>
@@ -247,7 +247,7 @@ const DashBoard = () => {
               >
                 <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
               </Tooltip>
-              <span className="text-textColour text-[11px]">Completed Slots</span>
+              <span className="text-textColour text-[12.5px]">Completed Slots</span>
             </div>
             <div className="flex items-center ">
               <span className="font-semibold">{data.completedTotal}</span>
@@ -257,7 +257,7 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-gray-400 size-6" />
+                   <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" />
               </p>
             </div>
           </div>
@@ -298,7 +298,7 @@ const DashBoard = () => {
               >
                 <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
               </Tooltip>
-              <span className="text-textColour text-[11px]">Yield - Overall</span>
+              <span className="text-textColour text-[12.5px]">Yield - Overall</span>
             </div>
             <div className=" md:mr-[24px] pr-8">
               <span className="font-semibold">{data.Yield?.toFixed(4)}</span>
@@ -332,7 +332,7 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-               <MdKeyboardArrowRight className="text-gray-400 size-6" />
+                  <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" />
               </p>
             </div>
           </div>
@@ -350,7 +350,7 @@ const DashBoard = () => {
               >
                 <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
               </Tooltip>
-              <span className="text-textColour text-[11px]">Refferal Income - Overall</span>
+              <span className="text-textColour text-[12.5px]">Refferal Income - Overall</span>
             </div>
             <div className="flex items-center ">
               <span className="font-semibold">${data.refIncomeAll}</span>
@@ -360,7 +360,7 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-gray-400 size-6" />
+                   <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" />
               </p>
             </div>
           </div>
@@ -389,7 +389,7 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-               <MdKeyboardArrowRight className="text-gray-400 size-6" />
+                  <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" />
               </p>
             </div>
           </div>
@@ -409,7 +409,7 @@ const DashBoard = () => {
               >
                 <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
               </Tooltip>
-              <span className="text-textColour text-[11px]">Total Crypto Withdraw</span>
+              <span className="text-textColour text-[12.5px]">Total Crypto Withdraw</span>
             </div>
             <div className="flex items-center">
               <span className="font-semibold">${data.totalCryptoTopup}</span>
@@ -419,7 +419,7 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-               <MdKeyboardArrowRight className="text-gray-400 size-6" />
+                  <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" />
               </p>
             </div>
           </div>
@@ -460,7 +460,7 @@ const DashBoard = () => {
               >
                 <FiAlertCircle className="text-gray-400 size-[11px] cursor-pointer" />
               </Tooltip>
-              <span className="text-textColour text-[11px]">Total Internal Transfer IN</span>
+              <span className="text-textColour text-[12.5px]">Total Internal Transfer IN</span>
             </div>
             <div className="flex items-center">
               <span className="font-semibold">${data.internalIn}</span>
@@ -470,7 +470,7 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-gray-400 size-6" />
+                   <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" />
               </p>
             </div>
           </div>
@@ -478,7 +478,7 @@ const DashBoard = () => {
 
         {/* Toatal internal transfer out*/}
         <div className="bg-white p-2 pl-1 flex justify-between items-center rounded-lg text-sm">
-          <div className="flex w-full justify-between px-1 items-center">
+          <div className="flex w-full justify-between items-center">
             
             <div className="flex px-2 gap-3 items-center">
               <Tooltip
@@ -491,7 +491,7 @@ const DashBoard = () => {
               >
                 <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
               </Tooltip>
-              <span className="text-textColour text-[11px]">Total Internal Transfer OUT</span>
+              <span className="text-textColour text-[12.5px]">Total Internal Transfer OUT</span>
             </div>
             <div className="flex items-center">
               <span className="font-semibold">${data.internalOut}</span>
@@ -501,7 +501,7 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-               <MdKeyboardArrowRight className="text-gray-400 size-6" />
+                  <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" />
               </p>
             </div>
           </div>

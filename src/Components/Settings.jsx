@@ -213,10 +213,10 @@ const Settings = () => {
 
   return (
     <div className=" space-y-2 text-sm overflow-y-scroll h-[540px] w-[102%] mt-1.5">
-      <div className="w-full h-14 bg-primary flex justify-end items-center px-6 ">
+      <div className="w-full h-14 bg-primary flex justify-end items-center px-5 ">
         <div className=" flex mt-[-0.30rem] flex-col items-end">
           <p className="font-medium text-white text-[10px]">My Wallet</p>
-          <p className="bg-white text-right text-xs text-gray-700 rounded-md font-normal h-[1.45rem] w-[85px] px-2 py-1 ">
+          <p className="bg-white text-right text-xs text-gray-700 rounded-md font-normal h-[1.45rem] w-[85px] pl-2 pr-1 py-1 ">
             {/* <BsCurrencyDollar className=" mb-1" />{" "} */}
             {profile && profile.myWallet ? profile.myWallet.toFixed(4) : 0}
             
@@ -368,7 +368,7 @@ const Settings = () => {
   <select
     id="usdtNetwork"
     name="usdtNetwork"
-    className={`custom-select px-2 py-2 pr-5 rounded-md text-[12px] text-textColour focus:outline-none  ${
+    className={`custom-select px-2 py-1.5 w-full rounded-md text-[12px] text-textColour focus:outline-none  ${
       usdtNetwork === "" ? "text-gray-500" : "text-textColour"
     }`}
     value={usdtNetwork}
@@ -386,7 +386,7 @@ const Settings = () => {
 
         <div className="flex items-center justify-center">
           <button
-           className="bg-primary m-3 w-24 text-white font-semibold text-[16.5px]
+           className="bg-primary m-3 w-24 text-white font-semibold text-[15px]
           px-3 py-2.5 rounded-md focus:outline-none focus:shadow-outline"
             onClick={showModal}
           >
