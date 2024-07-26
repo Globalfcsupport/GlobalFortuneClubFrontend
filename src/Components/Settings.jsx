@@ -368,7 +368,7 @@ const Settings = () => {
   <select
     id="usdtNetwork"
     name="usdtNetwork"
-    className={`custom-select px-2 py-1.5 w-full rounded-md text-[12px] text-textColour focus:outline-none  ${
+    className={`custom-select px-2 py-1.5 w-full rounded-md text-[12px] text-textColour focus:outline-none bg-white ${
       usdtNetwork === "" ? "text-gray-500" : "text-textColour"
     }`}
     value={usdtNetwork}
