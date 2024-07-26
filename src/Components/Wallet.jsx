@@ -8,8 +8,11 @@ import DateComponent from "./datePipeline";
 import TimeComponents from "./timePipeline";
 import { getDateFilterByMywallet } from "../services/services";
 
+
 const Wallet = () => {
   const [activeTab, setActiveTab] = useState("All");
+  const [showDatePicker, setShowDatePicker] = useState(false);
+
 
   const allDataStatic = [
     {
@@ -92,24 +95,30 @@ const Wallet = () => {
           <label className="text-white" id="calendar">
             Transaction Date
           </label>
+          {showDatePicker ? (
           <input
             type="date"
             name="todayReferral"
-            htmlFor="calendar"
-            className="h-5 mt-1 bg-white border rounded-md w-24 text-right px-1"
+            id="calendar"
+            className="h-5 mt-1 bg-white border rounded-md w-24 text-center px-1"
             onChange={handleDateFilter}
-          />
+            onBlur={() => setShowDatePicker(false)} 
+          />
+        ) : (
+          <button
+            type="button"
+            className="h-5 mt-1 bg-white border rounded-md w-24 text-center px-1"
+            onClick={() => setShowDatePicker(true)}
+          >
+          All Day
+          </button>
+        )}
         </div>
         <div className="flex flex-col justify-end items-end py-1">
           <p className="text-white text-[12px] ">My Wallet</p>
-          {/* <p className=" h-5 mt-1 bg-white border rounded-md w-20 text-right   px-1 ">
-            {wallet}
-          </p> */}
-          <input 
-          className="h-5 mt-1 bg-white border rounded-md w-20 text-right   px-1"
-         placeholder={wallet}
-          >
-          </input>
+          <p className="bg-white text-right text-xs text-gray-700 rounded-md font-normal h-[1.45rem] w-[85px] px-2 py-1">
+          {wallet ? wallet.toFixed(4) : "0.0000"}        
+            </p>
         </div>
       </div>
       <div className="flex duration-200 relative justify-between px-0 bg-primary h-7  items-center w-full  ">
@@ -119,7 +128,7 @@ const Wallet = () => {
           }}
           className={`w-28 py-1 flex flex-col gap-2 justify-center items-center focus:outline-bg-none text-xs transition duration-700 ease-in-out ${
             activeTab === "All"
-              ? "bg-white text-black  rounded-t-md"
+              ? "bg-[#eeeeee] text-black  rounded-t-md"
               : "text-white"
           }`}
         >
@@ -132,7 +141,7 @@ const Wallet = () => {
           }}
           className={`w-28 py-1 flex flex-col gap-2 justify-center items-center  focus:outline-none text-[12px] transition duration-700 ease-in-out ${
             activeTab === "Crypto"
-              ? "bg-white text-black rounded-t-md"
+              ? "bg-[#eeeeee] text-black rounded-t-md"
               : "text-white"
           }`}
         >
@@ -145,7 +154,7 @@ const Wallet = () => {
           }}
           className={`w-28 py-1 flex flex-col gap-2 justify-center items-center  focus:outline-none text-[12px] transition duration-700 ease-in-out  ${
             activeTab === "Internal"
-              ? "bg-white text-black rounded-t-md"
+              ? "bg-[#eeeeee] text-black rounded-t-md"
               : "text-white"
           }`}
         >
@@ -204,7 +213,7 @@ const Wallet = () => {
           </div>
         )} */}
 
-<div className="w-full h-[410px] overflow-y-scroll flex flex-col p-3">
+<div className="w-full h-[410px] bg-[#eeeeee] overflow-y-scroll flex flex-col p-3">
   {data &&
     data.map((item, index) => (
       <div
@@ -217,7 +226,9 @@ const Wallet = () => {
           <CiCircleMinus size={35} className="text-red-600 " />
         )}
         <div>
-          <p className="text-[10px] font-semibold text-primary ">{item.type}</p>
+          <p className="text-[12px] text-primary ">
+            {item.received ? `${item.type} - IN` : `${item.type} - OUT`}
+          </p>
           <p className="text-[9px]">
             <DateComponent date={item.date} />
             &nbsp;&nbsp;
@@ -225,13 +236,14 @@ const Wallet = () => {
           </p>
         </div>
         {item.received ? (
-          <p className="text-green-600 ">{`+${parseInt(item.amount).toFixed(4)}`}</p>
+          <p className="text-green-600 ">{`+${parseFloat(item.amount).toFixed(4)}`}</p>
         ) : (
-          <p className="text-red-600 ">{`-${parseInt(item.amount).toFixed(4)}`}</p>
+          <p className="text-red-600 ">{`-${parseFloat(item.amount).toFixed(4)}`}</p>
         )}
       </div>
     ))}
 </div>
+
 
 
       </div>

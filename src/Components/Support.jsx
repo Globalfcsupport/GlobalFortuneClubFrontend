@@ -13,6 +13,7 @@ import {
 import io from "socket.io-client";
 import { TiTick } from "react-icons/ti";
 import logo from "../assets/Image/logo.jpg";
+import logo1 from '../assets/Image/logo-remove.png'
 
 const SOCKET_SERVER_URL = "wss://gfcapi.globalfc.app";
 // const SOCKET_SERVER_URL = "http://localhost:5001";
@@ -176,8 +177,9 @@ const Chat = () => {
         });
         setPay("");
         setMessage("");
+        setPay("");
       }
-      setPay(!pay);
+      // setPay(!pay);
     } else {
       console.log("not done");
     }
@@ -196,10 +198,10 @@ const Chat = () => {
 
   return (
     <div className="flex flex-col justify-between overflow-hidden h-full relative">
-      <div className="bg-primary h-16 flex justify-between px-4 py-1.5 gap-5  items-center">
+      <div className="bg-primary h-16 flex justify-between px-3 py-1.5 gap-5  items-center">
         <div className="flex justify-between items-center gap-3">
-          <div className="bg-white rounded-full h-10 w-10 flex justify-center items-center">
-            <img src={logo} alt="logo" className="rounded-full" />
+          <div className="bg-white rounded-full flex justify-center items-center">
+            <img src={logo} alt="logo" className=" size-11 rounded-full border-blue-900 border-2"  />
           </div>
           <p className="text-white text-sm font-semibold">GFC Support</p>
         </div>
@@ -314,14 +316,20 @@ const Chat = () => {
            <p className="">Transfer to {user.userName}</p>
            <p>MW: ${myWallet}</p>
          </div>
-         <div>
-           <p 
-           className="w-full text-[12px] text-center font-medium px-2 py-2 border-none text-gray-500 bg-gray-100 rounded-md"
-           value={amount}
-           onChange={(e) => {
-             setAmount(e.target.value);
-           }}>Enter Amount: <span className="text-customBlue">{amount}</span></p>
-         </div>
+         <div className="flex bg-gray-100 rounded-md">
+              <p className="w-full text-[12px] text-right font-medium px-2 py-2 border-none text-gray-500">
+                Enter Amount:
+              </p>
+              <div>
+                <input
+                  // readOnly={disabledInput < 12}
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                  type="number"
+                  className="w-full py-[0.45rem] text-customBlue text-sm font-semibold border-none bg-gray-100"
+                />
+              </div>
+            </div>
          {/* <input
            readOnly={disabledInput<12}
            value={amount}
@@ -341,6 +349,7 @@ const Chat = () => {
              Internal Transaction fee is ${internalTransactionFee}
            </li>
          </ul>
+         
          <div className="   flex justify-around ">
            <button
              type="button"

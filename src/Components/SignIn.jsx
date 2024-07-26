@@ -56,7 +56,7 @@ const FormikSignIn = () => {
       setTimeout(() => {
         setSendOTPLoading(false);
        
-      }, 3000);
+      }, 4000);
       await sendOTP({ email })
         .then((response) => {
           setSendOTPLoading(false);
@@ -185,7 +185,7 @@ const FormikSignIn = () => {
                   type="email"
                   name="email"
                   placeholder=""
-                  className="w-full py-2.5 rounded-md pl-[8px] pr-[85px] text-sm border-[1.5px] border-black hover:bg-transparent"
+                  className="w-full py-2.5 h-[2.5rem] rounded-md pl-[8px] pr-[85px] text-sm border-[1.5px] border-black hover:bg-transparent"
                   focus:bg-white
                   focus:outline-none
                   focus:border-none
@@ -198,7 +198,7 @@ const FormikSignIn = () => {
                   disabled={timer > 0}
                 >
                   {timer > 0
-                    ? `${timer}`
+                    ? ${timer}
                     : sendOTPLoading
                     ? "Sending"
                     : "Send OTP"}
@@ -206,7 +206,7 @@ const FormikSignIn = () => {
                 <button
                  loading={sendOTPLoading}
                  className={classNames(
-                   "absolute text-[10px] font-semibold bg-customBlue mt-2 text-white rounded-md top-[0.95rem] bottom-[0.375rem] h-10 right-[0.100rem] w-20 hover:shadow-sm",
+                   "absolute text-[10px] font-bold bg-customBlue mt-2 text-white rounded-sm top-[1rem] h-[2.25rem] right-[0.110rem] w-20 hover:shadow-sm",
                    {   'bg-gray-400': timer > 0,
           'bg-customBlue': timer === 0, 'opacity-50 cursor-not-allowed': timer > 0 }
                  )}
@@ -277,7 +277,7 @@ const FormikSignIn = () => {
                 </p>
                 <input
                   placeholder="Enter Captcha"
-                  className="py-2 mt-1 w-full rounded-md pl-2 text-xs hover:bg-transparent focus:bg-white"
+                  className="py-2 mt-1 w-full h-[2.5rem] rounded-md pl-2 text-xs hover:bg-transparent focus:bg-white"
                   onChange={(e) => setCaptcha(e.target.value)}
                 />
               </div>

@@ -95,6 +95,25 @@ input[type='number'] {
   transition: transform 0.3s ease;
 }
 
+.custom-select {
+  appearance: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns%3D%22http%3A//www.w3.org/2000/svg%22 width%3D%2210%22 height%3D%225%22 viewBox%3D%220 0 10 5%22%3E%3Cpath fill%3D%22%23000%22 d%3D%22M0 0l5 5 5-5z%22/%3E%3C/svg%3E');
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 0.65rem;
+}
+
+.custom-select option {
+  font-size: 14px;
+  padding: 5px;
+  border-radius: 0;
+}
+
+.custom-select option:hover {
+  background-color: #e5e7eb; 
+  color: #6b7280;
+  
+}
 /*  */
 
 

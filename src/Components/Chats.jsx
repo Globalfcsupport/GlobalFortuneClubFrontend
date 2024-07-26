@@ -12,6 +12,7 @@ const Chats = () => {
   const [users, setUsers] = useState([]);
   const [activeChat, setActiveChat] = useState("");
   const [datas, setDatas] = useState([]);
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleChat = (item) => {
     setActiveChat(item.userName);
