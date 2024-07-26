@@ -102,7 +102,7 @@ const DashBoard = () => {
         </div>
         <button
           disabled={data.started ? true : false}
-          className={data.started?"bg-white text-[#04aa3ef1] text-[10px] px-6 py-2.5 font-medium rounded ":"bg-white text-primary text-[15px] px-5 font-medium py-1 rounded "}
+          className={data.started?"bg-white text-green-500 text-[10px] px-6 py-2.5 font-medium rounded ":"bg-white text-primary text-[15px] px-5 font-medium py-1 rounded "}
           onClick={ClubActivation}
         >
           {data.started ? "Running" : "Start"}
@@ -118,9 +118,9 @@ const DashBoard = () => {
         }}
       >
         {/* Wallet Section */}
-        <div className="bg-white p-2 pl-1 flex justify-between items-center rounded-lg  text-sm">
-        <div className="flex w-full justify-between px-1 items-center ">
-            <div className="flex px-1 gap-4 items-center">
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm ">
+          <div className="flex justify-between px-1 w-full ">
+            <div className="flex px-2 gap-3 items-center">
               <Tooltip
                 title="Your primary wallet for all transactions within the platform. You can top up funds, buy slots, and make internal transfers using the balance in your My Wallet."
                 placement="bottomRight"
@@ -142,17 +142,19 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-[#e5e5e5] size-6 ml-2 " />
+                <MdKeyboardArrowRight className="text-gray-400 size-6" />
               </p>
             </div>
           </div>
         </div>
 
         {/* Reserve - My Wallet Section */}
-        <div onClick={handleReserveMyWallet}
-        className="bg-white p-1 pl-1 flex justify-between items-center rounded-lg  text-sm">
-        <div className="flex w-full justify-between px-1 items-center ">
-            <div className="flex px-1 gap-4 items-center">
+        <div
+          onClick={handleReserveMyWallet}
+          className="bg-white p-1 flex justify-between items-center rounded-lg  text-sm"
+        >
+          <div className="flex  justify-between w-full  ">
+            <div className="flex px-4 gap-3 items-center">
               <Tooltip
                 title="Set a reserve amount to safeguard a portion of your funds. If your My Wallet balance falls below this reserve amount, automatic slot purchases will be paused to prevent overspending."
                 placement="bottomRight"
@@ -174,7 +176,7 @@ const DashBoard = () => {
         {/* Crowd - Stacking Section */}
         <div className="bg-white p-2 pl-1 flex justify-between items-center rounded-lg  text-sm">
           <div className="flex w-full justify-between px-1 items-center ">
-            <div className="flex px-1 gap-4 items-center">
+            <div className="flex px-2 gap-3 items-center">
               <Tooltip
                 title="A dedicated wallet where 50% of the split amounts from slot purchases are deposited. Funds in Crowd Stack cannot be withdrawn but can only be used to buy slots.."
                 placement="bottomRight"
@@ -184,7 +186,7 @@ const DashBoard = () => {
               >
                 <FiAlertCircle className="text-[#9da4af] size-[11px]  cursor-pointer" />
               </Tooltip>
-              <span className="text-textColour text-[11px]">Crowd Stacking</span>
+              <span className="text-textColour text-[12.5px]">Crowd Stacking</span>
             </div>
 
             <div className="flex items-center ">
@@ -195,7 +197,7 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-[#e5e5e5] size-6 ml-2" />
+               <MdKeyboardArrowRight className="text-gray-400 size-6" />
               </p>
             </div>
           </div>
@@ -204,7 +206,7 @@ const DashBoard = () => {
         {/* Active Slots */}
         <div className="bg-white p-2 pl-1 flex justify-between items-center rounded-lg text-sm">
           <div className="flex w-full justify-between px-1 items-center">
-            <div className="flex px-1 gap-4 items-center ">
+            <div className="flex px-2 gap-3 items-center ">
               <Tooltip
                 title="Displays the number of slots currently active and generating dividends foryou."
                 placement="bottomRight"
@@ -226,7 +228,7 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-[#e5e5e5] size-6 ml-2" />
+               <MdKeyboardArrowRight className="text-gray-400 size-6" />
               </p>
             </div>
           </div>
@@ -235,7 +237,7 @@ const DashBoard = () => {
         {/* Completed Slots */}
         <div className="bg-white p-2 pl-1 flex justify-between items-center rounded-lg text-sm">
           <div className="flex w-full justify-between px-1 items-center">
-            <div className="flex px-1 gap-4 items-center ">
+            <div className="flex px-2 gap-3 items-center ">
               <Tooltip
                 title="Shows the number of slots you have successfully exited, earning you dividends and platform fees."
                 placement="bottomRight"
@@ -255,7 +257,7 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-[#e5e5e5] size-6 cursor-pointer ml-2" />
+                <MdKeyboardArrowRight className="text-gray-400 size-6" />
               </p>
             </div>
           </div>
@@ -264,7 +266,7 @@ const DashBoard = () => {
         {/* yield today */}
         <div className="bg-white p-2 pl-1 flex justify-between items-center rounded-lg text-sm">
           <div className="flex w-full justify-between px-1 items-center">
-            <div className="flex px-1 gap-4 items-center ">
+            <div className="flex px-2 gap-3 items-center ">
               <Tooltip
                 title="The amount of dividend income earned from slot purchases within the current day."
                 placement="bottomRight"
@@ -276,7 +278,7 @@ const DashBoard = () => {
                 <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
               </Tooltip>
                 
-              <span className="text-textColour text-[11px]">Yield - Today</span>
+              <span className="text-textColour text-[12.5px]">Yield - Today</span>
             </div>
             <div className=" md:mr-[24px] pr-8 ">
               <span className="font-semibold ">{data.todayYeild?.toFixed(4)}</span>
@@ -286,7 +288,7 @@ const DashBoard = () => {
           {/* yield overall */}
         <div className="bg-white p-2 pl-1 flex justify-between items-center rounded-lg text-sm">
           <div className="flex w-full justify-between px-1 items-center">
-            <div className="flex px-1 gap-4 items-center">
+            <div className="flex px-2 gap-3 items-center">
               <Tooltip
                 title="    Total dividend income earned from slot purchases since joining the platform"
                 placement="bottomRight"
@@ -309,7 +311,7 @@ const DashBoard = () => {
           <div className="flex w-full justify-between px-1 items-center">
 
            
-            <div className="flex px-1 gap-4 items-center">
+            <div className="flex px-2 gap-3 items-center">
               <Tooltip
                 title="The income generated from referrals' 
                 slot purchases within the current day."
@@ -320,7 +322,7 @@ const DashBoard = () => {
               >
                 <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
               </Tooltip>
-              <span className="text-textColour text-[11px]">Refferal Income - Today</span>
+              <span className="text-textColour text-[12.5px]">Refferal Income - Today</span>
             </div>
             <div className="flex items-center ">
               <span className="font-semibold">${data.refIncomeToday}</span>
@@ -330,7 +332,7 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-[#e5e5e5] size-6 ml-2" />
+               <MdKeyboardArrowRight className="text-gray-400 size-6" />
               </p>
             </div>
           </div>
@@ -339,7 +341,7 @@ const DashBoard = () => {
         <div className="bg-white p-2 pl-1 flex justify-between items-center rounded-lg text-sm">
           <div className="flex w-full justify-between px-1 items-center">
             
-            <div className="flex px-1 gap-4 items-center">
+            <div className="flex px-2 gap-3 items-center">
               <Tooltip
                 title="Total income earned from referrals' slot purchases since joining the platform."
                 placement="bottomRight"
@@ -358,7 +360,7 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-[#e5e5e5] size-6 ml-2" />
+                <MdKeyboardArrowRight className="text-gray-400 size-6" />
               </p>
             </div>
           </div>
@@ -367,7 +369,7 @@ const DashBoard = () => {
         <div className="bg-white p-2 pl-1 flex justify-between items-center rounded-lg text-sm">
           <div className="flex w-full justify-between px-1 items-center">
            
-            <div className="flex px-1 gap-4 items-center">
+            <div className="flex px-2 gap-3 items-center">
               <Tooltip
                 title="The total amount of cryptocurrency deposited into your account as top-ups"
                 placement="bottomRight"
@@ -377,7 +379,7 @@ const DashBoard = () => {
               >
                 <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
               </Tooltip>
-              <span className="text-textColour text-[11px]">Total Crypto Top-Up</span>
+              <span className="text-textColour text-[12.5px]">Total Crypto Top-Up</span>
             </div>
             <div className="flex items-center">
               <span className="font-semibold">$0</span>
@@ -387,7 +389,7 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-[#e5e5e5] size-6 ml-2" />
+               <MdKeyboardArrowRight className="text-gray-400 size-6" />
               </p>
             </div>
           </div>
@@ -397,7 +399,7 @@ const DashBoard = () => {
         <div className="bg-white p-2 pl-1 flex justify-between items-center rounded-lg text-sm">
           <div className="flex w-full justify-between px-1 items-center">
            
-            <div className="flex px-1 gap-4 items-center">
+            <div className="flex px-2 gap-3 items-center">
               <Tooltip
                 title="The total amount of cryptocurrency withdrawn from your account."
                 placement="bottomRight"
@@ -417,7 +419,7 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-[#e5e5e5] size-6 ml-2" />
+               <MdKeyboardArrowRight className="text-gray-400 size-6" />
               </p>
             </div>
           </div>
@@ -447,7 +449,7 @@ const DashBoard = () => {
         <div className="bg-white p-2 pl-1 flex justify-between items-center rounded-lg shadow text-sm">
           <div className="flex w-full justify-between px-1 items-center">
             
-            <div className="flex px-1 gap-4 items-center">
+            <div className="flex px-2 gap-3 items-center">
               <Tooltip
                 title="The total amount of cryptocurrency received 
                 from internal transfers within the platform."
@@ -468,7 +470,7 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-[#e5e5e5] size-6 ml-2" />
+                <MdKeyboardArrowRight className="text-gray-400 size-6" />
               </p>
             </div>
           </div>
@@ -478,7 +480,7 @@ const DashBoard = () => {
         <div className="bg-white p-2 pl-1 flex justify-between items-center rounded-lg text-sm">
           <div className="flex w-full justify-between px-1 items-center">
             
-            <div className="flex px-1 gap-4 items-center">
+            <div className="flex px-2 gap-3 items-center">
               <Tooltip
                 title="The total amount of cryptocurrency sent out through 
                 internal transfers within the platform."
@@ -499,7 +501,7 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-                <MdKeyboardArrowRight className="text-[#e5e5e5] size-6 ml-2" />
+               <MdKeyboardArrowRight className="text-gray-400 size-6" />
               </p>
             </div>
           </div>
