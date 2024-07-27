@@ -81,7 +81,7 @@ export const FileUploadForm = ({ props }) => {
                 />
               ) : (
                 <>
-                  <span className="text-[1.7rem] font-semibold text-white">
+                  <span className="text-[1.8rem] font-semibold text-white">
                     {displayName}
                   </span>
                 </>
@@ -91,7 +91,7 @@ export const FileUploadForm = ({ props }) => {
         </div>
       </label>
       <div className="text-gray-500 font-medium mt-2">
-        <p onClick={triggerFileInput} className="text-gray-500 text-[12px] font-semibold">Edit Profile</p>
+        <p onClick={triggerFileInput} className="text-gray-600 text-[0.8rem] font-semibold">Edit Profile</p>
       </div>
     </div>
   );
@@ -361,7 +361,7 @@ const Settings = () => {
           </select>
         </div> */}
 
-<div className="flex flex-col gap-2 relative">
+        <div className="flex flex-col gap-2 relative">
   <label htmlFor="usdtNetwork" className="text-primary text-[12px] font-semibold">
     USDT Network
   </label>
@@ -379,7 +379,7 @@ const Settings = () => {
     <option value="TRC20">TRC20</option>
     <option value="BEP20">BEP20</option>
   </select>
-</div>
+        </div>
 
   
 
@@ -397,37 +397,37 @@ const Settings = () => {
             onOk={handleOk}
             onCancel={handleCancel}
             footer={[
-              <Button
+             <div className="flex justify-evenly">
+               <button
                 key="back"
                 onClick={handleCancel}
-                style={{
-                  backgroundColor: "#f56565",
-                  color: "white",
-                  border: "none",
-                }}
-                className="rounded-full px-4 py-2"
+                
+                className="bg-red-500 text-[0.9rem] text-white rounded-full mr-4 px-7 h-8"
               >
                 Cancel
-              </Button>,
-              <Button
+              </button>
+              <button
                 key="submit"
                 type="primary"
-                style={{
-                  backgroundColor: "#2b6cb0",
-                  color: "white",
-                  border: "none",
-                }}
-                className="rounded-full px-4 py-2"
+                // style={{
+                //   backgroundColor: "#2b6cb0",
+                //   color: "white",
+                //   border: "none",
+                // }}
+                className="bg-customBlue text-[0.9rem] text-white rounded-full px-6 h-8"
                 onClick={handleOk}
               >
                 Confirm
-              </Button>,
+              </button>
+             </div>
             ]}
             centered
             width={280}
-            bodyStyle={{ textAlign: "center", display: "flex" }}
+            height={150}
+            
+            // bodyStyle={{ textAlign: "center", display: "flex" }}
           >
-            <p>Are you sure you want to logout?</p>
+            <p className="text-customBlue font-medium">Are you sure you want to logout?</p>
           </Modal>
         </div>
       </div>

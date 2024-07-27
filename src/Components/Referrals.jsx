@@ -4,6 +4,7 @@ import { getUserByRefId } from "../services/services";
 import { BaseURL } from "../utils/const";
 import userIcon from "../assets/Image/user.png";
 import { SearchFilter } from "../utils/SearchComp";
+import { IoMdSearch } from "react-icons/io";
 
 const Referrals = () => {
   const [todayReferral, setTodayReferral] = useState(0);
@@ -33,6 +34,13 @@ const Referrals = () => {
     setFilteredData(result);
   }, [users, searchTerm]);
 
+  const formatName = (name) => {
+    return name
+      .split(' ')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
+  };
+
   return (
     <div className="h-full">
       <div className="flex flex-col bg-primary p-3 gap-3.5">
@@ -53,27 +61,27 @@ const Referrals = () => {
             }
           `}</style>
           <button>
-            <FaSearch className="text-blueColor absolute right-3 top-1/2 transform -translate-y-1/2 text-MainSection pointer-events-none" />
+            <IoMdSearch className="absolute size-6 top-1.5 right-2 text-primary cursor-pointer" />
           </button>
         </div>
 
         <div className="flex justify-between text-[12px] px-4 gap-2">
           <div className="flex flex-col gap-1 justify-center items-center">
             <p className="text-white">Referral - Today</p>
-            <p className="bg-white rounded-md w-16 text-center">
+            <p className="bg-white rounded-md w-[4.2rem] h-[1.4rem] pt-[0.15rem] text-center">
               {todayReferral}
             </p>
           </div>
           <div className="flex flex-col gap-1 justify-center items-center">
             <p className="text-white">Referral - Overall</p>
-            <p className="bg-white rounded-md w-16 text-center">
+            <p className="bg-white rounded-md w-[4.2rem] h-[1.4rem] pt-[0.15rem] text-center">
               {overallReferral}
             </p>
           </div>
         </div>
       </div>
 
-      <div className="w-full h-full bg-white flex flex-col overflow-scroll py-2 pl-2 pr-1 gap-2">
+      <div className="w-full h-[80%] bg-[#eeeeee] flex flex-col overflow-scroll py-2 pl-2 pr-1 gap-2">
         {Array.isArray(filteredData) &&
           filteredData.map((item, index) => {
             const firstLetter = item.userName
@@ -82,9 +90,9 @@ const Referrals = () => {
             return (
               <div
                 key={index}
-                className="px-3 rounded-md shadow-top flex items-center bg-white"
+                className="px-2 rounded-md shadow-top flex items-center bg-white"
               >
-                <div>
+                <div className="border-[3px] rounded-full border-gray-200 ">
                   {item.image ? (
                     <img
                       src={`${BaseURL}${item.image}`}
@@ -93,7 +101,7 @@ const Referrals = () => {
                     />
                   ) : (
                     <div
-                      className="h-12 w-12 rounded-full flex items-center justify-center text-white"
+                      className="h-12 w-12 rounded-full flex items-center text-xl font-bold justify-center text-white"
                       style={{ backgroundColor: "rgb(158, 158, 158)" }}
                     >
                       <p> {firstLetter}</p>
@@ -101,8 +109,8 @@ const Referrals = () => {
                   )}
                 </div>
                 <div className="p-3 w-full flex flex-col gap-1">
-                  <p className="font-semibold text-[13px] text-blueColor">
-                    {item.userName}
+                  <p className="font-semibold text-[14px] text-blueColor">
+                    {formatName(item.userName)}
                   </p>
                   <p className="text-blueColor text-[13px] font-semibold  ">
                     ID: {item.refId}

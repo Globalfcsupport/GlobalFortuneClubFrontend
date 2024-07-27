@@ -31,19 +31,38 @@ const Signup = () => {
   const [showRefDetails, setShowRefDetails] = useState(false);
   const [changeCaptcha, setChangeCaptcha] = useState(false);
 
+  
   const handleChange = (e) => {
-     // console.log(e.target.name,e.target.value);
+    const { name, value } = e.target;
 
-    if (e.target.name === "uplineId") {
+    if (name === "uplineId") {
       setData((prev) => ({
         ...prev,
-        [e.target.name]: e.target.value.toUpperCase(),
+        [name]: value.toUpperCase(),
       }));
-       // console.log('inside if');
+    } else if (name === "userName") {
+      let formattedValue = value.replace(/[^a-zA-Z0-9\s]/g, ""); // Remove non-alphanumeric characters except spaces
+
+      // Ensure no more than two consecutive spaces
+      formattedValue = formattedValue.replace(/\s{3,}/g, "  ");
+
+      // Capitalize the first letter of each word
+      formattedValue = formattedValue
+        .split(" ")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .join(" ");
+
+      // Limit to 15 characters
+      formattedValue = formattedValue.substring(0, 15);
+
+      setData((prev) => ({
+        ...prev,
+        [name]: formattedValue,
+      }));
     } else {
       setData((prev) => ({
         ...prev,
-        [e.target.name]: e.target.value,
+        [name]: value,
       }));
     }
   };

@@ -114,6 +114,34 @@ input[type='number'] {
   color: #6b7280;
   
 }
+
+.fontweight{
+  font-weight: 500;
+}
+.small-font {
+  font-size: 2px;
+}
+
+.medium-font {
+  font-size: 14px;
+}
+
+.large-font {
+  font-size: 16px;
+}
+
+.xlarge-font {
+  font-size: 18px;
+}
+
+.custom-radio {
+  /* width: 7px;
+  height: 7px; */
+  
+  width: 18px;
+  accent-color: #3d5898 ;
+}
+
 /*  */
 
 

@@ -14,6 +14,7 @@ const DashBoard = () => {
   const [reserveWallet, setReserveMyWallet] = useState(null);
   const [error, setError] = useState("");
 
+
   const ClubActivation = async () => {
     try {
       let datas = await ActivateClub();
@@ -92,6 +93,23 @@ const DashBoard = () => {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
   };
 
+  const yieldToday = data.todayYeild?.toFixed(4)
+
+  const yieldValue = data.Yield?.toFixed(4);
+
+
+  const getFontSizeClass = (Value) => {
+    const length = Value.toString().length;
+    if (length > 10) return  element.style.fontSize = '12px';
+    else if (length > 7) return element.style.fontSize = '14px';
+    else if (length > 4) return element.style.fontSize = '16px';
+    else return element.style.fontSize = '18px';
+  };
+
+  
+  
+
+
   return (
     <div className="h-full relative ">
       {contextHolder}
@@ -110,17 +128,17 @@ const DashBoard = () => {
       </div>
 
       <div
-        className="h-full bg-customLightGray overflow-auto space-y-1.5 mt-1 pt-1 px-2"
+        className="h-[80%] bg-customLightGray overflow-auto space-y-1.5 mt-0 pt-1 px-2"
         style={{
-          height: "calc(97vh - 180px)",
+          // height: "calc(97vh - 180px)",
           scrollbarWidth: "none", 
           msOverflowStyle: "none", 
         }}
       >
         {/* Wallet Section */}
         <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm ">
-          <div className="flex justify-between px-1 w-full ">
-            <div className="flex px-2 gap-3 items-center">
+          <div className="flex w-full justify-between items-center ">
+            <div className="flex px-2 pl-1 gap-3 items-center">
               <Tooltip
                 title="Your primary wallet for all transactions within the platform. You can top up funds, buy slots, and make internal transfers using the balance in your My Wallet."
                 placement="bottomRight"
@@ -129,20 +147,20 @@ const DashBoard = () => {
                 color="rgba(128, 128, 128, 1)"
                 
               >
-                <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer justify-center"></FiAlertCircle>
+                <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer"></FiAlertCircle>
               </Tooltip>
               <span className=" text-[12.5px] text-textColour">My Wallet</span>
             </div>
 
             <div className="flex items-center">
-              <span className="font-semibold">{data.wallet?.toFixed(4)}</span>
+              <span className="fontweight">{data.wallet?.toFixed(4)}</span>
               <p
                 onClick={() => {
                   Nav("/app/Wallet");
                 }}
                 className="cursor-pointer"
               >
-                   <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" />
+                   <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2 " />
               </p>
             </div>
           </div>
@@ -151,10 +169,10 @@ const DashBoard = () => {
         {/* Reserve - My Wallet Section */}
         <div
           onClick={handleReserveMyWallet}
-          className="bg-white p-1 flex justify-between items-center rounded-lg  text-sm"
+          className="bg-white p-[3px] flex justify-between items-center rounded-lg  text-sm"
         >
           <div className="flex  justify-between w-full  ">
-            <div className="flex px-4 gap-3 items-center">
+            <div className="flex px-2 gap-3 items-center">
               <Tooltip
                 title="Set a reserve amount to safeguard a portion of your funds. If your My Wallet balance falls below this reserve amount, automatic slot purchases will be paused to prevent overspending."
                 placement="bottomRight"
@@ -167,16 +185,16 @@ const DashBoard = () => {
               <span className="text-textColour text-[12.5px]">Reserve - My Wallet</span>
             </div>
 
-            <p className="bg-primary  font-semibold text-[11px] text-white px-7 py-1.5 items-center rounded-md cursor-pointer mr-[3px]">
+            <p className="bg-primary  fontweight text-[11px] text-white px-11 py-1.5 items-center rounded-md cursor-pointer mr-[3px]">
               ${data.reserveMywallet ? data.reserveMywallet : 0}
             </p>
           </div>
         </div>
 
         {/* Crowd - Stacking Section */}
-        <div className="bg-white p-2 pl-1 flex justify-between items-center rounded-lg  text-sm">
-          <div className="flex w-full justify-between px-1 items-center ">
-            <div className="flex px-2 gap-3 items-center">
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
+          <div className="flex w-full justify-between items-center">
+            <div className="flex px-2 pl-1 gap-3 items-center">
               <Tooltip
                 title="A dedicated wallet where 50% of the split amounts from slot purchases are deposited. Funds in Crowd Stack cannot be withdrawn but can only be used to buy slots.."
                 placement="bottomRight"
@@ -190,7 +208,7 @@ const DashBoard = () => {
             </div>
 
             <div className="flex items-center ">
-              <span className="font-semibold">${data?.crowdStock?.toFixed(4)}</span>
+              <span className="fontweight">${data?.crowdStock?.toFixed(4)}</span>
               <p
                 onClick={() => {
                   Nav("/app/Wallet");
@@ -204,9 +222,9 @@ const DashBoard = () => {
         </div>
 
         {/* Active Slots */}
-        <div className="bg-white p-2 pl-1 flex justify-between items-center rounded-lg text-sm">
-          <div className="flex w-full justify-between px-1 items-center">
-            <div className="flex px-2 gap-3 items-center ">
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
+          <div className="flex w-full justify-between items-center">
+            <div className="flex px-2 pl-1 gap-3 items-center ">
               <Tooltip
                 title="Displays the number of slots currently active and generating dividends foryou."
                 placement="bottomRight"
@@ -221,7 +239,7 @@ const DashBoard = () => {
               <span className="text-textColour text-[12.5px]">Active Slots</span>
             </div>
             <div className="flex items-center ">
-              <span className="font-semibold">{data.activatedTotal}</span>
+              <span className="fontweight">{data.activatedTotal}</span>
               <p
                 onClick={() => {
                   Nav("/app/FCSLots");
@@ -235,9 +253,9 @@ const DashBoard = () => {
         </div>
 
         {/* Completed Slots */}
-        <div className="bg-white p-2 pl-1 flex justify-between items-center rounded-lg text-sm">
-          <div className="flex w-full justify-between px-1 items-center">
-            <div className="flex px-2 gap-3 items-center ">
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
+          <div className="flex w-full justify-between items-center">
+            <div className="flex px-2 pl-1 gap-3 items-center ">
               <Tooltip
                 title="Shows the number of slots you have successfully exited, earning you dividends and platform fees."
                 placement="bottomRight"
@@ -250,7 +268,7 @@ const DashBoard = () => {
               <span className="text-textColour text-[12.5px]">Completed Slots</span>
             </div>
             <div className="flex items-center ">
-              <span className="font-semibold">{data.completedTotal}</span>
+              <span className="fontweight">{data.completedTotal}</span>
               <p
                 onClick={() => {
                   Nav("/app/FCSLots");
@@ -264,9 +282,9 @@ const DashBoard = () => {
         </div>
 
         {/* yield today */}
-        <div className="bg-white p-2 pl-1 flex justify-between items-center rounded-lg text-sm">
-          <div className="flex w-full justify-between px-1 items-center">
-            <div className="flex px-2 gap-3 items-center ">
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
+          <div className="flex w-full justify-between items-center">
+            <div className="flex px-2  pl-1 gap-3 items-center">
               <Tooltip
                 title="The amount of dividend income earned from slot purchases within the current day."
                 placement="bottomRight"
@@ -280,15 +298,15 @@ const DashBoard = () => {
                 
               <span className="text-textColour text-[12.5px]">Yield - Today</span>
             </div>
-            <div className=" md:mr-[24px] pr-8 ">
-              <span className="font-semibold ">{data.todayYeild?.toFixed(4)}</span>
+            <div className=" md:mr-[24px] pr-2 ">
+              <span className={`fontweight ${()=>{getFontSizeClass(yieldToday)}}`}>{yieldToday}</span>
             </div>
           </div>
         </div>
           {/* yield overall */}
-        <div className="bg-white p-2 pl-1 flex justify-between items-center rounded-lg text-sm">
-          <div className="flex w-full justify-between px-1 items-center">
-            <div className="flex px-2 gap-3 items-center">
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
+          <div className="flex w-full justify-between items-center">
+            <div className="flex px-2  pl-1 gap-3 items-center">
               <Tooltip
                 title="    Total dividend income earned from slot purchases since joining the platform"
                 placement="bottomRight"
@@ -300,18 +318,18 @@ const DashBoard = () => {
               </Tooltip>
               <span className="text-textColour text-[12.5px]">Yield - Overall</span>
             </div>
-            <div className=" md:mr-[24px] pr-8">
-              <span className="font-semibold">{data.Yield?.toFixed(4)}</span>
+            <div className=" md:mr-[24px] pr-2">
+              <span className={`fontweight ${()=>{getFontSizeClass(yieldValue)}}`}>{yieldValue}</span>
               {/* <MdKeyboardArrowRight className="text-textColour text-2xl" /> */}
             </div>
           </div>
         </div>
           {/* Refferal incomne today */}
-        <div className="bg-white p-2 pl-1 flex justify-between items-center rounded-lg text-sm">
-          <div className="flex w-full justify-between px-1 items-center">
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
+          <div className="flex w-full justify-between items-center">
 
            
-            <div className="flex px-2 gap-3 items-center">
+            <div className="flex px-2  pl-1 gap-3 items-center">
               <Tooltip
                 title="The income generated from referrals' 
                 slot purchases within the current day."
@@ -325,7 +343,7 @@ const DashBoard = () => {
               <span className="text-textColour text-[12.5px]">Refferal Income - Today</span>
             </div>
             <div className="flex items-center ">
-              <span className="font-semibold">${data.refIncomeToday}</span>
+              <span className="fontweight">${data.refIncomeToday}</span>
               <p
                 onClick={() => {
                   Nav("/app/Wallet");
@@ -338,10 +356,10 @@ const DashBoard = () => {
           </div>
         </div>
           {/* Referral income overall */}
-        <div className="bg-white p-2 pl-1 flex justify-between items-center rounded-lg text-sm">
-          <div className="flex w-full justify-between px-1 items-center">
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
+          <div className="flex w-full justify-between items-center">
             
-            <div className="flex px-2 gap-3 items-center">
+            <div className="flex px-2  pl-1 gap-3 items-center">
               <Tooltip
                 title="Total income earned from referrals' slot purchases since joining the platform."
                 placement="bottomRight"
@@ -353,7 +371,7 @@ const DashBoard = () => {
               <span className="text-textColour text-[12.5px]">Refferal Income - Overall</span>
             </div>
             <div className="flex items-center ">
-              <span className="font-semibold">${data.refIncomeAll}</span>
+              <span className="fontweight">${data.refIncomeAll}</span>
               <p
                 onClick={() => {
                   Nav("/app/Wallet");
@@ -366,10 +384,10 @@ const DashBoard = () => {
           </div>
         </div>
           {/* Toatal crypto top-up*/}
-        <div className="bg-white p-2 pl-1 flex justify-between items-center rounded-lg text-sm">
-          <div className="flex w-full justify-between px-1 items-center">
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
+          <div className="flex w-full justify-between items-center">
            
-            <div className="flex px-2 gap-3 items-center">
+            <div className="flex px-2 pl-1 gap-3 items-center">
               <Tooltip
                 title="The total amount of cryptocurrency deposited into your account as top-ups"
                 placement="bottomRight"
@@ -382,7 +400,7 @@ const DashBoard = () => {
               <span className="text-textColour text-[12.5px]">Total Crypto Top-Up</span>
             </div>
             <div className="flex items-center">
-              <span className="font-semibold">$0</span>
+              <span className="fontweight">$0</span>
               <p
                 onClick={() => {
                   Nav("/app/Wallet");
@@ -396,10 +414,10 @@ const DashBoard = () => {
         </div>
 
         {/* Toatal crypto withdraw*/}
-        <div className="bg-white p-2 pl-1 flex justify-between items-center rounded-lg text-sm">
-          <div className="flex w-full justify-between px-1 items-center">
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
+          <div className="flex w-full justify-between items-center">
            
-            <div className="flex px-2 gap-3 items-center">
+            <div className="flex px-2 pl-1 gap-3 items-center">
               <Tooltip
                 title="The total amount of cryptocurrency withdrawn from your account."
                 placement="bottomRight"
@@ -412,7 +430,7 @@ const DashBoard = () => {
               <span className="text-textColour text-[12.5px]">Total Crypto Withdraw</span>
             </div>
             <div className="flex items-center">
-              <span className="font-semibold">${data.totalCryptoTopup}</span>
+              <span className="fontweight">${data.totalCryptoTopup}</span>
               <p
                 onClick={() => {
                   Nav("/app/Wallet");
@@ -446,10 +464,10 @@ const DashBoard = () => {
         </div> */}
 
         {/* Toatal internal transfer in*/}
-        <div className="bg-white p-2 pl-1 flex justify-between items-center rounded-lg shadow text-sm">
-          <div className="flex w-full justify-between px-1 items-center">
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
+          <div className="flex w-full justify-between items-center">
             
-            <div className="flex px-2 gap-3 items-center">
+            <div className="flex px-2 pl-1 gap-3 items-center">
               <Tooltip
                 title="The total amount of cryptocurrency received 
                 from internal transfers within the platform."
@@ -458,12 +476,12 @@ const DashBoard = () => {
                 overlayClassName="custom-tooltip"
                 color="rgba(128, 128, 128, 1)"
               >
-                <FiAlertCircle className="text-gray-400 size-[11px] cursor-pointer" />
+                <FiAlertCircle className="text-[#9da4af] size-[11px] cursor-pointer" />
               </Tooltip>
               <span className="text-textColour text-[12.5px]">Total Internal Transfer IN</span>
             </div>
             <div className="flex items-center">
-              <span className="font-semibold">${data.internalIn}</span>
+              <span className="fontweight">${data.internalIn}</span>
               <p
                 onClick={() => {
                   Nav("/app/Wallet");
@@ -477,10 +495,10 @@ const DashBoard = () => {
         </div>
 
         {/* Toatal internal transfer out*/}
-        <div className="bg-white p-2 pl-1 flex justify-between items-center rounded-lg text-sm">
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
           <div className="flex w-full justify-between items-center">
             
-            <div className="flex px-2 gap-3 items-center">
+            <div className="flex px-2 pl-1 gap-3 items-center ">
               <Tooltip
                 title="The total amount of cryptocurrency sent out through 
                 internal transfers within the platform."
@@ -494,7 +512,7 @@ const DashBoard = () => {
               <span className="text-textColour text-[12.5px]">Total Internal Transfer OUT</span>
             </div>
             <div className="flex items-center">
-              <span className="font-semibold">${data.internalOut}</span>
+              <span className="fontweight">${data.internalOut}</span>
               <p
                 onClick={() => {
                   Nav("/app/Wallet");
@@ -558,35 +576,37 @@ const DashBoard = () => {
           transform: "translateX(-50%)",
         }}
       > */}
-      <div
-        className="absolute bottom-0 left-0 w-full shadow-none pb-4 p-2 px-9 gap-1  grid grid-cols-3 bg-secondary rounded-b-3xl justify-between"
-        style={{
-          width: "350px",
-          left: "50%",
-          transform: "translateX(-50%)",
-        }}
+      
+        <div
+      className="absolute bottom-0 left-2 w-full shadow-none px-2 pt-1 pb-3  gap-1 selection:  grid grid-cols-3 bg-[#eeeeee] rounded-b-3xl justify-between"
+      style={{
+        width: "300px",
+        left: "50%",
+        transform: "translateX(-50%)",
+      }}
+    >
+      <Link
+        to="/app/TopUp"
+        className="h-7 bg-primary text-center text-white text-[12px] rounded p-1   text-nowrap  "
       >
-        
-        <Link
-          to="/app/TopUp"
-          className="h-9 bg-primary text-center  text-white py-2 px-3 text-sm rounded-md"
-        >
-          Top Up
-        </Link>
-        <Link
-          to="/app/chats"
-          className="h-9 bg-primary text-center text-[12px] text-white py-2 text-sm px-3  rounded-md"
-        >
-          Transfer
-        </Link>
+        Top Up
+      </Link>
+      <Link
+        to="/app/chats"
+        className="h-7 bg-primary text-center text-white text-[12px]   rounded   p-1 text-nowrap  "
+      >
+        Transfer
+      </Link>
 
-        <Link
-          to="/app/Withdraw"
-          className="h-9 bg-primary text-center text-[12px] text-white py-2 px-3 text-sm rounded-md"
-        >
-          Withdraw
-        </Link>
-      </div>
+      <Link
+        to="/app/Withdraw"
+        className="h-7 bg-primary text-center text-white text-[12px] rounded   p-1 text-nowrap  "
+      >
+        Withdraw
+      </Link>
+    </div>
+    
+      
       {editReserveMyWallet ? (
         <div
           className="absolute flex justify-center items-center h-full w-full bg-gray-400 bg-opacity-40 top-0 left-0"
@@ -596,6 +616,8 @@ const DashBoard = () => {
             className="bg-purple-50 w-[250px] p-8 rounded-xl h-fit opacity-100 flex flex-col gap-5"
             onClick={(e) => e.stopPropagation()} 
           >
+
+            
             <p className="text-lg  font-semibold">Reserve - My Wallet</p>
             <input
               type="text"

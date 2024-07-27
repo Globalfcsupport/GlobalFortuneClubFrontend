@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 import { FcExpired } from "react-icons/fc";
 import { IoTimeOutline } from "react-icons/io5";
 import { FaCaretDown } from "react-icons/fa";
+import { IoIosAddCircle } from "react-icons/io";
 
 
 const { Option } = Select;
@@ -63,7 +64,7 @@ const TopUp = () => {
   }, []);
 
   return (
-    <div className="w-full flex flex-col h-full font-poppins text-[12px] overflow-hidden bg-white">
+    <div className="w-full flex flex-col h-full text-[12px] overflow-hidden bg-[#eeeeee]">
       {contextHolder}
 
       <div className="bg-[#3d5898] pt-4 h-12 w-full">
@@ -72,7 +73,7 @@ const TopUp = () => {
             to="/app/TopUp"
             className={`py-2 px-5 focus:outline-none ${
               activeTab === "topUp"
-                ? "bg-white text-pribg-primary rounded-t-md  "
+                ? "bg-[#eeeeee] text-pribg-primary rounded-t-md  "
                 : "text-white"
             }`}
           >
@@ -96,8 +97,8 @@ const TopUp = () => {
           ></span>  
                 </div>
       </div>
-      <div className="flex flex-col  gap-1">
-        <div className="w-[97%] mx-auto rounded-lg flex flex-col gap-3 mt-[10px] pb-2  bg-[#e9e6f2] shadow-xl ">
+      <div className="flex flex-col gap-1">
+        <div className="w-[97%] mx-auto rounded-lg flex flex-col gap-3 mt-[10px] pb-2 bg-[#e9e6f2] shadow-xl ">
           <div className="  px-3 py-4 bg-blue-50">
             <h1 className=" text-[14px] text-[#3d5898] px-2 font-semibold ">
               Select Top Up
@@ -117,8 +118,8 @@ const TopUp = () => {
             </div> */}
 
             <Select
-              className=" mt-3 rounded-md pt-3 pb-5 bg-white"
-              style={{ width: 280 }}
+              className=" mt-3 rounded-md w-full h-10 bg-white"
+              // style={{ width: 280 }}
               bordered={false}
               suffixIcon={<FaCaretDown className=" text-black text-xl " />}
               onChange={handleChange}
@@ -131,23 +132,23 @@ const TopUp = () => {
             </Select>
           </div>
           <div>
-            <div className=" w-[80%] flex justify-evenly  items-center h-1">
-              <p className=" capitalize text-[#3d5898] text-[12px]  font-bold">
+            <div className=" w-[80%] flex justify-evenly  items-center h-1 mt-1">
+              <p className=" capitalize text-[#3d5898] text-[12px]  font-semibold">
                 pay with
               </p>
-              <Radio
-                defaultChecked
-                className=" rounded-full font-semibold text-[15px]"
-              >
-                Crypto
-              </Radio>
+              <div className="flex">
+              <input type="radio" checked className="custom-radio" />
+              <p  className=" rounded-full ml-2 font-semibold text-[15px]" >Crypto</p>
+              </div>
+             
+          
             </div>
-            <div className=" capitalize w-full flex justify-end px-8 mt-5">
+            <div className=" capitalize w-full flex justify-end px-8 mt-7">
               <form onSubmit={handleSubmit}>
                 <button
                   oading={loading}
                   htmlType="submit"
-                  className=" capitalize text-md font-light bg-[#3d5898] text-white py-2 px-5 rounded-full"
+                  className=" capitalize text-[0.8rem] font-normal bg-[#3d5898] text-white py-3 px-9 rounded-full"
                 >
                   {loading ? "Loading" : "Proceed"}
                 </button>
@@ -158,7 +159,7 @@ const TopUp = () => {
 
         <div className="px-2  py-3 ">
         <h1 className="text-primary w-fit p-1 shadow-2xl rounded-t-md font-semibold text-sm shadow-top border-b-2  border-primary ">Recent Topups</h1>
-        <div className="px-2   bg-white w-full max-h-56 overflow-y-scroll shadow-xl rounded-b-xl ">
+        <div className="px-2 bg-white w-full max-h-56 overflow-y-scroll shadow-xl rounded-b-xl ">
             {data.length == 0 ? (
               <div>
                 <p className="text-center p-5">No TopUp History</p>
@@ -167,10 +168,10 @@ const TopUp = () => {
               data.map((item, index) => (
                 <div
                   key={index}
-                  className="flex justify-between h-14 text-[12px]  items-center "
+                  className="flex justify-between h-14 text-[12px] items-center mt-2 mb-2 "
                 >
                   {item.status == "Paid" ? (
-                    <CiCirclePlus size={25} className="text-green-600 " />
+                    <IoIosAddCircle size={25} className="text-green-600 size-9" />
                   ) : item.status == "Expired" ? (
                     <FcExpired size={20} className="text-red-600" />
                   ) : item.status == "Waiting" ? (
@@ -188,11 +189,11 @@ const TopUp = () => {
                         : null}
                       {/* , track Id: {item.trackId} */}
                     </p>
-                    <p className="text-[10px]">
+                    <p className="text-[0.5rem]">
                      {new Date(item.updatedAt).toLocaleString()}
                     </p>
                   </div>
-                  <p className= "text-s text-green-600">
+                  <p className= "text-[0.65rem] text-green-600">
                   +{""}
                     {item.status == "Paid"
                       ? parseInt(item.price).toFixed(4)

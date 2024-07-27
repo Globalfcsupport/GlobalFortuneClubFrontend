@@ -76,7 +76,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
   
   return (
     <div
-      className={` absolute top-0 left-0 h-[624px] md:h-[624px] rounded-[25px] z-50 bg-white overflow-hidden  transform transition-transform duration-300  ${
+      className={` absolute top-0 left-0 h-[100%] rounded-[25px] z-50 bg-white overflow-hidden  transform transition-transform duration-300  ${
         isOpen ? 'translate-x-0' : '-translate-x-full'
       }`}
       style={{ width: '80%' }}
@@ -89,16 +89,26 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             </button>
       <div className=" pt-8  h-auto">
         {/* User Info */}
-        <div className="flex items-center mt-6 gap-1 bg-primary w-full p-3 text-sm">
+        {/* <div className="flex items-center mt-6 gap-1 bg-primary w-full p-3 text-sm">
           <div className="w-12 h-12 bg-white p-1.5 rounded-full mr-4">
             <img src={Logo} alt="" />
           </div>
           <div className=' text-white'>
           
           
-            <div className="font-bold text-[15px] pl-1 mt-[0.20rem] mb-1  ">{data.userName}</div>
-            <div className=" text-[10px] pl-1 mt-[-0.20rem] font-medium">{data.email}</div>
-            <div className=" text-[10px] mt-[-0.30rem] font-medium pl-1">ID: {data.refId}</div>
+            <div className="font-bold text-[0.85rem] pl-1 mt-[0.20rem] mb-1  ">{data.userName}</div>
+            <div className=" text-[0.6rem] text-wrap pl-1 mt-[-0.20rem] font-medium">kani@gmail.com</div>
+            <div className=" text-[0.6rem] mt-[-0.30rem] font-medium pl-1">ID: {data.refId}</div>
+          </div>
+        </div> */}
+        <div className="flex justify-around items-center mt-6  bg-primary w-full p-3 text-sm">
+          <div className="w-[23%] h-12 bg-white p-1 rounded-full mr-4">
+            <img src={Logo} alt="" />
+          </div>
+          <div className='text-white w-[70%]'>
+            <div className="font-bold text-[0.85rem] pl-1 mt-[0.20rem] mb-[0.07rem]">{data.userName}</div>
+            <div className="text-[0.6rem] pl-1 font-medium  break-words leading-3">{data.email}</div>
+            <div className="text-[0.6rem] mt-[-0.10rem] font-medium pl-1">ID: {data.refId}</div>
           </div>
         </div>
         {/* Sidebar Links */}

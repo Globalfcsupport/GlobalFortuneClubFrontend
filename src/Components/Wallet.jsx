@@ -7,10 +7,14 @@ import { getMywallet } from "../services/services";
 import DateComponent from "./datePipeline";
 import TimeComponents from "./timePipeline";
 import { getDateFilterByMywallet } from "../services/services";
+import { ImSpinner8 } from "react-icons/im";
+import { IoIosAddCircle } from "react-icons/io";
+import { AiFillMinusCircle } from "react-icons/ai";
 
 const Wallet = () => {
   const [activeTab, setActiveTab] = useState("All");
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const allDataStatic = [
     {
@@ -45,26 +49,31 @@ const Wallet = () => {
 
   const [allData, setAllData] = useState(allDataStatic);
   const [cryptoData, setCryptoData] = useState(
-    allData.filter((item) => item.name == "Crypto")
+    allData.filter((item) => item.name === "Crypto")
   );
   const [internalData, setInternalData] = useState(
-    allData.filter((item) => item.name == "Internal")
+    allData.filter((item) => item.name === "Internal")
   );
   const [query, setQuery] = useState("all");
-  const [data, SetData] = useState([]);
+  const [data, setData] = useState([]);
   const [wallet, setWallet] = useState(0);
 
-  const handleTabClick = (tab) => {
+  const handleTabClick = (tab, query) => {
     setActiveTab(tab);
     setShowDatePicker(false);
+    setLoading(true); // Start loader
+    setQuery(query);
   };
 
   const getWalletDatas = async () => {
     try {
       let val = await getMywallet(query);
       setWallet(val.data.myWallet);
-      SetData(val.data.allTransactions);
-    } catch (error) {}
+      setData(val.data.allTransactions);
+      setLoading(false); // Stop loader after data is fetched
+    } catch (error) {
+      setLoading(false); // Stop loader in case of error
+    }
   };
 
   useEffect(() => {
@@ -74,10 +83,9 @@ const Wallet = () => {
   const getWalletDataByDateFilter = async (date) => {
     await getDateFilterByMywallet(query, date)
       .then((res) => {
-        console.log(res.data);
         if (res.data) {
           setWallet(res.data.myWallet);
-          SetData(res.data.allTransactions);
+          setData(res.data.allTransactions);
         }
       })
       .catch((err) => console.log(err));
@@ -87,10 +95,11 @@ const Wallet = () => {
     const getDate = e.target.value;
     getWalletDataByDateFilter(getDate);
   };
+
   return (
-    <div className="  w-full flex flex-col  bg-white ">
-      <div className="flex justify-between   h-25 bg-primary pb-3 pt-1 px-3 text-[12px]  ">
-        <div className="flex flex-col justify-center ">
+    <div className="w-full flex flex-col bg-white">
+      <div className="flex justify-between h-25 bg-primary pb-3 pt-1 px-3 text-[12px]">
+        <div className="flex flex-col justify-center">
           <label className="text-white" id="calendar">
             Transaction Date
           </label>
@@ -106,7 +115,7 @@ const Wallet = () => {
           ) : (
             <button
               type="button"
-              className="px-4 py-1 mt-1 bg-white border rounded-md text-center "
+              className="px-4 py-1 mt-1 bg-white border rounded-md text-center"
               onClick={() => setShowDatePicker(true)}
             >
               All Day
@@ -114,168 +123,118 @@ const Wallet = () => {
           )}
         </div>
         <div className="flex flex-col justify-between items-end">
-          <p className="text-white text-[12px] ">My Wallet</p>
-          <p className="bg-white text-right text-xs text-gray-700 rounded-md font-normal w-fit pl-3 pr-1  py-1 mb-1">
+          <p className="text-white text-[12px]">My Wallet</p>
+          <p className="bg-white text-right text-xs text-gray-700 rounded-md font-normal w-fit pl-3 pr-1 py-1 mb-1">
             {wallet ? wallet.toFixed(4) : "0.0000"}
           </p>
         </div>
       </div>
-      <div className="flex duration-200 relative justify-between px-0 bg-primary h-7  items-center w-full  ">
+      <div className="flex duration-200 relative justify-between px-0 bg-primary h-7 items-center w-full">
         <button
-          onClick={() => {
-            handleTabClick("All"), setQuery("all");
-          }}
+          onClick={() => handleTabClick("All", "all")}
           className={`w-28 py-1 flex flex-col gap-2 justify-center items-center focus:outline-bg-none text-xs transition duration-700 ease-in-out ${
             activeTab === "All"
-              ? "bg-[#eeeeee] text-black  rounded-t-md"
+              ? "bg-[#eeeeee] text-black rounded-t-md"
               : "text-white"
           }`}
         >
-          All{" "}
-          <p className="w-7 h-0.5 bg-primary rounded-full flex justify-center items-center "></p>
+          All
+          <p className="w-7 h-0.5 bg-primary rounded-full flex justify-center items-center"></p>
         </button>
         <button
-          onClick={() => {
-            handleTabClick("Crypto"), setQuery("Crypto");
-          }}
-          className={`w-28 py-1 flex flex-col gap-2 justify-center items-center  focus:outline-none text-[12px] transition duration-700 ease-in-out ${
+          onClick={() => handleTabClick("Crypto", "Crypto")}
+          className={`w-28 py-1 flex flex-col gap-2 justify-center items-center focus:outline-none text-[12px] transition duration-700 ease-in-out ${
             activeTab === "Crypto"
               ? "bg-[#eeeeee] text-black rounded-t-md"
               : "text-white"
           }`}
         >
-          Crypto{" "}
+          Crypto
           <p className="w-10 h-0.5 bg-primary rounded-md flex justify-center items-center"></p>
         </button>
         <button
-          onClick={() => {
-            handleTabClick("Internal"), setQuery("Internal");
-          }}
-          className={`w-28 py-1 flex flex-col gap-2 justify-center items-center  focus:outline-none text-[12px] transition duration-700 ease-in-out  ${
+          onClick={() => handleTabClick("Internal", "Internal")}
+          className={`w-28 py-1 flex flex-col gap-2 justify-center items-center focus:outline-none text-[12px] transition duration-700 ease-in-out ${
             activeTab === "Internal"
               ? "bg-[#eeeeee] text-black rounded-t-md"
               : "text-white"
           }`}
         >
-          Internal{" "}
+          Internal
           <p className="w-12 h-0.5 bg-primary rounded-full flex justify-center items-center"></p>
         </button>
-
-        {/* <span className={h-1 absolute bottom-0 transition-all duration-75 ${activeTab === 'All' ? 'left-0 w-12' : activeTab === 'Crypto' ? 'left-1/3 w-16' : 'right-0 w-20'}}></span> */}
       </div>
 
-      <div>
-        {/* {activeTab === "All" && (
-          <div>
-            {allData.map((item, index) => (
-              <div
-                key={index}
-                className="p-2 flex justify-between items-center"
-              >
-                {item.type === "Credit" ? (
-                  <CiCirclePlus size={30} className="text-green-600" />
-                ) : (
-                  <CiCircleMinus size={30} className="text-red-600" />
-                )}
-                <div>
-                  <p>{item.name}</p>
-                  <p>
-                    {item.date}&nbsp;&nbsp;{item.time}
-                  </p>
-                </div>
-                <p>{item.amount}</p>
+      <div className="w-full h-[410px] bg-[#eeeeee] overflow-y-scroll flex flex-col p-3 relative">
+        {loading ? (
+          <div className="flex items-center justify-center h-screen">
+          <ImSpinner8 className="text-primary animate-spin" style={{ width: '40px', height: '40px' }} />
+          </div>            ) : (
+          data &&
+          data.map((item, index) => (
+            <div
+              key={index}
+              className="p-3 flex justify-between items-center text-[10px]"
+            >
+              {item.received ? (
+                <IoIosAddCircle size={35} className="text-green-600" />
+              ) : (
+                <AiFillMinusCircle size={35} className="text-red-600" />
+              )}
+              <div>
+                <p className="text-[12px] text-primary">
+                {item.received ? `${item.type} - IN` : `${item.type} - OUT`}
+                </p>
+                <p className="text-[9px]">
+                  <DateComponent date={item.date} />
+                  &nbsp;&nbsp;
+                  <TimeComponents date={item.date} />
+                </p>
               </div>
-            ))}
-          </div>
-        )} */}
-        {/* {activeTab === "Crypto" && (
-          <div>
-            {cryptoData.map((item, index) => (
-              <div
-                key={index}
-                className="p-2 flex justify-between items-center"
-              >
-                {item.type === "Credit" ? (
-                  <CiCirclePlus size={30} className="text-green-600" />
-                ) : (
-                  <CiCircleMinus size={30} className="text-red-600" />
-                )}
-                <div>
-                  <p>{item.name}</p>
-                  <p>
-                    {item.date}&nbsp;&nbsp;{item.time}
-                  </p>
-                </div>
-                <p>{item.amount}</p>
-              </div>
-            ))}
-          </div>
-        )} */}
-
-        <div className="w-full h-[410px] bg-[#eeeeee] overflow-y-scroll flex flex-col p-3">
-          {data &&
-            data.map((item, index) => (
-              <div
-                key={index}
-                className="p-3 flex justify-between items-center text-[10px] "
-              >
-                {item.received ? (
-                  <CiCirclePlus size={35} className="text-green-600 " />
-                ) : (
-                  <CiCircleMinus size={35} className="text-red-600 " />
-                )}
-                <div>
-                  <p className="text-[12px] text-primary ">
-                    {item.received ? `${item.type} - IN` : `${item.type} - OUT`}
-                  </p>
-                  <p className="text-[9px]">
-                    <DateComponent date={item.date} />
-                    &nbsp;&nbsp;
-                    <TimeComponents date={item.date} />
-                  </p>
-                </div>
-                {item.received ? (
-                  <p className="text-green-600 ">{`+${parseFloat(
-                    item.amount
-                  ).toFixed(4)}`}</p>
-                ) : (
-                  <p className="text-red-600 ">{`-${parseFloat(
-                    item.amount
-                  ).toFixed(4)}`}</p>
-                )}
-              </div>
-            ))}
-        </div>
+              {item.received ? (
+                <p className="text-green-600">{`+${parseFloat(
+                  item.amount
+                ).toFixed(4)}`}</p>
+              ) : (
+                <p className="text-red-600">{`-${parseFloat(
+                  item.amount
+                ).toFixed(4)}`}</p>
+              )}
+            </div>
+          ))
+        )}
       </div>
       <div
-        className="absolute bottom-0 left-2 w-full shadow-none  pt-1 pb-4  gap-1 selection:  grid grid-cols-3 bg-[#eeeeee] rounded-b-2xl justify-between"
-        style={{
-          width: "300px",
-          left: "50%",
-          transform: "translateX(-50%)",
-        }}
+      
+      className="absolute bottom-0 w-full shadow-none px-2 pt-1 pb-4  gap-1 selection:  grid grid-cols-3 bg-[#eeeeee] rounded-b-3xl justify-between"
+      style={{
+        width: "300px",
+        left: "50%",
+        transform: "translateX(-50%)",
+      }}
+    >
+      <Link
+        to="/app/TopUp"
+        className="h-7 bg-primary text-center text-white text-[12px] rounded p-1 pt-1.5  text-nowrap  "
       >
-        <Link
-          to="/app/TopUp"
-          className="h-7 bg-primary text-center text-white text-[12px] rounded   p-1 text-nowrap  "
-        >
-          Top Up
-        </Link>
-        <Link
-          to="/app/chats"
-          className="h-7 bg-primary text-center text-white text-[12px]   rounded   p-1 text-nowrap  "
-        >
-          Transfer
-        </Link>
+        Top Up
+      </Link>
+      <Link
+        to="/app/chats"
+        className="h-7 bg-primary text-center text-white text-[12px]   rounded pt-1.5  p-1 text-nowrap  "
+      >
+        Transfer
+      </Link>
 
-        <Link
-          to="/app/Withdraw"
-          className="h-7 bg-primary text-center text-white text-[12px] rounded   p-1 text-nowrap  "
-        >
-          Withdraw
-        </Link>
+      <Link
+        to="/app/Withdraw"
+        className="h-7 bg-primary text-center text-white text-[12px] rounded pt-1.5  p-1 text-nowrap  "
+      >
+        Withdraw
+      </Link>
+    </div> 
+
       </div>
-    </div>
   );
 };
 

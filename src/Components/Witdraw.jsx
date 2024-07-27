@@ -105,7 +105,7 @@ const Withdraw = () => {
 
   return (
     
-    <div className="w-full  pb-6  bg-white flex flex-col h-[550px]  font-poppins text-[12px] overflow-y-auto "style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+    <div className="w-full  pb-6  bg-[#eeeeee] flex flex-col h-[550px]  font-poppins text-[12px] overflow-y-auto "style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
       {contextHolder}
 
       <div className="bg-[#3d5898]  pt-4 h-12 w-full ">
@@ -119,7 +119,7 @@ const Withdraw = () => {
           <NavLink
             // to="/app/Withdraw"
 
-            className="py-2 px-4 focus:outline-none bg-white text-black rounded-tl-md rounded-tr-md "
+            className="py-2 px-4 focus:outline-none bg-[#eeeeee] text-black rounded-tl-md rounded-tr-md "
           >
             Withdraw
           </NavLink>
@@ -167,26 +167,24 @@ const Withdraw = () => {
               )}
             </div>
             <div className="flex flex-col gap-2 relative">
-              <label
-                htmlFor="usdtNetwork"
-                className="text-primary font-semibold text-[14px]"
-              >
-                USDT Network
-              </label>
-              <select
-                id="usdtNetwork"
-                name="usdtNetwork"
-                className="px-3 py-1  rounded-md"
-                style={{ color: usdtNetwork === "" ? "#999" : "#000" }}
-                value={usdtNetwork}
-                onChange={(e) => setUsdtNetwork(e.target.value)}
-              >
-                {/* <option value=""  disabled>
-                </option> */}
-                <option value="TRC20" className='text-[15px] '>TRC20</option>
-                <option value="BEP20" className='text-[15px] '>BEP20</option>
-              </select>
-            </div>
+  <label htmlFor="usdtNetwork" className="text-primary text-[12px] font-semibold">
+    USDT Network
+  </label>
+  <select
+    id="usdtNetwork"
+    name="usdtNetwork"
+    className={`custom-select px-2 py-1.5 w-full rounded-md text-[12px] text-textColour focus:outline-none bg-white ${
+      usdtNetwork === "" ? "text-gray-500" : "text-textColour"
+    }`}
+    value={usdtNetwork}
+    onChange={(e) => setUsdtNetwork(e.target.value)}
+    placeholder="Select"
+  >
+   
+    <option value="TRC20">TRC20</option>
+    <option value="BEP20">BEP20</option>
+  </select>
+        </div>
             <div className="flex flex-col gap-2 relative">
               <label htmlFor="amount" className="text-primary text-[14px] font-semibold">
                 Enter Amount
@@ -247,7 +245,7 @@ const Withdraw = () => {
               className="bg-[#95919f] px-3 h-8  rounded-lg text-white text-sm font-semibold hover:bg-[#95919f]">
               {loading ? "Loading" : "Withdraw"}
             </button>
-            <div className="p-2 h-8 text-[8px] bg-[#d8d6d6] rounded-md">
+            <div className="pt-1 px-2 h-8 pb-2 text-[8px] bg-[#d8d6d6] rounded-md">
             <p > Minimum Withdraw is 12 Withdraw allowed only once in 24 hours Withdraw processing time is 24 hours</p>
           </div>
           </form>
