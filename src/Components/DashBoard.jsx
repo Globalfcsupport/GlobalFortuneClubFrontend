@@ -136,7 +136,7 @@ const DashBoard = () => {
         }}
       >
         {/* Wallet Section */}
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm ">
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm pr-3">
           <div className="flex w-full justify-between items-center ">
             <div className="flex px-2 pl-1 gap-3 items-center">
               <Tooltip
@@ -153,14 +153,14 @@ const DashBoard = () => {
             </div>
 
             <div className="flex items-center">
-              <span className="fontweight">{data.wallet?.toFixed(4)}</span>
+              <span className="fontweight">${data.wallet?.toFixed(4)}</span>
               <p
                 onClick={() => {
                   Nav("/app/Wallet");
                 }}
                 className="cursor-pointer"
               >
-                   <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2 " />
+                   {/* <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2 " /> */}
               </p>
             </div>
           </div>
@@ -169,7 +169,7 @@ const DashBoard = () => {
         {/* Reserve - My Wallet Section */}
         <div
           onClick={handleReserveMyWallet}
-          className="bg-white p-[3px] flex justify-between items-center rounded-lg  text-sm"
+          className="bg-white p-[3px] flex justify-between items-center rounded-lg  text-sm "
         >
           <div className="flex  justify-between w-full  ">
             <div className="flex px-2 gap-3 items-center">
@@ -192,7 +192,7 @@ const DashBoard = () => {
         </div>
 
         {/* Crowd - Stacking Section */}
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm pr-3">
           <div className="flex w-full justify-between items-center">
             <div className="flex px-2 pl-1 gap-3 items-center">
               <Tooltip
@@ -215,14 +215,14 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-                 <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" />
+                 {/* <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" /> */}
               </p>
             </div>
           </div>
         </div>
 
         {/* Active Slots */}
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm pr-3">
           <div className="flex w-full justify-between items-center">
             <div className="flex px-2 pl-1 gap-3 items-center ">
               <Tooltip
@@ -239,21 +239,21 @@ const DashBoard = () => {
               <span className="text-textColour text-[12.5px]">Active Slots</span>
             </div>
             <div className="flex items-center ">
-              <span className="fontweight">{data.activatedTotal}</span>
+              <span className="fontweight">${data.activatedTotal}</span>
               <p
                 onClick={() => {
                   Nav("/app/FCSLots");
                 }}
                 className="cursor-pointer"
               >
-                  <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" />
+                  {/* <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" /> */}
               </p>
             </div>
           </div>
         </div>
 
         {/* Completed Slots */}
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm pr-3">
           <div className="flex w-full justify-between items-center">
             <div className="flex px-2 pl-1 gap-3 items-center ">
               <Tooltip
@@ -268,21 +268,21 @@ const DashBoard = () => {
               <span className="text-textColour text-[12.5px]">Completed Slots</span>
             </div>
             <div className="flex items-center ">
-              <span className="fontweight">{data.completedTotal}</span>
+              <span className="fontweight">${data.completedTotal}</span>
               <p
                 onClick={() => {
                   Nav("/app/FCSLots");
                 }}
                 className="cursor-pointer"
               >
-                   <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" />
+                   {/* <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" /> */}
               </p>
             </div>
           </div>
         </div>
 
         {/* yield today */}
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm pr-3">
           <div className="flex w-full justify-between items-center">
             <div className="flex px-2  pl-1 gap-3 items-center">
               <Tooltip
@@ -298,13 +298,13 @@ const DashBoard = () => {
                 
               <span className="text-textColour text-[12.5px]">Yield - Today</span>
             </div>
-            <div className=" md:mr-[24px] pr-2 ">
-              <span className={`fontweight ${()=>{getFontSizeClass(yieldToday)}}`}>{yieldToday}</span>
+            <div className=" md:mr-[24px]  ">
+              <span className={`fontweight ${()=>{getFontSizeClass(yieldToday)}}`}>${yieldToday}</span>
             </div>
           </div>
         </div>
           {/* yield overall */}
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm pr-3">
           <div className="flex w-full justify-between items-center">
             <div className="flex px-2  pl-1 gap-3 items-center">
               <Tooltip
@@ -318,14 +318,14 @@ const DashBoard = () => {
               </Tooltip>
               <span className="text-textColour text-[12.5px]">Yield - Overall</span>
             </div>
-            <div className=" md:mr-[24px] pr-2">
-              <span className={`fontweight ${()=>{getFontSizeClass(yieldValue)}}`}>{yieldValue}</span>
+            <div className=" md:mr-[24px] ">
+              <span className={`fontweight ${()=>{getFontSizeClass(yieldValue)}}`}>${yieldValue}</span>
               {/* <MdKeyboardArrowRight className="text-textColour text-2xl" /> */}
             </div>
           </div>
         </div>
           {/* Refferal incomne today */}
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm pr-3">
           <div className="flex w-full justify-between items-center">
 
            
@@ -350,13 +350,13 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-                  <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" />
+                  {/* <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" /> */}
               </p>
             </div>
           </div>
         </div>
           {/* Referral income overall */}
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm pr-3">
           <div className="flex w-full justify-between items-center">
             
             <div className="flex px-2  pl-1 gap-3 items-center">
@@ -378,13 +378,13 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-                   <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" />
+                   {/* <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" /> */}
               </p>
             </div>
           </div>
         </div>
           {/* Toatal crypto top-up*/}
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm pr-3">
           <div className="flex w-full justify-between items-center">
            
             <div className="flex px-2 pl-1 gap-3 items-center">
@@ -400,21 +400,21 @@ const DashBoard = () => {
               <span className="text-textColour text-[12.5px]">Total Crypto Top-Up</span>
             </div>
             <div className="flex items-center">
-              <span className="fontweight">$0</span>
+              <span className="fontweight">${data.totalCryptoTopup}</span>
               <p
                 onClick={() => {
                   Nav("/app/Wallet");
                 }}
                 className="cursor-pointer"
               >
-                  <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" />
+                  {/* <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" /> */}
               </p>
             </div>
           </div>
         </div>
 
         {/* Toatal crypto withdraw*/}
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm pr-3">
           <div className="flex w-full justify-between items-center">
            
             <div className="flex px-2 pl-1 gap-3 items-center">
@@ -430,14 +430,14 @@ const DashBoard = () => {
               <span className="text-textColour text-[12.5px]">Total Crypto Withdraw</span>
             </div>
             <div className="flex items-center">
-              <span className="fontweight">${data.totalCryptoTopup}</span>
+              <span className="fontweight">$0</span>
               <p
                 onClick={() => {
                   Nav("/app/Wallet");
                 }}
                 className="cursor-pointer"
               >
-                  <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" />
+                  {/* <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" /> */}
               </p>
             </div>
           </div>
@@ -464,7 +464,7 @@ const DashBoard = () => {
         </div> */}
 
         {/* Toatal internal transfer in*/}
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm pr-3">
           <div className="flex w-full justify-between items-center">
             
             <div className="flex px-2 pl-1 gap-3 items-center">
@@ -488,14 +488,14 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-                   <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" />
+                   {/* <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" /> */}
               </p>
             </div>
           </div>
         </div>
 
         {/* Toatal internal transfer out*/}
-        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm">
+        <div className="bg-white p-2 flex justify-between items-center rounded-lg text-sm pr-3">
           <div className="flex w-full justify-between items-center">
             
             <div className="flex px-2 pl-1 gap-3 items-center ">
@@ -519,7 +519,7 @@ const DashBoard = () => {
                 }}
                 className="cursor-pointer"
               >
-                  <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" />
+                  {/* <MdKeyboardArrowRight className="text-gray-300 size-6 ml-2" /> */}
               </p>
             </div>
           </div>

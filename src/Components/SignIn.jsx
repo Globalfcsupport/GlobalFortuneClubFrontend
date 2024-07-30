@@ -181,7 +181,7 @@ const FormikSignIn = () => {
                   Email
                 </label>
                 <input
-                  required
+        
                   type="email"
                   name="email"
                   placeholder=""
@@ -207,8 +207,8 @@ const FormikSignIn = () => {
                  loading={sendOTPLoading}
                  className={classNames(
                    "absolute text-[10px] font-bold bg-customBlue mt-2 text-white rounded-sm top-[1rem] h-[2.25rem] right-[0.110rem] w-20 hover:shadow-sm",
-                   {   'bg-gray-400': timer > 0,
-          'bg-customBlue': timer === 0, 'opacity-50 cursor-not-allowed': timer > 0 }
+                   {   'bg-primary': timer > 0,
+          'bg-customBlue': timer === 0, ' cursor-not-allowed': timer > 0 }
                  )}
                  onClick={handleSendOTP}
                  disabled={timer > 0}
@@ -228,7 +228,7 @@ const FormikSignIn = () => {
                 >
                   OTP
                 </label>
-                <div className="inputs flex justify-center gap-8">
+                <div className="inputs flex justify-between">
                   <input
                     onKeyUp={handleBackSpace}
                     onInput={handleInput}

@@ -321,9 +321,9 @@ const Signup = () => {
     loading={sendOTPLoading}
     type="button"
     className={classNames("absolute text-[11px] font-bold text-white rounded-sm bottom-[0.1rem] right-[0.11rem] h-[2.25rem] px-[17px] py-1 ", {
-      'bg-gray-400': timer > 0,
+      'bg-primary': timer > 0,
       'bg-buttonbg': timer === 0,
-      'opacity-50 cursor-not-allowed': timer > 0
+      ' cursor-not-allowed': timer > 0
     })}
     onClick={handleSendOTP}
     disabled={timer > 0}

@@ -98,9 +98,9 @@ const Wallet = () => {
 
   return (
     <div className="w-full flex flex-col bg-white">
-      <div className="flex justify-between h-25 bg-primary pb-3 pt-1 px-3 text-[12px]">
-        <div className="flex flex-col justify-center">
-          <label className="text-white" id="calendar">
+      <div className="flex justify-between h-25 bg-primary pb-3 pt-4 px-3 text-[12px]">
+        <div className="flex flex-col gap-[0.22rem] justify-center">
+          <label className="text-white pl-3 text-[0.65rem]" id="calendar">
             Transaction Date
           </label>
           {showDatePicker ? (
@@ -108,28 +108,28 @@ const Wallet = () => {
               type="date"
               name="todayReferral"
               id="calendar"
-              className="px-2 py-1 mt-1 bg-white border rounded-md text-center"
+              className=" bg-white border h-6 rounded-md text-center"
               onChange={handleDateFilter}
               onBlur={() => setShowDatePicker(false)}
             />
           ) : (
             <button
               type="button"
-              className="px-4 py-1 mt-1 bg-white border rounded-md text-center"
+              className=" w-[115%]  h-[50%] bg-white border rounded-md text-center"
               onClick={() => setShowDatePicker(true)}
             >
               All Day
             </button>
           )}
         </div>
-        <div className="flex flex-col justify-between items-end">
-          <p className="text-white text-[12px]">My Wallet</p>
-          <p className="bg-white text-right text-xs text-gray-700 rounded-md font-normal w-fit pl-3 pr-1 py-1 mb-1">
+        <div className="flex  flex-col gap-[0.2rem] items-end">
+          <p className="text-white mt-1 text-[.65rem]">My Wallet</p>
+          <p className="bg-white text-right text-xs text-gray-700 rounded-md font-normal w-[5.2rem] h-[50%] px-1 pb-[0.30rem] pt-[0.2rem] ">
             {wallet ? wallet.toFixed(4) : "0.0000"}
           </p>
         </div>
       </div>
-      <div className="flex duration-200 relative justify-between px-0 bg-primary h-7 items-center w-full">
+      <div className="flex duration-200 relative justify-between px-0 bg-primary h-8 items-center w-full">
         <button
           onClick={() => handleTabClick("All", "all")}
           className={`w-28 py-1 flex flex-col gap-2 justify-center items-center focus:outline-bg-none text-xs transition duration-700 ease-in-out ${

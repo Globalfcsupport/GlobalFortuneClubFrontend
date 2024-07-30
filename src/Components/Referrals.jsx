@@ -115,6 +115,13 @@ const Referrals = () => {
                   <p className="text-blueColor text-[13px] font-semibold  ">
                     ID: {item.refId}
                   </p>
+                  
+                  <p className="text-gray-800 text-[10.5px] ">
+                    Email: {item.email}
+                  </p>
+                  <p className="text-gray-800 text-[10px] ">
+                    DOJ: {new Date(item.createdAt).toLocaleString()}
+                  </p>
                   <div className="flex justify-between items-center">
                     <p className="text-gray-800 text-[10.5px] ">
                       Active slot: 2
@@ -123,12 +130,6 @@ const Referrals = () => {
                       Completed slot: 1
                     </p>
                   </div>
-                  <p className="text-gray-800 text-[10.5px] ">
-                    Email: {item.email}
-                  </p>
-                  <p className="text-gray-800 text-[10px] ">
-                    DOJ: {new Date(item.createdAt).toLocaleString()}
-                  </p>
                 </div>
               </div>
             );
