@@ -299,6 +299,7 @@ const Signup = () => {
             readOnly={readOnly}
             className="w-full py-2 mt-[-0.41rem]  h-[2.5rem] rounded-md px-5 hover:bg-transparent border-[1.5px]   border-gray-400 bg-white text-black focus:bg-white"
             onChange={handleChange}
+            maxLength={15}
             required
           />
         </div>
@@ -311,7 +312,7 @@ const Signup = () => {
             name="email"
             placeholder=""
             readOnly={readOnly}
-            className="w-full py-2 rounded-md mt-[-0.41rem] h-[2.5rem] pl-[8px] pr-[85px] hover:bg-transparent  border-[1.5px] border-gray-300 text-black focus:bg-white"
+            className="w-full py-2 rounded-md mt-[-0.41rem] h-[2.5rem] pl-[8px] pr-[92px] hover:bg-transparent  border-[1.5px] border-gray-300 text-black focus:bg-white"
             onChange={handleChange}
             required
           />
@@ -320,7 +321,7 @@ const Signup = () => {
           <button
     loading={sendOTPLoading}
     type="button"
-    className={classNames("absolute text-[11px] font-bold text-white rounded-sm bottom-[0.1rem] right-[0.11rem] h-[2.25rem] px-[17px] py-1 ", {
+    className={classNames("absolute w-[35%] text-[11px] font-bold text-white bg-primary rounded-sm bottom-[0.1rem] right-[0.11rem] h-[2.25rem] px-[17px] py-1 ", {
       'bg-primary': timer > 0,
       'bg-buttonbg': timer === 0,
       ' cursor-not-allowed': timer > 0

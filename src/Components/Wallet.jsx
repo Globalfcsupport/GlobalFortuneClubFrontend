@@ -98,7 +98,7 @@ const Wallet = () => {
 
   return (
     <div className="w-full flex flex-col bg-white">
-      <div className="flex justify-between h-25 bg-primary pb-3 pt-4 px-3 text-[12px]">
+      <div className="flex justify-between h-25 bg-primary pb-3 pt-2 px-3 text-[12px]">
         <div className="flex flex-col gap-[0.22rem] justify-center">
           <label className="text-white pl-3 text-[0.65rem]" id="calendar">
             Transaction Date
