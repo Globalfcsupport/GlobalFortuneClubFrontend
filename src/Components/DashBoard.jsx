@@ -6,28 +6,39 @@ import { ActivateClub } from "../services/services";
 import { getDashboardDetails, UpdateProfile } from "../services/services";
 import { message, Tooltip } from "antd";
 import { MdKeyboardArrowRight } from "react-icons/md";
+import { ImSpinner8 } from "react-icons/im";
 
 const DashBoard = () => {
-  const [data, setData] = useState({});
+  // const [data, setData] = useState({});
   const [messageApi, contextHolder] = message.useMessage();
   const [editReserveMyWallet, setEditReserveMyWallet] = useState(false);  
   const [reserveWallet, setReserveMyWallet] = useState(null);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState({ started: false });
 
 
   const ClubActivation = async () => {
+    setLoading(true);
     try {
       let datas = await ActivateClub();
-      // console.log(datas);
+       // console.log(datas);
       if (datas.data) {
-        // console.log('inside if');
         messageApi.success(datas.status);
-        // console.log(datas.data);
+         // console.log(datas.data);
         window.location.reload();
+        setTimeout(() => {
+          setLoading(false);
+        }, 6000);
       }
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+    }
+   
     console.log("clicked");
   };
+
 
   const dashboardDetails = async () => {
     try {
@@ -118,13 +129,32 @@ const DashBoard = () => {
           <p className="text-[11px] font-semibold"> {capitalizeFirstLetter(data?.userName)}</p>
           <p className="text-[10px]"> ID: {data.refId}</p>
         </div>
-        <button
+        {/* <button
           disabled={data.started ? true : false}
           className={data.started?"bg-white text-green-500 text-[10px] px-6 py-2.5 font-medium rounded ":"bg-white text-primary text-[15px] px-5 font-medium py-1 rounded "}
           onClick={ClubActivation}
         >
           {data.started ? "Running" : "Start"}
-        </button>
+        </button> */}
+         <button
+         loading={loading} 
+        disabled={data.started || loading}
+
+        className={
+        data.started
+          ? "bg-white text-green-500 text-[10px] px-6 py-2.5 font-medium rounded"
+          : "bg-white text-primary text-[15px] px-5 font-medium py-1 rounded"
+      }
+      onClick={ClubActivation}
+    >
+      {loading ? (
+        < ImSpinner8 size={20} className="animate-spin text-2xl text-primary mx-auto"/>
+      ) : data.started ? (
+        "Running"
+      ) : (
+        "Start"
+      )}
+    </button>
       </div>
 
       <div
