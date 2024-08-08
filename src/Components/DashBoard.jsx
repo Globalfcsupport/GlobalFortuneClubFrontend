@@ -269,7 +269,7 @@ const DashBoard = () => {
               <span className="text-textColour text-[12.5px]">Active Slots</span>
             </div>
             <div className="flex items-center ">
-              <span className="fontweight">${data.activatedTotal}</span>
+              <span className="fontweight">{data.activatedTotal}</span>
               <p
                 onClick={() => {
                   Nav("/app/FCSLots");
@@ -298,7 +298,7 @@ const DashBoard = () => {
               <span className="text-textColour text-[12.5px]">Completed Slots</span>
             </div>
             <div className="flex items-center ">
-              <span className="fontweight">${data.completedTotal}</span>
+              <span className="fontweight">{data.completedTotal}</span>
               <p
                 onClick={() => {
                   Nav("/app/FCSLots");

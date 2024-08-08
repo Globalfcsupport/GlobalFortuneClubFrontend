@@ -108,7 +108,7 @@ const FCSlots = () => {
                     </div>
                     <div className="p-2 justify-center">
                       <p className="font-semibold text-[15px] text-primary">
-                        {item.slotId.slice(0, 5)}
+                        {item.slotId}
                       </p>
                       <p className="text-xs text-slate-400">
                         Yield: {item.currentYield?.toFixed(4)}/{item.totalYield}
